@@ -35,7 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:inputType="textVisiblePassword"
+        android:inputType="textFilter"
+        android:imeOptions="actionSend"
         android:ems="10" />
 
     <Button

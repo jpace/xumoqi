@@ -8,9 +8,12 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
@@ -40,8 +43,21 @@ public class QueryActivity extends Activity {
 		Game game = Game.createGame(gameType, numDots);
 		String str = game.getQueryWord(wordList);
 		
+		TextView.OnEditorActionListener tveal = new TextView.OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				if (actionId == EditorInfo.IME_ACTION_SEND) {
+					onClickNext(null);
+					return true;
+				}
+				return false;
+			}
+		};
+		
 		TextView tv = getQueryTextView();
 		tv.setText(str);
+		EditText et = (EditText)findViewById(R.id.queryInput);
+		et.setOnEditorActionListener(tveal);
 	}
 	
 	public void onClickNext(View view) {
