@@ -1,8 +1,6 @@
 package org.incava.xumoqi;
 
-import java.io.InputStream;
-import java.util.List;
-import java.util.Random;
+import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -21,8 +19,11 @@ import android.support.v4.app.NavUtils;
 public class QueryActivity extends Activity {
 	public final static String QUERY_STRING = "queryString";
 	public final static String INPUT_STRING = "inputString";
+	public final static String MATCHING = "matching";
 	
 	private String gameType = null;
+	private String queryString = null;
+	private ArrayList<String> matching = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +40,18 @@ public class QueryActivity extends Activity {
 		
 		Resources resources = getResources();
 		Dictionary dict = Dictionary.getTWL(resources, length);
-		WordList wordList = dict.getWordList(length);
-		Game game = Game.createGame(gameType, numDots);
-		String str = game.getQueryWord(wordList);
+		final WordList wordList = dict.getWordList(length);
+		final Game game = Game.createGame(gameType, numDots);
+		queryString = game.getQueryWord(wordList);
+		
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				matching = new ArrayList<String>(game.getMatching(wordList, queryString));
+				Log.i("QUERY", "matching: " + matching);
+			}
+		});
+		t.start();
 		
 		TextView.OnEditorActionListener tveal = new TextView.OnEditorActionListener() {
 			@Override
@@ -55,7 +65,7 @@ public class QueryActivity extends Activity {
 		};
 		
 		TextView tv = getQueryTextView();
-		tv.setText(str);
+		tv.setText(queryString);
 		EditText et = (EditText)findViewById(R.id.queryInput);
 		et.setOnEditorActionListener(tveal);
 	}
@@ -64,11 +74,19 @@ public class QueryActivity extends Activity {
     	Intent intent = new Intent(this, ResultsActivity.class);
     	
     	TextView tv = getQueryTextView();
-		String qstr = tv.getText().toString();
 		
-    	intent.putExtra(QUERY_STRING, qstr);
+    	intent.putExtra(QUERY_STRING, queryString);
+    	while (matching == null) {
+    		try {
+				Thread.sleep(100);
+			}
+    		catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+    	}
+		intent.putStringArrayListExtra(MATCHING, matching);
     	
-		EditText et = (EditText)findViewById(R.id.queryInput);
+    	EditText et = (EditText)findViewById(R.id.queryInput);
 		String inputText = et.getText().toString();
 		intent.putExtra(INPUT_STRING, inputText);
 		

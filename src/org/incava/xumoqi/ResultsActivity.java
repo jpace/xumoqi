@@ -1,6 +1,6 @@
 package org.incava.xumoqi;
 
-import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.text.Html;
@@ -22,6 +21,7 @@ import android.text.Html;
 public class ResultsActivity extends Activity {
 	private int wordLength = 3;
 	private String gameType = null;
+	private ArrayList<String> matching = null;
 	
 	private final Map<Matches.StatusType, String> statusToFontColor;
 	
@@ -43,17 +43,12 @@ public class ResultsActivity extends Activity {
 		String queryString = intent.getStringExtra(QueryActivity.QUERY_STRING);
 		wordLength = queryString.length();
 		
+		matching = intent.getStringArrayListExtra(QueryActivity.MATCHING);
+		Log.i("RESULTS", "matching: " + matching);
+		
 		int numDots = 1;
 		
 		gameType = intent.getStringExtra(MainActivity.GAME_TYPE);
-		Game game = Game.createGame(gameType, numDots);
-		
-		Resources resources = getResources();
-		Dictionary dict = Dictionary.getTWL(resources, wordLength);
-		WordList wordList = dict.getWordList(wordLength);
-		
-		List<String> matching = game.getMatching(wordList, queryString);
-		Log.i("RESULTS", "matching: " + matching);
 		
 		String inputString = intent.getStringExtra(QueryActivity.INPUT_STRING);
 		Matches matchStatus = new Matches(matching, inputString);
