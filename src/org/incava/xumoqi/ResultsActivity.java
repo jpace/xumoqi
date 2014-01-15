@@ -2,18 +2,21 @@ package org.incava.xumoqi;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import android.graphics.Color;
+import android.inputmethodservice.Keyboard.Row;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.text.Html;
@@ -46,7 +49,7 @@ public class ResultsActivity extends Activity {
 		matching = intent.getStringArrayListExtra(QueryActivity.MATCHING);
 		Log.i("RESULTS", "matching: " + matching);
 		
-		int numDots = 1;
+		// int numDots = 1;
 		
 		gameType = intent.getStringExtra(MainActivity.GAME_TYPE);
 		
@@ -62,8 +65,55 @@ public class ResultsActivity extends Activity {
 			sb.append("<font color=\"#" + color + "\">" + word + "</font><br/>");
 		}
 		
+		/*
 		TextView tv = (TextView)findViewById(R.id.resultsText);
     	tv.setText(Html.fromHtml(sb.toString()));
+    	
+		 */
+    	TableLayout tableLayout = (TableLayout)findViewById(R.id.resultsTable);
+    	Log.i("RESULTS", "table.#children: " + tableLayout.getChildCount());
+    	tableLayout.removeAllViews();
+    	
+    	int idx = 0;
+    	for (String word : allWords) {
+			Matches.StatusType st = matchStatus.getStatus(word);
+			String color = statusToFontColor.get(st);
+			int rowNum = idx / 2;
+			int cellNum = idx % 2;
+			setCell(rowNum, cellNum, word, color);
+	    	++idx;
+    	}
+	}
+	
+	private void setCell(int rowNum, int cellNum, String value, String color) {
+		Log.i("RESULTS", "rowNum: " + rowNum);
+		Log.i("RESULTS", "cellNum: " + cellNum);
+		
+    	TableLayout tableLayout = (TableLayout)findViewById(R.id.resultsTable);
+		
+	    TableRow row = (TableRow)tableLayout.getChildAt(rowNum);
+		Log.i("RESULTS", "row: " + row);
+		if (row == null) {
+			TableLayout.LayoutParams rowParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+					ViewGroup.LayoutParams.WRAP_CONTENT,
+					1.0f); 
+			row = new TableRow(this);
+			tableLayout.addView(row, rowParams);
+			
+			TableRow.LayoutParams cellParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+					ViewGroup.LayoutParams.WRAP_CONTENT,
+					1.0f);
+			for (int i = 0; i < 2; ++i) {
+				TextView cell = new TextView(this);
+				row.addView(cell, cellParams);
+			}
+		}
+	    
+	    TextView cell = (TextView)row.getChildAt(cellNum);
+		Log.i("RESULTS", "cell: " + cell);
+
+    	cell.setText(value);
+    	cell.setTextColor(Color.parseColor("#" + color));
 	}
 	
 	public void onClickNext(View view) {
