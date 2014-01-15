@@ -65,14 +65,13 @@ public class ResultsActivity extends Activity {
 			sb.append("<font color=\"#" + color + "\">" + word + "</font><br/>");
 		}
 		
-		/*
-		TextView tv = (TextView)findViewById(R.id.resultsText);
-    	tv.setText(Html.fromHtml(sb.toString()));
-    	
-		 */
     	TableLayout tableLayout = (TableLayout)findViewById(R.id.resultsTable);
     	Log.i("RESULTS", "table.#children: " + tableLayout.getChildCount());
     	tableLayout.removeAllViews();
+    	
+    	for (int i = 0; i < 16; ++i) {
+    		createRow();
+    	}
     	
     	int idx = 0;
     	for (String word : allWords) {
@@ -85,6 +84,33 @@ public class ResultsActivity extends Activity {
     	}
 	}
 	
+	private TableRow createRow() {
+    	TableLayout tableLayout = (TableLayout)findViewById(R.id.resultsTable);
+		
+		TableLayout.LayoutParams rowParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+				ViewGroup.LayoutParams.WRAP_CONTENT,
+				1.0f);
+		rowParams.setMargins(2, 3, 4, 5);
+		
+		TableRow row = new TableRow(this);
+		tableLayout.addView(row, rowParams);
+		createCells(row);
+		return row;
+	}
+	
+	private void createCells(TableRow row) {
+		TableRow.LayoutParams cellParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+				ViewGroup.LayoutParams.WRAP_CONTENT,
+				1.0f);
+		// cellParams.setMargins(2, 3, 4, 5);
+		
+		for (int i = 0; i < 2; ++i) {
+			TextView cell = new TextView(this);
+			// cell.setPadding(2, 3, 4, 5);
+			row.addView(cell, cellParams);
+		}
+	}
+	
 	private void setCell(int rowNum, int cellNum, String value, String color) {
 		Log.i("RESULTS", "rowNum: " + rowNum);
 		Log.i("RESULTS", "cellNum: " + cellNum);
@@ -94,19 +120,7 @@ public class ResultsActivity extends Activity {
 	    TableRow row = (TableRow)tableLayout.getChildAt(rowNum);
 		Log.i("RESULTS", "row: " + row);
 		if (row == null) {
-			TableLayout.LayoutParams rowParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-					ViewGroup.LayoutParams.WRAP_CONTENT,
-					1.0f); 
-			row = new TableRow(this);
-			tableLayout.addView(row, rowParams);
-			
-			TableRow.LayoutParams cellParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-					ViewGroup.LayoutParams.WRAP_CONTENT,
-					1.0f);
-			for (int i = 0; i < 2; ++i) {
-				TextView cell = new TextView(this);
-				row.addView(cell, cellParams);
-			}
+			row = createRow();
 		}
 	    
 	    TextView cell = (TextView)row.getChildAt(cellNum);
@@ -114,6 +128,7 @@ public class ResultsActivity extends Activity {
 
     	cell.setText(value);
     	cell.setTextColor(Color.parseColor("#" + color));
+    	cell.setBackgroundColor(Color.parseColor("#ffcc00"));
 	}
 	
 	public void onClickNext(View view) {
@@ -132,9 +147,7 @@ public class ResultsActivity extends Activity {
 	 * Set up the {@link android.app.ActionBar}.
 	 */
 	private void setupActionBar() {
-
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-
 	}
 
 	@Override
@@ -160,5 +173,4 @@ public class ResultsActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
 }
