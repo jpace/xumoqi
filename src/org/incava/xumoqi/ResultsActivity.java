@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Set;
 
 import android.graphics.Color;
-import android.inputmethodservice.Keyboard.Row;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -19,7 +18,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
-import android.text.Html;
 
 public class ResultsActivity extends Activity {
 	private int wordLength = 3;
@@ -39,6 +37,7 @@ public class ResultsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_results);
+		
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
@@ -48,8 +47,6 @@ public class ResultsActivity extends Activity {
 		
 		matching = intent.getStringArrayListExtra(QueryActivity.MATCHING);
 		Log.i("RESULTS", "matching: " + matching);
-		
-		// int numDots = 1;
 		
 		gameType = intent.getStringExtra(MainActivity.GAME_TYPE);
 		
@@ -66,7 +63,6 @@ public class ResultsActivity extends Activity {
 		}
 		
     	TableLayout tableLayout = (TableLayout)findViewById(R.id.resultsTable);
-    	Log.i("RESULTS", "table.#children: " + tableLayout.getChildCount());
     	tableLayout.removeAllViews();
     	
     	for (int i = 0; i < 16; ++i) {
@@ -88,11 +84,13 @@ public class ResultsActivity extends Activity {
     	TableLayout tableLayout = (TableLayout)findViewById(R.id.resultsTable);
 		
 		TableLayout.LayoutParams rowParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-				ViewGroup.LayoutParams.WRAP_CONTENT,
+				ViewGroup.LayoutParams.MATCH_PARENT,
 				1.0f);
-		rowParams.setMargins(2, 3, 4, 5);
+		rowParams.setMargins(2, 2, 2, 2);
 		
 		TableRow row = new TableRow(this);
+		row.requestLayout();
+		row.setBackgroundColor(Color.parseColor("#ffefbf"));
 		tableLayout.addView(row, rowParams);
 		createCells(row);
 		return row;
@@ -102,33 +100,28 @@ public class ResultsActivity extends Activity {
 		TableRow.LayoutParams cellParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
 				ViewGroup.LayoutParams.WRAP_CONTENT,
 				1.0f);
-		// cellParams.setMargins(2, 3, 4, 5);
+		cellParams.setMargins(1, 1, 1, 1);
 		
 		for (int i = 0; i < 2; ++i) {
 			TextView cell = new TextView(this);
-			// cell.setPadding(2, 3, 4, 5);
+			cell.setPadding(1, 1, 1, 1);
+			cell.requestLayout();
 			row.addView(cell, cellParams);
 		}
 	}
 	
 	private void setCell(int rowNum, int cellNum, String value, String color) {
-		Log.i("RESULTS", "rowNum: " + rowNum);
-		Log.i("RESULTS", "cellNum: " + cellNum);
-		
     	TableLayout tableLayout = (TableLayout)findViewById(R.id.resultsTable);
-		
 	    TableRow row = (TableRow)tableLayout.getChildAt(rowNum);
-		Log.i("RESULTS", "row: " + row);
 		if (row == null) {
 			row = createRow();
 		}
 	    
 	    TextView cell = (TextView)row.getChildAt(cellNum);
-		Log.i("RESULTS", "cell: " + cell);
 
     	cell.setText(value);
     	cell.setTextColor(Color.parseColor("#" + color));
-    	cell.setBackgroundColor(Color.parseColor("#ffcc00"));
+    	cell.setBackgroundColor(Color.parseColor("#bfefff"));
 	}
 	
 	public void onClickNext(View view) {
