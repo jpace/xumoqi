@@ -30,7 +30,7 @@ public class ResultsActivity extends Activity {
 		statusToFontColor = new HashMap<Matches.StatusType, String>();
 		statusToFontColor.put(Matches.StatusType.CORRECT, "00aa00");
 		statusToFontColor.put(Matches.StatusType.INVALID, "aa0000");
-		statusToFontColor.put(Matches.StatusType.MISSED,  "aaaa00");
+		statusToFontColor.put(Matches.StatusType.MISSED,  "eeee00");
 	}
 
 	@Override
@@ -90,7 +90,7 @@ public class ResultsActivity extends Activity {
 		
 		TableRow row = new TableRow(this);
 		row.requestLayout();
-		row.setBackgroundColor(Color.parseColor("#ffefbf"));
+		// row.setBackgroundColor(Color.parseColor("#ffefbf"));
 		tableLayout.addView(row, rowParams);
 		createCells(row);
 		return row;
@@ -104,7 +104,7 @@ public class ResultsActivity extends Activity {
 		
 		for (int i = 0; i < 2; ++i) {
 			TextView cell = new TextView(this);
-			cell.setPadding(1, 1, 1, 1);
+			cell.setPadding(2, 2, 2, 2);
 			cell.requestLayout();
 			row.addView(cell, cellParams);
 		}
@@ -120,8 +120,8 @@ public class ResultsActivity extends Activity {
 	    TextView cell = (TextView)row.getChildAt(cellNum);
 
     	cell.setText(value);
-    	cell.setTextColor(Color.parseColor("#" + color));
-    	cell.setBackgroundColor(Color.parseColor("#bfefff"));
+    	cell.setBackgroundColor(Color.parseColor("#" + color));
+    	cell.setTextColor(Color.parseColor("#333333"));
 	}
 	
 	public void onClickNext(View view) {

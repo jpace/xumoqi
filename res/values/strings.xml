@@ -11,10 +11,14 @@
     <string name="next">Next</string>
     <string name="game_type">Game Type</string>
     <string name="quit">Quit</string>
+
     <string-array name="game_types">
         <item>Starting with &#8230;</item>
         <item>Ending with &#8230;</item>
         <item>Random &#8230;</item>
     </string-array>
+
+    <string name="title_activity_status">StatusActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
