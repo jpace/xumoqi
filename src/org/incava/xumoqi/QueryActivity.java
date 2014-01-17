@@ -38,21 +38,19 @@ public class QueryActivity extends Activity {
 		
 		int numDots = 1;
 		
-		Resources resources = getResources();
-		Dictionary dict = Dictionary.getTWL(resources, length);
-		final WordList wordList = dict.getWordList(length);
-		final Game game = Game.createGame(gameType, numDots);
+		final WordList wordList = getWordList(length);
+		final Game game = getGame(length, numDots);
 		queryString = game.getQueryWord(wordList);
 		
-		Thread t = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				matching = new ArrayList<String>(game.getMatching(wordList, queryString));
-				Log.i("QUERY", "matching: " + matching);
-			}
-		});
-		t.start();
+		getMatching(game, wordList);
 		
+		addSendListener();
+		
+		TextView tv = getQueryTextView();
+		tv.setText(queryString);
+	}
+	
+	private void addSendListener() {
 		TextView.OnEditorActionListener tveal = new TextView.OnEditorActionListener() {
 			@Override
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -63,11 +61,29 @@ public class QueryActivity extends Activity {
 				return false;
 			}
 		};
-		
-		TextView tv = getQueryTextView();
-		tv.setText(queryString);
 		EditText et = (EditText)findViewById(R.id.queryInput);
 		et.setOnEditorActionListener(tveal);
+	}
+	
+	private void getMatching(final Game game, final WordList wordList) {
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				matching = new ArrayList<String>(game.getMatching(wordList, queryString));
+				Log.i("QUERY", "matching: " + matching);
+			}
+		});
+		t.start();
+	}
+	
+	private Game getGame(int length, int numDots) { 
+		return Game.createGame(gameType, numDots);
+	}
+	
+	private WordList getWordList(int length) {
+		Resources resources = getResources();
+		Dictionary dict = Dictionary.getTWL(resources, length);
+		return dict.getWordList(length);
 	}
 	
 	public void onClickNext(View view) {

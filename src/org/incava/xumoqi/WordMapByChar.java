@@ -1,6 +1,9 @@
 package org.incava.xumoqi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public abstract class WordMapByChar {
     private final Map<Character, List<String>> byChar;
