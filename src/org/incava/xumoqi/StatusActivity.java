@@ -25,7 +25,7 @@ public class StatusActivity extends Activity {
 		statusToFontColor = new HashMap<Matches.StatusType, String>();
 		statusToFontColor.put(Matches.StatusType.CORRECT, "00aa00");
 		statusToFontColor.put(Matches.StatusType.INVALID, "aa0000");
-		statusToFontColor.put(Matches.StatusType.MISSED,  "eeee00");
+		statusToFontColor.put(Matches.StatusType.MISSED,  "aaaa00");
 	}
 
 	@Override
@@ -39,14 +39,17 @@ public class StatusActivity extends Activity {
 		Matches matchStatus = getMatches();
 		Set<String> allWords = matchStatus.getAllWords();
 		
-    	TableLayout tableLayout = (TableLayout)findViewById(R.id.statusTable);
+    	// TableLayout tableLayout = (TableLayout)findViewById(R.id.statusTable);
     	
     	int idx = 0;
+    	int nwords = allWords.size();
+    	int midpt = (nwords + 1) / 2;
+    	
     	for (String word : allWords) {
 			Matches.StatusType st = matchStatus.getStatus(word);
 			String color = statusToFontColor.get(st);
-			int rowNum = idx / 2;
-			int cellNum = idx % 2;
+			int rowNum = idx % midpt;
+			int cellNum = idx < midpt ? 0 : 1;
 			setCell(rowNum, cellNum, word, color);
 	    	++idx;
     	}
@@ -57,21 +60,13 @@ public class StatusActivity extends Activity {
 	}
 
 	private void setCell(int rowNum, int cellNum, String value, String color) {
-		log("rowNum", rowNum);
-		log("cellNum", cellNum);
-		log("value", value);
-		log("color", color);
-		
     	TableLayout tableLayout = (TableLayout)findViewById(R.id.statusTable);
-    	log("tableLayout", tableLayout);
 	    TableRow row = (TableRow)tableLayout.getChildAt(rowNum);
-	    log("row", row);
 	    TextView cell = (TextView)row.getChildAt(cellNum);
-	    log("cell", cell);
 
     	cell.setText(value);
-//    	cell.setBackgroundColor(Color.parseColor("#" + color));
-//    	cell.setTextColor(Color.parseColor("#333333"));
+    	// cell.setBackgroundColor(Color.parseColor("#334499"));
+    	cell.setTextColor(Color.parseColor("#" + color));
 	}
 
 	private Matches getMatches() {
@@ -99,5 +94,4 @@ public class StatusActivity extends Activity {
     	intent.putExtra(MainActivity.GAME_TYPE, gameParams.getGameType());
     	startActivity(intent);
 	}
-
 }
