@@ -1,22 +1,103 @@
 package org.incava.xumoqi;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 public class StatusActivity extends Activity {
+	private GameParams gameParams = null;
+	
+	private final Map<Matches.StatusType, String> statusToFontColor;
+
+	public StatusActivity() {
+		statusToFontColor = new HashMap<Matches.StatusType, String>();
+		statusToFontColor.put(Matches.StatusType.CORRECT, "00aa00");
+		statusToFontColor.put(Matches.StatusType.INVALID, "aa0000");
+		statusToFontColor.put(Matches.StatusType.MISSED,  "eeee00");
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_status);
+		
+		Intent intent = getIntent();
+		gameParams = new GameParams(intent);
+
+		Matches matchStatus = getMatches();
+		Set<String> allWords = matchStatus.getAllWords();
+		
+    	TableLayout tableLayout = (TableLayout)findViewById(R.id.statusTable);
+    	
+    	int idx = 0;
+    	for (String word : allWords) {
+			Matches.StatusType st = matchStatus.getStatus(word);
+			String color = statusToFontColor.get(st);
+			int rowNum = idx / 2;
+			int cellNum = idx % 2;
+			setCell(rowNum, cellNum, word, color);
+	    	++idx;
+    	}
+	}
+	
+	private void log(String str, Object val) {
+		Log.i("STATUS", str + ": " + val);
 	}
 
+	private void setCell(int rowNum, int cellNum, String value, String color) {
+		log("rowNum", rowNum);
+		log("cellNum", cellNum);
+		log("value", value);
+		log("color", color);
+		
+    	TableLayout tableLayout = (TableLayout)findViewById(R.id.statusTable);
+    	log("tableLayout", tableLayout);
+	    TableRow row = (TableRow)tableLayout.getChildAt(rowNum);
+	    log("row", row);
+	    TextView cell = (TextView)row.getChildAt(cellNum);
+	    log("cell", cell);
+
+    	cell.setText(value);
+//    	cell.setBackgroundColor(Color.parseColor("#" + color));
+//    	cell.setTextColor(Color.parseColor("#333333"));
+	}
+
+	private Matches getMatches() {
+		Intent intent = getIntent();
+		String inputString = intent.getStringExtra(QueryActivity.INPUT_STRING);
+		ArrayList<String> matching = intent.getStringArrayListExtra(QueryActivity.MATCHING);
+		return new Matches(matching, inputString);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.status, menu);
 		return true;
+	}
+
+	public void onClickQuit(View view) {
+    	Intent intent = new Intent(this, MainActivity.class);
+    	startActivity(intent);
+	}
+
+	public void onClickNext(View view) {
+    	Intent intent = new Intent(this, QueryActivity.class);
+    	intent.putExtra(MainActivity.WORD_LENGTH, gameParams.getWordLength());
+    	intent.putExtra(MainActivity.GAME_TYPE, gameParams.getGameType());
+    	startActivity(intent);
 	}
 
 }

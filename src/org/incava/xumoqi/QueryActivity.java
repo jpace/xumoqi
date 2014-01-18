@@ -87,7 +87,7 @@ public class QueryActivity extends Activity {
 	}
 	
 	public void onClickNext(View view) {
-    	Intent intent = new Intent(this, ResultsActivity.class);
+    	Intent intent = new Intent(this, StatusActivity.class);
     	intent.putExtra(QUERY_STRING, queryString);
     	while (matching == null) {
     		try {
