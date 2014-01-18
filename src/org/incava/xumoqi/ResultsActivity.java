@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,9 +19,7 @@ import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 
 public class ResultsActivity extends Activity {
-	private int wordLength = 3;
-	private String gameType = null;
-	private ArrayList<String> matching = null;
+	private GameParams gameParams = null;
 	
 	private final Map<Matches.StatusType, String> statusToFontColor;
 	
@@ -41,26 +38,12 @@ public class ResultsActivity extends Activity {
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
-		Intent intent = getIntent();
-		String queryString = intent.getStringExtra(QueryActivity.QUERY_STRING);
-		wordLength = queryString.length();
+		int wordLength = getWordLength();
+		String gameType = getGameType();
+		gameParams = new GameParams(wordLength, gameType);
 		
-		matching = intent.getStringArrayListExtra(QueryActivity.MATCHING);
-		Log.i("RESULTS", "matching: " + matching);
-		
-		gameType = intent.getStringExtra(MainActivity.GAME_TYPE);
-		
-		String inputString = intent.getStringExtra(QueryActivity.INPUT_STRING);
-		Matches matchStatus = new Matches(matching, inputString);
-
-		StringBuilder sb = new StringBuilder();
-		
+		Matches matchStatus = getMatches();
 		Set<String> allWords = matchStatus.getAllWords();
-		for (String word : allWords) {
-			Matches.StatusType st = matchStatus.getStatus(word);
-			String color = statusToFontColor.get(st);
-			sb.append("<font color=\"#" + color + "\">" + word + "</font><br/>");
-		}
 		
     	TableLayout tableLayout = (TableLayout)findViewById(R.id.resultsTable);
     	tableLayout.removeAllViews();
@@ -78,6 +61,24 @@ public class ResultsActivity extends Activity {
 			setCell(rowNum, cellNum, word, color);
 	    	++idx;
     	}
+	}
+	
+	private int getWordLength() {
+		Intent intent = getIntent();
+		String queryString = intent.getStringExtra(QueryActivity.QUERY_STRING);
+		return queryString.length();
+	}
+	
+	private Matches getMatches() {
+		Intent intent = getIntent();
+		String inputString = intent.getStringExtra(QueryActivity.INPUT_STRING);
+		ArrayList<String> matching = intent.getStringArrayListExtra(QueryActivity.MATCHING);
+		return new Matches(matching, inputString);
+	}
+	
+	private String getGameType() {
+		Intent intent = getIntent();
+		return intent.getStringExtra(MainActivity.GAME_TYPE);
 	}
 	
 	private TableRow createRow() {
@@ -126,8 +127,8 @@ public class ResultsActivity extends Activity {
 	
 	public void onClickNext(View view) {
     	Intent intent = new Intent(this, QueryActivity.class);
-    	intent.putExtra(MainActivity.WORD_LENGTH, wordLength);
-    	intent.putExtra(MainActivity.GAME_TYPE, gameType);
+    	intent.putExtra(MainActivity.WORD_LENGTH, gameParams.getWordLength());
+    	intent.putExtra(MainActivity.GAME_TYPE, gameParams.getGameType());
     	startActivity(intent);
 	}
 
