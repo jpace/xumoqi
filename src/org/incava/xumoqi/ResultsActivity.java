@@ -38,9 +38,8 @@ public class ResultsActivity extends Activity {
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
-		int wordLength = getWordLength();
-		String gameType = getGameType();
-		gameParams = new GameParams(wordLength, gameType);
+		Intent intent = getIntent();
+		gameParams = new GameParams(intent);
 		
 		Matches matchStatus = getMatches();
 		Set<String> allWords = matchStatus.getAllWords();
@@ -63,22 +62,11 @@ public class ResultsActivity extends Activity {
     	}
 	}
 	
-	private int getWordLength() {
-		Intent intent = getIntent();
-		String queryString = intent.getStringExtra(QueryActivity.QUERY_STRING);
-		return queryString.length();
-	}
-	
 	private Matches getMatches() {
 		Intent intent = getIntent();
 		String inputString = intent.getStringExtra(QueryActivity.INPUT_STRING);
 		ArrayList<String> matching = intent.getStringArrayListExtra(QueryActivity.MATCHING);
 		return new Matches(matching, inputString);
-	}
-	
-	private String getGameType() {
-		Intent intent = getIntent();
-		return intent.getStringExtra(MainActivity.GAME_TYPE);
 	}
 	
 	private TableRow createRow() {
