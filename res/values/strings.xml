@@ -6,7 +6,6 @@
     <string name="enter_word_length">Word Length</string>
     <string name="title_activity_query">Query</string>
     <string name="queryText">baa</string>
-    <string name="title_activity_results">Results</string>
     <string name="results_text">Results &#8230;</string>
     <string name="next">Next</string>
     <string name="game_type">Game Type</string>
@@ -18,7 +17,7 @@
         <item>Random &#8230;</item>
     </string-array>
 
-    <string name="title_activity_status">StatusActivity</string>
+    <string name="title_activity_status">Results</string>
     <string name="hello_world">Hello world!</string>
 
 </resources>

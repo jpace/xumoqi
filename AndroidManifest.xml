@@ -31,16 +31,12 @@
                 android:value="org.incava.xumoqi.MainActivity" />
         </activity>
         <activity
-            android:name="org.incava.xumoqi.ResultsActivity"
-            android:label="@string/title_activity_results"
+            android:name="org.incava.xumoqi.StatusActivity"
+            android:label="@string/title_activity_status"
             android:parentActivityName="org.incava.xumoqi.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.incava.xumoqi.MainActivity" />
-        </activity>
-        <activity
-            android:name="org.incava.xumoqi.StatusActivity"
-            android:label="@string/title_activity_status" >
         </activity>
     </application>
 

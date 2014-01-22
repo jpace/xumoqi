@@ -33,15 +33,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp" />
 
-    <TextView
-        android:id="@+id/wordLengthText"
+    <Button
+        android:id="@+id/quit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/gameTypeSpinner"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="@string/enter_word_length"
-        android:textSize="32sp" />
+        android:layout_alignBaseline="@+id/next"
+        android:layout_alignBottom="@+id/next"
+        android:layout_alignLeft="@+id/wordLengthText"
+        android:text="@string/quit" />
 
     <Button
         android:id="@+id/next"
@@ -53,13 +52,14 @@
         android:onClick="onClickNext"
         android:text="@string/next" />
 
-    <Button
-        android:id="@+id/quit"
+    <TextView
+        android:id="@+id/wordLengthText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/next"
-        android:layout_alignBottom="@+id/next"
-        android:layout_alignLeft="@+id/wordLengthText"
-        android:text="@string/quit" />
+        android:layout_above="@+id/wordLengthNumberPicker"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="17dp"
+        android:text="@string/enter_word_length"
+        android:textSize="32sp" />
 
 </RelativeLayout>
