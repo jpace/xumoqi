@@ -6,6 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#DAE6F2"
     tools:context=".MainActivity" >
 
     <TextView
@@ -15,7 +16,7 @@
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:text="@string/game_type"
-        android:textSize="32sp" />
+        android:textSize="24sp" />
 
     <Spinner
         android:id="@+id/gameTypeSpinner"
@@ -23,15 +24,16 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/gameTypeText"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="5dp" />
 
     <NumberPicker
         android:id="@+id/wordLengthNumberPicker"
+        android:background="#778899"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/quit"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="30dp" />
 
     <Button
         android:id="@+id/quit"
@@ -58,8 +60,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/wordLengthNumberPicker"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="17dp"
+        android:layout_marginBottom="5dp"
         android:text="@string/enter_word_length"
-        android:textSize="32sp" />
+        android:textSize="24sp" />
 
 </RelativeLayout>
