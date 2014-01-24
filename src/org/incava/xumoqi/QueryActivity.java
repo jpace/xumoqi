@@ -29,8 +29,6 @@ public class QueryActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_query);
-		// Show the Up button in the action bar.
-		setupActionBar();
 		
 		Intent intent = getIntent();
 		int length = intent.getIntExtra(MainActivity.WORD_LENGTH, 3);
@@ -115,13 +113,6 @@ public class QueryActivity extends Activity {
 
 	private TextView getQueryTextView() {
 		return (TextView)findViewById(R.id.queryText);
-	}
-
-	/**
-	 * Set up the {@link android.app.ActionBar}.
-	 */
-	private void setupActionBar() {
-		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override

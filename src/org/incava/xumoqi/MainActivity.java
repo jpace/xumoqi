@@ -50,7 +50,7 @@ public class MainActivity extends Activity {
         
         Spinner gameTypeSpinner = getGameTypeSpinner();
         String gameType = gameTypeSpinner.getSelectedItem().toString();
-        intent.putExtra(GAME_TYPE, gameTypeSpinner.getSelectedItem().toString());
+        intent.putExtra(GAME_TYPE, gameType);
         
     	startActivity(intent);
     }

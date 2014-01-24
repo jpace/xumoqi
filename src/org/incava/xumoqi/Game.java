@@ -3,8 +3,6 @@ package org.incava.xumoqi;
 import java.util.List;
 import java.util.Random;
 
-import android.util.Log;
-
 public abstract class Game {
 	public static Game createGame(String gameType, int nDots) {
 		if ("Ending with \u2026".equals(gameType)) {

@@ -15,6 +15,8 @@
         <item>Starting with &#8230;</item>
         <item>Ending with &#8230;</item>
         <item>Random &#8230;</item>
+        <item >2-to-make-3</item>
+        <item >3-to-make-4</item>
     </string-array>
 
     <string name="title_activity_status">Results</string>

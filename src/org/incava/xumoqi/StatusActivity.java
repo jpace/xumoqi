@@ -46,6 +46,9 @@ public class StatusActivity extends Activity {
     	int midpt = (nwords + 1) / 2;
     	
     	for (String word : allWords) {
+    		if (idx >= 36) {
+    			break;
+    		}
 			Matches.StatusType st = matchStatus.getStatus(word);
 			String color = statusToFontColor.get(st);
 			int rowNum = idx % midpt;
