@@ -33,11 +33,12 @@ public class QueryActivity extends Activity {
 		Intent intent = getIntent();
 		int length = intent.getIntExtra(MainActivity.WORD_LENGTH, 3);
 		gameType = intent.getStringExtra(MainActivity.GAME_TYPE);
-	
+		
 		// not an option, for now ...
 		int numDots = 1;
 		
-		Game game = getGame(length, numDots);
+		Resources resources = getResources();
+		Game game = GameFactory.createGame(gameType, resources, length, numDots);
 		queryString = game.getQueryWord();
 		
 		getMatching(game);
@@ -74,15 +75,10 @@ public class QueryActivity extends Activity {
 		t.start();
 	}
 	
-	private Game getGame(int length, int numDots) { 
-		Resources resources = getResources();
-		WordList wordList = Dictionary.getWordList(resources, length);
-		return GameFactory.createGame(gameType, wordList, numDots);
-	}
-	
 	public void onClickNext(View view) {
     	Intent intent = new Intent(this, StatusActivity.class);
     	intent.putExtra(QUERY_STRING, queryString);
+    	
     	while (matching == null) {
     		try {
 				Thread.sleep(100);

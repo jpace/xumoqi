@@ -3,8 +3,6 @@ package org.incava.xumoqi;
 import java.util.List;
 import java.util.Random;
 
-import android.util.Log;
-
 public abstract class Game {
 	private final int numDots;
 	private final int length;
