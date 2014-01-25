@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TableLayout;
@@ -45,8 +44,11 @@ public class StatusActivity extends Activity {
     	int nwords = allWords.size();
     	int midpt = (nwords + 1) / 2;
     	
+    	final int nCells = 36;
+    	
     	for (String word : allWords) {
-    		if (idx >= 36) {
+    		if (idx >= nCells) {
+    			// this makes it obvious that the table has to be scrollable
     			break;
     		}
 			Matches.StatusType st = matchStatus.getStatus(word);
@@ -58,10 +60,6 @@ public class StatusActivity extends Activity {
     	}
 	}
 	
-	private void log(String str, Object val) {
-		Log.i("STATUS", str + ": " + val);
-	}
-
 	private void setCell(int rowNum, int cellNum, String value, String color) {
     	TableLayout tableLayout = (TableLayout)findViewById(R.id.statusTable);
 	    TableRow row = (TableRow)tableLayout.getChildAt(rowNum);

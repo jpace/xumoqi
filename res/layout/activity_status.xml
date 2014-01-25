@@ -16,6 +16,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/statusNext"
         android:stretchColumns="*"
+        android:textSize="32sp"
         android:layout_alignParentLeft="true" >
         
         <TableRow
@@ -32,6 +33,7 @@
                 android:gravity="center_horizontal"
                 android:padding="3dp"
                 android:background="#DAF2E5"
+                android:textSize="18sp"
                 android:text="Cell 1-1" />
 
             <TextView
@@ -42,6 +44,7 @@
                 android:gravity="center_horizontal"
                 android:padding="3dp"
                 android:background="#DAF2E5"
+                android:textSize="18sp"
                 android:text="Cell 1-2" />
         </TableRow>
 
@@ -58,6 +61,7 @@
                 android:gravity="center_horizontal"
                 android:padding="3dp"
                 android:background="#DAF2E5"
+                android:textSize="18sp"
                 android:text="Cell 2-1" />
 
             <TextView
@@ -68,6 +72,7 @@
                 android:gravity="center_horizontal"
                 android:padding="3dp"
                 android:background="#DAF2E5"
+                android:textSize="18sp"
                 android:text="Cell 2-2" />
         </TableRow>
 
@@ -82,6 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 3-1" />
 
             <TextView
@@ -90,6 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 3-2" />
         </TableRow>
 
@@ -104,6 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 4-1" />
 
             <TextView
@@ -112,6 +120,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 4-2" />
         </TableRow>
 
@@ -126,6 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 5-1" />
 
             <TextView
@@ -134,6 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 5-2" />
         </TableRow>
 
@@ -148,6 +159,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 6-1" />
 
             <TextView
@@ -156,6 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 6-2" />
         </TableRow>
 
@@ -170,6 +183,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 7-1" />
 
             <TextView
@@ -178,6 +192,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 7-2" />
         </TableRow>
 
@@ -192,6 +207,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 8-1" />
 
             <TextView
@@ -200,6 +216,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 8-2" />
         </TableRow>
 
@@ -214,6 +231,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 9-1" />
 
             <TextView
@@ -222,6 +240,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 9-2" />
         </TableRow>
 
@@ -236,6 +255,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 10-1" />
 
             <TextView
@@ -244,6 +264,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 10-2" />
         </TableRow>
 
@@ -258,6 +279,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 11-1" />
 
             <TextView
@@ -266,6 +288,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 11-2" />
         </TableRow>
 
@@ -280,6 +303,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 12-1" />
 
             <TextView
@@ -288,6 +312,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 12-2" />
         </TableRow>
 
@@ -302,6 +327,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 13-1" />
 
             <TextView
@@ -310,6 +336,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 13-2" />
         </TableRow>
 
@@ -324,6 +351,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 14-1" />
 
             <TextView
@@ -332,6 +360,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 14-2" />
         </TableRow>
 
@@ -346,6 +375,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 15-1" />
 
             <TextView
@@ -354,6 +384,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 15-2" />
         </TableRow>
 
@@ -368,6 +399,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 16-1" />
 
             <TextView
@@ -376,6 +408,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 16-2" />
         </TableRow>
 
@@ -390,6 +423,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 17-1" />
 
             <TextView
@@ -398,6 +432,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
+                android:textSize="18sp"
                 android:text="Cell 17-2" />
         </TableRow>
 

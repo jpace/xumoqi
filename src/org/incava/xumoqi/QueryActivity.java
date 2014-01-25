@@ -37,10 +37,10 @@ public class QueryActivity extends Activity {
 		int numDots = 1;
 		
 		final WordList wordList = getWordList(length);
-		final Game game = getGame(length, numDots);
-		queryString = game.getQueryWord(wordList);
+		final Game game = getGame(wordList, length, numDots);
+		queryString = game.getQueryWord();
 		
-		getMatching(game, wordList);
+		getMatching(game);
 		
 		addSendListener();
 		
@@ -63,19 +63,19 @@ public class QueryActivity extends Activity {
 		et.setOnEditorActionListener(tveal);
 	}
 	
-	private void getMatching(final Game game, final WordList wordList) {
+	private void getMatching(final Game game) {
 		Thread t = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				matching = new ArrayList<String>(game.getMatching(wordList, queryString));
+				matching = new ArrayList<String>(game.getMatching(queryString));
 				Log.i("QUERY", "matching: " + matching);
 			}
 		});
 		t.start();
 	}
 	
-	private Game getGame(int length, int numDots) { 
-		return Game.createGame(gameType, numDots);
+	private Game getGame(WordList wordList, int length, int numDots) { 
+		return Game.createGame(gameType, wordList, numDots);
 	}
 	
 	private WordList getWordList(int length) {

@@ -2,9 +2,9 @@ package org.incava.xumoqi;
 
 import java.util.List;
 
-public class GameEndsWithDots extends Game {
-	public GameEndsWithDots(int nDots) {
-		super(nDots);
+public class GameEndsWithDots extends GameDottedWords {
+	public GameEndsWithDots(WordList wordList, int nDots) {
+		super(wordList, nDots);
 	}
 	
 	private String getSubstring(String str) {
