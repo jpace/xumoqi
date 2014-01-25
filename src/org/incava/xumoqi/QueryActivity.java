@@ -36,8 +36,7 @@ public class QueryActivity extends Activity {
 		
 		int numDots = 1;
 		
-		final WordList wordList = getWordList(length);
-		final Game game = getGame(wordList, length, numDots);
+		Game game = getGame(length, numDots);
 		queryString = game.getQueryWord();
 		
 		getMatching(game);
@@ -74,7 +73,8 @@ public class QueryActivity extends Activity {
 		t.start();
 	}
 	
-	private Game getGame(WordList wordList, int length, int numDots) { 
+	private Game getGame(int length, int numDots) { 
+		WordList wordList = getWordList(length);
 		return Game.createGame(gameType, wordList, numDots);
 	}
 	

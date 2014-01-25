@@ -1,9 +1,10 @@
 package org.incava.xumoqi;
 
-import java.util.*;
 import java.io.*;
 
 import android.content.res.Resources;
+import android.util.Log;
+import android.util.SparseArray;
 
 /**
  * Represents a list of words. The input file must in in the format:
@@ -31,7 +32,11 @@ public class Dictionary {
 		return twl;
     }
     
-    private final Map<Integer, WordList> wordsByLength;
+    private final static InputStream getInputStream(Resources resources, int length) {
+    	return null;
+    }
+    
+    private final SparseArray<WordList> wordsByLength;
 
     public Dictionary(String dictFileName, Integer maxLength) throws Exception {
         this(new FileInputStream(dictFileName), maxLength);
@@ -41,25 +46,25 @@ public class Dictionary {
         this(dictStream, maxLength, null);
     }
 
+    public Dictionary(Resources resources, int length) {
+    	this(getInputStream(resources, length), length);
+    }
+
     public Dictionary(InputStream dictStream, Integer maxLength, Integer minLength) {
-        this.wordsByLength = new HashMap<Integer, WordList>();
+        this.wordsByLength = new SparseArray<WordList>();
+        long start = System.currentTimeMillis();
+        Log.i("DICT", "start: " + start);
         
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(dictStream));
-            String line = null;
-            while ((line = br.readLine()) != null) {
-                int len = line.length();
-                if (maxLength != null && len > maxLength) {
-                    break;
-                }
-                else if (minLength == null || len >= minLength) {
-                    addWord(line, len);
-                }
-            }
-        }
-        catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
+        IO io = new IO() {
+        	public void onRead(String str, Integer len) {
+        		addWord(str, len);
+        	}
+        };
+        io.readStream(dictStream, maxLength);
+        
+        long end = System.currentTimeMillis();
+        Log.i("DICT", "end: " + start);
+        Log.i("DICT", "duration: " + (end - start));
     }
 
     private void addWord(String word, int len) {
@@ -73,15 +78,5 @@ public class Dictionary {
 
     public WordList getWordList(int len) {
         return wordsByLength.get(len);
-    }
-
-    public List<String> getStartingWith(String str, int len) {
-        WordList wl = getWordList(len);
-        return wl == null ? new ArrayList<String>() : wl.getStartingWith(str);
-    }
-
-    public List<String> getEndingWith(String str, int len) {
-        WordList wl = getWordList(len);
-        return wl == null ? new ArrayList<String>() : wl.getEndingWith(str);
     }
 }
