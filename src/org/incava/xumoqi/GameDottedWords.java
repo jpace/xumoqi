@@ -1,8 +1,8 @@
 package org.incava.xumoqi;
 
 public abstract class GameDottedWords extends Game {
-	public GameDottedWords(WordList wordList, int nDots) {
-		super(wordList, nDots);
+	public GameDottedWords(WordList wordList, int length, int nDots) {
+		super(wordList, length, nDots);
 	}
 
 	@Override
@@ -10,5 +10,4 @@ public abstract class GameDottedWords extends Game {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

@@ -6,26 +6,13 @@ import java.util.Random;
 import android.util.Log;
 
 public abstract class Game {
-	public static Game createGame(String gameType, WordList wordList, int nDots) {
-		Log.i("GAME", java.util.Arrays.asList(R.array.game_types).toString());
-
-		if ("Ending with \u2026".equals(gameType)) {
-			return new GameEndsWithDots(wordList, nDots);
-		}
-		else if ("Starting with \u2026".equals(gameType)) {
-			return new GameStartsWithDots(wordList, nDots);
-		}
-		else if ("Random \u2026".equals(gameType)) {
-			return new GameRandomDots(wordList, nDots);
-		}
-		return null;
-	}
-	
 	private final int numDots;
+	private final int length;
 	protected final WordList wordList;
 	
-	public Game(WordList wordList, int nDots) {
+	public Game(WordList wordList, int length, int nDots) {
 		this.wordList = wordList;
+		this.length = length;
 		this.numDots = nDots;
 	}
 	

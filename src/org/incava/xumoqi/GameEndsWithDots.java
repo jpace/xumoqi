@@ -3,8 +3,8 @@ package org.incava.xumoqi;
 import java.util.List;
 
 public class GameEndsWithDots extends GameDottedWords {
-	public GameEndsWithDots(WordList wordList, int nDots) {
-		super(wordList, nDots);
+	public GameEndsWithDots(WordList wordList, int length, int nDots) {
+		super(wordList, length, nDots);
 	}
 	
 	private String getSubstring(String str) {

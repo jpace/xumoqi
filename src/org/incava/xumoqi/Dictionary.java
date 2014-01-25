@@ -7,14 +7,13 @@ import android.util.Log;
 import android.util.SparseArray;
 
 /**
- * Represents a list of words. The input file must in in the format:
+ * Represents a list of words. The input file must be sorted, in the format:
  *
  * <pre>
  * abc
  * def
  * ghij
- * klmno
- * </pre>
+ * klmno</pre>
  *
  * and must be in ascending order of the number of characters.
  */
@@ -23,20 +22,20 @@ public class Dictionary {
     private static Dictionary twl = null;
     private static int dictLength;
     
-    public static Dictionary getTWL(Resources resources, int length) {
+    public static WordList getWordList(Resources resources, int length) {
     	if (twl == null || length > dictLength) {
     		InputStream is = resources.openRawResource(R.raw.twl);
     		twl = new Dictionary(is, length);
     		dictLength = length;
     	}
-		return twl;
+		return twl.getWordList(length);
     }
     
     private final static InputStream getInputStream(Resources resources, int length) {
     	return null;
     }
     
-    private final SparseArray<WordList> wordsByLength;
+    private final SparseArray<WordList> wordListsByLength;
 
     public Dictionary(String dictFileName, Integer maxLength) throws Exception {
         this(new FileInputStream(dictFileName), maxLength);
@@ -51,7 +50,7 @@ public class Dictionary {
     }
 
     public Dictionary(InputStream dictStream, Integer maxLength, Integer minLength) {
-        this.wordsByLength = new SparseArray<WordList>();
+        this.wordListsByLength = new SparseArray<WordList>();
         long start = System.currentTimeMillis();
         Log.i("DICT", "start: " + start);
         
@@ -68,15 +67,15 @@ public class Dictionary {
     }
 
     private void addWord(String word, int len) {
-        WordList wl = wordsByLength.get(len);
+        WordList wl = wordListsByLength.get(len);
         if (wl == null) {
             wl = new WordList();
-            wordsByLength.put(len, wl);
+            wordListsByLength.put(len, wl);
         }
         wl.addWord(word);
     }
 
     public WordList getWordList(int len) {
-        return wordsByLength.get(len);
+        return wordListsByLength.get(len);
     }
 }

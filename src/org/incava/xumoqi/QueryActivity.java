@@ -33,7 +33,8 @@ public class QueryActivity extends Activity {
 		Intent intent = getIntent();
 		int length = intent.getIntExtra(MainActivity.WORD_LENGTH, 3);
 		gameType = intent.getStringExtra(MainActivity.GAME_TYPE);
-		
+	
+		// not an option, for now ...
 		int numDots = 1;
 		
 		Game game = getGame(length, numDots);
@@ -74,14 +75,9 @@ public class QueryActivity extends Activity {
 	}
 	
 	private Game getGame(int length, int numDots) { 
-		WordList wordList = getWordList(length);
-		return Game.createGame(gameType, wordList, numDots);
-	}
-	
-	private WordList getWordList(int length) {
 		Resources resources = getResources();
-		Dictionary dict = Dictionary.getTWL(resources, length);
-		return dict.getWordList(length);
+		WordList wordList = Dictionary.getWordList(resources, length);
+		return GameFactory.createGame(gameType, wordList, numDots);
 	}
 	
 	public void onClickNext(View view) {
