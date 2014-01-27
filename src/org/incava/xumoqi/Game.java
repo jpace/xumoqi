@@ -18,19 +18,11 @@ public abstract class Game {
 		return numDots;
 	}
 	
-	public String getQueryWord() {
-		String word = getRandomWord();
-		return getAsPattern(word);
-	}
+	public abstract String getQueryWord();
 
 	protected String getRandomWord() {
-		List<String> words = wordList.getWords();
-		Random random = new Random();
-		int idx = random.nextInt(words.size());
-		return words.get(idx);
+		return wordList.getRandomWord();
 	}
-
-	public abstract String getAsPattern(String word);
 
 	public List<String> getMatching(String queryString) {
 		return wordList.getMatching(queryString);

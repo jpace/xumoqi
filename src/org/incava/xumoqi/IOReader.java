@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class IO {
+public class IOReader {
 	public void readStream(InputStream is, Integer maxLength) {
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -24,7 +24,22 @@ public class IO {
 		}
 	}
 	
-	public void onRead(String str, Integer len) {
+	public void readStream(InputStream is) {
+		try {
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				onRead(line);
+			}
+        }
+		catch (Exception ex) {
+			throw new RuntimeException(ex);
+		}
+	}
 	
+	public void onRead(String str, Integer len) {
+	}
+	
+	public void onRead(String str) {
 	}
 }

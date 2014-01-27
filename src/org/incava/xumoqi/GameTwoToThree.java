@@ -6,7 +6,8 @@ public class GameTwoToThree extends Game {
 	}
 
 	@Override
-	public String getAsPattern(String word) {
+	public String getQueryWord() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

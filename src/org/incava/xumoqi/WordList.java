@@ -1,5 +1,6 @@
 package org.incava.xumoqi;
 
+import java.io.InputStream;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -9,6 +10,7 @@ public class WordList {
     private final List<String> words;
     private final WordMapByChar byFirst;
     private final WordMapByChar byLast;
+    private final Random random;
     
     public WordList() {
         words = new ArrayList<String>();
@@ -17,16 +19,35 @@ public class WordList {
                     return word.startsWith(str);
                 }
             };
-        
         byLast = new WordMapByChar() {
                 public boolean isMatch(String word, String str) {
                     return word.endsWith(str);
                 }
             };
+    	random = new Random();
+    }
+
+    public WordList(InputStream is) {
+    	this();
+    	
+        long start = System.currentTimeMillis();
+        Log.i("WORDLIST", "start: " + start);
+
+        IOReader iordr = new IOReader() {
+        	public void onRead(String str) {
+        		addWord(str);
+        	}
+        };
+        iordr.readStream(is);
+        
+        long end = System.currentTimeMillis();
+        Log.i("WORDLIST", "end: " + start);
+        Log.i("WORDLIST", "duration: " + (end - start));
     }
 
     public void addWord(String word) {
         words.add(word);
+        // TODO: optimize this: this adds 30% when reading the word list
         addWord(byFirst, 0, word);
         addWord(byLast, word.length() - 1, word);
     }
@@ -61,4 +82,10 @@ public class WordList {
     	Log.i("WORDLIST", "done: " + done + "; " + (done - start));
     	return matching;
     }
+    
+	public String getRandomWord() {
+		// TODO: this should be pseudo-random, not returning the same within X invocations.
+		int idx = random.nextInt(words.size());
+		return words.get(idx);
+	}
 }
