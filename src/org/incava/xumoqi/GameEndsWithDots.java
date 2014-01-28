@@ -19,6 +19,7 @@ public class GameEndsWithDots extends GameDottedWords {
 
 	public List<String> getMatching(String queryString) {
 		String str = getSubstring(queryString);
+		WordList wordList = getWordList();
 		return wordList.getStartingWith(str);
 	}
 }

@@ -37,9 +37,10 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:inputType="textFilter"
+        android:inputType="textNoSuggestions|textVisiblePassword|textMultiLine"
         android:imeOptions="actionSend"
         android:lines="4"
+        android:gravity="left|top"
         android:ems="10" />
 
     <Button
