@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.util.Log;
@@ -14,6 +15,8 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
 public class QueryActivity extends Activity {
@@ -40,6 +43,8 @@ public class QueryActivity extends Activity {
 		Resources resources = getResources();
 		Game game = GameFactory.createGame(gameType, resources, length, numDots);
 		queryString = game.getQueryWord();
+		Log.i("QUERY", "game: " + game);
+		System.out.println("game: " + game);
 		
 		getMatching(game);
 		
@@ -50,10 +55,22 @@ public class QueryActivity extends Activity {
 	}
 	
 	private void addSendListener() {
-		TextView.OnEditorActionListener tveal = new TextView.OnEditorActionListener() {
+		OnEditorActionListener tveal = new OnEditorActionListener() {
 			@Override
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-				if (actionId == EditorInfo.IME_ACTION_SEND) {
+				System.out.println("actionId: " + actionId);
+				System.out.println("event: " + event);
+				
+				Log.i("QUERY", "actionId: " + actionId);
+				Log.i("QUERY", "event: " + event);
+				Context ctx = getApplicationContext();
+				CharSequence text = "hello?";
+				int duration = Toast.LENGTH_SHORT;
+				
+				Toast toast = Toast.makeText(ctx, text, duration);
+				toast.show();
+				if (actionId == EditorInfo.IME_ACTION_SEND || 
+						(event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN)) {
 					onClickNext(null);
 					return true;
 				}
@@ -61,6 +78,8 @@ public class QueryActivity extends Activity {
 			}
 		};
 		EditText et = (EditText)findViewById(R.id.queryInput);
+		Log.i("QUERY", "et: " + et);		
+		Log.i("QUERY", "tveal: " + tveal);
 		et.setOnEditorActionListener(tveal);
 	}
 	
