@@ -32,17 +32,18 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/quit"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginBottom="70dp" />
 
     <Button
         android:id="@+id/next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70sp"
+        android:layout_height="50sp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="26dp"
         android:layout_toRightOf="@+id/wordLengthNumberPicker"
         android:onClick="onClickNext"
-        android:text="@string/next" />
+        android:text="@string/next"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/wordLengthText"
@@ -56,11 +57,12 @@
 
     <Button
         android:id="@+id/quit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70sp"
+        android:layout_height="50sp"
         android:layout_alignBaseline="@+id/next"
         android:layout_alignBottom="@+id/next"
         android:layout_toLeftOf="@+id/wordLengthNumberPicker"
-        android:text="@string/quit" />
+        android:text="@string/quit"
+        android:textSize="18sp" />
 
 </RelativeLayout>

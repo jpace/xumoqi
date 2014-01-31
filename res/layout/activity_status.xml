@@ -33,8 +33,8 @@
                 android:gravity="center_horizontal"
                 android:padding="3dp"
                 android:background="#DAF2E5"
-                android:textSize="18sp"
-                android:text="Cell 1-1" />
+                android:textSize="20sp"
+                android:text="" />
 
             <TextView
                 android:id="@+id/statusCell12"
@@ -44,8 +44,8 @@
                 android:gravity="center_horizontal"
                 android:padding="3dp"
                 android:background="#DAF2E5"
-                android:textSize="18sp"
-                android:text="Cell 1-2" />
+                android:textSize="20sp"
+                android:text="" />
         </TableRow>
 
         <TableRow
@@ -61,8 +61,8 @@
                 android:gravity="center_horizontal"
                 android:padding="3dp"
                 android:background="#DAF2E5"
-                android:textSize="18sp"
-                android:text="Cell 2-1" />
+                android:textSize="20sp"
+                android:text="" />
 
             <TextView
                 android:id="@+id/statusCell22"
@@ -72,8 +72,8 @@
                 android:gravity="center_horizontal"
                 android:padding="3dp"
                 android:background="#DAF2E5"
-                android:textSize="18sp"
-                android:text="Cell 2-2" />
+                android:textSize="20sp"
+                android:text="" />
         </TableRow>
 
         <TableRow
@@ -87,8 +87,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 3-1" />
+                android:textSize="20sp"
+                android:text="" />
 
             <TextView
                 android:id="@+id/statusCell32"
@@ -96,8 +96,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 3-2" />
+                android:textSize="20sp"
+                android:text="" />
         </TableRow>
 
         <TableRow
@@ -111,8 +111,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 4-1" />
+                android:textSize="20sp"
+                android:text="" />
 
             <TextView
                 android:id="@+id/statusCell42"
@@ -120,8 +120,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 4-2" />
+                android:textSize="20sp"
+                android:text="" />
         </TableRow>
 
         <TableRow
@@ -135,8 +135,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 5-1" />
+                android:textSize="20sp"
+                android:text="" />
 
             <TextView
                 android:id="@+id/statusCell52"
@@ -144,8 +144,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 5-2" />
+                android:textSize="20sp"
+                android:text="" />
         </TableRow>
 
         <TableRow
@@ -159,8 +159,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 6-1" />
+                android:textSize="20sp"
+                android:text="" />
 
             <TextView
                 android:id="@+id/statusCell62"
@@ -168,8 +168,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 6-2" />
+                android:textSize="20sp"
+                android:text="" />
         </TableRow>
 
         <TableRow
@@ -183,8 +183,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 7-1" />
+                android:textSize="20sp"
+                android:text="" />
 
             <TextView
                 android:id="@+id/statusCell72"
@@ -192,8 +192,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 7-2" />
+                android:textSize="20sp"
+                android:text="" />
         </TableRow>
 
         <TableRow
@@ -207,8 +207,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 8-1" />
+                android:textSize="20sp"
+                android:text="" />
 
             <TextView
                 android:id="@+id/statusCell82"
@@ -216,8 +216,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 8-2" />
+                android:textSize="20sp"
+                android:text="" />
         </TableRow>
 
         <TableRow
@@ -231,8 +231,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 9-1" />
+                android:textSize="20sp"
+                android:text="" />
 
             <TextView
                 android:id="@+id/statusCell92"
@@ -240,8 +240,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 9-2" />
+                android:textSize="20sp"
+                android:text="" />
         </TableRow>
 
         <TableRow
@@ -255,8 +255,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 10-1" />
+                android:textSize="20sp"
+                android:text="" />
 
             <TextView
                 android:id="@+id/statusCell102"
@@ -264,8 +264,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 10-2" />
+                android:textSize="20sp"
+                android:text="" />
         </TableRow>
 
         <TableRow
@@ -279,8 +279,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 11-1" />
+                android:textSize="20sp"
+                android:text="" />
 
             <TextView
                 android:id="@+id/statusCell112"
@@ -288,8 +288,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 11-2" />
+                android:textSize="20sp"
+                android:text="" />
         </TableRow>
 
         <TableRow
@@ -303,8 +303,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 12-1" />
+                android:textSize="20sp"
+                android:text="" />
 
             <TextView
                 android:id="@+id/statusCell122"
@@ -312,8 +312,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 12-2" />
+                android:textSize="20sp"
+                android:text="" />
         </TableRow>
 
         <TableRow
@@ -327,8 +327,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 13-1" />
+                android:textSize="20sp"
+                android:text="" />
 
             <TextView
                 android:id="@+id/statusCell132"
@@ -336,8 +336,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 13-2" />
+                android:textSize="20sp"
+                android:text="" />
         </TableRow>
 
         <TableRow
@@ -351,8 +351,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 14-1" />
+                android:textSize="20sp"
+                android:text="" />
 
             <TextView
                 android:id="@+id/statusCell142"
@@ -360,8 +360,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 14-2" />
+                android:textSize="20sp"
+                android:text="" />
         </TableRow>
 
         <TableRow
@@ -375,8 +375,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 15-1" />
+                android:textSize="20sp"
+                android:text="" />
 
             <TextView
                 android:id="@+id/statusCell152"
@@ -384,8 +384,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 15-2" />
+                android:textSize="20sp"
+                android:text="" />
         </TableRow>
 
         <TableRow
@@ -399,8 +399,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 16-1" />
+                android:textSize="20sp"
+                android:text="" />
 
             <TextView
                 android:id="@+id/statusCell162"
@@ -408,55 +408,33 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 16-2" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/statusTableRow17"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:id="@+id/statusCell171"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 17-1" />
-
-            <TextView
-                android:id="@+id/statusCell172"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center_horizontal"
-                android:textSize="18sp"
-                android:text="Cell 17-2" />
+                android:textSize="20sp"
+                android:text="" />
         </TableRow>
 
     </TableLayout>
 
     <Button
         android:id="@+id/statusNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70sp"
+        android:layout_height="50sp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="26dp"
         android:layout_marginRight="40dp"
         android:onClick="onClickNext"
-        android:text="@string/next" />
+        android:text="@string/next"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/statusQuit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70sp"
+        android:layout_height="50sp"
         android:layout_alignBaseline="@+id/statusNext"
         android:layout_alignBottom="@+id/statusNext"
         android:layout_marginLeft="40dp"
         android:onClick="onClickQuit"
-        android:text="@string/quit" />
+        android:text="@string/quit"
+        android:textSize="18sp" />
 
 </RelativeLayout>

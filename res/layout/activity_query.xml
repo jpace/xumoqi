@@ -12,13 +12,14 @@
 
     <Button
         android:id="@+id/queryNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70sp"
+        android:layout_height="50sp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="26dp"
         android:layout_marginRight="40dp"
         android:text="@string/next"
+        android:textSize="18sp"
         android:onClick="onClickNext" />
     
     <TextView
@@ -46,12 +47,13 @@
 
     <Button
         android:id="@+id/quitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70sp"
+        android:layout_height="50sp"
         android:layout_alignBaseline="@+id/queryNext"
         android:layout_alignBottom="@+id/queryNext"
         android:layout_alignLeft="@+id/queryInput"
         android:text="@string/quit"
+        android:textSize="18sp"
         android:onClick="onClickQuit" />
 
 </RelativeLayout>
