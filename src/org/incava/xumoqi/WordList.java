@@ -11,6 +11,7 @@ public class WordList {
     private final WordMapByChar byFirst;
     private final WordMapByChar byLast;
     private final Random random;
+    private final List<String> lastWords;
     
     public WordList() {
         words = new ArrayList<String>();
@@ -25,6 +26,7 @@ public class WordList {
                 }
             };
     	random = new Random();
+    	lastWords = new ArrayList<String>();
     }
 
     public WordList(InputStream is) {
@@ -84,8 +86,19 @@ public class WordList {
     }
     
 	public String getRandomWord() {
-		// TODO: this should be pseudo-random, not returning the same within X invocations.
-		int idx = random.nextInt(words.size());
-		return words.get(idx);
+		for (int i = 0; i < 100; ++i) {
+			// TODO: this won't repeat the word, but it can repeat
+			// the pattern created from the word. 
+			int idx = random.nextInt(words.size());
+			String word = words.get(idx);
+	    	Log.i("WORDLIST", "word: " + word);
+			if (!lastWords.contains(word)) {
+		    	Log.i("WORDLIST", "returning: " + word);
+		    	lastWords.add(word);
+				return word;
+			}
+		}
+    	Log.i("WORDLIST", "returning at 0: " + words.get(0));
+		return words.get(0);
 	}
 }
