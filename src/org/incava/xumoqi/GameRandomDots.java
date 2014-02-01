@@ -2,9 +2,11 @@ package org.incava.xumoqi;
 
 import java.util.Random;
 
+import android.content.res.Resources;
+
 public class GameRandomDots extends GameDottedWords {
-	public GameRandomDots(WordList wordList, int length, int nDots) {
-		super(wordList, length, nDots);
+	public GameRandomDots(Resources resources, int length, int nDots) {
+		super(Dictionary.getWordList(resources, length), length, nDots);
 	}
 	
 	@Override

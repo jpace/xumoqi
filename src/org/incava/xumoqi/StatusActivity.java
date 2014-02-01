@@ -22,9 +22,9 @@ public class StatusActivity extends Activity {
 
 	public StatusActivity() {
 		statusToFontColor = new HashMap<Matches.StatusType, String>();
-		statusToFontColor.put(Matches.StatusType.CORRECT, "00aa00");
-		statusToFontColor.put(Matches.StatusType.INVALID, "aa0000");
-		statusToFontColor.put(Matches.StatusType.MISSED,  "aaaa00");
+		statusToFontColor.put(Matches.StatusType.CORRECT, "22aa22");	// green
+		statusToFontColor.put(Matches.StatusType.INVALID, "ee4000");	// orange/red
+		statusToFontColor.put(Matches.StatusType.MISSED,  "aa2222");	// red
 	}
 
 	@Override

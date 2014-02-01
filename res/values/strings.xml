@@ -5,16 +5,16 @@
     <string name="action_settings">Settings</string>
     <string name="enter_word_length">Word Length</string>
     <string name="title_activity_query">Query</string>
-    <string name="queryText">baa</string>
+    <string name="queryText"></string>
     <string name="results_text">Results &#8230;</string>
     <string name="next">Next</string>
     <string name="game_type">Game Type</string>
     <string name="quit">Quit</string>
 
     <string-array name="game_types">
-        <item>Starting with &#8230;</item>
-        <item>Ending with &#8230;</item>
-        <item>Random &#8230;</item>
+        <item>Starting with blank</item>
+        <item>Ending with blank</item>
+        <item>Random blank</item>
         <item >2-to-make-3</item>
         <item >3-to-make-4</item>
     </string-array>

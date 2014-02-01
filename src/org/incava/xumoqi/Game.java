@@ -1,7 +1,6 @@
 package org.incava.xumoqi;
 
 import java.util.List;
-import java.util.Random;
 
 public abstract class Game {
 	private final int length;

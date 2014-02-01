@@ -2,9 +2,11 @@ package org.incava.xumoqi;
 
 import java.util.List;
 
+import android.content.res.Resources;
+
 public class GameStartsWithDots extends GameDottedWords {
-	public GameStartsWithDots(WordList wordList, int length, int nDots) {
-		super(wordList, length, nDots);
+	public GameStartsWithDots(Resources resources, int length, int nDots) {
+		super(Dictionary.getWordList(resources, length), length, nDots);
 	}
 	
 	private String getSubstring(String str) {
