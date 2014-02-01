@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.util.Log;
@@ -11,7 +12,9 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -44,13 +47,13 @@ public class QueryActivity extends Activity {
 		
 		getMatching(game);
 		
-		addSendListener();
+		setupEditText();
 		
 		TextView tv = getQueryTextView();
 		tv.setText(queryString);
 	}
 	
-	private void addSendListener() {
+	private void setupEditText() {
 		OnEditorActionListener tveal = new OnEditorActionListener() {
 			@Override
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -64,6 +67,9 @@ public class QueryActivity extends Activity {
 		};
 		EditText et = (EditText)findViewById(R.id.queryInput);
 		et.setOnEditorActionListener(tveal);
+		et.requestFocus();
+		
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 	}
 	
 	private void getMatching(final Game game) {
