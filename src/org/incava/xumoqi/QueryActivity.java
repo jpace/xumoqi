@@ -48,7 +48,8 @@ public class QueryActivity extends Activity {
 		setupEditText();
 		
 		TextView tv = getQueryTextView();
-		tv.setText(queryString);
+		String withUnderscore = queryString.replace('.', '_'); 
+		tv.setText(withUnderscore);
 	}
 	
 	private void setupEditText() {
