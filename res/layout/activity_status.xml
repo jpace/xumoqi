@@ -34,7 +34,8 @@
                 android:gravity="center_horizontal"
                 android:padding="3dp"
                 android:textSize="20sp"
-                android:text="" />
+                android:textColor="#eead0e"
+                android:text="testing" />
 
             <TextView
                 android:id="@+id/statusCell12"

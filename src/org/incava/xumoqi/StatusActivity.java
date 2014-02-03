@@ -23,7 +23,7 @@ public class StatusActivity extends Activity {
 	public StatusActivity() {
 		statusToFontColor = new HashMap<Matches.StatusType, String>();
 		statusToFontColor.put(Matches.StatusType.CORRECT, "22aa22");	// green
-		statusToFontColor.put(Matches.StatusType.INVALID, "ee4000");	// orange/red
+		statusToFontColor.put(Matches.StatusType.INVALID, "eead0e");	// orange (yellow is too light)
 		statusToFontColor.put(Matches.StatusType.MISSED,  "aa2222");	// red
 	}
 
@@ -38,8 +38,6 @@ public class StatusActivity extends Activity {
 		Matches matchStatus = getMatches();
 		Set<String> allWords = matchStatus.getAllWords();
 		
-    	// TableLayout tableLayout = (TableLayout)findViewById(R.id.statusTable);
-    	
     	int idx = 0;
     	int nwords = allWords.size();
     	int midpt = (nwords + 1) / 2;
@@ -48,7 +46,7 @@ public class StatusActivity extends Activity {
     	
     	for (String word : allWords) {
     		if (idx >= nCells) {
-    			// this makes it obvious that the table has to be scrollable
+    			// TODO: the table must be scrollable
     			break;
     		}
 			Matches.StatusType st = matchStatus.getStatus(word);

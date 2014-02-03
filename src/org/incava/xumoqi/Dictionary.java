@@ -3,7 +3,6 @@ package org.incava.xumoqi;
 import java.io.*;
 
 import android.content.res.Resources;
-import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 
@@ -20,8 +19,6 @@ import android.util.SparseIntArray;
  */
 public class Dictionary {
     public static final String TWL_SORTED = "twl-sorted-by-length.txt";
-    private static Dictionary twl = null;
-    private static int dictLength;
     private static SparseIntArray lenToRes = new SparseIntArray();
     
     static {
@@ -44,8 +41,7 @@ public class Dictionary {
     public static WordList getWordList(Resources resources, int length) {
     	int twlRes = lenToRes.get(length);
 		InputStream is = resources.openRawResource(twlRes);
-		WordList wordList = new WordList(is);
-		return wordList;
+		return new WordList(is);
     }
     
     private final static InputStream getInputStream(Resources resources, int length) {
@@ -68,8 +64,6 @@ public class Dictionary {
 
     public Dictionary(InputStream dictStream, Integer maxLength, Integer minLength) {
         this.wordListsByLength = new SparseArray<WordList>();
-        long start = System.currentTimeMillis();
-        Log.i("DICT", "start: " + start);
         
         IOReader io = new IOReader() {
         	public void onRead(String str, Integer len) {
@@ -77,10 +71,6 @@ public class Dictionary {
         	}
         };
         io.readStream(dictStream, maxLength);
-        
-        long end = System.currentTimeMillis();
-        Log.i("DICT", "end: " + start);
-        Log.i("DICT", "duration: " + (end - start));
     }
 
     private void addWord(String word, int len) {

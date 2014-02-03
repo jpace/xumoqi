@@ -19,7 +19,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         
         NumberPicker np = getNumberPicker();
-        np.setMaxValue(8);
+        // TODO: by Util.type.
+        np.setMaxValue(3);
         np.setMinValue(2);
         
         Spinner gameTypeSpinner = getGameTypeSpinner();

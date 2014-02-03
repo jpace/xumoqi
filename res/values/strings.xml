@@ -11,12 +11,18 @@
     <string name="game_type">Game Type</string>
     <string name="quit">Quit</string>
 
-    <string-array name="game_types">
+    <string-array name="pro_game_types">
         <item>Starting with blank</item>
         <item>Ending with blank</item>
         <item>Random blank</item>
         <item >2-to-make-3</item>
         <item >3-to-make-4</item>
+    </string-array>
+
+    <string-array name="game_types">
+        <item>Starting with blank</item>
+        <item>Ending with blank</item>
+        <item>Random blank</item>
     </string-array>
 
     <string name="title_activity_status">Results</string>

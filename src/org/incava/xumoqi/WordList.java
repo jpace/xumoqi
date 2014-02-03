@@ -4,8 +4,6 @@ import java.io.InputStream;
 import java.util.*;
 import java.util.regex.Pattern;
 
-import android.util.Log;
-
 public class WordList {
     private final List<String> words;
     private final WordMapByChar byFirst;
@@ -32,19 +30,12 @@ public class WordList {
     public WordList(InputStream is) {
     	this();
     	
-        long start = System.currentTimeMillis();
-        Log.i("WORDLIST", "start: " + start);
-
         IOReader iordr = new IOReader() {
         	public void onRead(String str) {
         		addWord(str);
         	}
         };
         iordr.readStream(is);
-        
-        long end = System.currentTimeMillis();
-        Log.i("WORDLIST", "end: " + start);
-        Log.i("WORDLIST", "duration: " + (end - start));
     }
 
     public void addWord(String word) {
@@ -71,8 +62,6 @@ public class WordList {
     }
     
     public List<String> getMatching(String pat) {
-    	long start = System.currentTimeMillis();
-    	Log.i("WORDLIST", "starting: " + start);
     	List<String> matching = new ArrayList<String>();
     	Pattern pattern = Pattern.compile(pat);
     	for (String word : words) {
@@ -80,8 +69,6 @@ public class WordList {
     			matching.add(word);
     		}
     	}
-    	long done = System.currentTimeMillis();
-    	Log.i("WORDLIST", "done: " + done + "; " + (done - start));
     	return matching;
     }
     
@@ -91,14 +78,11 @@ public class WordList {
 			// the pattern created from the word. 
 			int idx = random.nextInt(words.size());
 			String word = words.get(idx);
-	    	Log.i("WORDLIST", "word: " + word);
 			if (!lastWords.contains(word)) {
-		    	Log.i("WORDLIST", "returning: " + word);
 		    	lastWords.add(word);
 				return word;
 			}
 		}
-    	Log.i("WORDLIST", "returning at 0: " + words.get(0));
 		return words.get(0);
 	}
 }

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -76,7 +75,6 @@ public class QueryActivity extends Activity {
 			@Override
 			public void run() {
 				matching = new ArrayList<String>(game.getMatching(queryString));
-				Log.i("QUERY", "matching: " + matching);
 			}
 		});
 		t.start();
