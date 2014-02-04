@@ -5,8 +5,15 @@ import java.util.List;
 import android.content.res.Resources;
 
 public class GameStartsWithDots extends GameDottedWords {
+	private final WordList wordList;
+	
 	public GameStartsWithDots(Resources resources, int length, int nDots) {
-		super(Dictionary.getWordList(resources, length), length, nDots);
+		this(Dictionary.getWordList(resources, length), length, nDots);
+	}
+	
+	public GameStartsWithDots(WordList wordList, int length, int nDots) {
+		super(wordList, length, nDots);
+		this.wordList = wordList;
 	}
 	
 	private String getSubstring(String str) {
@@ -21,7 +28,6 @@ public class GameStartsWithDots extends GameDottedWords {
 
 	public List<String> getMatching(String queryString) {
 		String str = getSubstring(queryString);
-		WordList wordList = getWordList();
 		return wordList.getEndingWith(str);
 	}
 }

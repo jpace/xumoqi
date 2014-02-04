@@ -19,13 +19,12 @@
         <item >3-to-make-4</item>
     </string-array>
 
-    <string-array name="game_types">
+    <string-array name="free_game_types">
         <item>Starting with blank</item>
         <item>Ending with blank</item>
         <item>Random blank</item>
     </string-array>
 
     <string name="title_activity_status">Results</string>
-    <string name="hello_world">Hello world!</string>
 
 </resources>

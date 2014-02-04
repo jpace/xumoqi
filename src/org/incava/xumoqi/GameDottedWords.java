@@ -1,15 +1,15 @@
 package org.incava.xumoqi;
 
+import java.util.List;
+
 public abstract class GameDottedWords extends Game {
 	private final int numDots;
+	private final WordList wordList;
 	
 	public GameDottedWords(WordList wordList, int length, int nDots) {
 		super(wordList, length);
 		this.numDots = nDots;
-	}
-	
-	protected int getNumDots() {
-		return numDots;
+		this.wordList = wordList;
 	}
 	
 	public String getQueryWord() {
@@ -18,5 +18,16 @@ public abstract class GameDottedWords extends Game {
 	}
 
 	public abstract String getAsPattern(String word);
-}
 
+	public List<String> getMatching(String queryString) {
+		return wordList.getMatching(queryString);
+	}
+	
+	protected int getNumDots() {
+		return numDots;
+	}
+	
+	protected String getRandomWord() {
+		return wordList.getRandomWord();
+	}
+}

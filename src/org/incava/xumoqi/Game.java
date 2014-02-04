@@ -11,17 +11,7 @@ public abstract class Game {
 		this.length = length;
 	}
 	
-	protected WordList getWordList() {
-		return wordList;
-	}
-	
 	public abstract String getQueryWord();
 
-	protected String getRandomWord() {
-		return wordList.getRandomWord();
-	}
-
-	public List<String> getMatching(String queryString) {
-		return wordList.getMatching(queryString);
-	}
+	public abstract List<String> getMatching(String queryString);
 }
