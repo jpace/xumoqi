@@ -13,8 +13,8 @@ public class GameFactory {
 		else if (gameType.contains("Ending")) {
 			return new GameEndsWithDots(resources, length, nDots);
 		}
-		else if (gameType.contains("2-to-make-3")) {
-			return new GameTwoToThree(resources, length);
+		else if (gameType.contains("to-make")) {
+			return new GameNToNPlusOne(resources, length);
 		}
 		return null;
 	}

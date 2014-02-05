@@ -15,8 +15,9 @@
         <item>Starting with blank</item>
         <item>Ending with blank</item>
         <item>Random blank</item>
-        <item >2-to-make-3</item>
-        <item >3-to-make-4</item>
+        <item >N-to-make-N+1</item>
+        <item >Containing Q</item>
+        <item >&gt; 60% vowels</item>
     </string-array>
 
     <string-array name="free_game_types">

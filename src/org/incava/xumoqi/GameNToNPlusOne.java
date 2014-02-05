@@ -1,15 +1,14 @@
 package org.incava.xumoqi;
 
-import java.util.Arrays;
 import java.util.List;
 
 import android.content.res.Resources;
 
-public class GameTwoToThree extends Game {
+public class GameNToNPlusOne extends Game {
 	private final WordList fromWordList;
 	private final WordList toWordList;
 	
-	public GameTwoToThree(Resources resources, int length) {
+	public GameNToNPlusOne(Resources resources, int length) {
 		super(null, length);
 		this.fromWordList = Dictionary.getWordList(resources, length);
 		this.toWordList = Dictionary.getWordList(resources, length + 1);
@@ -17,6 +16,8 @@ public class GameTwoToThree extends Game {
 
 	@Override
 	public String getQueryWord() {
+		// TODO: ensure there is at least one N+1 word
+		// TODO: no plurals (other than 2-letter words?)
 		return fromWordList.getRandomWord();
 	}
 
