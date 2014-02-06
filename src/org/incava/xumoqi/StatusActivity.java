@@ -9,8 +9,11 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -38,13 +41,25 @@ public class StatusActivity extends Activity {
 		Matches matchStatus = getMatches();
 		Set<String> allWords = matchStatus.getAllWords();
 		
+		if (false) {
+			TableLayout tableLayout = getTableLayout();
+			tableLayout.removeAllViews();
+
+			for (int i = 0; i < 16; ++i) {
+				createRow();
+			}
+		}
+
     	int idx = 0;
     	int nwords = allWords.size();
     	int midpt = (nwords + 1) / 2;
     	
-    	final int nCells = 36;
+    	final int nCells = 16000;
     	
     	for (String word : allWords) {
+    		Log.i("STATUS", "word: " + word);
+    		Log.i("STATUS", "idx: " + idx);
+    		
     		if (idx >= nCells) {
     			// TODO: the table must be scrollable
     			break;
@@ -58,16 +73,61 @@ public class StatusActivity extends Activity {
     	}
 	}
 	
+	private TableLayout getTableLayout() {
+		return (TableLayout)findViewById(R.id.statusTable);
+	}
+	
+	private TableRow createRow() {
+    	TableLayout tableLayout = getTableLayout();
+		
+		TableLayout.LayoutParams rowParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+				0,
+				1.0f);
+		rowParams.setMargins(2, 2, 2, 2);
+		
+		TableRow row = new TableRow(this);
+		Log.i("STATUS", "row: " + row);
+		
+		row.requestLayout();
+		// row.setBackgroundColor(Color.parseColor("#ffefbf"));
+		tableLayout.addView(row, rowParams);
+		createCells(row);
+		return row;
+	}
+	
+	private void createCells(TableRow row) {
+		TableRow.LayoutParams cellParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+				ViewGroup.LayoutParams.WRAP_CONTENT,
+				1.0f);
+		cellParams.setMargins(1, 1, 1, 1);
+		
+		for (int i = 0; i < 2; ++i) {
+			TextView cell = new TextView(this);
+			cell.setPadding(2, 2, 2, 2);
+			cell.requestLayout();
+			cell.setGravity(Gravity.CENTER);
+			// cell.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+			row.addView(cell, cellParams);
+		}
+	}
+	
 	private void setCell(int rowNum, int cellNum, String value, String color) {
-    	TableLayout tableLayout = (TableLayout)findViewById(R.id.statusTable);
+		Log.i("STATUS", "rowNum: " + rowNum);
+		Log.i("STATUS", "cellNum: " + cellNum);
+		
+    	TableLayout tableLayout = getTableLayout();
 	    TableRow row = (TableRow)tableLayout.getChildAt(rowNum);
+		if (row == null) {
+			row = createRow();
+		}
+	    
 	    TextView cell = (TextView)row.getChildAt(cellNum);
 
     	cell.setText(value);
-    	// cell.setBackgroundColor(Color.parseColor("#334499"));
+    	// cell.setBackgroundColor(Color.parseColor("#" + color));
     	cell.setTextColor(Color.parseColor("#" + color));
 	}
-
+	
 	private Matches getMatches() {
 		Intent intent = getIntent();
 		String inputString = intent.getStringExtra(QueryActivity.INPUT_STRING);
