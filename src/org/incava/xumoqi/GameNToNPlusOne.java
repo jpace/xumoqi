@@ -22,7 +22,7 @@ public class GameNToNPlusOne extends Game {
 	}
 
 	public List<String> getMatching(String queryString) {
-		return toWordList.getStartingOrEndingWith(queryString);
-		// return toWordList.getStartingOrEndingWith("a");
+		// return toWordList.getStartingOrEndingWith(queryString);
+		return toWordList.getStartingOrEndingWith("a");
 	}
 }
