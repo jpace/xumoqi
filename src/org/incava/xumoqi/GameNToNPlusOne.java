@@ -10,8 +10,8 @@ public class GameNToNPlusOne extends Game {
 	
 	public GameNToNPlusOne(Resources resources, int length) {
 		super(null, length);
-		this.fromWordList = Dictionary.getWordList(resources, length);
-		this.toWordList = Dictionary.getWordList(resources, length + 1);
+		this.fromWordList = WordLists.getWordList(resources, length);
+		this.toWordList = WordLists.getWordList(resources, length + 1);
 	}
 
 	@Override

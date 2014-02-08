@@ -41,29 +41,11 @@ public class StatusActivity extends Activity {
 		Matches matchStatus = getMatches();
 		Set<String> allWords = matchStatus.getAllWords();
 		
-		if (false) {
-			TableLayout tableLayout = getTableLayout();
-			tableLayout.removeAllViews();
-
-			for (int i = 0; i < 16; ++i) {
-				createRow();
-			}
-		}
-
     	int idx = 0;
     	int nwords = allWords.size();
-    	int midpt = (nwords + 1) / 2;
-    	
-    	final int nCells = 16000;
+    	int midpt = (nwords + 1) / 2;	// last word in the 
     	
     	for (String word : allWords) {
-    		Log.i("STATUS", "word: " + word);
-    		Log.i("STATUS", "idx: " + idx);
-    		
-    		if (idx >= nCells) {
-    			// TODO: the table must be scrollable
-    			break;
-    		}
 			Matches.StatusType st = matchStatus.getStatus(word);
 			String color = statusToFontColor.get(st);
 			int rowNum = idx % midpt;
@@ -83,10 +65,8 @@ public class StatusActivity extends Activity {
 		TableLayout.LayoutParams rowParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
 				0,
 				1.0f);
-		rowParams.setMargins(2, 2, 2, 2);
 		
 		TableRow row = new TableRow(this);
-		Log.i("STATUS", "row: " + row);
 		
 		row.requestLayout();
 		// row.setBackgroundColor(Color.parseColor("#ffefbf"));
@@ -103,18 +83,14 @@ public class StatusActivity extends Activity {
 		
 		for (int i = 0; i < 2; ++i) {
 			TextView cell = new TextView(this);
-			cell.setPadding(2, 2, 2, 2);
 			cell.requestLayout();
 			cell.setGravity(Gravity.CENTER);
-			// cell.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+			cell.setTextSize(20);	// must match the hard-coded value in activity_status.xml
 			row.addView(cell, cellParams);
 		}
 	}
 	
 	private void setCell(int rowNum, int cellNum, String value, String color) {
-		Log.i("STATUS", "rowNum: " + rowNum);
-		Log.i("STATUS", "cellNum: " + cellNum);
-		
     	TableLayout tableLayout = getTableLayout();
 	    TableRow row = (TableRow)tableLayout.getChildAt(rowNum);
 		if (row == null) {

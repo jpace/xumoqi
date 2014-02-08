@@ -8,7 +8,7 @@ public class GameStartsWithDots extends GameDottedWords {
 	private final WordList wordList;
 	
 	public GameStartsWithDots(Resources resources, int length, int nDots) {
-		this(Dictionary.getWordList(resources, length), length, nDots);
+		this(WordLists.getWordList(resources, length), length, nDots);
 	}
 	
 	public GameStartsWithDots(WordList wordList, int length, int nDots) {

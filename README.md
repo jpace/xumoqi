@@ -5,3 +5,4 @@ An Android application for learning valid English words for games such as Scrabb
 
 This uses a Scrabble-like dictionary to query to match words with missing characters.
  
+ 

@@ -9,7 +9,7 @@ public class GameRandomDots extends GameDottedWords {
 	private final WordList wordList;
 	
 	public GameRandomDots(Resources resources, int length, int nDots) {
-		this(Dictionary.getWordList(resources, length), length, nDots);
+		this(WordLists.getWordList(resources, length), length, nDots);
 	}
 	
 	public GameRandomDots(WordList wordList, int length, int nDots) {

@@ -4,8 +4,6 @@ import java.io.InputStream;
 import java.util.*;
 import java.util.regex.Pattern;
 
-import android.util.Log;
-
 public class WordList {
     private final List<String> words;
     private final WordMapByChar byFirst;
@@ -31,8 +29,8 @@ public class WordList {
 
     public WordList(InputStream is) {
     	this();
-    	long start = System.currentTimeMillis();
-    	Log.i("WORDLIST", "start: " + start);
+    	
+    	Timer timer = new Timer("WORDLIST", "read");
     	
         IOReader iordr = new IOReader() {
         	public void onRead(String str) {
@@ -41,10 +39,8 @@ public class WordList {
         };
         iordr.readStream(is);
 
-    	long end = System.currentTimeMillis();
-    	Log.i("WORDLIST", "end: " + end);
-    	Log.i("WORDLIST", "duration: " + (end - start));
-}
+        timer.done();
+    }
 
     public void addWord(String word) {
         words.add(word);

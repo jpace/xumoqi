@@ -20,6 +20,7 @@ import android.util.SparseIntArray;
 public class Dictionary {
     public static final String TWL_SORTED = "twl-sorted-by-length.txt";
     private static SparseIntArray lenToRes = new SparseIntArray();
+    // private static final SparseArray<WordList> wordListsByLength = new SparseArray<WordList>(); 
     
     static {
     	lenToRes.put(2, R.raw.twl2);
@@ -49,7 +50,7 @@ public class Dictionary {
     }
     
     private final SparseArray<WordList> wordListsByLength;
-
+    
     public Dictionary(String dictFileName, Integer maxLength) throws Exception {
         this(new FileInputStream(dictFileName), maxLength);
     }
