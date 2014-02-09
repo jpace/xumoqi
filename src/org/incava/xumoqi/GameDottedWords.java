@@ -1,13 +1,12 @@
 package org.incava.xumoqi;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public abstract class GameDottedWords extends Game {
 	private final int numDots;
 	private final WordList wordList;
 	
 	public GameDottedWords(WordList wordList, int length, int nDots) {
-		super(wordList, length);
 		this.numDots = nDots;
 		this.wordList = wordList;
 	}
@@ -19,7 +18,7 @@ public abstract class GameDottedWords extends Game {
 
 	public abstract String getAsPattern(String word);
 
-	public List<String> getMatching(String queryString) {
+	public ArrayList<String> getMatching(String queryString) {
 		return wordList.getMatching(queryString);
 	}
 	

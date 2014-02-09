@@ -1,6 +1,6 @@
 package org.incava.xumoqi;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import android.content.res.Resources;
 
@@ -26,7 +26,7 @@ public class GameStartsWithDots extends GameDottedWords {
 		return Util.repeat(".", nDots) + getSubstring(word); 
 	}
 
-	public List<String> getMatching(String queryString) {
+	public ArrayList<String> getMatching(String queryString) {
 		String str = getSubstring(queryString);
 		return wordList.getEndingWith(str);
 	}

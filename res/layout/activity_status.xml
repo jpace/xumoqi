@@ -36,7 +36,7 @@
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
                     android:padding="3dp"
-                    android:text="testing"
+                    android:text=""
                     android:textColor="#eead0e"
                     android:textSize="20sp" />
 

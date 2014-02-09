@@ -1,6 +1,6 @@
 package org.incava.xumoqi;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import android.content.res.Resources;
 
@@ -9,8 +9,8 @@ public class GameNToNPlusOne extends Game {
 	private final WordList toWordList;
 	
 	public GameNToNPlusOne(Resources resources, int length) {
-		super(null, length);
 		this.fromWordList = WordLists.getWordList(resources, length);
+		// TODO: read this asynchronously (it gets displayed in the status activity, after the query activity
 		this.toWordList = WordLists.getWordList(resources, length + 1);
 	}
 
@@ -21,8 +21,8 @@ public class GameNToNPlusOne extends Game {
 		return fromWordList.getRandomWord();
 	}
 
-	public List<String> getMatching(String queryString) {
-		// return toWordList.getStartingOrEndingWith(queryString);
-		return toWordList.getStartingOrEndingWith("a");
+	public ArrayList<String> getMatching(String queryString) {
+		return toWordList.getStartingOrEndingWith(queryString);
+		// return toWordList.getStartingOrEndingWith("a");
 	}
 }

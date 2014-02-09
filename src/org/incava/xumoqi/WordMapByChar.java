@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class WordMapByChar {
-    private final Map<Character, List<String>> byChar;
+    private final Map<Character, ArrayList<String>> byChar;
     
     public WordMapByChar() {
-        byChar = new HashMap<Character, List<String>>();
+        byChar = new HashMap<Character, ArrayList<String>>();
     }
 
     public void addWord(Character ch, String word) {
-        List<String> currList = byChar.get(ch);
+        ArrayList<String> currList = byChar.get(ch);
         if (currList == null) {
             currList = new ArrayList<String>();
             byChar.put(ch, currList);
@@ -25,8 +25,8 @@ public abstract class WordMapByChar {
         return byChar.get(ch);
     }
 
-    public List<String> getMatches(Character ch, String str) {
-        List<String> matches = new ArrayList<String>();
+    public ArrayList<String> getMatches(Character ch, String str) {
+        ArrayList<String> matches = new ArrayList<String>();
         List<String> words = getForChar(ch);
         if (words == null) {
             return matches;

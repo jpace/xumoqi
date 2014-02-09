@@ -57,22 +57,32 @@ public class WordList {
         return words;
     }
 
-    public List<String> getStartingWith(String str) {
-        return byFirst.getMatches(str.charAt(0), str);
+    public ArrayList<String> getStartingWith(String str) {
+    	Timer timer = new Timer("WORDLIST", "getStartingWith");
+    	ArrayList<String> matching = byFirst.getMatches(str.charAt(0), str);
+    	timer.done();
+    	return matching;
     }
 
-    public List<String> getEndingWith(String str) {
-        return byLast.getMatches(str.charAt(str.length() - 1), str);
+    public ArrayList<String> getEndingWith(String str) {
+    	Timer timer = new Timer("WORDLIST", "getEndingWith");
+    	ArrayList<String> matching = byLast.getMatches(str.charAt(str.length() - 1), str);
+    	timer.done();
+    	return matching;
     }
     
-    public List<String> getMatching(String pat) {
-    	List<String> matching = new ArrayList<String>();
+    public ArrayList<String> getMatching(String pat) {
+    	Timer timer = new Timer("WORDLIST", "getMatching");
+
+    	ArrayList<String> matching = new ArrayList<String>();
     	Pattern pattern = Pattern.compile(pat);
     	for (String word : words) {
     		if (pattern.matcher(word).matches()) {
     			matching.add(word);
     		}
     	}
+    	timer.done();
+    	
     	return matching;
     }
     
@@ -90,13 +100,18 @@ public class WordList {
 		return words.get(0);
 	}
 
-    public List<String> getStartingOrEndingWith(String str) {
+    public ArrayList<String> getStartingOrEndingWith(String str) {
+    	Timer timer = new Timer("WORDLIST", "getStartingOrEndingWith");
+
     	Set<String> matching = new TreeSet<String>();
     	for (String word : words) {
     		if (word.endsWith(str) || word.startsWith(str)) {
     			matching.add(word);
     		}
     	}
+    	
+    	timer.done();
+    	
     	return new ArrayList<String>(matching);
     }
 }

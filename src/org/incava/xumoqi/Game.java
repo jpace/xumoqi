@@ -1,17 +1,9 @@
 package org.incava.xumoqi;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public abstract class Game {
-	private final int length;
-	private final WordList wordList;
-	
-	public Game(WordList wordList, int length) {
-		this.wordList = wordList;
-		this.length = length;
-	}
-	
 	public abstract String getQueryWord();
 
-	public abstract List<String> getMatching(String queryString);
+	public abstract ArrayList<String> getMatching(String queryString);
 }

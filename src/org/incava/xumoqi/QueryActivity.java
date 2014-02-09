@@ -74,7 +74,7 @@ public class QueryActivity extends Activity {
 		Thread t = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				matching = new ArrayList<String>(game.getMatching(queryString));
+				matching = game.getMatching(queryString);
 			}
 		});
 		t.start();
@@ -89,7 +89,6 @@ public class QueryActivity extends Activity {
 				Thread.sleep(100);
 			}
     		catch (InterruptedException e) {
-				e.printStackTrace();
 			}
     	}
 		intent.putStringArrayListExtra(MATCHING, matching);

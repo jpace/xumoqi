@@ -1,6 +1,6 @@
 package org.incava.xumoqi;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 
 import android.content.res.Resources;
@@ -25,7 +25,7 @@ public class GameRandomDots extends GameDottedWords {
 		return word.substring(0, dot) + "." + word.substring(dot + 1, word.length());
 	}
 
-	public List<String> getMatching(String queryString) {
+	public ArrayList<String> getMatching(String queryString) {
 		return wordList.getMatching(queryString);
 	}
 }

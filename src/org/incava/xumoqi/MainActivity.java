@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
         
         NumberPicker np = getNumberPicker();
         // TODO: by Util.type.
-        np.setMaxValue(3);
+        np.setMaxValue(8);
         np.setMinValue(2);
 
         Spinner gameTypeSpinner = getGameTypeSpinner();
