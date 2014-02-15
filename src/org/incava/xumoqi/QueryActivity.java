@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,13 +19,9 @@ import android.widget.TextView.OnEditorActionListener;
 import android.support.v4.app.NavUtils;
 
 public class QueryActivity extends Activity {
-	public final static String QUERY_STRING = "queryString";
-	public final static String INPUT_STRING = "inputString";
-	public final static String MATCHING = "matching";
-	
-	private String gameType = null;
 	private String queryString = null;
 	private ArrayList<String> matching = null;
+	private GameParams gameParams = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +29,16 @@ public class QueryActivity extends Activity {
 		setContentView(R.layout.activity_query);
 		
 		Intent intent = getIntent();
-		int length = intent.getIntExtra(MainActivity.WORD_LENGTH, 3);
-		gameType = intent.getStringExtra(MainActivity.GAME_TYPE);
+		
+		gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
+		Log.i("QUERY", "gameParams: " + gameParams);
+		int length = gameParams.getWordLength();
 		
 		// not an option, for now ...
 		int numDots = 1;
 		
 		Resources resources = getResources();
-		Game game = GameFactory.createGame(gameType, resources, length, numDots);
+		Game game = GameFactory.createGame(gameParams.getGameType(), resources, length, numDots);
 		queryString = game.getQueryWord();
 		
 		getMatching(game);
@@ -82,22 +81,24 @@ public class QueryActivity extends Activity {
 	
 	public void onClickNext(View view) {
     	Intent intent = new Intent(this, StatusActivity.class);
-    	intent.putExtra(QUERY_STRING, queryString);
+    	intent.putExtra(Constants.QUERY_STRING, queryString);
     	
     	while (matching == null) {
+    		// waiting for getMatching() to finish ...
     		try {
 				Thread.sleep(100);
 			}
     		catch (InterruptedException e) {
 			}
     	}
-		intent.putStringArrayListExtra(MATCHING, matching);
+		intent.putStringArrayListExtra(Constants.MATCHING, matching);
     	
     	EditText et = (EditText)findViewById(R.id.queryInput);
 		String inputText = et.getText().toString();
-		intent.putExtra(INPUT_STRING, inputText);
-		
-		intent.putExtra(MainActivity.GAME_TYPE, gameType);
+		intent.putExtra(Constants.INPUT_STRING, inputText);
+
+		intent.putExtra(Constants.GAME_PARAMS, gameParams);
+		Log.i("QUERY", "gameParams: " + gameParams);
 
     	startActivity(intent);
 	}

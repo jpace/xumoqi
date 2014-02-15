@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
@@ -35,7 +36,8 @@ public class StatusActivity extends Activity {
 		setContentView(R.layout.activity_status);
 		
 		Intent intent = getIntent();
-		gameParams = new GameParams(intent);
+		gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
+		Log.i("STATUS", "gameParams: " + gameParams);
 
 		Matches matchStatus = getMatches();
 		Set<String> allWords = matchStatus.getAllWords();
@@ -105,8 +107,8 @@ public class StatusActivity extends Activity {
 	
 	private Matches getMatches() {
 		Intent intent = getIntent();
-		String inputString = intent.getStringExtra(QueryActivity.INPUT_STRING);
-		ArrayList<String> matching = intent.getStringArrayListExtra(QueryActivity.MATCHING);
+		String inputString = intent.getStringExtra(Constants.INPUT_STRING);
+		ArrayList<String> matching = intent.getStringArrayListExtra(Constants.MATCHING);
 		return new Matches(matching, inputString);
 	}
 	
@@ -124,8 +126,7 @@ public class StatusActivity extends Activity {
 
 	public void onClickNext(View view) {
     	Intent intent = new Intent(this, QueryActivity.class);
-    	intent.putExtra(MainActivity.WORD_LENGTH, gameParams.getWordLength());
-    	intent.putExtra(MainActivity.GAME_TYPE, gameParams.getGameType());
+    	intent.putExtra(Constants.GAME_PARAMS, gameParams);
     	startActivity(intent);
 	}
 }

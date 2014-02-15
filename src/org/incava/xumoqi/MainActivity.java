@@ -10,17 +10,13 @@ import android.widget.NumberPicker;
 import android.widget.Spinner;
 
 public class MainActivity extends Activity {
-	public static final String WORD_LENGTH = "wordLength";
-	public static final String GAME_TYPE = "gameType";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
         NumberPicker np = getNumberPicker();
-        // TODO: by Util.type.
-        np.setMaxValue(8);
+        np.setMaxValue(Util.type ? 8 : 3);
         np.setMinValue(2);
 
         Spinner gameTypeSpinner = getGameTypeSpinner();
@@ -47,11 +43,11 @@ public class MainActivity extends Activity {
     public void onClickNext(View view) {
     	Intent intent = new Intent(this, QueryActivity.class);
     	NumberPicker np = getNumberPicker();
-        intent.putExtra(WORD_LENGTH, np.getValue());
         
         Spinner gameTypeSpinner = getGameTypeSpinner();
         String gameType = gameTypeSpinner.getSelectedItem().toString();
-        intent.putExtra(GAME_TYPE, gameType);
+        GameParams gp = new GameParams(np.getValue(), gameType);
+        intent.putExtra(Constants.GAME_PARAMS, gp);
         
     	startActivity(intent);
     }
