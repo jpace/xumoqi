@@ -73,7 +73,9 @@ public class QueryActivity extends Activity {
 		Thread t = new Thread(new Runnable() {
 			@Override
 			public void run() {
+				Timer t = new Timer("QUERY", "getMatching");
 				matching = game.getMatching(queryString);
+				t.done();
 			}
 		});
 		t.start();

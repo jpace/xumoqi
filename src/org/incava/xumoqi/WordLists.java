@@ -32,9 +32,11 @@ public class WordLists {
     }
     
     public static WordList getWordList(Resources resources, int length) {
+    	Timer t = new Timer("WORDLISTS", "getWordList");
     	WordList wordList = wordListsByLength.get(length);
     	Log.i("WORDLISTS", "wordList: " + wordList);
     	if (wordList != null) {
+    		t.done();
     		return wordList;
     	}
     	
@@ -43,6 +45,7 @@ public class WordLists {
 		wordList = new WordList(is);
 		Log.i("WORDLISTS", "wordList: " + wordList);
 		wordListsByLength.put(length, wordList);
+		t.done();
 		return wordList;
     }
 }

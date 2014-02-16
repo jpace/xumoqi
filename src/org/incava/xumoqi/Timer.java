@@ -14,7 +14,13 @@ public class Timer {
 		start = System.currentTimeMillis();
 		log("start", start);
 	}
-	
+
+	public void done(String msg) {
+		long end = System.currentTimeMillis();
+		log("end: " + msg, end);
+		log("duration: " + msg, end - start);
+	}
+
 	public void done() {
 		long end = System.currentTimeMillis();
 		log("end", end);
