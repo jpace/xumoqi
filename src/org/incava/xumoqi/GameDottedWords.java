@@ -11,9 +11,9 @@ public abstract class GameDottedWords extends Game {
 		this.wordList = wordList;
 	}
 	
-	public String getQueryWord() {
+	public Word getQueryWord() {
 		String word = getRandomWord();
-		return getAsPattern(word);
+		return new Word(getAsPattern(word));
 	}
 
 	public abstract String getAsPattern(String word);

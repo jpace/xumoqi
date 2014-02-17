@@ -19,7 +19,6 @@ import android.widget.TextView.OnEditorActionListener;
 import android.support.v4.app.NavUtils;
 
 public class QueryActivity extends Activity {
-	private String queryString = null;
 	private ArrayList<String> matching = null;
 	private GameParams gameParams = null;
 	private Word queryWord = null;
@@ -40,11 +39,9 @@ public class QueryActivity extends Activity {
 		
 		Resources resources = getResources();
 		Game game = GameFactory.createGame(gameParams.getGameType(), resources, length, numDots);
-		queryString = game.getQueryWord();
+		queryWord = game.getQueryWord();
 		
-		queryWord = new Word(queryString);
-		
-		getMatching(game);
+		fetchMatching(game, queryWord);
 		
 		setupEditText();
 		
@@ -72,12 +69,12 @@ public class QueryActivity extends Activity {
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 	}
 	
-	private void getMatching(final Game game) {
+	private void fetchMatching(final Game game, final Word queryWord) {
 		Thread t = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				Timer t = new Timer("QUERY", "getMatching");
-				matching = game.getMatching(queryString);
+				matching = game.getMatching(queryWord.asPattern());
 				t.done();
 			}
 		});
@@ -89,7 +86,7 @@ public class QueryActivity extends Activity {
     	intent.putExtra(Constants.QUERY_WORD, queryWord);
     	
     	while (matching == null) {
-    		// waiting for getMatching() to finish ...
+    		// waiting for getMatching() to finish; invoked by onCreate() ...
     		try {
 				Thread.sleep(100);
 			}

@@ -15,10 +15,10 @@ public class GameNToNPlusOne extends Game {
 	}
 
 	@Override
-	public String getQueryWord() {
+	public Word getQueryWord() {
 		// TODO: ensure there is at least one N+1 word
 		// TODO: no plurals (other than 2-letter words?)
-		return fromWordList.getRandomWord();
+		return new Word(fromWordList.getRandomWord());
 	}
 
 	public ArrayList<String> getMatching(String queryString) {
