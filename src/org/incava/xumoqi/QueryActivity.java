@@ -22,6 +22,7 @@ public class QueryActivity extends Activity {
 	private String queryString = null;
 	private ArrayList<String> matching = null;
 	private GameParams gameParams = null;
+	private Word queryWord = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +42,14 @@ public class QueryActivity extends Activity {
 		Game game = GameFactory.createGame(gameParams.getGameType(), resources, length, numDots);
 		queryString = game.getQueryWord();
 		
+		queryWord = new Word(queryString);
+		
 		getMatching(game);
 		
 		setupEditText();
 		
 		TextView tv = getQueryTextView();
-		String withUnderscore = queryString.replace('.', '_'); 
+		String withUnderscore = queryWord.asQuery();
 		tv.setText(withUnderscore);
 	}
 	
@@ -83,7 +86,7 @@ public class QueryActivity extends Activity {
 	
 	public void onClickNext(View view) {
     	Intent intent = new Intent(this, StatusActivity.class);
-    	intent.putExtra(Constants.QUERY_STRING, queryString);
+    	intent.putExtra(Constants.QUERY_WORD, queryWord);
     	
     	while (matching == null) {
     		// waiting for getMatching() to finish ...

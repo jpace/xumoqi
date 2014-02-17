@@ -21,8 +21,8 @@ public class GameRandomDots extends GameDottedWords {
 	public String getAsPattern(String word) {
 		// handles only one dot for now
 		Random rnd = new Random();
-		int dot = rnd.nextInt(word.length());
-		return word.substring(0, dot) + "." + word.substring(dot + 1, word.length());
+		int dotIdx = rnd.nextInt(word.length());
+		return word.substring(0, dotIdx) + "." + word.substring(dotIdx + 1, word.length());
 	}
 
 	public ArrayList<String> getMatching(String queryString) {

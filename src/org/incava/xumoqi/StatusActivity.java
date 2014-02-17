@@ -38,6 +38,9 @@ public class StatusActivity extends Activity {
 		Intent intent = getIntent();
 		gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
 		Log.i("STATUS", "gameParams: " + gameParams);
+		
+		Word queryWord = intent.getParcelableExtra(Constants.QUERY_WORD);
+		Log.i("STATUS", "queryWord: " + queryWord);
 
 		Matches matchStatus = getMatches();
 		Set<String> allWords = matchStatus.getAllWords();
