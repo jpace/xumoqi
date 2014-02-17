@@ -1,5 +1,7 @@
 package org.incava.xumoqi;
 
+import android.util.Log;
+
 public class Util {
 	public static final boolean type = true;
 	
@@ -9,5 +11,13 @@ public class Util {
 			sb.append(s);
 		}
 		return sb.toString();
+	}
+	
+	public static void log(String component, String msg, Object obj) {
+		Log.i(component, msg + ": " + obj);
+	}
+	
+	public static void log(String component, String msg, String str) {
+		Log.i(component, msg + ": '" + str + "'");
 	}
 }

@@ -14,14 +14,22 @@ public class Word implements Parcelable {
 		}
 	};
 
+	public static final int NO_INDEX = -1;
+	
 	private final String str;
+	private final int dotIdx;
 
-	public Word(String str) {
+	public Word(String str, int dotIdx) {
 		this.str = str;
+		this.dotIdx = dotIdx;
+	}
+	
+	public Word(String str) {
+		this(str, NO_INDEX);
 	}
 	
 	private Word(Parcel parcel) {
-		this(parcel.readString());
+		this(parcel.readString(), parcel.readInt());
 	}
 
 	@Override
@@ -32,10 +40,15 @@ public class Word implements Parcelable {
 	@Override
 	public void writeToParcel(Parcel parcel, int flags) {
 		parcel.writeString(str);
+		parcel.writeInt(dotIdx);
 	}
 
 	public String toString() {
 		return str;
+	}
+	
+	public int getDotIndex() {
+		return dotIdx;
 	}
 	
 	public boolean equals(Object obj) {
@@ -43,10 +56,19 @@ public class Word implements Parcelable {
 	}
 	
 	public String asQuery() {
-		return str.replace('.', '_');
+		return sub('_');
 	}
 	
 	public String asPattern() {
-		return str;
+		return sub('.');
 	}
-}
+	
+	private String sub(char ch) {
+		if (dotIdx == NO_INDEX) {
+			return str;
+		}
+		else {
+			return str.substring(0, dotIdx) + ch + str.substring(dotIdx + 1, str.length());
+		}
+	}
+}	

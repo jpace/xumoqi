@@ -16,18 +16,19 @@ public class GameStartsWithDots extends GameDottedWords {
 		this.wordList = wordList;
 	}
 	
+	public int getDotIndex() {
+		return 0;
+	}
+	
 	private String getSubstring(String str) {
 		int nDots = getNumDots();
 		return str.substring(nDots, str.length());
 	}
 	
-	public String getAsPattern(String word) {
-		int nDots = getNumDots();
-		return Util.repeat(".", nDots) + getSubstring(word); 
-	}
-
-	public ArrayList<String> getMatching(String queryString) {
-		String str = getSubstring(queryString);
-		return wordList.getEndingWith(str);
+	public ArrayList<String> getMatching(Word queryWord) {
+		// this is the substring after the "." at the beginning
+		String qstr = queryWord.toString();
+		String substr = qstr.substring(1, qstr.length());
+		return wordList.getEndingWith(substr);
 	}
 }

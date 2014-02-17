@@ -17,15 +17,14 @@ public class GameRandomDots extends GameDottedWords {
 		this.wordList = wordList;
 	}
 	
-	@Override
-	public String getAsPattern(String word) {
+	public int getDotIndex() {
 		// handles only one dot for now
 		Random rnd = new Random();
-		int dotIdx = rnd.nextInt(word.length());
-		return word.substring(0, dotIdx) + "." + word.substring(dotIdx + 1, word.length());
+		return rnd.nextInt(getLength());
 	}
-
-	public ArrayList<String> getMatching(String queryString) {
-		return wordList.getMatching(queryString);
+	
+	public ArrayList<String> getMatching(Word queryWord) {
+		String pat = queryWord.asPattern();
+		return wordList.getMatching(pat);
 	}
 }

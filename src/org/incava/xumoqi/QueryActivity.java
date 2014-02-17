@@ -74,7 +74,7 @@ public class QueryActivity extends Activity {
 			@Override
 			public void run() {
 				Timer t = new Timer("QUERY", "getMatching");
-				matching = game.getMatching(queryWord.asPattern());
+				matching = game.getMatching(queryWord);
 				t.done();
 			}
 		});
