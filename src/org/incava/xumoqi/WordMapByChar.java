@@ -24,7 +24,7 @@ public abstract class WordMapByChar {
     public List<String> getForChar(Character ch) {
         return byChar.get(ch);
     }
-
+    
     public ArrayList<String> getMatches(Character ch, String str) {
         ArrayList<String> matches = new ArrayList<String>();
         List<String> words = getForChar(ch);

@@ -56,7 +56,17 @@ public class WordList {
     public List<String> getWords() {
         return words;
     }
-
+    
+    public ArrayList<String> getMatchingStartsWith(Character ch, String pat) {
+    	List<String> forChar = byFirst.getForChar(ch);
+    	return getMatching(pat, forChar);
+    }
+    
+    public ArrayList<String> getMatchingEndsWith(Character ch, String pat) {
+    	List<String> forChar = byLast.getForChar(ch);
+    	return getMatching(pat, forChar);
+    }
+    
     public ArrayList<String> getStartingWith(String str) {
     	Timer timer = new Timer("WORDLIST", "getStartingWith");
     	ArrayList<String> matching = byFirst.getMatches(str.charAt(0), str);
@@ -72,13 +82,17 @@ public class WordList {
     }
     
     public ArrayList<String> getMatching(String pat) {
+    	return getMatching(pat, words);
+    }
+    
+    public ArrayList<String> getMatching(String pat, List<String> strs) {
     	Timer timer = new Timer("WORDLIST", "getMatching");
 
     	ArrayList<String> matching = new ArrayList<String>();
     	Pattern pattern = Pattern.compile(pat);
-    	for (String word : words) {
-    		if (pattern.matcher(word).matches()) {
-    			matching.add(word);
+    	for (String str : strs) {
+    		if (pattern.matcher(str).matches()) {
+    			matching.add(str);
     		}
     	}
     	timer.done();

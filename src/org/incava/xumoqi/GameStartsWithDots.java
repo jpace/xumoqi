@@ -20,11 +20,6 @@ public class GameStartsWithDots extends GameDottedWords {
 		return 0;
 	}
 	
-	private String getSubstring(String str) {
-		int nDots = getNumDots();
-		return str.substring(nDots, str.length());
-	}
-	
 	public ArrayList<String> getMatching(Word queryWord) {
 		// this is the substring after the "." at the beginning
 		String qstr = queryWord.toString();
