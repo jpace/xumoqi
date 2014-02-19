@@ -32,20 +32,18 @@ public class WordLists {
     }
     
     public static WordList getWordList(Resources resources, int length) {
-    	Timer t = new Timer("WORDLISTS", "getWordList");
+    	Timer t = new Timer("WORDLISTS", "getWordList(..., " + length + ")");
     	WordList wordList = wordListsByLength.get(length);
-    	Log.i("WORDLISTS", "wordList: " + wordList);
     	if (wordList != null) {
-    		t.done();
+    		t.done("already exists");
     		return wordList;
     	}
     	
     	int twlRes = lenToRes.get(length);
 		InputStream is = resources.openRawResource(twlRes);
 		wordList = new WordList(is);
-		Log.i("WORDLISTS", "wordList: " + wordList);
 		wordListsByLength.put(length, wordList);
-		t.done();
+		t.done("read");
 		return wordList;
     }
 }
