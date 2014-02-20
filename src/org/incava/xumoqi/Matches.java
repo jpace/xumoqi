@@ -1,11 +1,16 @@
 package org.incava.xumoqi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class Matches {
-    private final Map<String, StatusType> matchStatus;
-
     public enum StatusType { CORRECT, MISSED, INVALID };
+
+    private final Map<String, StatusType> matchStatus;
 
     public Matches(List<String> matching, String response) {
         matchStatus = new TreeMap<String, StatusType>();
@@ -32,6 +37,9 @@ public class Matches {
         }
     }
 
+    /**
+     * Returns a TreeSet (i.e., sorted) of all words.
+     */
     public Set<String> getAllWords() {
         return matchStatus.keySet();
     }

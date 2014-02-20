@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -39,24 +40,42 @@ public class StatusActivity extends Activity {
 		gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
 		Log.i("STATUS", "gameParams: " + gameParams);
 		
-		Word queryWord = intent.getParcelableExtra(Constants.QUERY_WORD);
-		Log.i("STATUS", "queryWord: " + queryWord);
+		// Word queryWord = intent.getParcelableExtra(Constants.QUERY_WORD);
+		// Log.i("STATUS", "queryWord: " + queryWord);
 
 		Matches matchStatus = getMatches();
 		Set<String> allWords = matchStatus.getAllWords();
 		
-    	int idx = 0;
-    	int nwords = allWords.size();
-    	int midpt = (nwords + 1) / 2;	// last word in the 
-    	
-    	for (String word : allWords) {
+		TreeSet<String> correct = new TreeSet<String>();
+		TreeSet<String> invalid = new TreeSet<String>();
+		TreeSet<String> missed = new TreeSet<String>();
+		
+		for (String word : allWords) {
 			Matches.StatusType st = matchStatus.getStatus(word);
-			String color = statusToFontColor.get(st);
-			int rowNum = idx % midpt;
-			int cellNum = idx < midpt ? 0 : 1;
-			setCell(rowNum, cellNum, word, color);
-	    	++idx;
-    	}
+			switch (st) {
+			case CORRECT:
+				correct.add(word);
+				break;
+			case INVALID:
+				invalid.add(word);
+				break;
+			case MISSED:
+				missed.add(word);
+				break;
+			}
+		}
+
+		setCells(correct, 0, statusToFontColor.get(Matches.StatusType.CORRECT));
+		setCells(invalid, 1, statusToFontColor.get(Matches.StatusType.INVALID));
+		setCells(missed,  2, statusToFontColor.get(Matches.StatusType.MISSED));
+	}
+
+	private void setCells(Set<String> words, int column, String color) {
+		int row = 0;
+		for (String word : words) {
+			setCell(row, column, word, color);
+			++row;
+		}
 	}
 	
 	private TableLayout getTableLayout() {

@@ -31,7 +31,8 @@
 
                 <TextView
                     android:id="@+id/statusCell11"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
@@ -42,14 +43,26 @@
 
                 <TextView
                     android:id="@+id/statusCell12"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
                     android:padding="3dp"
                     android:text=""
                     android:textSize="20sp" />
-            </TableRow>
+
+                <TextView
+                    android:id="@+id/statusCell13"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:padding="3dp"
+                    android:text=""
+                    android:textSize="20sp" />
+                </TableRow>
 
             <TableRow
                 android:id="@+id/statusTableRow2"
@@ -58,7 +71,8 @@
 
                 <TextView
                     android:id="@+id/statusCell21"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
@@ -68,14 +82,26 @@
 
                 <TextView
                     android:id="@+id/statusCell22"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
                     android:padding="3dp"
                     android:text=""
                     android:textSize="20sp" />
-            </TableRow>
+
+                <TextView
+                    android:id="@+id/statusCell23"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:padding="3dp"
+                    android:text=""
+                    android:textSize="20sp" />
+                </TableRow>
 
             <TableRow
                 android:id="@+id/statusTableRow3"
@@ -84,7 +110,8 @@
 
                 <TextView
                     android:id="@+id/statusCell31"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
@@ -93,13 +120,24 @@
 
                 <TextView
                     android:id="@+id/statusCell32"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
                     android:text=""
                     android:textSize="20sp" />
-            </TableRow>
+
+                <TextView
+                    android:id="@+id/statusCell33"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textSize="20sp" />
+                </TableRow>
 
             <TableRow
                 android:id="@+id/statusTableRow4"
@@ -108,7 +146,8 @@
 
                 <TextView
                     android:id="@+id/statusCell41"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
@@ -117,13 +156,24 @@
 
                 <TextView
                     android:id="@+id/statusCell42"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
                     android:text=""
                     android:textSize="20sp" />
-            </TableRow>
+
+                <TextView
+                    android:id="@+id/statusCell43"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textSize="20sp" />
+                </TableRow>
 
             <TableRow
                 android:id="@+id/statusTableRow5"
@@ -132,7 +182,8 @@
 
                 <TextView
                     android:id="@+id/statusCell51"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
@@ -141,13 +192,24 @@
 
                 <TextView
                     android:id="@+id/statusCell52"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
                     android:text=""
                     android:textSize="20sp" />
-            </TableRow>
+
+                <TextView
+                    android:id="@+id/statusCell53"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textSize="20sp" />
+                </TableRow>
 
             <TableRow
                 android:id="@+id/statusTableRow6"
@@ -156,7 +218,8 @@
 
                 <TextView
                     android:id="@+id/statusCell61"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
@@ -165,13 +228,24 @@
 
                 <TextView
                     android:id="@+id/statusCell62"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
                     android:text=""
                     android:textSize="20sp" />
-            </TableRow>
+
+                <TextView
+                    android:id="@+id/statusCell63"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textSize="20sp" />
+                </TableRow>
 
             <TableRow
                 android:id="@+id/statusTableRow7"
@@ -180,7 +254,8 @@
 
                 <TextView
                     android:id="@+id/statusCell71"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
@@ -189,13 +264,24 @@
 
                 <TextView
                     android:id="@+id/statusCell72"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
                     android:text=""
                     android:textSize="20sp" />
-            </TableRow>
+
+                <TextView
+                    android:id="@+id/statusCell73"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textSize="20sp" />
+                </TableRow>
 
             <TableRow
                 android:id="@+id/statusTableRow8"
@@ -204,7 +290,8 @@
 
                 <TextView
                     android:id="@+id/statusCell81"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
@@ -213,13 +300,24 @@
 
                 <TextView
                     android:id="@+id/statusCell82"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
                     android:text=""
                     android:textSize="20sp" />
-            </TableRow>
+
+                <TextView
+                    android:id="@+id/statusCell83"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textSize="20sp" />
+                </TableRow>
 
             <TableRow
                 android:id="@+id/statusTableRow9"
@@ -228,7 +326,8 @@
 
                 <TextView
                     android:id="@+id/statusCell91"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
@@ -237,13 +336,24 @@
 
                 <TextView
                     android:id="@+id/statusCell92"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
                     android:text=""
                     android:textSize="20sp" />
-            </TableRow>
+
+                <TextView
+                    android:id="@+id/statusCell93"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textSize="20sp" />
+                </TableRow>
 
             <TableRow
                 android:id="@+id/statusTableRow10"
@@ -252,7 +362,8 @@
 
                 <TextView
                     android:id="@+id/statusCell101"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
@@ -261,13 +372,24 @@
 
                 <TextView
                     android:id="@+id/statusCell102"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
                     android:text=""
                     android:textSize="20sp" />
-            </TableRow>
+
+                <TextView
+                    android:id="@+id/statusCell103"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textSize="20sp" />
+                </TableRow>
 
             <TableRow
                 android:id="@+id/statusTableRow11"
@@ -276,7 +398,8 @@
 
                 <TextView
                     android:id="@+id/statusCell111"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
@@ -285,13 +408,24 @@
 
                 <TextView
                     android:id="@+id/statusCell112"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
                     android:text=""
                     android:textSize="20sp" />
-            </TableRow>
+
+                <TextView
+                    android:id="@+id/statusCell113"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textSize="20sp" />
+                </TableRow>
 
             <TableRow
                 android:id="@+id/statusTableRow12"
@@ -300,7 +434,8 @@
 
                 <TextView
                     android:id="@+id/statusCell121"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
@@ -309,13 +444,24 @@
 
                 <TextView
                     android:id="@+id/statusCell122"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
                     android:text=""
                     android:textSize="20sp" />
-            </TableRow>
+
+                <TextView
+                    android:id="@+id/statusCell123"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textSize="20sp" />
+                </TableRow>
 
             <TableRow
                 android:id="@+id/statusTableRow13"
@@ -324,7 +470,8 @@
 
                 <TextView
                     android:id="@+id/statusCell131"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
@@ -333,13 +480,24 @@
 
                 <TextView
                     android:id="@+id/statusCell132"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
                     android:text=""
                     android:textSize="20sp" />
-            </TableRow>
+
+                <TextView
+                    android:id="@+id/statusCell133"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textSize="20sp" />
+                </TableRow>
 
             <TableRow
                 android:id="@+id/statusTableRow14"
@@ -348,7 +506,8 @@
 
                 <TextView
                     android:id="@+id/statusCell141"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
@@ -357,13 +516,24 @@
 
                 <TextView
                     android:id="@+id/statusCell142"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
                     android:text=""
                     android:textSize="20sp" />
-            </TableRow>
+
+                <TextView
+                    android:id="@+id/statusCell143"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textSize="20sp" />
+                </TableRow>
 
             <TableRow
                 android:id="@+id/statusTableRow15"
@@ -372,7 +542,8 @@
 
                 <TextView
                     android:id="@+id/statusCell151"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
@@ -381,13 +552,24 @@
 
                 <TextView
                     android:id="@+id/statusCell152"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
                     android:text=""
                     android:textSize="20sp" />
-            </TableRow>
+
+                <TextView
+                    android:id="@+id/statusCell153"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textSize="20sp" />
+                </TableRow>
 
             <TableRow
                 android:id="@+id/statusTableRow16"
@@ -396,7 +578,8 @@
 
                 <TextView
                     android:id="@+id/statusCell161"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
@@ -405,13 +588,24 @@
 
                 <TextView
                     android:id="@+id/statusCell162"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_horizontal"
                     android:text=""
                     android:textSize="20sp" />
-            </TableRow>
+
+                <TextView
+                    android:id="@+id/statusCell163"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textSize="20sp" />
+                </TableRow>
         </TableLayout>
     </ScrollView>
 
