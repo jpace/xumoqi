@@ -28,7 +28,7 @@ public class Word implements Parcelable {
 		this(str, NO_INDEX);
 	}
 	
-	private Word(Parcel parcel) {
+	protected Word(Parcel parcel) {
 		this(parcel.readString(), parcel.readInt());
 	}
 

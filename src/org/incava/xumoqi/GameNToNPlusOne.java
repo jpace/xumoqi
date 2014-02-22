@@ -20,15 +20,15 @@ public class GameNToNPlusOne extends Game {
 		// TODO: ensure there is at least one N+1 word
 		// TODO: no plurals (other than 2-letter words?)
 		Timer t = new Timer("N-N+1", "getQueryWord()");
-		Word word = null;
+		NtoNPlusOneWord word = null;
 		while (matching == null || matching.isEmpty()) {
-			word = new Word(fromWordList.getRandomWord(), -1);
+			word = new NtoNPlusOneWord(fromWordList.getRandomWord());
 			t.done("word: " + word + " from fromWordList");
 			matching = getMatching(word);
 			t.done("matching " + matching);
 		}
 
-		t.done("final word: " + word);
+		t.done("final WORD: " + word);
 		return word;
 	}
 	

@@ -46,8 +46,9 @@ public class QueryActivity extends Activity {
 		setupEditText();
 		
 		TextView tv = getQueryTextView();
-		String withUnderscore = queryWord.asQuery();
-		tv.setText(withUnderscore);
+		String asQuery = queryWord.asQuery();
+		Util.log("QUERY", "asQuery", asQuery);
+		tv.setText(asQuery);
 	}
 	
 	private void setupEditText() {
