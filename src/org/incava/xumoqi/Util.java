@@ -3,7 +3,7 @@ package org.incava.xumoqi;
 import android.util.Log;
 
 public class Util {
-	public static final boolean type = true;
+	public static final boolean type = false;
 	
 	public static String repeat(String s, int num) {
 		StringBuilder sb = new StringBuilder();

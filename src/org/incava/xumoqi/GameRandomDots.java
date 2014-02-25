@@ -24,17 +24,14 @@ public class GameRandomDots extends GameDottedWords {
 	}
 	
 	public ArrayList<String> getMatching(Word queryWord) {
-		Util.log("GRANDOM", "queryWord", queryWord);
 		int dotIdx = queryWord.getDotIndex();
-		Util.log("GRANDOM", "dotIdx", dotIdx);
 		String pat = queryWord.asPattern();
-		Util.log("GRANDOM", "pat", pat);
 		String qstr = queryWord.toString();
-		if (dotIdx != 0) {
-			return wordList.getMatchingStartsWith(qstr.charAt(0), pat);
+		if (dotIdx == 0) {
+			return wordList.getMatchingEndsWith(qstr.charAt(getLength() - 1), pat);
 		}
 		else {
-			return wordList.getMatchingEndsWith(qstr.charAt(getLength() - 1), pat);
+			return wordList.getMatchingStartsWith(qstr.charAt(0), pat);
 		}
 	}
 }

@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
         np.setMinValue(2);
 
         Spinner gameTypeSpinner = getGameTypeSpinner();
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.pro_game_types, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, Util.type ? R.array.pro_game_types : R.array.free_game_types, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         gameTypeSpinner.setAdapter(adapter);
     }

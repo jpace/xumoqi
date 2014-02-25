@@ -15,9 +15,7 @@ public abstract class GameDottedWords extends Game {
 	
 	public Word getQueryWord() {
 		String word = getRandomWord();
-		Util.log("GMDOTWD", "word", word);
 		int dotIdx = getDotIndex();
-		Util.log("GMDOTWD", "dotIdx", dotIdx);
 		return new Word(word, dotIdx);
 	}
 

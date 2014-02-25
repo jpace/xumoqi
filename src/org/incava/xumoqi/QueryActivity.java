@@ -31,7 +31,6 @@ public class QueryActivity extends Activity {
 		Intent intent = getIntent();
 		
 		gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
-		Log.i("QUERY", "gameParams: " + gameParams);
 		int length = gameParams.getWordLength();
 		
 		// not an option, for now ...
@@ -47,7 +46,6 @@ public class QueryActivity extends Activity {
 		
 		TextView tv = getQueryTextView();
 		String asQuery = queryWord.asQuery();
-		Util.log("QUERY", "asQuery", asQuery);
 		tv.setText(asQuery);
 	}
 	

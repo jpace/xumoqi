@@ -3,7 +3,6 @@ package org.incava.xumoqi;
 import java.io.InputStream;
 
 import android.content.res.Resources;
-import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 

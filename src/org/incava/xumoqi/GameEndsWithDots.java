@@ -20,15 +20,14 @@ public class GameEndsWithDots extends GameDottedWords {
 		return getLength() - 1;
 	}
 	
-	private String getSubstring(String str) {
-		int nDots = getNumDots();
-		return str.substring(0, str.length() - nDots);
+	private String getStartString(Word queryWord) {
+		// this is the substring up to the "." at the end
+		String qstr = queryWord.toString();
+		return qstr.substring(0, qstr.length() - 1);
 	}
 	
 	public ArrayList<String> getMatching(Word queryWord) {
-		// this is the substring up to the "." at the end
-		String qstr = queryWord.toString();
-		String prefix = qstr.substring(0, qstr.length() - 1);
-		return wordList.getStartingWith(prefix);
+		String starting = getStartString(queryWord);
+		return wordList.getStartingWith(starting);
 	}
 }

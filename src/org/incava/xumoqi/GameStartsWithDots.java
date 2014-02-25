@@ -20,10 +20,14 @@ public class GameStartsWithDots extends GameDottedWords {
 		return 0;
 	}
 	
-	public ArrayList<String> getMatching(Word queryWord) {
+	private String getEndString(Word queryWord) {
 		// this is the substring after the "." at the beginning
 		String qstr = queryWord.toString();
-		String substr = qstr.substring(1, qstr.length());
-		return wordList.getEndingWith(substr);
+		return qstr.substring(1, qstr.length());
+	}
+	
+	public ArrayList<String> getMatching(Word queryWord) {
+		String ending = getEndString(queryWord);
+		return wordList.getEndingWith(ending);
 	}
 }
