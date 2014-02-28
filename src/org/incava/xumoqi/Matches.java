@@ -48,4 +48,15 @@ public class Matches {
     public StatusType getStatus(String word) {
         return matchStatus.get(word);
     }
+    
+    public TreeSet<String> getForStatus(StatusType statusType) {
+    	TreeSet<String> forStatus = new TreeSet<String>();
+    	
+    	for (Map.Entry<String, StatusType> entry : matchStatus.entrySet()) {
+    		if (entry.getValue().equals(statusType)) {
+    			forStatus.add(entry.getKey());
+    		}
+    	}
+    	return forStatus;
+    }
 }

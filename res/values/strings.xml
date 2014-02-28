@@ -10,7 +10,9 @@
     <string name="next">Next</string>
     <string name="game_type">Game Type</string>
     <string name="quit">Quit</string>
-
+    <string name="restart">Restart</string>
+    <string name="start">Start</string>
+    
     <string-array name="pro_game_types">
         <item>Starting with blank</item>
         <item>Ending with blank</item>

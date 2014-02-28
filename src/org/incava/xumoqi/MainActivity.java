@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
     	return (Spinner)findViewById(R.id.gameTypeSpinner);
     }
     
-    public void onClickNext(View view) {
+    public void onClickStart(View view) {
     	Intent intent = new Intent(this, QueryActivity.class);
     	NumberPicker np = getNumberPicker();
         

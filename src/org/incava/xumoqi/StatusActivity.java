@@ -40,34 +40,16 @@ public class StatusActivity extends Activity {
 		gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
 		Log.i("STATUS", "gameParams: " + gameParams);
 		
-		// Word queryWord = intent.getParcelableExtra(Constants.QUERY_WORD);
-		// Log.i("STATUS", "queryWord: " + queryWord);
-
-		Matches matchStatus = getMatches();
-		Set<String> allWords = matchStatus.getAllWords();
+		Matches matches = getMatches();
 		
-		TreeSet<String> correct = new TreeSet<String>();
-		TreeSet<String> invalid = new TreeSet<String>();
-		TreeSet<String> missed = new TreeSet<String>();
-		
-		for (String word : allWords) {
-			Matches.StatusType st = matchStatus.getStatus(word);
-			switch (st) {
-			case CORRECT:
-				correct.add(word);
-				break;
-			case INVALID:
-				invalid.add(word);
-				break;
-			case MISSED:
-				missed.add(word);
-				break;
-			}
-		}
-
-		setCells(correct, 0, statusToFontColor.get(Matches.StatusType.CORRECT));
-		setCells(invalid, 1, statusToFontColor.get(Matches.StatusType.INVALID));
-		setCells(missed,  2, statusToFontColor.get(Matches.StatusType.MISSED));
+		setForStatus(matches, 0, Matches.StatusType.CORRECT);
+		setForStatus(matches, 1, Matches.StatusType.INVALID);
+		setForStatus(matches, 2, Matches.StatusType.MISSED);
+	}
+	
+	private void setForStatus(Matches matches, int column, Matches.StatusType statusType) {
+		TreeSet<String> forStatus = matches.getForStatus(statusType);
+		setCells(forStatus, column, statusToFontColor.get(statusType));
 	}
 
 	private void setCells(Set<String> words, int column, String color) {
@@ -141,7 +123,7 @@ public class StatusActivity extends Activity {
 		return true;
 	}
 
-	public void onClickQuit(View view) {
+	public void onClickRestart(View view) {
     	Intent intent = new Intent(this, MainActivity.class);
     	startActivity(intent);
 	}

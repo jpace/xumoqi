@@ -12,7 +12,7 @@
 
     <Button
         android:id="@+id/queryNext"
-        android:layout_width="70sp"
+        android:layout_width="90sp"
         android:layout_height="50sp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
@@ -47,14 +47,14 @@
         android:ems="10" />
 
     <Button
-        android:id="@+id/quitButton"
-        android:layout_width="70sp"
+        android:id="@+id/restartButton"
+        android:layout_width="90sp"
         android:layout_height="50sp"
         android:layout_alignBaseline="@+id/queryNext"
         android:layout_alignBottom="@+id/queryNext"
         android:layout_alignLeft="@+id/queryInput"
-        android:text="@string/quit"
+        android:text="@string/restart"
         android:textSize="18sp"
-        android:onClick="onClickQuit" />
+        android:onClick="onClickRestart" />
 
 </RelativeLayout>

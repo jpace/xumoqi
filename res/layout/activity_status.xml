@@ -611,7 +611,7 @@
 
     <Button
         android:id="@+id/statusNext"
-        android:layout_width="70sp"
+        android:layout_width="90sp"
         android:layout_height="50sp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
@@ -622,14 +622,14 @@
         android:textSize="18sp" />
 
     <Button
-        android:id="@+id/statusQuit"
-        android:layout_width="70sp"
+        android:id="@+id/statusRestart"
+        android:layout_width="90sp"
         android:layout_height="50sp"
         android:layout_alignBaseline="@+id/statusNext"
         android:layout_alignBottom="@+id/statusNext"
         android:layout_marginLeft="40dp"
-        android:onClick="onClickQuit"
-        android:text="@string/quit"
+        android:onClick="onClickRestart"
+        android:text="@string/restart"
         android:textSize="18sp" />
 
 </RelativeLayout>
