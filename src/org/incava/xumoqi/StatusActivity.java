@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TableLayout;
@@ -45,26 +44,21 @@ public class StatusActivity extends Activity {
 		setContentView(R.layout.activity_status);
 		
 		Intent intent = getIntent();
-		gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
-		Log.i("STATUS", "gameParams: " + gameParams);
 		
-		Matches matches = getMatches();
+		gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
+		Util.log("STATUS", "gameParams", gameParams);
+		
+		Word queryWord = intent.getParcelableExtra(Constants.QUERY_WORD);
+		Util.log("STATUS", "queryWord", queryWord);
+		
+		String inputString = intent.getStringExtra(Constants.INPUT_STRING);
+		ArrayList<String> matching = intent.getStringArrayListExtra(Constants.MATCHING);
+		Matches matches = new Matches(matching, inputString);
 
-    	TableLayout tableLayout = getTableLayout();
+    	TableLayout tableLayout = (TableLayout)findViewById(R.id.statusTable);
     	ResultsTable rt = new ResultsTable(this, tableLayout);
 
     	rt.set(matches);
-	}
-	
-	private TableLayout getTableLayout() {
-		return (TableLayout)findViewById(R.id.statusTable);
-	}
-	
-	private Matches getMatches() {
-		Intent intent = getIntent();
-		String inputString = intent.getStringExtra(Constants.INPUT_STRING);
-		ArrayList<String> matching = intent.getStringArrayListExtra(Constants.MATCHING);
-		return new Matches(matching, inputString);
 	}
 	
 	@Override

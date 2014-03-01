@@ -84,26 +84,37 @@ public class WordList {
         return words;
     }
     
-    public ArrayList<String> getMatchingStartsWith(Character ch, String pat) {
-    	List<String> forChar = byFirst.getForChar(ch);
+    private ArrayList<String> getMatchingForChar(WordMapByChar wordMap, Character ch, String pat) {
+    	List<String> forChar = wordMap.getForChar(ch);
     	return getMatching(pat, forChar);
+    }
+    
+    public ArrayList<String> getMatchingStartsWith(Character ch, String pat) {
+    	return getMatchingForChar(byFirst, ch, pat);
     }
     
     public ArrayList<String> getMatchingEndsWith(Character ch, String pat) {
-    	List<String> forChar = byLast.getForChar(ch);
-    	return getMatching(pat, forChar);
+    	return getMatchingForChar(byLast, ch, pat);
     }
-    
+
+    private ArrayList<String> getForIndex(WordMapByChar wordMap, String str, int idx) {
+    	Timer timer = new Timer("WORDLIST", "getForIndex");
+    	ArrayList<String> matching = wordMap.getMatches(str.charAt(idx), str);
+    	timer.done();
+    	return matching;
+    }
+
+
     public ArrayList<String> getStartingWith(String str) {
     	Timer timer = new Timer("WORDLIST", "getStartingWith");
-    	ArrayList<String> matching = byFirst.getMatches(str.charAt(0), str);
+    	ArrayList<String> matching = getForIndex(byFirst, str, 0);
     	timer.done();
     	return matching;
     }
 
     public ArrayList<String> getEndingWith(String str) {
     	Timer timer = new Timer("WORDLIST", "getEndingWith");
-    	ArrayList<String> matching = byLast.getMatches(str.charAt(str.length() - 1), str);
+    	ArrayList<String> matching = getForIndex(byLast, str, str.length() - 1);
     	timer.done();
     	return matching;
     }

@@ -49,9 +49,13 @@ public class Matches {
         all.addAll(responseList);
 
         for (String x : all) {
-            StatusType status = matching.contains(x) ? (responseList.contains(x) ? StatusType.CORRECT : StatusType.MISSED) : StatusType.INVALID;    
+            StatusType status = getStatusType(matching, responseList, x);    
             matchStatus.put(x, status);
         }
+    }
+    
+    private StatusType getStatusType(List<String> matching, List<String> responseList, String str) {
+        return matching.contains(str) ? (responseList.contains(str) ? StatusType.CORRECT : StatusType.MISSED) : StatusType.INVALID;    
     }
 
     /**

@@ -33,7 +33,6 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -126,7 +125,7 @@ public class QueryActivity extends Activity {
 		intent.putExtra(Constants.INPUT_STRING, inputText);
 
 		intent.putExtra(Constants.GAME_PARAMS, gameParams);
-		Log.i("QUERY", "gameParams: " + gameParams);
+		Util.log("QUERY", "gameParams", gameParams);
 
     	startActivity(intent);
 	}
