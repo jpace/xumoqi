@@ -47,6 +47,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 public class StatusActivity extends Activity {
+	private final static int NUM_COLUMNS = 3;
+	
 	private GameParams gameParams = null;
 	
 	private final Map<Matches.StatusType, String> statusToFontColor;
@@ -108,12 +110,12 @@ public class StatusActivity extends Activity {
 	}
 	
 	private void createCells(TableRow row) {
-		TableRow.LayoutParams cellParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+		TableRow.LayoutParams cellParams = new TableRow.LayoutParams(0,
 				ViewGroup.LayoutParams.WRAP_CONTENT,
 				1.0f);
 		cellParams.setMargins(1, 1, 1, 1);
 		
-		for (int i = 0; i < 2; ++i) {
+		for (int i = 0; i < NUM_COLUMNS; ++i) {
 			TextView cell = new TextView(this);
 			cell.requestLayout();
 			cell.setGravity(Gravity.CENTER);
