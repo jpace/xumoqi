@@ -50,6 +50,7 @@ public class StatusActivity extends Activity {
 		
 		Word queryWord = intent.getParcelableExtra(Constants.QUERY_WORD);
 		Util.log("STATUS", "queryWord", queryWord);
+		Util.log("STATUS", "queryWord.dotIndex", queryWord.getDotIndex());
 		
 		String inputString = intent.getStringExtra(Constants.INPUT_STRING);
 		ArrayList<String> matching = intent.getStringArrayListExtra(Constants.MATCHING);
