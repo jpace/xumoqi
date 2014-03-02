@@ -90,7 +90,7 @@ public class Word implements Parcelable {
 		return sub('.');
 	}
 	
-	private String sub(char ch) {
+	public String sub(char ch) {
 		if (dotIdx == NO_INDEX) {
 			return str;
 		}

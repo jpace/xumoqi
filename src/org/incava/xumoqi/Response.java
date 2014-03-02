@@ -27,38 +27,36 @@
 
 package org.incava.xumoqi;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-import org.incava.xumoqi.Matches.StatusType;
+public class Response {
+	private final List<String> strs;
 
-import android.util.Log;
-
-public class Util {
-	public static final boolean type = false;
-	
-	public static String repeat(String s, int num) {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < num; ++i) {
-			sb.append(s);
+	public Response(Word queryWord, String str) {
+		strs = str.isEmpty() ? new ArrayList<String>() : Arrays.asList(str.split("[\\s,]+"));
+		Util.log("RESPONSE", "strs", this.strs);
+		for (int idx = 0; idx < strs.size(); ++idx) {
+			String s = strs.get(idx);
+			Util.log("RESPONSE", "response[" + idx + "]", s);
+			if (s.length() < queryWord.toString().length()) {
+				String t = queryWord.sub(s.charAt(0));
+				Util.log("RESPONSE", "t", t);
+				strs.set(idx, t);
+			}
 		}
-		return sb.toString();
+	}
+
+	public boolean contains(String str) {
+		return strs.contains(str);    
 	}
 	
-	public static void log(String component, String msg, Object obj) {
-		Log.i(component, msg + ": " + obj);
+	public List<String> getAll() {
+		return strs;
 	}
 	
-	public static void log(String component, String msg, String str) {
-		Log.i(component, msg + ": '" + str + "'");
+	public String toString() {
+		return strs.toString();
 	}
-    
-    public static <K, V> void findByValue(Map<K, V> map, Set<K> matching, V value) {
-    	for (Map.Entry<K, V> entry : map.entrySet()) {
-    		if (entry.getValue().equals(value)) {
-    			matching.add(entry.getKey());
-    		}
-    	}
-    }
 }

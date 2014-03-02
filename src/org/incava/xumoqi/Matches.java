@@ -27,8 +27,6 @@
 
 package org.incava.xumoqi;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -39,23 +37,34 @@ public class Matches {
     public enum StatusType { CORRECT, MISSED, INVALID };
 
     private final Map<String, StatusType> matchStatus;
+    private final List<String> matching;
+    private final Word queryWord;
+    private final Response response;
 
-    public Matches(List<String> matching, String response) {
-        matchStatus = new TreeMap<String, StatusType>();
+    public Matches(List<String> matching, Word queryWord, String responseStr) {
+        this.matchStatus = new TreeMap<String, StatusType>();
+        this.matching = matching;
+        this.queryWord = queryWord;
+        
+        Util.log("MATCHES", "matching", this.matching);
+        Util.log("MATCHES", "queryWord", this.queryWord);
 
-        List<String> responseList = response.isEmpty() ? new ArrayList<String>() : Arrays.asList(response.split("[\\s,]+"));
+        this.response = new Response(queryWord, responseStr);
+        Util.log("MATCHES", "response", this.response);
 
         Set<String> all = new TreeSet<String>(matching);
-        all.addAll(responseList);
+        all.addAll(response.getAll());
 
         for (String x : all) {
-            StatusType status = getStatusType(matching, responseList, x);    
+        	Util.log("MATCHES", "x", x);
+            StatusType status = getStatusType(x);
+            Util.log("MATCHES", "status", status);
             matchStatus.put(x, status);
         }
     }
     
-    private StatusType getStatusType(List<String> matching, List<String> responseList, String str) {
-        return matching.contains(str) ? (responseList.contains(str) ? StatusType.CORRECT : StatusType.MISSED) : StatusType.INVALID;    
+    private StatusType getStatusType(String str) {
+        return matching.contains(str) ? (response.contains(str) ? StatusType.CORRECT : StatusType.MISSED) : StatusType.INVALID;    
     }
 
     /**
@@ -71,12 +80,7 @@ public class Matches {
     
     public TreeSet<String> getForStatus(StatusType statusType) {
     	TreeSet<String> forStatus = new TreeSet<String>();
-    	
-    	for (Map.Entry<String, StatusType> entry : matchStatus.entrySet()) {
-    		if (entry.getValue().equals(statusType)) {
-    			forStatus.add(entry.getKey());
-    		}
-    	}
+        Util.findByValue(matchStatus, forStatus, statusType);
     	return forStatus;
     }
 }
