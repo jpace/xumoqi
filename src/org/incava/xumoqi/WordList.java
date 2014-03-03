@@ -57,16 +57,12 @@ public class WordList {
     public WordList(InputStream is) {
     	this();
     	
-    	Timer timer = new Timer("WORDLIST", "read");
-    	
         IOReader iordr = new IOReader() {
         	public void onRead(String str) {
         		addWord(str);
         	}
         };
         iordr.readStream(is);
-
-        timer.done();
     }
 
     public void addWord(String word) {
@@ -98,25 +94,15 @@ public class WordList {
     }
 
     private ArrayList<String> getForIndex(WordMapByChar wordMap, String str, int idx) {
-    	Timer timer = new Timer("WORDLIST", "getForIndex");
-    	ArrayList<String> matching = wordMap.getMatches(str.charAt(idx), str);
-    	timer.done();
-    	return matching;
+    	return wordMap.getMatches(str.charAt(idx), str);
     }
 
-
     public ArrayList<String> getStartingWith(String str) {
-    	Timer timer = new Timer("WORDLIST", "getStartingWith");
-    	ArrayList<String> matching = getForIndex(byFirst, str, 0);
-    	timer.done();
-    	return matching;
+    	return getForIndex(byFirst, str, 0);
     }
 
     public ArrayList<String> getEndingWith(String str) {
-    	Timer timer = new Timer("WORDLIST", "getEndingWith");
-    	ArrayList<String> matching = getForIndex(byLast, str, str.length() - 1);
-    	timer.done();
-    	return matching;
+    	return getForIndex(byLast, str, str.length() - 1);
     }
     
     public ArrayList<String> getMatching(String pat) {
@@ -124,8 +110,6 @@ public class WordList {
     }
     
     public ArrayList<String> getMatching(String pat, List<String> strs) {
-    	Timer timer = new Timer("WORDLIST", "getMatching");
-
     	ArrayList<String> matching = new ArrayList<String>();
     	Pattern pattern = Pattern.compile(pat);
     	for (String str : strs) {
@@ -133,7 +117,6 @@ public class WordList {
     			matching.add(str);
     		}
     	}
-    	timer.done();
     	
     	return matching;
     }
@@ -153,16 +136,12 @@ public class WordList {
 	}
 
     public ArrayList<String> getStartingOrEndingWith(String str) {
-    	Timer timer = new Timer("WORDLIST", "getStartingOrEndingWith");
-
     	Set<String> matching = new TreeSet<String>();
     	for (String word : words) {
     		if (word.endsWith(str) || word.startsWith(str)) {
     			matching.add(word);
     		}
     	}
-    	
-    	timer.done();
     	
     	return new ArrayList<String>(matching);
     }

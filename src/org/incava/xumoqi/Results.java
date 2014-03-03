@@ -33,7 +33,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-public class Matches {
+public class Results {
     public enum StatusType { CORRECT, MISSED, INVALID };
 
     private final Map<String, StatusType> matchStatus;
@@ -41,24 +41,24 @@ public class Matches {
     private final Word queryWord;
     private final Response response;
 
-    public Matches(List<String> matching, Word queryWord, String responseStr) {
+    public Results(List<String> matching, Word queryWord, String responseStr) {
         this.matchStatus = new TreeMap<String, StatusType>();
         this.matching = matching;
         this.queryWord = queryWord;
         
-        Util.log("MATCHES", "matching", this.matching);
-        Util.log("MATCHES", "queryWord", this.queryWord);
+        Util.log("RESULTS", "matching", this.matching);
+        Util.log("RESULTS", "queryWord", this.queryWord);
 
         this.response = new Response(queryWord, responseStr);
-        Util.log("MATCHES", "response", this.response);
+        Util.log("RESULTS", "response", this.response);
 
         Set<String> all = new TreeSet<String>(matching);
         all.addAll(response.getAll());
 
         for (String x : all) {
-        	Util.log("MATCHES", "x", x);
+        	Util.log("RESULTS", "x", x);
             StatusType status = getStatusType(x);
-            Util.log("MATCHES", "status", status);
+            Util.log("RESULTS", "status", status);
             matchStatus.put(x, status);
         }
     }

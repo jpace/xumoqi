@@ -18,25 +18,25 @@ public class ResultsTable {
 
 	private final Activity activity;
 	private final TableLayout tableLayout;
-	private final Map<Matches.StatusType, String> statusToFontColor;
+	private final Map<Results.StatusType, String> statusToFontColor;
 
 	public ResultsTable(Activity activity, TableLayout tableLayout) {
 		this.tableLayout = tableLayout;
 		this.activity = activity;
 
-		this.statusToFontColor = new HashMap<Matches.StatusType, String>();
-		this.statusToFontColor.put(Matches.StatusType.CORRECT, "22aa22");	// green
-		this.statusToFontColor.put(Matches.StatusType.INVALID, "eead0e");	// orange (yellow is too light)
-		this.statusToFontColor.put(Matches.StatusType.MISSED,  "aa2222");	// red
+		this.statusToFontColor = new HashMap<Results.StatusType, String>();
+		this.statusToFontColor.put(Results.StatusType.CORRECT, "22aa22");	// green
+		this.statusToFontColor.put(Results.StatusType.INVALID, "eead0e");	// orange (yellow is too light)
+		this.statusToFontColor.put(Results.StatusType.MISSED,  "aa2222");	// red
 	}
 
-	public void set(Matches matches) {
-		setForStatus(matches, 0, Matches.StatusType.CORRECT);
-		setForStatus(matches, 1, Matches.StatusType.INVALID);
-		setForStatus(matches, 2, Matches.StatusType.MISSED);
+	public void set(Results matches) {
+		setForStatus(matches, 0, Results.StatusType.CORRECT);
+		setForStatus(matches, 1, Results.StatusType.INVALID);
+		setForStatus(matches, 2, Results.StatusType.MISSED);
 	}
 	
-	public void setForStatus(Matches matches, int column, Matches.StatusType statusType) {
+	public void setForStatus(Results matches, int column, Results.StatusType statusType) {
 		TreeSet<String> forStatus = matches.getForStatus(statusType);
 		setCells(forStatus, column, statusToFontColor.get(statusType));
 	}

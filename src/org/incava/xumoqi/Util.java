@@ -29,14 +29,10 @@ package org.incava.xumoqi;
 
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
-
-import org.incava.xumoqi.Matches.StatusType;
-
 import android.util.Log;
 
 public class Util {
-	public static final boolean type = false;
+	public static final boolean type = true;
 	
 	public static String repeat(String s, int num) {
 		StringBuilder sb = new StringBuilder();

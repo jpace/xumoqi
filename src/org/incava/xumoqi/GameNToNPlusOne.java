@@ -35,10 +35,12 @@ public class GameNToNPlusOne extends Game {
 	private final WordList fromWordList;
 	private final WordList toWordList;
 	private ArrayList<String> matching = null;
+	private final int length;
 	
 	public GameNToNPlusOne(Resources resources, int length) {
 		this.fromWordList = WordLists.getWordList(resources, length);
 		this.toWordList = WordLists.getWordList(resources, length + 1);
+		this.length = length;
 	}
 
 	@Override
@@ -51,6 +53,10 @@ public class GameNToNPlusOne extends Game {
 			t.done("word: " + word + " from fromWordList");
 			matching = getMatching(word);
 			t.done("matching " + matching);
+			if (matching.size() == 1 && matching.get(0).equals(word.toString() + 's')) {
+				matching = null;
+				t.done("matching " + matching);
+			}
 		}
 
 		t.done("final WORD: " + word);

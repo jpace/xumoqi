@@ -54,7 +54,7 @@ public class StatusActivity extends Activity {
 		
 		String inputString = intent.getStringExtra(Constants.INPUT_STRING);
 		ArrayList<String> matching = intent.getStringArrayListExtra(Constants.MATCHING);
-		Matches matches = new Matches(matching, queryWord, inputString);
+		Results matches = new Results(matching, queryWord, inputString);
 
     	TableLayout tableLayout = (TableLayout)findViewById(R.id.statusTable);
     	ResultsTable rt = new ResultsTable(this, tableLayout);
