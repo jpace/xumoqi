@@ -25,11 +25,13 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi;
+package org.incava.xumoqi.words;
 
 import java.io.InputStream;
 import java.util.*;
 import java.util.regex.Pattern;
+
+import org.incava.xumoqi.io.IOReader;
 
 public class WordList {
     private final List<String> words;

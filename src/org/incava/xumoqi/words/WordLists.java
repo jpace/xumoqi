@@ -25,9 +25,13 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi;
+package org.incava.xumoqi.words;
 
 import java.io.InputStream;
+
+import org.incava.xumoqi.R;
+import org.incava.xumoqi.Timer;
+import org.incava.xumoqi.R.raw;
 
 import android.content.res.Resources;
 import android.util.SparseArray;

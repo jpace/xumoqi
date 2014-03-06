@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.incava.xumoqi.words.Word;
+
 public class Response {
 	private final List<String> strs;
 

@@ -30,6 +30,10 @@ package org.incava.xumoqi;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.incava.xumoqi.words.Word;
+import org.incava.xumoqi.words.WordList;
+import org.incava.xumoqi.words.WordLists;
+
 import android.content.res.Resources;
 
 public class GameRandomDots extends GameDottedWords {

@@ -29,6 +29,8 @@ package org.incava.xumoqi;
 
 import java.util.ArrayList;
 
+import org.incava.xumoqi.words.Word;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;

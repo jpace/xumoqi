@@ -29,6 +29,8 @@ package org.incava.xumoqi;
 
 import java.util.ArrayList;
 
+import org.incava.xumoqi.words.Word;
+
 public abstract class Game {
 	public abstract Word getQueryWord();
 

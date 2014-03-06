@@ -25,48 +25,34 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi;
+package org.incava.xumoqi.words;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
-public class IOReader {
-	public void readStream(InputStream is, Integer maxLength) {
-		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			String line = null;
-			while ((line = br.readLine()) != null) {
-				int len = line.length();
-				if (maxLength != null && len > maxLength) {
-					break;
-				}
-				else {
-					onRead(line, len);
-				}
-			}
-        }
-		catch (Exception ex) {
-			throw new RuntimeException(ex);
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class NtoNPlusOneWord extends Word {
+	public static final Parcelable.Creator<NtoNPlusOneWord> CREATOR = new Parcelable.Creator<NtoNPlusOneWord>() {
+		public NtoNPlusOneWord createFromParcel(Parcel parcel) {
+			return new NtoNPlusOneWord(parcel);
 		}
-	}
-	
-	public void readStream(InputStream is) {
-		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			String line = null;
-			while ((line = br.readLine()) != null) {
-				onRead(line);
-			}
-        }
-		catch (Exception ex) {
-			throw new RuntimeException(ex);
+		
+		public NtoNPlusOneWord[] newArray(int size) {
+			return new NtoNPlusOneWord[size];
 		}
+	};
+	
+	public NtoNPlusOneWord(String str) {
+		super(str, -1);
 	}
 	
-	public void onRead(String str, Integer len) {
+	private NtoNPlusOneWord(Parcel parcel) {
+		super(parcel);
 	}
-	
-	public void onRead(String str) {
+
+	@Override
+	public String asQuery() {
+		String str = toString();
+		return "_" + str + ", " + str + "_";  
 	}
 }

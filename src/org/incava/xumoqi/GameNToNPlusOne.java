@@ -29,18 +29,21 @@ package org.incava.xumoqi;
 
 import java.util.ArrayList;
 
+import org.incava.xumoqi.words.NtoNPlusOneWord;
+import org.incava.xumoqi.words.Word;
+import org.incava.xumoqi.words.WordList;
+import org.incava.xumoqi.words.WordLists;
+
 import android.content.res.Resources;
 
 public class GameNToNPlusOne extends Game {
 	private final WordList fromWordList;
 	private final WordList toWordList;
 	private ArrayList<String> matching = null;
-	private final int length;
 	
 	public GameNToNPlusOne(Resources resources, int length) {
 		this.fromWordList = WordLists.getWordList(resources, length);
 		this.toWordList = WordLists.getWordList(resources, length + 1);
-		this.length = length;
 	}
 
 	@Override

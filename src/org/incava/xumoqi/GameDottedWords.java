@@ -27,6 +27,9 @@
 
 package org.incava.xumoqi;
 
+import org.incava.xumoqi.words.Word;
+import org.incava.xumoqi.words.WordList;
+
 public abstract class GameDottedWords extends Game {
 	private final int numDots;
 	private final WordList wordList;

@@ -29,6 +29,10 @@ package org.incava.xumoqi;
 
 import java.util.ArrayList;
 
+import org.incava.xumoqi.words.Word;
+import org.incava.xumoqi.words.WordList;
+import org.incava.xumoqi.words.WordLists;
+
 import android.content.res.Resources;
 
 public class GameStartsWithDots extends GameDottedWords {
