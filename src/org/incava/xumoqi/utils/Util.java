@@ -25,40 +25,36 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi;
+package org.incava.xumoqi.utils;
 
-import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
+import android.util.Log;
 
-import org.incava.xumoqi.words.Word;
-import org.incava.xumoqi.words.WordList;
-import org.incava.xumoqi.words.WordLists;
-
-import android.content.res.Resources;
-
-public class GameStartsWithDots extends GameDottedWords {
-	private final WordList wordList;
+public class Util {
+	public static final boolean type = true;
 	
-	public GameStartsWithDots(Resources resources, int length, int nDots) {
-		this(WordLists.getWordList(resources, length), length, nDots);
+	public static String repeat(String s, int num) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < num; ++i) {
+			sb.append(s);
+		}
+		return sb.toString();
 	}
 	
-	public GameStartsWithDots(WordList wordList, int length, int nDots) {
-		super(wordList, length, nDots);
-		this.wordList = wordList;
+	public static void log(String component, String msg, Object obj) {
+		Log.i(component, msg + ": " + obj);
 	}
 	
-	public int getDotIndex() {
-		return 0;
+	public static void log(String component, String msg, String str) {
+		Log.i(component, msg + ": '" + str + "'");
 	}
-	
-	private String getEndString(Word queryWord) {
-		// this is the substring after the "." at the beginning
-		String qstr = queryWord.toString();
-		return qstr.substring(1, qstr.length());
-	}
-	
-	public ArrayList<String> getMatching(Word queryWord) {
-		String ending = getEndString(queryWord);
-		return wordList.getEndingWith(ending);
-	}
+    
+    public static <K, V> void findByValue(Map<K, V> map, Set<K> matching, V value) {
+    	for (Map.Entry<K, V> entry : map.entrySet()) {
+    		if (entry.getValue().equals(value)) {
+    			matching.add(entry.getKey());
+    		}
+    	}
+    }
 }

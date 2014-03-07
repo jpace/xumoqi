@@ -27,6 +27,10 @@
 
 package org.incava.xumoqi;
 
+import org.incava.xumoqi.games.GameParams;
+import org.incava.xumoqi.utils.Constants;
+import org.incava.xumoqi.utils.Util;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;

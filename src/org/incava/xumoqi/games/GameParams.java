@@ -25,39 +25,54 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi;
+package org.incava.xumoqi.games;
 
-import org.incava.xumoqi.words.Word;
-import org.incava.xumoqi.words.WordList;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public abstract class GameDottedWords extends Game {
-	private final int numDots;
-	private final WordList wordList;
-	private final int length;
+public class GameParams implements Parcelable {
+	public static final Parcelable.Creator<GameParams> CREATOR = new Parcelable.Creator<GameParams>() {
+		public GameParams createFromParcel(Parcel parcel) {
+			return new GameParams(parcel);
+		}
+		
+		public GameParams[] newArray(int size) {
+			return new GameParams[size];
+		}
+	};
 	
-	public GameDottedWords(WordList wordList, int length, int nDots) {
-		this.wordList = wordList;
-		this.length = length;
-		this.numDots = nDots;
-	}
+	private final int wordLength;
+	private final String gameType;
 	
-	public abstract int getDotIndex();
-	
-	public Word getQueryWord() {
-		String word = getRandomWord();
-		int dotIdx = getDotIndex();
-		return new Word(word, dotIdx);
+	public GameParams(int wordLength, String gameType) {
+		this.wordLength = wordLength;
+		this.gameType = gameType;
 	}
 
-	protected int getNumDots() {
-		return numDots;
+	private GameParams(Parcel parcel) {
+		this(parcel.readInt(), parcel.readString());
+	}
+
+	public int getWordLength() {
+		return wordLength;
+	}
+
+	public String getGameType() {
+		return gameType;
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
 	}
 	
-	protected String getRandomWord() {
-		return wordList.getRandomWord();
+	@Override
+	public void writeToParcel(Parcel parcel, int flags) {
+		parcel.writeInt(wordLength);
+		parcel.writeString(gameType);
 	}
 	
-	protected int getLength() {
-		return length;
+	public String toString() {
+		return "wordLength: " + wordLength + "; gameType: " + gameType;
 	}
 }

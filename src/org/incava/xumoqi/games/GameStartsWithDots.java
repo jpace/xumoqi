@@ -25,37 +25,40 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi;
+package org.incava.xumoqi.games;
 
-import android.util.Log;
+import java.util.ArrayList;
 
-public class Timer {
-	private final String component;
-	private final String activity;
-	private final long start;
+import org.incava.xumoqi.words.Word;
+import org.incava.xumoqi.words.WordList;
+import org.incava.xumoqi.words.WordLists;
 
-	public Timer(String component, String activity) {
-		this.component = component;
-		this.activity = activity;
-		start = System.currentTimeMillis();
-		log("start");
-	}
+import android.content.res.Resources;
 
-	public void done(String msg) {
-		long end = System.currentTimeMillis();
-		log("duration: " + msg, end - start);
-	}
-
-	public void done() {
-		long end = System.currentTimeMillis();
-		log("duration", end - start);
+public class GameStartsWithDots extends GameDottedWords {
+	private final WordList wordList;
+	
+	public GameStartsWithDots(Resources resources, int length, int nDots) {
+		this(WordLists.getWordList(resources, length), length, nDots);
 	}
 	
-	private void log(String what, long time) {
-		Log.i(component, activity + ": " + what + ": " + time);
+	public GameStartsWithDots(WordList wordList, int length, int nDots) {
+		super(wordList, length, nDots);
+		this.wordList = wordList;
 	}
 	
-	private void log(String what) {
-		Log.i(component, activity + ": " + what);
+	public int getDotIndex() {
+		return 0;
+	}
+	
+	private String getEndString(Word queryWord) {
+		// this is the substring after the "." at the beginning
+		String qstr = queryWord.toString();
+		return qstr.substring(1, qstr.length());
+	}
+	
+	public ArrayList<String> getMatching(Word queryWord) {
+		String ending = getEndString(queryWord);
+		return wordList.getEndingWith(ending);
 	}
 }

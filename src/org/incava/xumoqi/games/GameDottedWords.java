@@ -25,24 +25,39 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi;
+package org.incava.xumoqi.games;
 
-import android.content.res.Resources;
+import org.incava.xumoqi.words.Word;
+import org.incava.xumoqi.words.WordList;
 
-public class GameFactory {
-	public static Game createGame(String gameType, Resources resources, int length, int nDots) {
-		if (gameType.contains("Starting")) {
-			return new GameStartsWithDots(resources, length, nDots);
-		}
-		else if (gameType.contains("Random")) {
-			return new GameRandomDots(resources, length, nDots);
-		}
-		else if (gameType.contains("Ending")) {
-			return new GameEndsWithDots(resources, length, nDots);
-		}
-		else if (gameType.contains("to-make")) {
-			return new GameNToNPlusOne(resources, length);
-		}
-		return null;
+public abstract class GameDottedWords extends Game {
+	private final int numDots;
+	private final WordList wordList;
+	private final int length;
+	
+	public GameDottedWords(WordList wordList, int length, int nDots) {
+		this.wordList = wordList;
+		this.length = length;
+		this.numDots = nDots;
+	}
+	
+	public abstract int getDotIndex();
+	
+	public Word getQueryWord() {
+		String word = getRandomWord();
+		int dotIdx = getDotIndex();
+		return new Word(word, dotIdx);
+	}
+
+	protected int getNumDots() {
+		return numDots;
+	}
+	
+	protected String getRandomWord() {
+		return wordList.getRandomWord();
+	}
+	
+	protected int getLength() {
+		return length;
 	}
 }
