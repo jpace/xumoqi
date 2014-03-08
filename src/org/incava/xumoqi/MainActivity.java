@@ -82,4 +82,9 @@ public class MainActivity extends Activity {
         
     	startActivity(intent);
     }
+    
+    public void onClickHelp(View view) {
+    	Intent intent = new Intent(this, HelpActivity.class);
+    	startActivity(intent);
+    }
 }

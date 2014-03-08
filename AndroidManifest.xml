@@ -38,6 +38,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.incava.xumoqi.MainActivity" />
         </activity>
+        <activity
+            android:name="org.incava.xumoqi.HelpActivity"
+            android:label="@string/title_activity_help" >
+        </activity>
     </application>
 
 </manifest>

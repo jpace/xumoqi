@@ -12,16 +12,15 @@
     <string name="quit">Quit</string>
     <string name="restart">Restart</string>
     <string name="start">Start</string>
-    
+
     <string-array name="pro_game_types">
         <item>Starting with blank</item>
         <item>Ending with blank</item>
         <item>Random blank</item>
-        <item >N-to-make-N+1</item>
-        <item >Containing Q</item>
-        <item >&gt; 60% vowels</item>
+        <item>N-to-make-N+1</item>
+        <item>Containing Q</item>
+        <item>&gt; 60% vowels</item>
     </string-array>
-
     <string-array name="free_game_types">
         <item>Starting with blank</item>
         <item>Ending with blank</item>
@@ -29,5 +28,29 @@
     </string-array>
 
     <string name="title_activity_status">Results</string>
-
+    <string name="title_activity_help">Help</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="help">Help</string>
+    <string name="help_content">XuMoQi is an Android application to help learn words for games.\n
+\n
+Game types are:\n
+<ul>
+    <li>Starting with blank(s): this displays words with a leading missing letter, represented as a blank.</li>\n
+    <li>Ending with blank(s): this displays words with a trailing missing letter.</li>\n
+    <li>Random blank(s): this displays words with a random letter missing.</li>\n
+</ul>
+\n
+For each game type, the user enters either the entire word, or only the missing letters.
+Letters and words can be separated by commas and/or spaces.\n
+\n
+This version of XuMoQi uses the Scrabble Tournament Word List (TWL), the dictionary used in Canada,
+Thailand, and the United States.\n
+\n
+Copyright (&#169;) by Jeff Pace, 2014.\n
+Released under the GNU General Public License, version 2.\n
+Project website: http://www.github.com/jpace/xumoqi\n"
+</string>
+    
+    <string name="done">Done</string>
+    
 </resources>
