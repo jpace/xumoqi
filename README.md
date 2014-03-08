@@ -8,9 +8,12 @@ characters.
  
 Game types are:
 
-    * Starting with blank(s): this displays words with a leading missing letter, represented as a blank.</li>\n
-    * Ending with blank(s): this displays words with a trailing missing letter.</li>\n
-    * Random blank(s): this displays words with a random letter missing.</li>\n
+ * Starting with blank(s): this displays words with a leading missing letter,
+   represented as a blank.
+
+ * Ending with blank(s): this displays words with a trailing missing letter.
+
+ * Random blank(s): this displays words with a random letter missing.
 
 For each game type, the user enters either the entire word, or only the missing letters.
 Letters and words can be separated by commas and/or spaces.
@@ -19,5 +22,7 @@ This version of XuMoQi uses the Scrabble Tournament Word List (TWL), the diction
 Thailand, and the United States.
 
 Copyright (c) by Jeff Pace, 2014.
+
 Released under the GNU General Public License, version 2.
+
 Website: http://www.xumoqi.com
