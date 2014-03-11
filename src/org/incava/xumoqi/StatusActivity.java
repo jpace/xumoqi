@@ -30,6 +30,7 @@ package org.incava.xumoqi;
 import java.util.ArrayList;
 
 import org.incava.xumoqi.games.GameParams;
+import org.incava.xumoqi.games.Results;
 import org.incava.xumoqi.utils.Constants;
 import org.incava.xumoqi.utils.Util;
 import org.incava.xumoqi.words.Word;

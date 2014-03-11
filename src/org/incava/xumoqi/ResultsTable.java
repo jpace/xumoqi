@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.incava.xumoqi.games.Results;
+
 import android.app.Activity;
 import android.graphics.Color;
 import android.view.Gravity;
