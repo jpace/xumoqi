@@ -31,14 +31,14 @@ import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
 public abstract class GameDottedWords extends Game {
-	private final int numDots;
 	private final WordList wordList;
 	private final int length;
+	private final Blanks blanks;
 	
 	public GameDottedWords(WordList wordList, int length, int nDots) {
 		this.wordList = wordList;
 		this.length = length;
-		this.numDots = nDots;
+		this.blanks = new Blanks(nDots);
 	}
 	
 	public abstract int getDotIndex();
@@ -50,7 +50,7 @@ public abstract class GameDottedWords extends Game {
 	}
 
 	protected int getNumDots() {
-		return numDots;
+		return blanks.getNumber();
 	}
 	
 	protected String getRandomWord() {
