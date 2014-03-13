@@ -35,13 +35,15 @@ public abstract class GameDottedWords extends Game {
 	private final int length;
 	private final Blanks blanks;
 	
-	public GameDottedWords(WordList wordList, int length, int nDots) {
+	public GameDottedWords(WordList wordList, int length, int nDots, int index) {
 		this.wordList = wordList;
 		this.length = length;
-		this.blanks = new Blanks(nDots);
+		this.blanks = new Blanks(nDots, index);
 	}
 	
-	public abstract int getDotIndex();
+	public int getDotIndex() {
+		return blanks.getIndex();
+	}
 	
 	public Word getQueryWord() {
 		String word = getRandomWord();
@@ -50,7 +52,7 @@ public abstract class GameDottedWords extends Game {
 	}
 
 	protected int getNumDots() {
-		return blanks.getNumber();
+		return blanks.getTotal();
 	}
 	
 	protected String getRandomWord() {

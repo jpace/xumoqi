@@ -43,12 +43,8 @@ public class GameEndsWithDots extends GameDottedWords {
 	}
 	
 	public GameEndsWithDots(WordList wordList, int length, int nDots) {
-		super(wordList, length, nDots);
+		super(wordList, length, nDots, length - 1);
 		this.wordList = wordList;
-	}
-	
-	public int getDotIndex() {
-		return getLength() - 1;
 	}
 	
 	private String getStartString(Word queryWord) {

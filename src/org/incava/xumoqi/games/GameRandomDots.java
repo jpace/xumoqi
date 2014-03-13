@@ -37,6 +37,12 @@ import org.incava.xumoqi.words.WordLists;
 import android.content.res.Resources;
 
 public class GameRandomDots extends GameDottedWords {
+	private static int getRandomIndex(int length) {
+		// handles only one dot for now
+		Random rnd = new Random();
+		return rnd.nextInt(length);
+	}
+	
 	private final WordList wordList;
 	
 	public GameRandomDots(Resources resources, int length, int nDots) {
@@ -44,18 +50,12 @@ public class GameRandomDots extends GameDottedWords {
 	}
 	
 	public GameRandomDots(WordList wordList, int length, int nDots) {
-		super(wordList, length, nDots);
+		super(wordList, length, nDots, getRandomIndex(length));
 		this.wordList = wordList;
 	}
 	
-	public int getDotIndex() {
-		// handles only one dot for now
-		Random rnd = new Random();
-		return rnd.nextInt(getLength());
-	}
-	
 	public ArrayList<String> getMatching(Word queryWord) {
-		int dotIdx = queryWord.getDotIndex();
+		int dotIdx = getDotIndex();
 		String pat = queryWord.asPattern();
 		String qstr = queryWord.toString();
 		if (dotIdx == 0) {
