@@ -41,6 +41,10 @@ public class Timer {
 		log("start");
 	}
 
+	public Timer() {
+		this(null, null);
+	}
+
 	public void done(String msg) {
 		long end = System.currentTimeMillis();
 		log("duration: " + msg, end - start);
@@ -49,6 +53,10 @@ public class Timer {
 	public void done() {
 		long end = System.currentTimeMillis();
 		log("duration", end - start);
+	}
+	
+	public long getDuration() {
+		return System.currentTimeMillis() - start;
 	}
 	
 	private void log(String what, long time) {

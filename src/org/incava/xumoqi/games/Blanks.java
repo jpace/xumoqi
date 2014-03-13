@@ -1,19 +1,19 @@
 package org.incava.xumoqi.games;
 
 public class Blanks {
-	private final int total;
-	private final int index;
+	private final Integer total;
+	private final Integer index;
 
-	public Blanks(int total, int index) {
+	public Blanks(Integer total, Integer index) {
 		this.total = total;
 		this.index = index;
 	}
 	
-	public int getTotal() {
+	public Integer getTotal() {
 		return total;
 	}
 	
-	public int getIndex() {
+	public Integer getIndex() {
 		return index;
 	}
 }

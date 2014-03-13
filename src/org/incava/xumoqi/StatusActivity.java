@@ -59,6 +59,9 @@ public class StatusActivity extends Activity {
 		Util.log("STATUS", "queryWord", queryWord);
 		Util.log("STATUS", "queryWord.dotIndex", queryWord.getDotIndex());
 		
+		String duration = intent.getStringExtra(Constants.DURATION);
+		Util.log("STATUS", "duration", duration);
+		
 		String inputString = intent.getStringExtra(Constants.INPUT_STRING);
 		ArrayList<String> matching = intent.getStringArrayListExtra(Constants.MATCHING);
 		Results matches = new Results(matching, queryWord, inputString);

@@ -32,4 +32,5 @@ public class Constants {
 	public final static String MATCHING = "matching";
 	public final static String GAME_PARAMS = "GameParams";
 	public final static String QUERY_WORD = "QueryWord";
+	public final static String DURATION = "Duration";
 }

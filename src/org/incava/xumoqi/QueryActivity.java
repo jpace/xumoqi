@@ -56,6 +56,7 @@ public class QueryActivity extends Activity {
 	private ArrayList<String> matching = null;
 	private GameParams gameParams = null;
 	private Word queryWord = null;
+	private Timer timer = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +82,8 @@ public class QueryActivity extends Activity {
 		TextView tv = getQueryTextView();
 		String asQuery = queryWord.asQuery();
 		tv.setText(asQuery);
+		
+		timer = new Timer();
 	}
 	
 	private void setupEditText() {
@@ -115,8 +118,11 @@ public class QueryActivity extends Activity {
 	}
 	
 	public void onClickNext(View view) {
+		long duration = timer.getDuration();
+		
     	Intent intent = new Intent(this, StatusActivity.class);
     	intent.putExtra(Constants.QUERY_WORD, queryWord);
+    	intent.putExtra(Constants.DURATION, String.valueOf(duration));
     	
     	while (matching == null) {
     		// waiting for getMatching() to finish; invoked by onCreate() ...
