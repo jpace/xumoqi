@@ -38,7 +38,7 @@ public class Response {
 	private final List<String> strs;
 
 	public Response(Word queryWord, String str) {
-		strs = str.isEmpty() ? new ArrayList<String>() : Arrays.asList(str.split("[\\s,]+"));
+		strs = str.isEmpty() ? new ArrayList<String>() : Arrays.asList(str.trim().split("[\\s,]+"));
 		Util.log("RESPONSE", "strs", this.strs);
 		for (int idx = 0; idx < strs.size(); ++idx) {
 			String s = strs.get(idx);
