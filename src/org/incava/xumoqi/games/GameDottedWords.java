@@ -62,4 +62,12 @@ public abstract class GameDottedWords extends Game {
 	protected int getLength() {
 		return length;
 	}
+	
+	protected Blanks getBlanks() {
+		return blanks;
+	}
+	
+	protected boolean isBlank(int idx) {
+		return blanks.isBlank(idx);
+	}
 }

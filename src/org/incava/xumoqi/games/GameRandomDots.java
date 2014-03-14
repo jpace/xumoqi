@@ -55,10 +55,9 @@ public class GameRandomDots extends GameDottedWords {
 	}
 	
 	public ArrayList<String> getMatching(Word queryWord) {
-		int dotIdx = getDotIndex();
 		String pat = queryWord.asPattern();
 		String qstr = queryWord.toString();
-		if (dotIdx == 0) {
+		if (isBlank(0)) {
 			return wordList.getMatchingEndsWith(qstr.charAt(getLength() - 1), pat);
 		}
 		else {
