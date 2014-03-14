@@ -25,7 +25,7 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi.games;
+package org.incava.xumoqi.words;
 
 public class Blanks {
 	private final Integer total;

@@ -23,10 +23,11 @@
 
   This program includes code from the GPL'd program:
   http://sourceforge.net/projects/scrabbledict/
-*/
+ */
 
 package org.incava.xumoqi.games;
 
+import org.incava.xumoqi.words.Blanks;
 import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
@@ -34,39 +35,35 @@ public abstract class GameDottedWords extends Game {
 	private final WordList wordList;
 	private final int length;
 	private final Blanks blanks;
-	
+
 	public GameDottedWords(WordList wordList, int length, int nDots, int index) {
 		this.wordList = wordList;
 		this.length = length;
 		this.blanks = new Blanks(nDots, index);
 	}
-	
-	public int getDotIndex() {
-		return blanks.getIndex();
-	}
-	
+
 	public Word getQueryWord() {
 		String word = getRandomWord();
-		int dotIdx = getDotIndex();
+		int dotIdx = blanks.getIndex();
 		return new Word(word, dotIdx);
 	}
 
 	protected int getNumDots() {
 		return blanks.getTotal();
 	}
-	
+
 	protected String getRandomWord() {
 		return wordList.getRandomWord();
 	}
-	
+
 	protected int getLength() {
 		return length;
 	}
-	
+
 	protected Blanks getBlanks() {
 		return blanks;
 	}
-	
+
 	protected boolean isBlank(int idx) {
 		return blanks.isBlank(idx);
 	}
