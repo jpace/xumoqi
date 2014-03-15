@@ -84,6 +84,12 @@ public class QueryActivity extends Activity {
 		tv.setText(asQuery);
 		
 		timer = new Timer();
+		timer.done("onCreate");
+	}
+	
+	protected void onStart() {
+		timer.done("onStart");
+		super.onStart();
 	}
 	
 	private void setupEditText() {
@@ -118,6 +124,8 @@ public class QueryActivity extends Activity {
 	}
 	
 	public void onClickNext(View view) {
+		timer.done("onClickNext");
+
 		long duration = timer.getDuration();
 		
     	Intent intent = new Intent(this, StatusActivity.class);
