@@ -49,6 +49,14 @@ public class GameNToNPlusOne extends Game {
 
 	@Override
 	public Word getQueryWord() {
+		return getQueryWord(false);
+	}
+	
+	private boolean containsOnlyPlural(NtoNPlusOneWord word) {
+		return matching.size() == 1 && matching.get(0).equals(word.toString() + 's');
+	}
+
+	public Word getQueryWord(boolean includeOnlyPlurals) {
 		// TODO: no plurals (other than 2-letter words?)
 		Timer t = new Timer("N-N+1", "getQueryWord()");
 		NtoNPlusOneWord word = null;
@@ -57,16 +65,16 @@ public class GameNToNPlusOne extends Game {
 			t.done("word: " + word + " from fromWordList");
 			matching = getMatching(word);
 			t.done("matching " + matching);
-			if (matching.size() == 1 && matching.get(0).equals(word.toString() + 's')) {
+			
+			if (containsOnlyPlural(word) && !includeOnlyPlurals) {
 				matching = null;
-				t.done("matching " + matching);
 			}
 		}
 
 		t.done("final WORD: " + word);
 		return word;
 	}
-	
+
 	public ArrayList<String> getMatching(Word queryWord) {
 		Timer t = new Timer("N-N+1", "getMatching(" + queryWord + ")");
 		ArrayList<String> matching = toWordList.getStartingOrEndingWith(queryWord.toString());

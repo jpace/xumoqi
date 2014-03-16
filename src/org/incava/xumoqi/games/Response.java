@@ -42,10 +42,8 @@ public class Response {
 		Util.log("RESPONSE", "strs", this.strs);
 		for (int idx = 0; idx < strs.size(); ++idx) {
 			String s = strs.get(idx);
-			Util.log("RESPONSE", "response[" + idx + "]", s);
 			if (s.length() < queryWord.toString().length()) {
 				String t = queryWord.sub(s.charAt(0));
-				Util.log("RESPONSE", "t", t);
 				strs.set(idx, t);
 			}
 		}
