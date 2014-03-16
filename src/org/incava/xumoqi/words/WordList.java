@@ -111,7 +111,7 @@ public class WordList {
     	return getMatching(pat, words);
     }
     
-    public ArrayList<String> getMatching(String pat, List<String> strs) {
+    private ArrayList<String> getMatching(String pat, List<String> strs) {
     	ArrayList<String> matching = new ArrayList<String>();
     	Pattern pattern = Pattern.compile(pat);
     	for (String str : strs) {
