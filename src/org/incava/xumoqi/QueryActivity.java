@@ -80,7 +80,7 @@ public class QueryActivity extends Activity {
 		setupEditText();
 		
 		TextView tv = getQueryTextView();
-		String asQuery = queryWord.asQuery();
+		String asQuery = game.getAsQuery(queryWord);
 		tv.setText(asQuery);
 		
 		timer = new Timer();

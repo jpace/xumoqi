@@ -41,6 +41,10 @@ public abstract class GameDottedWords extends Game {
 		this.length = length;
 		this.blanks = new Blanks(nDots, index);
 	}
+	
+	public String getAsQuery(Word word) {
+		return word.asQuery();
+	}
 
 	public Word getQueryWord() {
 		String word = getRandomWord();
