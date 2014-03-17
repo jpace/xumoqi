@@ -31,7 +31,6 @@ import java.util.ArrayList;
 
 import org.incava.xumoqi.utils.Timer;
 import org.incava.xumoqi.utils.Util;
-import org.incava.xumoqi.words.NtoNPlusOneWord;
 import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 import org.incava.xumoqi.words.WordLists;
@@ -53,16 +52,17 @@ public class GameNToNPlusOne extends Game {
 		return getQueryWord(false);
 	}
 	
-	private boolean containsOnlyPlural(NtoNPlusOneWord word) {
-		return matching.size() == 1 && matching.get(0).equals(word.toString() + 's');
+	public String getAsQuery(Word word) {
+		String str = word.toString();
+		return "_" + str + ", " + str + "_";  
 	}
-
+	
 	public Word getQueryWord(boolean includeOnlyPlurals) {
 		// TODO: no plurals (other than 2-letter words?)
 		Timer t = new Timer("N-N+1", "getQueryWord()");
-		NtoNPlusOneWord word = null;
+		Word word = null;
 		while (matching == null || matching.isEmpty()) {
-			word = new NtoNPlusOneWord(fromWordList.getRandomWord());
+			word = new Word(fromWordList.getRandomWord(), Word.NO_INDEX);
 			t.done("word: " + word + " from fromWordList");
 			matching = getMatching(word);
 			t.done("matching " + matching);
@@ -81,5 +81,9 @@ public class GameNToNPlusOne extends Game {
 		ArrayList<String> matching = toWordList.getStartingOrEndingWith(queryWord.toString());
 		t.done();
 		return matching;
+	}
+
+	private boolean containsOnlyPlural(Word word) {
+		return matching.size() == 1 && matching.get(0).equals(word.toString() + 's');
 	}
 }

@@ -35,4 +35,6 @@ public abstract class Game {
 	public abstract Word getQueryWord();
 
 	public abstract ArrayList<String> getMatching(Word queryWord);
+	
+	public abstract String getAsQuery(Word word);
 }
