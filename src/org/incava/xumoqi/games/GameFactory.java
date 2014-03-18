@@ -27,7 +27,6 @@
 
 package org.incava.xumoqi.games;
 
-
 import android.content.res.Resources;
 
 public class GameFactory {
