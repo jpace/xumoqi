@@ -27,6 +27,8 @@
 
 package org.incava.xumoqi.games;
 
+import org.incava.xumoqi.utils.Util;
+
 import android.content.res.Resources;
 
 public class GameFactory {
@@ -42,6 +44,10 @@ public class GameFactory {
 		}
 		else if (gameType.contains("to-make")) {
 			return new GameNToNPlusOne(resources, length);
+		}
+		else if (gameType.equals("Q without U")) {
+			Util.log("GAMEFACTORY", "createGame", null);
+			return null;
 		}
 		return null;
 	}
