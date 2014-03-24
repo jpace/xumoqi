@@ -47,7 +47,7 @@ public class GameFactory {
 		}
 		else if (gameType.equals("Q without U")) {
 			Util.log("GAMEFACTORY", "createGame", null);
-			return null;
+			return new GameQNoU(resources, length, nDots);
 		}
 		return null;
 	}
