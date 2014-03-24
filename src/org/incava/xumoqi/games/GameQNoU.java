@@ -2,6 +2,8 @@ package org.incava.xumoqi.games;
 
 import java.util.ArrayList;
 
+import org.incava.xumoqi.utils.Timer;
+import org.incava.xumoqi.utils.Util;
 import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 import org.incava.xumoqi.words.WordLists;
@@ -19,6 +21,17 @@ public class GameQNoU extends GameDottedWords {
 
 	@Override
 	public Word getQueryWord() {
+		Timer t = new Timer("GAME-Q-NO-U", "getQueryWord()");
+		for (int iters = 0; iters < 1000; ++iters) {
+			String word = getRandomWord();
+			Util.log("GAME-Q-NO-U", "word", word);
+			t.done("iteration: " + iters + "; word: " + word);
+			if (word.indexOf('q') >= 0) {
+				t.done("word: " + word);
+				return new Word(word, 2);
+			}
+		}
+		t.done("done");
 		return new Word("qaid", 2);
 	}
 
