@@ -26,13 +26,13 @@ public class GameQNoU extends GameDottedWords {
 			String word = getRandomWord();
 			Util.log("GAME-Q-NO-U", "word", word);
 			t.done("iteration: " + iters + "; word: " + word);
-			if (word.indexOf('q') >= 0) {
+			if (word.contains("q") && !word.contains("u")) {
 				t.done("word: " + word);
 				return new Word(word, 2);
 			}
 		}
 		t.done("done");
-		return new Word("qaid", 2);
+		return null;
 	}
 
 	@Override
@@ -44,6 +44,6 @@ public class GameQNoU extends GameDottedWords {
 
 	@Override
 	public String getAsQuery(Word word) {
-		return "qa_d";
+		return word.asQuery();
 	}
 }

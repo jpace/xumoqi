@@ -39,13 +39,13 @@ import org.incava.xumoqi.words.Word;
 public class Results {
     public enum StatusType { CORRECT, MISSED, INVALID };
 
-    private final Map<String, StatusType> matchStatus;
+    private final Map<String, StatusType> wordToStatus;
     private final List<String> matching;
     private final Word queryWord;
     private final Response response;
 
     public Results(List<String> matching, Word queryWord, String responseStr) {
-        this.matchStatus = new TreeMap<String, StatusType>();
+        this.wordToStatus = new TreeMap<String, StatusType>();
         this.matching = matching;
         this.queryWord = queryWord;
         
@@ -62,7 +62,7 @@ public class Results {
         	Util.log("RESULTS", "x", x);
             StatusType status = getStatusType(x);
             Util.log("RESULTS", "status", status);
-            matchStatus.put(x, status);
+            wordToStatus.put(x, status);
         }
     }
     
@@ -70,20 +70,9 @@ public class Results {
         return matching.contains(str) ? (response.contains(str) ? StatusType.CORRECT : StatusType.MISSED) : StatusType.INVALID;    
     }
 
-    /**
-     * Returns a TreeSet (i.e., sorted) of all words.
-     */
-    public Set<String> getAllWords() {
-        return matchStatus.keySet();
-    }
-
-    public StatusType getStatus(String word) {
-        return matchStatus.get(word);
-    }
-    
     public TreeSet<String> getForStatus(StatusType statusType) {
     	TreeSet<String> forStatus = new TreeSet<String>();
-        Util.findByValue(matchStatus, forStatus, statusType);
+        Util.findByValue(wordToStatus, forStatus, statusType);
     	return forStatus;
     }
 }
