@@ -28,6 +28,7 @@
 package org.incava.xumoqi.games;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.incava.xumoqi.utils.Timer;
 import org.incava.xumoqi.words.Word;
@@ -77,7 +78,14 @@ public class GameNToNPlusOne extends Game {
 
 	public ArrayList<String> getMatching(Word queryWord) {
 		Timer t = new Timer("N-N+1", "getMatching(" + queryWord + ")");
-		ArrayList<String> matching = toWordList.getStartingOrEndingWith(queryWord.toString());
+		List<String> words = toWordList.getWords();
+		String str = queryWord.toString();
+		ArrayList<String> matching = new ArrayList<String>();
+		for (String wd : words) {
+    		if (wd.endsWith(str) || wd.startsWith(str)) {
+    			matching.add(wd);
+    		}
+		}
 		t.done();
 		return matching;
 	}

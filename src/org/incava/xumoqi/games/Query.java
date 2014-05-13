@@ -27,18 +27,16 @@
 
 package org.incava.xumoqi.games;
 
-import java.util.ArrayList;
-
 import org.incava.xumoqi.words.Word;
 
-public abstract class Game {
-	public abstract Word getQueryWord();
+public class Query {
+	private final Word word;
 
-	public abstract ArrayList<String> getMatching(Word queryWord);
+	public Query(Word word) {
+		this.word = word;
+	}
 	
-	public abstract String getAsQuery(Word word);
-	
-	public Query getQuery() {
-		return new Query(getQueryWord());
+	public Word getWord() {
+		return word;
 	}
 }

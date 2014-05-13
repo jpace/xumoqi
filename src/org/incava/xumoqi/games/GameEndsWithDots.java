@@ -47,14 +47,10 @@ public class GameEndsWithDots extends GameDottedWords {
 		this.wordList = wordList;
 	}
 	
-	private String getStartString(Word queryWord) {
+	public ArrayList<String> getMatching(Word queryWord) {
 		// this is the substring up to the "." at the end
 		String qstr = queryWord.toString();
-		return qstr.substring(0, qstr.length() - 1);
-	}
-	
-	public ArrayList<String> getMatching(Word queryWord) {
-		String starting = getStartString(queryWord);
+		String starting = qstr.substring(0, qstr.length() - 1);
 		return wordList.getStartingWith(starting);
 	}
 }

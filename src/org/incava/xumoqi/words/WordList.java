@@ -136,15 +136,4 @@ public class WordList {
 		}
 		return words.get(0);
 	}
-
-    public ArrayList<String> getStartingOrEndingWith(String str) {
-    	Set<String> matching = new TreeSet<String>();
-    	for (String word : words) {
-    		if (word.endsWith(str) || word.startsWith(str)) {
-    			matching.add(word);
-    		}
-    	}
-    	
-    	return new ArrayList<String>(matching);
-    }
 }

@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import org.incava.xumoqi.games.Game;
 import org.incava.xumoqi.games.GameFactory;
 import org.incava.xumoqi.games.GameParams;
+import org.incava.xumoqi.games.Query;
 import org.incava.xumoqi.utils.Constants;
 import org.incava.xumoqi.utils.Timer;
 import org.incava.xumoqi.utils.Util;
@@ -73,7 +74,8 @@ public class QueryActivity extends Activity {
 		
 		Resources resources = getResources();
 		Game game = GameFactory.createGame(gameParams.getGameType(), resources, length, numDots);
-		queryWord = game.getQueryWord();
+		Query query = game.getQuery();
+		queryWord = query.getWord();
 		
 		fetchMatching(game, queryWord);
 		
