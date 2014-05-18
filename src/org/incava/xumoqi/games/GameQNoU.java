@@ -6,13 +6,12 @@ import org.incava.xumoqi.utils.Timer;
 import org.incava.xumoqi.utils.Util;
 import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
-import org.incava.xumoqi.words.WordLists;
 
 import android.content.res.Resources;
 
 public class GameQNoU extends GameDottedWords {
 	public GameQNoU(Resources resources, int length, int nDots) {
-		this(WordLists.getWordList(resources, length), length, nDots);
+		this(getWordList(length), length, nDots);
 	}
 	
 	public GameQNoU(WordList wordList, int length, int nDots) {

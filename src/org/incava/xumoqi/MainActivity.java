@@ -30,6 +30,7 @@ package org.incava.xumoqi;
 import org.incava.xumoqi.games.GameParams;
 import org.incava.xumoqi.utils.Constants;
 import org.incava.xumoqi.utils.Util;
+import org.incava.xumoqi.words.WordLists;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -49,6 +50,8 @@ public class MainActivity extends Activity {
         
         Resources res = getResources();
         Util.log("MAIN", "res", res);
+        
+        WordLists.getInstance().init(res);
         
         setUpNumberPicker();
         setUpGameTypeSpinner();

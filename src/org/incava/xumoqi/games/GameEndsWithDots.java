@@ -31,7 +31,6 @@ import java.util.ArrayList;
 
 import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
-import org.incava.xumoqi.words.WordLists;
 
 import android.content.res.Resources;
 
@@ -39,7 +38,7 @@ public class GameEndsWithDots extends GameDottedWords {
 	private final WordList wordList;
 
 	public GameEndsWithDots(Resources resources, int length, int nDots) {
-		this(WordLists.getWordList(resources, length), length, nDots);
+		this(getWordList(length), length, nDots);
 	}
 	
 	public GameEndsWithDots(WordList wordList, int length, int nDots) {

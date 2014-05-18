@@ -41,10 +41,21 @@ import android.util.SparseIntArray;
  * A set of word lists.
  */
 public class WordLists {
-    private static SparseIntArray lenToRes = new SparseIntArray();
-    private static final SparseArray<WordList> wordListsByLength = new SparseArray<WordList>(); 
+	private static WordLists instance = null;
+	
+	public static WordLists getInstance() {
+		if (instance == null) {
+			instance = new WordLists();
+		}
+		return instance;
+	}
+	
+	private Resources resources;
+    private SparseIntArray lenToRes;
+    private final SparseArray<WordList> wordListsByLength;
     
-    static {
+    private WordLists() {
+        lenToRes = new SparseIntArray();
     	lenToRes.put(2, R.raw.twl2);
     	lenToRes.put(3, R.raw.twl3);
     	lenToRes.put(4, R.raw.twl4);
@@ -59,9 +70,15 @@ public class WordLists {
     	lenToRes.put(13, R.raw.twl13);
     	lenToRes.put(14, R.raw.twl14);
     	lenToRes.put(15, R.raw.twl15);
+        
+        wordListsByLength = new SparseArray<WordList>();
     }
     
-    public static WordList getWordList(Resources resources, int length) {
+    public void init(Resources res) {
+    	resources = res;
+    }
+    
+    public WordList getWordList(int length) {
     	Timer t = new Timer("WORDLISTS", "getWordList(..., " + length + ")");
     	Util.log("WORDLISTS", "resources", resources);
     	WordList wordList = wordListsByLength.get(length);

@@ -33,7 +33,6 @@ import java.util.List;
 import org.incava.xumoqi.utils.Timer;
 import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
-import org.incava.xumoqi.words.WordLists;
 
 import android.content.res.Resources;
 
@@ -43,8 +42,8 @@ public class GameNToNPlusOne extends Game {
 	private ArrayList<String> matching = null;
 	
 	public GameNToNPlusOne(Resources resources, int length) {
-		this.fromWordList = WordLists.getWordList(resources, length);
-		this.toWordList = WordLists.getWordList(resources, length + 1);
+		this.fromWordList = getWordList(length);
+		this.toWordList = getWordList(length + 1);
 	}
 
 	@Override
