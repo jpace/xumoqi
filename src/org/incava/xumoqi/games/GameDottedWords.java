@@ -67,4 +67,8 @@ public abstract class GameDottedWords extends Game {
 	protected boolean isBlank(int idx) {
 		return blanks.isBlank(idx);
 	}
+	
+	protected WordList getWordList() {
+		return wordList;
+	}
 }

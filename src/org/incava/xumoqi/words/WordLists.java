@@ -76,6 +76,7 @@ public class WordLists {
     
     public void init(Resources res) {
     	resources = res;
+    	Util.log("WL.init", "resources", resources);
     }
     
     public WordList getWordList(int length) {
