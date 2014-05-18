@@ -27,7 +27,6 @@
 
 package org.incava.xumoqi.games;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,13 +37,13 @@ public class Response {
 	private final List<String> strs;
 
 	public Response(Word queryWord, String str) {
-		strs = str.isEmpty() ? new ArrayList<String>() : Arrays.asList(str.trim().split("[\\s,]+"));
-		Util.log("RESPONSE", "strs", this.strs);
+		strs = Arrays.asList(str.trim().split("[\\s,]+"));
+		Util.log(getClass(), "strs", this.strs);
 		for (int idx = 0; idx < strs.size(); ++idx) {
 			String s = strs.get(idx);
-			if (s.length() < queryWord.toString().length()) {
-				String t = queryWord.sub(s.charAt(0));
-				strs.set(idx, t);
+			Util.log(getClass(), "s", s);
+			if (s.length() == 1) {
+				replaceWithFullWord(queryWord, idx, s.charAt(0));
 			}
 		}
 	}
@@ -59,5 +58,11 @@ public class Response {
 	
 	public String toString() {
 		return strs.toString();
+	}
+	
+	private void replaceWithFullWord(Word queryWord, int idx, char ch) {
+		String t = queryWord.sub(ch);
+		strs.set(idx, t);
+		Util.log(getClass(), "t", t);
 	}
 }

@@ -38,7 +38,7 @@ public abstract class Game {
 	
 	public abstract String getAsQuery(Word word);
 	
-	public Query getQuery() {
+	public Query createQuery() {
 		return new Query(getQueryWord());
 	}
 }

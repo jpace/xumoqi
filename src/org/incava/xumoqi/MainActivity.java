@@ -34,6 +34,7 @@ import org.incava.xumoqi.utils.Util;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -46,14 +47,11 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        NumberPicker np = getNumberPicker();
-        np.setMaxValue(Util.type ? 8 : 3);
-        np.setMinValue(2);
-
-        Spinner gameTypeSpinner = getGameTypeSpinner();
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, Util.type ? R.array.pro_game_types : R.array.free_game_types, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        gameTypeSpinner.setAdapter(adapter);
+        Resources res = getResources();
+        Util.log("MAIN", "res", res);
+        
+        setUpNumberPicker();
+        setUpGameTypeSpinner();
     }
 
     @Override
@@ -69,6 +67,21 @@ public class MainActivity extends Activity {
     
     private Spinner getGameTypeSpinner() {
     	return (Spinner)findViewById(R.id.gameTypeSpinner);
+    }
+    
+    private void setUpNumberPicker() {
+    	int max = Util.type ? 8 : 3;
+        NumberPicker np = getNumberPicker();
+        np.setMaxValue(max);
+        np.setMinValue(2);
+    }
+    
+    private void setUpGameTypeSpinner() {
+        int types = Util.type ? R.array.pro_game_types : R.array.free_game_types;
+        Spinner gameTypeSpinner = getGameTypeSpinner();
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, types, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        gameTypeSpinner.setAdapter(adapter);
     }
     
     public void onClickStart(View view) {

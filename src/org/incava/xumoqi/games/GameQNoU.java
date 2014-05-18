@@ -26,7 +26,8 @@ public class GameQNoU extends GameDottedWords {
 			String word = getRandomWord();
 			Util.log("GAME-Q-NO-U", "word", word);
 			t.done("iteration: " + iters + "; word: " + word);
-			if (word.contains("q") && !word.contains("u")) {
+			int qidx = word.indexOf('q');
+			if (qidx >= 0 && (qidx == word.length() || word.charAt(qidx + 1) != 'u')) {
 				t.done("word: " + word);
 				return new Word(word, 2);
 			}

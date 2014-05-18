@@ -31,6 +31,7 @@ import java.io.InputStream;
 
 import org.incava.xumoqi.R;
 import org.incava.xumoqi.utils.Timer;
+import org.incava.xumoqi.utils.Util;
 
 import android.content.res.Resources;
 import android.util.SparseArray;
@@ -62,6 +63,7 @@ public class WordLists {
     
     public static WordList getWordList(Resources resources, int length) {
     	Timer t = new Timer("WORDLISTS", "getWordList(..., " + length + ")");
+    	Util.log("WORDLISTS", "resources", resources);
     	WordList wordList = wordListsByLength.get(length);
     	if (wordList != null) {
     		t.done("already exists");

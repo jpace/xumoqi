@@ -74,7 +74,7 @@ public class QueryActivity extends Activity {
 		
 		Resources resources = getResources();
 		Game game = GameFactory.createGame(gameParams.getGameType(), resources, length, numDots);
-		Query query = game.getQuery();
+		Query query = game.createQuery();
 		queryWord = query.getWord();
 		
 		fetchMatching(game, queryWord);
