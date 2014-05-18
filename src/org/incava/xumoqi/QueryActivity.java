@@ -41,7 +41,6 @@ import org.incava.xumoqi.words.Word;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -72,8 +71,7 @@ public class QueryActivity extends Activity {
 		// not an option, for now ...
 		int numDots = 1;
 		
-		Resources resources = getResources();
-		Game game = GameFactory.createGame(gameParams.getGameType(), resources, length, numDots);
+		Game game = GameFactory.createGame(gameParams.getGameType(), length, numDots);
 		Query query = game.createQuery();
 		queryWord = query.getWord();
 		

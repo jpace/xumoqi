@@ -33,8 +33,6 @@ import java.util.Random;
 import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
-import android.content.res.Resources;
-
 public class GameRandomDots extends GameDottedWords {
 	private static int getRandomIndex(int length) {
 		// handles only one dot for now
@@ -44,7 +42,7 @@ public class GameRandomDots extends GameDottedWords {
 	
 	private final WordList wordList;
 	
-	public GameRandomDots(Resources resources, int length, int nDots) {
+	public GameRandomDots(int length, int nDots) {
 		this(getWordList(length), length, nDots);
 	}
 	

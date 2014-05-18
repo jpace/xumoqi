@@ -7,10 +7,8 @@ import org.incava.xumoqi.utils.Util;
 import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
-import android.content.res.Resources;
-
 public class GameQNoU extends GameDottedWords {
-	public GameQNoU(Resources resources, int length, int nDots) {
+	public GameQNoU(int length, int nDots) {
 		this(getWordList(length), length, nDots);
 	}
 	

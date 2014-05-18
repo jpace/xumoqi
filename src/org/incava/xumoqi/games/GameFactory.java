@@ -29,25 +29,23 @@ package org.incava.xumoqi.games;
 
 import org.incava.xumoqi.utils.Util;
 
-import android.content.res.Resources;
-
 public class GameFactory {
-	public static Game createGame(String gameType, Resources resources, int length, int nDots) {
+	public static Game createGame(String gameType, int length, int nDots) {
 		if (gameType.contains("Starting")) {
-			return new GameStartsWithDots(resources, length, nDots);
+			return new GameStartsWithDots(length, nDots);
 		}
 		else if (gameType.contains("Random")) {
-			return new GameRandomDots(resources, length, nDots);
+			return new GameRandomDots(length, nDots);
 		}
 		else if (gameType.contains("Ending")) {
-			return new GameEndsWithDots(resources, length, nDots);
+			return new GameEndsWithDots(length, nDots);
 		}
 		else if (gameType.contains("to-make")) {
-			return new GameNToNPlusOne(resources, length);
+			return new GameNToNPlusOne(length);
 		}
 		else if (gameType.equals("Q without U")) {
 			Util.log("GAMEFACTORY", "createGame", null);
-			return new GameQNoU(resources, length, nDots);
+			return new GameQNoU(length, nDots);
 		}
 		return null;
 	}

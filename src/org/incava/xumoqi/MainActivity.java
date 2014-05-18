@@ -51,6 +51,7 @@ public class MainActivity extends Activity {
         Resources res = getResources();
         Util.log("MAIN", "res", res);
         
+        // Global variable initialization: WordLists need the Android resource, which (evidently) does not change during the App execution.
         WordLists.getInstance().init(res);
         
         setUpNumberPicker();
