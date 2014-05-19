@@ -38,7 +38,7 @@ public class Response {
 
 	public Response(Word queryWord, String str) {
 		strs = Arrays.asList(str.trim().split("[\\s,]+"));
-		Util.log(getClass(), "strs", this.strs);
+		Util.log(getClass(), "strs", strs);
 		for (int idx = 0; idx < strs.size(); ++idx) {
 			String s = strs.get(idx);
 			Util.log(getClass(), "s", s);

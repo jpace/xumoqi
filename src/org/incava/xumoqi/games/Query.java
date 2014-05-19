@@ -29,14 +29,40 @@ package org.incava.xumoqi.games;
 
 import org.incava.xumoqi.words.Word;
 
-public class Query {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Query implements Parcelable {
+	public static final Parcelable.Creator<Query> CREATOR = new Parcelable.Creator<Query>() {
+		public Query createFromParcel(Parcel parcel) {
+			return new Query(parcel);
+		}
+		
+		public Query[] newArray(int size) {
+			return new Query[size];
+		}
+	};
+
 	private final Word word;
 
 	public Query(Word word) {
 		this.word = word;
 	}
 	
+	protected Query(Parcel parcel) {
+		this((Word)parcel.readParcelable(Word.class.getClassLoader()));
+	}
+	
 	public Word getWord() {
 		return word;
 	}
-}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+	
+	@Override
+	public void writeToParcel(Parcel parcel, int flags) {
+		parcel.writeParcelable(word, flags);
+	}}

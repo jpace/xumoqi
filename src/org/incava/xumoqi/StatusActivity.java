@@ -30,6 +30,7 @@ package org.incava.xumoqi;
 import java.util.ArrayList;
 
 import org.incava.xumoqi.games.GameParams;
+import org.incava.xumoqi.games.Query;
 import org.incava.xumoqi.games.Results;
 import org.incava.xumoqi.utils.Constants;
 import org.incava.xumoqi.utils.Util;
@@ -58,6 +59,10 @@ public class StatusActivity extends Activity {
 		Word queryWord = intent.getParcelableExtra(Constants.QUERY_WORD);
 		Util.log("STATUS", "queryWord", queryWord);
 		Util.log("STATUS", "queryWord.dotIndex", queryWord.getDotIndex());
+		
+		Query query = intent.getParcelableExtra(Constants.QUERY);
+		Util.log("STATUS", "query", query);
+		Util.log("STATUS", "query.word", query.getWord());
 		
 		String duration = intent.getStringExtra(Constants.DURATION);
 		Util.log("STATUS", "duration", duration);

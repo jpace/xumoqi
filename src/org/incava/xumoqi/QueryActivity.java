@@ -57,6 +57,7 @@ public class QueryActivity extends Activity {
 	private GameParams gameParams = null;
 	private Word queryWord = null;
 	private Timer timer = null;
+	private Query query = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +73,7 @@ public class QueryActivity extends Activity {
 		int numDots = 1;
 		
 		Game game = GameFactory.createGame(gameParams.getGameType(), length, numDots);
-		Query query = game.createQuery();
+		query = game.createQuery();
 		queryWord = query.getWord();
 		
 		fetchMatching(game, queryWord);
@@ -129,6 +130,7 @@ public class QueryActivity extends Activity {
 		long duration = timer.getDuration();
 		
     	Intent intent = new Intent(this, StatusActivity.class);
+    	intent.putExtra(Constants.QUERY, query);
     	intent.putExtra(Constants.QUERY_WORD, queryWord);
     	intent.putExtra(Constants.DURATION, String.valueOf(duration));
     	
