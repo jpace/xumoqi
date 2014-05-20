@@ -33,6 +33,7 @@ import org.incava.xumoqi.games.Game;
 import org.incava.xumoqi.games.GameFactory;
 import org.incava.xumoqi.games.GameParams;
 import org.incava.xumoqi.games.Query;
+import org.incava.xumoqi.games.Results;
 import org.incava.xumoqi.utils.Constants;
 import org.incava.xumoqi.utils.Timer;
 import org.incava.xumoqi.utils.Util;
@@ -68,6 +69,9 @@ public class QueryActivity extends Activity {
 		
 		gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
 		int length = gameParams.getWordLength();
+		
+		Results results = intent.getParcelableExtra(Constants.RESULTS);
+		Util.log(getClass(), "results", results);
 		
 		// not an option, for now ...
 		int numDots = 1;
@@ -149,7 +153,7 @@ public class QueryActivity extends Activity {
 		intent.putExtra(Constants.INPUT_STRING, inputText);
 
 		intent.putExtra(Constants.GAME_PARAMS, gameParams);
-		Util.log("QUERY", "gameParams", gameParams);
+		Util.log(getClass(), "gameParams", gameParams);
 
     	startActivity(intent);
 	}

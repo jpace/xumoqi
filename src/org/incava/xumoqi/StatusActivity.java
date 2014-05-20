@@ -31,6 +31,7 @@ import java.util.ArrayList;
 
 import org.incava.xumoqi.games.GameParams;
 import org.incava.xumoqi.games.Query;
+import org.incava.xumoqi.games.Response;
 import org.incava.xumoqi.games.Results;
 import org.incava.xumoqi.utils.Constants;
 import org.incava.xumoqi.utils.Util;
@@ -45,6 +46,7 @@ import android.widget.TableLayout;
 
 public class StatusActivity extends Activity {
 	private GameParams gameParams = null;
+	private Results results = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,12 +71,13 @@ public class StatusActivity extends Activity {
 		
 		String inputString = intent.getStringExtra(Constants.INPUT_STRING);
 		ArrayList<String> matching = intent.getStringArrayListExtra(Constants.MATCHING);
-		Results matches = new Results(matching, queryWord, inputString);
+		Response response = new Response(queryWord, inputString);
+		results = new Results(matching, response.getAll());
 
     	TableLayout tableLayout = (TableLayout)findViewById(R.id.statusTable);
     	ResultsTable rt = new ResultsTable(this, tableLayout);
 
-    	rt.set(matches);
+    	rt.set(results);
 	}
 	
 	@Override
@@ -92,6 +95,7 @@ public class StatusActivity extends Activity {
 	public void onClickNext(View view) {
     	Intent intent = new Intent(this, QueryActivity.class);
     	intent.putExtra(Constants.GAME_PARAMS, gameParams);
+    	intent.putExtra(Constants.RESULTS, results);
     	startActivity(intent);
 	}
 }

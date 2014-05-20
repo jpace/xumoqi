@@ -65,4 +65,5 @@ public class Query implements Parcelable {
 	@Override
 	public void writeToParcel(Parcel parcel, int flags) {
 		parcel.writeParcelable(word, flags);
-	}}
+	}
+}

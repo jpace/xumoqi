@@ -27,11 +27,7 @@
 
 package org.incava.xumoqi;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
-
 import org.incava.xumoqi.games.Results;
 
 import android.app.Activity;
@@ -47,30 +43,19 @@ public class ResultsTable {
 
 	private final Activity activity;
 	private final TableLayout tableLayout;
-	private final Map<Results.StatusType, String> statusToFontColor;
 
 	public ResultsTable(Activity activity, TableLayout tableLayout) {
 		this.tableLayout = tableLayout;
 		this.activity = activity;
-
-		this.statusToFontColor = new HashMap<Results.StatusType, String>();
-		this.statusToFontColor.put(Results.StatusType.CORRECT, "22aa22");	// green
-		this.statusToFontColor.put(Results.StatusType.INVALID, "eead0e");	// orange (yellow is too light)
-		this.statusToFontColor.put(Results.StatusType.MISSED,  "aa2222");	// red
 	}
 
 	public void set(Results matches) {
-		setForStatus(matches, 0, Results.StatusType.CORRECT);
-		setForStatus(matches, 1, Results.StatusType.INVALID);
-		setForStatus(matches, 2, Results.StatusType.MISSED);
+		setCells(0, matches.getCorrect(), "22aa22");	// green
+		setCells(1, matches.getInvalid(), "eead0e");	// orange (yellow is too light)
+		setCells(2, matches.getMissed(),  "aa2222");	// red
 	}
 	
-	public void setForStatus(Results matches, int column, Results.StatusType statusType) {
-		TreeSet<String> forStatus = matches.getForStatus(statusType);
-		setCells(forStatus, column, statusToFontColor.get(statusType));
-	}
-	
-	public void setCells(Set<String> words, int column, String color) {
+	public void setCells(int column, Set<String> words, String color) {
 		int row = 0;
 		for (String word : words) {
 			setCell(row, column, word, color);

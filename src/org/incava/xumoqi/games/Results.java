@@ -27,56 +27,85 @@
 
 package org.incava.xumoqi.games;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeSet;
 
 import org.incava.xumoqi.utils.Util;
-import org.incava.xumoqi.words.Word;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Results {
-    public enum StatusType { CORRECT, MISSED, INVALID };
+public class Results implements Parcelable {
+	public static final Parcelable.Creator<Results> CREATOR = new Parcelable.Creator<Results>() {
+		public Results createFromParcel(Parcel parcel) {
+			return new Results(parcel);
+		}
+		
+		public Results[] newArray(int size) {
+			return new Results[size];
+		}
+	};
 
     private final TreeSet<String> correct;
     private final TreeSet<String> missed;
     private final TreeSet<String> invalid;
 
-    public Results(List<String> matching, Word queryWord, String responseStr) {
+    public Results(List<String> matching, List<String> responseList) {
         Util.log("RESULTS", "matching", matching);
-
-        Response response = new Response(queryWord, responseStr);
-        Util.log("RESULTS", "response", response);
+        Util.log("RESULTS", "responseList", responseList);
 
         correct = new TreeSet<String>();
         missed = new TreeSet<String>();
         invalid = new TreeSet<String>();
 
         Set<String> all = new TreeSet<String>(matching);
-        all.addAll(response.getAll());
+        all.addAll(responseList);
 
         for (String x : all) {
         	Util.log("RESULTS", "x", x);
-            Set<String> set = getStatusSet(response, matching, x);
+            Set<String> set = getStatusSet(responseList, matching, x);
             Util.log("RESULTS", "set", set);
             set.add(x);
         }
     }
     
-    private Set<String> getStatusSet(Response response, List<String> matching, String str) {
-        return matching.contains(str) ? (response.contains(str) ? correct : missed) : invalid;
+    private Set<String> getStatusSet(List<String> responseList, List<String> matching, String str) {
+        return matching.contains(str) ? (responseList.contains(str) ? correct : missed) : invalid;
     }
 
-    public TreeSet<String> getForStatus(StatusType statusType) {
-        switch (statusType) {
-            case CORRECT:
-                return correct;
-            case MISSED:
-                return missed;
-            case INVALID:
-                return invalid;
-        }
-        return null;
+	protected Results(Parcel parcel) {
+        correct = new TreeSet<String>(Arrays.asList(parcel.createStringArray()));
+        missed = new TreeSet<String>(Arrays.asList(parcel.createStringArray()));
+        invalid = new TreeSet<String>(Arrays.asList(parcel.createStringArray()));
+	}
+	
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+	
+	@Override
+	public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeStringArray(correct.toArray(new String[correct.size()]));
+        parcel.writeStringArray(missed.toArray(new String[missed.size()]));
+        parcel.writeStringArray(invalid.toArray(new String[invalid.size()]));
+	}
+
+    public TreeSet<String> getCorrect() {
+    	return correct;
+    }
+
+    public TreeSet<String> getMissed() {
+    	return missed;
+    }
+
+    public TreeSet<String> getInvalid() {
+    	return invalid;
+    }
+
+    public String toString() {
+        return "correct: " + correct + "; missed: " + missed + "; invalid: " + invalid;
     }
 }

@@ -37,15 +37,11 @@ public class Response {
 	private final List<String> strs;
 
 	public Response(Word queryWord, String str) {
-		strs = Arrays.asList(str.trim().split("[\\s,]+"));
+		String trimmed = str.trim();
+		String[] words = trimmed.split("[\\s,]+");
+		strs = Arrays.asList(words);
 		Util.log(getClass(), "strs", strs);
-		for (int idx = 0; idx < strs.size(); ++idx) {
-			String s = strs.get(idx);
-			Util.log(getClass(), "s", s);
-			if (s.length() == 1) {
-				replaceWithFullWord(queryWord, idx, s.charAt(0));
-			}
-		}
+		updateWithFullWords(queryWord);
 	}
 
 	public boolean contains(String str) {
@@ -58,6 +54,16 @@ public class Response {
 	
 	public String toString() {
 		return strs.toString();
+	}
+	
+	private void updateWithFullWords(Word queryWord) {
+		for (int idx = 0; idx < strs.size(); ++idx) {
+			String s = strs.get(idx);
+			Util.log(getClass(), "s", s);
+			if (s.length() == 1) {
+				replaceWithFullWord(queryWord, idx, s.charAt(0));
+			}
+		}
 	}
 	
 	private void replaceWithFullWord(Word queryWord, int idx, char ch) {
