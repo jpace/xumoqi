@@ -31,7 +31,7 @@
     <string name="title_activity_help">Help</string>
     <string name="hello_world">Hello world!</string>
     <string name="help">Help</string>
-    <string name="help_content">XuMoQi is an Android application to help learn words for games.\n
+    <string name="help_content">Scrabble Tutor is an Android application to help learn words for Scrabble.\n
 \n
 Game types are:\n
 <ul>
@@ -43,7 +43,7 @@ Game types are:\n
 For each game type, the user enters either the entire word, or only the missing letters.
 Letters and words can be separated by commas and/or spaces.\n
 \n
-This version of XuMoQi uses the Scrabble Tournament Word List (TWL), the dictionary used in Canada,
+This version of Scrabble Tutor uses the Scrabble Tournament Word List (TWL), the dictionary used in Canada,
 Thailand, and the United States.\n
 \n
 Copyright (&#169;) by Jeff Pace, 2014.\n
