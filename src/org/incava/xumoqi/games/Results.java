@@ -28,51 +28,55 @@
 package org.incava.xumoqi.games;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
 
 import org.incava.xumoqi.utils.Util;
 import org.incava.xumoqi.words.Word;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 public class Results {
     public enum StatusType { CORRECT, MISSED, INVALID };
 
-    private final Map<String, StatusType> wordToStatus;
-    private final List<String> matching;
-    private final Word queryWord;
-    private final Response response;
+    private final TreeSet<String> correct;
+    private final TreeSet<String> missed;
+    private final TreeSet<String> invalid;
 
     public Results(List<String> matching, Word queryWord, String responseStr) {
-        this.wordToStatus = new TreeMap<String, StatusType>();
-        this.matching = matching;
-        this.queryWord = queryWord;
-        
-        Util.log("RESULTS", "matching", this.matching);
-        Util.log("RESULTS", "queryWord", this.queryWord);
+        Util.log("RESULTS", "matching", matching);
 
-        this.response = new Response(queryWord, responseStr);
-        Util.log("RESULTS", "response", this.response);
+        Response response = new Response(queryWord, responseStr);
+        Util.log("RESULTS", "response", response);
+
+        correct = new TreeSet<String>();
+        missed = new TreeSet<String>();
+        invalid = new TreeSet<String>();
 
         Set<String> all = new TreeSet<String>(matching);
         all.addAll(response.getAll());
 
         for (String x : all) {
         	Util.log("RESULTS", "x", x);
-            StatusType status = getStatusType(x);
-            Util.log("RESULTS", "status", status);
-            wordToStatus.put(x, status);
+            Set<String> set = getStatusSet(response, matching, x);
+            Util.log("RESULTS", "set", set);
+            set.add(x);
         }
     }
     
-    private StatusType getStatusType(String str) {
-        return matching.contains(str) ? (response.contains(str) ? StatusType.CORRECT : StatusType.MISSED) : StatusType.INVALID;    
+    private Set<String> getStatusSet(Response response, List<String> matching, String str) {
+        return matching.contains(str) ? (response.contains(str) ? correct : missed) : invalid;
     }
 
     public TreeSet<String> getForStatus(StatusType statusType) {
-    	TreeSet<String> forStatus = new TreeSet<String>();
-        Util.findByValue(wordToStatus, forStatus, statusType);
-    	return forStatus;
+        switch (statusType) {
+            case CORRECT:
+                return correct;
+            case MISSED:
+                return missed;
+            case INVALID:
+                return invalid;
+        }
+        return null;
     }
 }
