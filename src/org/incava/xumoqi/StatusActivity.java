@@ -45,57 +45,57 @@ import android.view.View;
 import android.widget.TableLayout;
 
 public class StatusActivity extends Activity {
-	private GameParams gameParams = null;
-	private Results results = null;
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_status);
-		
-		Intent intent = getIntent();
-		
-		gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
-		Util.log("STATUS", "gameParams", gameParams);
-		
-		Word queryWord = intent.getParcelableExtra(Constants.QUERY_WORD);
-		Util.log("STATUS", "queryWord", queryWord);
-		Util.log("STATUS", "queryWord.dotIndex", queryWord.getDotIndex());
-		
-		Query query = intent.getParcelableExtra(Constants.QUERY);
-		Util.log("STATUS", "query", query);
-		Util.log("STATUS", "query.word", query.getWord());
-		
-		String duration = intent.getStringExtra(Constants.DURATION);
-		Util.log("STATUS", "duration", duration);
-		
-		String inputString = intent.getStringExtra(Constants.INPUT_STRING);
-		ArrayList<String> matching = intent.getStringArrayListExtra(Constants.MATCHING);
-		Response response = new Response(queryWord, inputString);
-		results = new Results(matching, response.getAll());
+    private GameParams gameParams = null;
+    private Results results = null;
+    
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_status);
+        
+        Intent intent = getIntent();
+        
+        gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
+        Util.log("STATUS", "gameParams", gameParams);
+        
+        Word queryWord = intent.getParcelableExtra(Constants.QUERY_WORD);
+        Util.log("STATUS", "queryWord", queryWord);
+        Util.log("STATUS", "queryWord.dotIndex", queryWord.getDotIndex());
+        
+        Query query = intent.getParcelableExtra(Constants.QUERY);
+        Util.log("STATUS", "query", query);
+        Util.log("STATUS", "query.word", query.getWord());
+        
+        String duration = intent.getStringExtra(Constants.DURATION);
+        Util.log("STATUS", "duration", duration);
+        
+        String inputString = intent.getStringExtra(Constants.INPUT_STRING);
+        ArrayList<String> matching = intent.getStringArrayListExtra(Constants.MATCHING);
+        Response response = new Response(queryWord, inputString);
+        results = new Results(matching, response.getAll());
 
-    	TableLayout tableLayout = (TableLayout)findViewById(R.id.statusTable);
-    	ResultsTable rt = new ResultsTable(this, tableLayout);
+        TableLayout tableLayout = (TableLayout)findViewById(R.id.statusTable);
+        ResultsTable rt = new ResultsTable(this, tableLayout);
 
-    	rt.set(results);
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.status, menu);
-		return true;
-	}
+        rt.set(results);
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.status, menu);
+        return true;
+    }
 
-	public void onClickRestart(View view) {
-    	Intent intent = new Intent(this, MainActivity.class);
-    	startActivity(intent);
-	}
+    public void onClickRestart(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
-	public void onClickNext(View view) {
-    	Intent intent = new Intent(this, QueryActivity.class);
-    	intent.putExtra(Constants.GAME_PARAMS, gameParams);
-    	intent.putExtra(Constants.RESULTS, results);
-    	startActivity(intent);
-	}
+    public void onClickNext(View view) {
+        Intent intent = new Intent(this, QueryActivity.class);
+        intent.putExtra(Constants.GAME_PARAMS, gameParams);
+        intent.putExtra(Constants.RESULTS, results);
+        startActivity(intent);
+    }
 }

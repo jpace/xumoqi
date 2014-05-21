@@ -28,23 +28,23 @@
 package org.incava.xumoqi.words;
 
 public class Blanks {
-	private final Integer total;
-	private final Integer index;
+    private final Integer total;
+    private final Integer index;
 
-	public Blanks(Integer total, Integer index) {
-		this.total = total;
-		this.index = index;
-	}
-	
-	public Integer getTotal() {
-		return total;
-	}
-	
-	public Integer getIndex() {
-		return index;
-	}
-	
-	public boolean isBlank(int idx) {
-		return index == idx;
-	}
+    public Blanks(Integer total, Integer index) {
+        this.total = total;
+        this.index = index;
+    }
+    
+    public Integer getTotal() {
+        return total;
+    }
+    
+    public Integer getIndex() {
+        return index;
+    }
+    
+    public boolean isBlank(int idx) {
+        return index == idx;
+    }
 }

@@ -33,21 +33,21 @@ import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
 public class GameEndsWithDots extends GameDottedWords {
-	private final WordList wordList;
+    private final WordList wordList;
 
-	public GameEndsWithDots(int length, int nDots) {
-		this(getWordList(length), length, nDots);
-	}
-	
-	public GameEndsWithDots(WordList wordList, int length, int nDots) {
-		super(wordList, length, nDots, length - 1);
-		this.wordList = wordList;
-	}
-	
-	public ArrayList<String> getMatching(Word queryWord) {
-		// this is the substring up to the "." at the end
-		String qstr = queryWord.toString();
-		String starting = qstr.substring(0, qstr.length() - 1);
-		return wordList.getStartingWith(starting);
-	}
+    public GameEndsWithDots(int length, int nDots) {
+        this(getWordList(length), length, nDots);
+    }
+    
+    public GameEndsWithDots(WordList wordList, int length, int nDots) {
+        super(wordList, length, nDots, length - 1);
+        this.wordList = wordList;
+    }
+    
+    public ArrayList<String> getMatching(Word queryWord) {
+        // this is the substring up to the "." at the end
+        String qstr = queryWord.toString();
+        String starting = qstr.substring(0, qstr.length() - 1);
+        return wordList.getStartingWith(starting);
+    }
 }

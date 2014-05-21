@@ -66,15 +66,15 @@ public class MainActivity extends Activity {
     }
     
     private NumberPicker getNumberPicker() {
-    	return (NumberPicker)findViewById(R.id.wordLengthNumberPicker);
+        return (NumberPicker)findViewById(R.id.wordLengthNumberPicker);
     }
     
     private Spinner getGameTypeSpinner() {
-    	return (Spinner)findViewById(R.id.gameTypeSpinner);
+        return (Spinner)findViewById(R.id.gameTypeSpinner);
     }
     
     private void setUpNumberPicker() {
-    	int max = Util.type ? 8 : 3;
+        int max = Util.type ? 8 : 3;
         NumberPicker np = getNumberPicker();
         np.setMaxValue(max);
         np.setMinValue(2);
@@ -89,19 +89,19 @@ public class MainActivity extends Activity {
     }
     
     public void onClickStart(View view) {
-    	Intent intent = new Intent(this, QueryActivity.class);
-    	NumberPicker np = getNumberPicker();
+        Intent intent = new Intent(this, QueryActivity.class);
+        NumberPicker np = getNumberPicker();
         
         Spinner gameTypeSpinner = getGameTypeSpinner();
         String gameType = gameTypeSpinner.getSelectedItem().toString();
         GameParams gp = new GameParams(np.getValue(), gameType);
         intent.putExtra(Constants.GAME_PARAMS, gp);
         
-    	startActivity(intent);
+        startActivity(intent);
     }
     
     public void onClickHelp(View view) {
-    	Intent intent = new Intent(this, HelpActivity.class);
-    	startActivity(intent);
+        Intent intent = new Intent(this, HelpActivity.class);
+        startActivity(intent);
     }
 }

@@ -34,17 +34,17 @@ import org.incava.xumoqi.words.WordList;
 import org.incava.xumoqi.words.WordLists;
 
 public abstract class Game {
-	public static WordList getWordList(int length) {
-		return WordLists.getInstance().getWordList(length);
-	}
+    public static WordList getWordList(int length) {
+        return WordLists.getInstance().getWordList(length);
+    }
 
-	public abstract Word getQueryWord();
+    public abstract Word getQueryWord();
 
-	public abstract ArrayList<String> getMatching(Word queryWord);
-	
-	public abstract String getAsQuery(Word word);
-	
-	public Query createQuery() {
-		return new Query(getQueryWord());
-	}
+    public abstract ArrayList<String> getMatching(Word queryWord);
+    
+    public abstract String getAsQuery(Word word);
+    
+    public Query createQuery() {
+        return new Query(getQueryWord());
+    }
 }

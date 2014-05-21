@@ -33,37 +33,53 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Query implements Parcelable {
-	public static final Parcelable.Creator<Query> CREATOR = new Parcelable.Creator<Query>() {
-		public Query createFromParcel(Parcel parcel) {
-			return new Query(parcel);
-		}
-		
-		public Query[] newArray(int size) {
-			return new Query[size];
-		}
-	};
+    public static final Parcelable.Creator<Query> CREATOR = new Parcelable.Creator<Query>() {
+        public Query createFromParcel(Parcel parcel) {
+            return new Query(parcel);
+        }
+        
+        public Query[] newArray(int size) {
+            return new Query[size];
+        }
+    };
 
-	private final Word word;
+    private final Word word;
+    private final Results results;
 
-	public Query(Word word) {
-		this.word = word;
-	}
-	
-	protected Query(Parcel parcel) {
-		this((Word)parcel.readParcelable(Word.class.getClassLoader()));
-	}
-	
-	public Word getWord() {
-		return word;
-	}
+    public Query(Word word) {
+        this(word, null);
+    }
+    
+    public Query(Word word, Results results) {
+        this.word = word;
+        this.results = results;
+    }
+    
+    protected Query(Parcel parcel) {
+        this((Word)parcel.readParcelable(Word.class.getClassLoader()),
+             (Results)parcel.readParcelable(Results.class.getClassLoader()));
+    }
+    
+    public Word getWord() {
+        return word;
+    }
 
-	@Override
-	public int describeContents() {
-		return 0;
-	}
-	
-	@Override
-	public void writeToParcel(Parcel parcel, int flags) {
-		parcel.writeParcelable(word, flags);
-	}
+    public Results getResults() {
+        return results;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+    
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeParcelable(word, flags);
+        parcel.writeParcelable(results, flags);
+    }
+    
+    public String toString() {
+        return "word: " + word + "; results: " + results;
+    }
 }

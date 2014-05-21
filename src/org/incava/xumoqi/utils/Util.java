@@ -27,42 +27,32 @@
 
 package org.incava.xumoqi.utils;
 
-import java.util.Map;
-import java.util.Set;
 import android.util.Log;
 
 public class Util {
-	public static final boolean type = true;
-	
-	public static String repeat(String s, int num) {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < num; ++i) {
-			sb.append(s);
-		}
-		return sb.toString();
-	}
-	
-	public static void log(String component, String msg, Object obj) {
-		Log.i(component, msg + ": " + obj);
-	}
-	
-	public static void log(String component, String msg, String str) {
-		Log.i(component, msg + ": '" + str + "'");
-	}
-	
-	public static void log(Class<?> cls, String msg, Object obj) {
-		log(cls.getSimpleName(), msg, obj);
-	}
+    public static final boolean type = true;
     
-	public static void log(Class<?> cls, String msg, String str) {
-		log(cls.getSimpleName(), msg, str);
-	}
+    public static String repeat(String s, int num) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < num; ++i) {
+            sb.append(s);
+        }
+        return sb.toString();
+    }
     
-    public static <K, V> void findByValue(Map<K, V> map, Set<K> matching, V value) {
-    	for (Map.Entry<K, V> entry : map.entrySet()) {
-    		if (entry.getValue().equals(value)) {
-    			matching.add(entry.getKey());
-    		}
-    	}
+    public static void log(String component, String msg, Object obj) {
+        Log.i(component, msg + ": " + obj);
+    }
+    
+    public static void log(String component, String msg, String str) {
+        Log.i(component, msg + ": '" + str + "'");
+    }
+    
+    public static void log(Class<?> cls, String msg, Object obj) {
+        log(cls.getSimpleName(), msg, obj);
+    }
+    
+    public static void log(Class<?> cls, String msg, String str) {
+        log(cls.getSimpleName(), msg, str);
     }
 }

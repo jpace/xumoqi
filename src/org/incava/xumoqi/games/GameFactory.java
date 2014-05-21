@@ -30,23 +30,23 @@ package org.incava.xumoqi.games;
 import org.incava.xumoqi.utils.Util;
 
 public class GameFactory {
-	public static Game createGame(String gameType, int length, int nDots) {
-		if (gameType.contains("Starting")) {
-			return new GameStartsWithDots(length, nDots);
-		}
-		else if (gameType.contains("Random")) {
-			return new GameRandomDots(length, nDots);
-		}
-		else if (gameType.contains("Ending")) {
-			return new GameEndsWithDots(length, nDots);
-		}
-		else if (gameType.contains("to-make")) {
-			return new GameNToNPlusOne(length);
-		}
-		else if (gameType.equals("Q without U")) {
-			Util.log("GAMEFACTORY", "createGame", null);
-			return new GameQNoU(length, nDots);
-		}
-		return null;
-	}
+    public static Game createGame(String gameType, int length, int nDots) {
+        if (gameType.contains("Starting")) {
+            return new GameStartsWithDots(length, nDots);
+        }
+        else if (gameType.contains("Random")) {
+            return new GameRandomDots(length, nDots);
+        }
+        else if (gameType.contains("Ending")) {
+            return new GameEndsWithDots(length, nDots);
+        }
+        else if (gameType.contains("to-make")) {
+            return new GameNToNPlusOne(length);
+        }
+        else if (gameType.equals("Q without U")) {
+            Util.log("GAMEFACTORY", "createGame", null);
+            return new GameQNoU(length, nDots);
+        }
+        return null;
+    }
 }

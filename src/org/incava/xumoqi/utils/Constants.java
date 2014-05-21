@@ -28,11 +28,11 @@
 package org.incava.xumoqi.utils;
 
 public class Constants {
-	public final static String DURATION = "Duration";
-	public final static String GAME_PARAMS = "GameParams";
-	public final static String INPUT_STRING = "InputString";
-	public final static String MATCHING = "Matching";
-	public final static String RESULTS = "Results";
-	public final static String QUERY = "Query";
-	public final static String QUERY_WORD = "QueryWord";
+    public final static String DURATION = "Duration";
+    public final static String GAME_PARAMS = "GameParams";
+    public final static String INPUT_STRING = "InputString";
+    public final static String MATCHING = "Matching";
+    public final static String RESULTS = "Results";
+    public final static String QUERY = "Query";
+    public final static String QUERY_WORD = "QueryWord";
 }

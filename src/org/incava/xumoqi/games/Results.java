@@ -38,15 +38,15 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Results implements Parcelable {
-	public static final Parcelable.Creator<Results> CREATOR = new Parcelable.Creator<Results>() {
-		public Results createFromParcel(Parcel parcel) {
-			return new Results(parcel);
-		}
-		
-		public Results[] newArray(int size) {
-			return new Results[size];
-		}
-	};
+    public static final Parcelable.Creator<Results> CREATOR = new Parcelable.Creator<Results>() {
+        public Results createFromParcel(Parcel parcel) {
+            return new Results(parcel);
+        }
+        
+        public Results[] newArray(int size) {
+            return new Results[size];
+        }
+    };
 
     private final TreeSet<String> correct;
     private final TreeSet<String> missed;
@@ -63,46 +63,42 @@ public class Results implements Parcelable {
         Set<String> all = new TreeSet<String>(matching);
         all.addAll(responseList);
 
-        for (String x : all) {
-        	Util.log("RESULTS", "x", x);
-            Set<String> set = getStatusSet(responseList, matching, x);
+        for (String str : all) {
+            Util.log("RESULTS", "str", str);
+            Set<String> set = matching.contains(str) ? (responseList.contains(str) ? correct : missed) : invalid;
             Util.log("RESULTS", "set", set);
-            set.add(x);
+            set.add(str);
         }
     }
     
-    private Set<String> getStatusSet(List<String> responseList, List<String> matching, String str) {
-        return matching.contains(str) ? (responseList.contains(str) ? correct : missed) : invalid;
-    }
-
-	protected Results(Parcel parcel) {
+    protected Results(Parcel parcel) {
         correct = new TreeSet<String>(Arrays.asList(parcel.createStringArray()));
         missed = new TreeSet<String>(Arrays.asList(parcel.createStringArray()));
         invalid = new TreeSet<String>(Arrays.asList(parcel.createStringArray()));
-	}
-	
-	@Override
-	public int describeContents() {
-		return 0;
-	}
-	
-	@Override
-	public void writeToParcel(Parcel parcel, int flags) {
+    }
+    
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+    
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeStringArray(correct.toArray(new String[correct.size()]));
         parcel.writeStringArray(missed.toArray(new String[missed.size()]));
         parcel.writeStringArray(invalid.toArray(new String[invalid.size()]));
-	}
+    }
 
     public TreeSet<String> getCorrect() {
-    	return correct;
+        return correct;
     }
 
     public TreeSet<String> getMissed() {
-    	return missed;
+        return missed;
     }
 
     public TreeSet<String> getInvalid() {
-    	return invalid;
+        return invalid;
     }
 
     public String toString() {

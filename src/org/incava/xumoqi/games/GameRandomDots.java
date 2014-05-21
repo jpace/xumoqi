@@ -34,31 +34,31 @@ import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
 public class GameRandomDots extends GameDottedWords {
-	private static int getRandomIndex(int length) {
-		// handles only one dot for now
-		Random rnd = new Random();
-		return rnd.nextInt(length);
-	}
-	
-	private final WordList wordList;
-	
-	public GameRandomDots(int length, int nDots) {
-		this(getWordList(length), length, nDots);
-	}
-	
-	public GameRandomDots(WordList wordList, int length, int nDots) {
-		super(wordList, length, nDots, getRandomIndex(length));
-		this.wordList = wordList;
-	}
-	
-	public ArrayList<String> getMatching(Word queryWord) {
-		String pat = queryWord.asPattern();
-		String qstr = queryWord.toString();
-		if (isBlank(0)) {
-			return wordList.getMatchingEndsWith(qstr.charAt(getLength() - 1), pat);
-		}
-		else {
-			return wordList.getMatchingStartsWith(qstr.charAt(0), pat);
-		}
-	}
+    private static int getRandomIndex(int length) {
+        // handles only one dot for now
+        Random rnd = new Random();
+        return rnd.nextInt(length);
+    }
+    
+    private final WordList wordList;
+    
+    public GameRandomDots(int length, int nDots) {
+        this(getWordList(length), length, nDots);
+    }
+    
+    public GameRandomDots(WordList wordList, int length, int nDots) {
+        super(wordList, length, nDots, getRandomIndex(length));
+        this.wordList = wordList;
+    }
+    
+    public ArrayList<String> getMatching(Word queryWord) {
+        String pat = queryWord.asPattern();
+        String qstr = queryWord.toString();
+        if (isBlank(0)) {
+            return wordList.getMatchingEndsWith(qstr.charAt(getLength() - 1), pat);
+        }
+        else {
+            return wordList.getMatchingStartsWith(qstr.charAt(0), pat);
+        }
+    }
 }

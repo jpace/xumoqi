@@ -34,41 +34,41 @@ import org.incava.xumoqi.utils.Util;
 import org.incava.xumoqi.words.Word;
 
 public class Response {
-	private final List<String> strs;
+    private final List<String> strs;
 
-	public Response(Word queryWord, String str) {
-		String trimmed = str.trim();
-		String[] words = trimmed.split("[\\s,]+");
-		strs = Arrays.asList(words);
-		Util.log(getClass(), "strs", strs);
-		updateWithFullWords(queryWord);
-	}
+    public Response(Word queryWord, String str) {
+        String trimmed = str.trim();
+        String[] words = trimmed.split("[\\s,]+");
+        strs = Arrays.asList(words);
+        Util.log(getClass(), "strs", strs);
+        updateWithFullWords(queryWord);
+    }
 
-	public boolean contains(String str) {
-		return strs.contains(str);    
-	}
-	
-	public List<String> getAll() {
-		return strs;
-	}
-	
-	public String toString() {
-		return strs.toString();
-	}
-	
-	private void updateWithFullWords(Word queryWord) {
-		for (int idx = 0; idx < strs.size(); ++idx) {
-			String s = strs.get(idx);
-			Util.log(getClass(), "s", s);
-			if (s.length() == 1) {
-				replaceWithFullWord(queryWord, idx, s.charAt(0));
-			}
-		}
-	}
-	
-	private void replaceWithFullWord(Word queryWord, int idx, char ch) {
-		String t = queryWord.sub(ch);
-		strs.set(idx, t);
-		Util.log(getClass(), "t", t);
-	}
+    public boolean contains(String str) {
+        return strs.contains(str);    
+    }
+    
+    public List<String> getAll() {
+        return strs;
+    }
+    
+    public String toString() {
+        return strs.toString();
+    }
+    
+    private void updateWithFullWords(Word queryWord) {
+        for (int idx = 0; idx < strs.size(); ++idx) {
+            String s = strs.get(idx);
+            Util.log(getClass(), "s", s);
+            if (s.length() == 1) {
+                replaceWithFullWord(queryWord, idx, s.charAt(0));
+            }
+        }
+    }
+    
+    private void replaceWithFullWord(Word queryWord, int idx, char ch) {
+        String t = queryWord.sub(ch);
+        strs.set(idx, t);
+        Util.log(getClass(), "t", t);
+    }
 }

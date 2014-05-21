@@ -52,18 +52,18 @@ public class WordList {
                     return word.endsWith(str);
                 }
             };
-    	random = new Random();
-    	lastWords = new ArrayList<String>();
+        random = new Random();
+        lastWords = new ArrayList<String>();
     }
 
     public WordList(InputStream is) {
-    	this();
-    	
+        this();
+        
         IOReader iordr = new IOReader() {
-        	public void onRead(String str) {
-        		addWord(str);
-        	}
-        };
+                public void onRead(String str) {
+                    addWord(str);
+                }
+            };
         iordr.readStream(is);
     }
 
@@ -75,7 +75,7 @@ public class WordList {
     }
     
     private void addWord(WordMapByChar wordMap, int idx, String word) {
-    	wordMap.addWord(word.charAt(idx), word);
+        wordMap.addWord(word.charAt(idx), word);
     }
 
     public List<String> getWords() {
@@ -83,57 +83,57 @@ public class WordList {
     }
     
     private ArrayList<String> getMatchingForChar(WordMapByChar wordMap, Character ch, String pat) {
-    	List<String> forChar = wordMap.getForChar(ch);
-    	return getMatching(pat, forChar);
+        List<String> forChar = wordMap.getForChar(ch);
+        return getMatching(pat, forChar);
     }
     
     public ArrayList<String> getMatchingStartsWith(Character ch, String pat) {
-    	return getMatchingForChar(byFirst, ch, pat);
+        return getMatchingForChar(byFirst, ch, pat);
     }
     
     public ArrayList<String> getMatchingEndsWith(Character ch, String pat) {
-    	return getMatchingForChar(byLast, ch, pat);
+        return getMatchingForChar(byLast, ch, pat);
     }
 
     private ArrayList<String> getForIndex(WordMapByChar wordMap, String str, int idx) {
-    	return wordMap.getMatches(str.charAt(idx), str);
+        return wordMap.getMatches(str.charAt(idx), str);
     }
 
     public ArrayList<String> getStartingWith(String str) {
-    	return getForIndex(byFirst, str, 0);
+        return getForIndex(byFirst, str, 0);
     }
 
     public ArrayList<String> getEndingWith(String str) {
-    	return getForIndex(byLast, str, str.length() - 1);
+        return getForIndex(byLast, str, str.length() - 1);
     }
     
     public ArrayList<String> getMatching(String pat) {
-    	return getMatching(pat, words);
+        return getMatching(pat, words);
     }
     
     private ArrayList<String> getMatching(String pat, List<String> strs) {
-    	ArrayList<String> matching = new ArrayList<String>();
-    	Pattern pattern = Pattern.compile(pat);
-    	for (String str : strs) {
-    		if (pattern.matcher(str).matches()) {
-    			matching.add(str);
-    		}
-    	}
-    	
-    	return matching;
+        ArrayList<String> matching = new ArrayList<String>();
+        Pattern pattern = Pattern.compile(pat);
+        for (String str : strs) {
+            if (pattern.matcher(str).matches()) {
+                matching.add(str);
+            }
+        }
+        
+        return matching;
     }
     
-	public String getRandomWord() {
-		for (int i = 0; i < 100; ++i) {
-			// TODO: this won't repeat the word, but it can repeat
-			// the pattern created from the word. 
-			int idx = random.nextInt(words.size());
-			String word = words.get(idx);
-			if (!lastWords.contains(word)) {
-		    	lastWords.add(word);
-				return word;
-			}
-		}
-		return words.get(0);
-	}
+    public String getRandomWord() {
+        for (int i = 0; i < 100; ++i) {
+            // TODO: this won't repeat the word, but it can repeat
+            // the pattern created from the word. 
+            int idx = random.nextInt(words.size());
+            String word = words.get(idx);
+            if (!lastWords.contains(word)) {
+                lastWords.add(word);
+                return word;
+            }
+        }
+        return words.get(0);
+    }
 }

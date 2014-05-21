@@ -35,59 +35,59 @@ import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
 public class GameNToNPlusOne extends Game {
-	private final WordList fromWordList;
-	private final WordList toWordList;
-	private ArrayList<String> matching = null;
-	
-	public GameNToNPlusOne(int length) {
-		this.fromWordList = getWordList(length);
-		this.toWordList = getWordList(length + 1);
-	}
+    private final WordList fromWordList;
+    private final WordList toWordList;
+    private ArrayList<String> matching = null;
+    
+    public GameNToNPlusOne(int length) {
+        this.fromWordList = getWordList(length);
+        this.toWordList = getWordList(length + 1);
+    }
 
-	@Override
-	public Word getQueryWord() {
-		return getQueryWord(false);
-	}
-	
-	public String getAsQuery(Word word) {
-		String str = word.toString();
-		return "_" + str + ", " + str + "_";  
-	}
-	
-	public Word getQueryWord(boolean includeOnlyPlurals) {
-		// TODO: no plurals (other than 2-letter words?)
-		Timer t = new Timer("N-N+1", "getQueryWord()");
-		Word word = null;
-		while (matching == null || matching.isEmpty()) {
-			word = new Word(fromWordList.getRandomWord(), Word.NO_INDEX);
-			t.done("word: " + word + " from fromWordList");
-			matching = getMatching(word);
-			t.done("matching " + matching);
-			
-			if (containsOnlyPlural(word) && !includeOnlyPlurals) {
-				matching = null;
-			}
-		}
+    @Override
+    public Word getQueryWord() {
+        return getQueryWord(false);
+    }
+    
+    public String getAsQuery(Word word) {
+        String str = word.toString();
+        return "_" + str + ", " + str + "_";  
+    }
+    
+    public Word getQueryWord(boolean includeOnlyPlurals) {
+        // TODO: no plurals (other than 2-letter words?)
+        Timer t = new Timer("N-N+1", "getQueryWord()");
+        Word word = null;
+        while (matching == null || matching.isEmpty()) {
+            word = new Word(fromWordList.getRandomWord(), Word.NO_INDEX);
+            t.done("word: " + word + " from fromWordList");
+            matching = getMatching(word);
+            t.done("matching " + matching);
+            
+            if (containsOnlyPlural(word) && !includeOnlyPlurals) {
+                matching = null;
+            }
+        }
 
-		t.done("final WORD: " + word);
-		return word;
-	}
+        t.done("final WORD: " + word);
+        return word;
+    }
 
-	public ArrayList<String> getMatching(Word queryWord) {
-		Timer t = new Timer("N-N+1", "getMatching(" + queryWord + ")");
-		List<String> words = toWordList.getWords();
-		String str = queryWord.toString();
-		ArrayList<String> matching = new ArrayList<String>();
-		for (String wd : words) {
-    		if (wd.endsWith(str) || wd.startsWith(str)) {
-    			matching.add(wd);
-    		}
-		}
-		t.done();
-		return matching;
-	}
+    public ArrayList<String> getMatching(Word queryWord) {
+        Timer t = new Timer("N-N+1", "getMatching(" + queryWord + ")");
+        List<String> words = toWordList.getWords();
+        String str = queryWord.toString();
+        ArrayList<String> matching = new ArrayList<String>();
+        for (String wd : words) {
+            if (wd.endsWith(str) || wd.startsWith(str)) {
+                matching.add(wd);
+            }
+        }
+        t.done();
+        return matching;
+    }
 
-	private boolean containsOnlyPlural(Word word) {
-		return matching.size() == 1 && matching.get(0).equals(word.toString() + 's');
-	}
+    private boolean containsOnlyPlural(Word word) {
+        return matching.size() == 1 && matching.get(0).equals(word.toString() + 's');
+    }
 }
