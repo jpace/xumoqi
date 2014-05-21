@@ -30,21 +30,20 @@ package org.incava.xumoqi.games;
 import java.util.ArrayList;
 
 import org.incava.xumoqi.words.Word;
-import org.incava.xumoqi.words.WordList;
-import org.incava.xumoqi.words.WordLists;
 
-public abstract class Game {
-    public static WordList getWordList(int length) {
-        return WordLists.getInstance().getWordList(length);
-    }
+public interface Game {
+	/**
+	 * Returns a new, random word to be queries.
+	 */
+    public Word getQueryWord();
 
-    public abstract Word getQueryWord();
+    /**
+     * Returns words (as strings) that match the given <code>queryWord</code>.
+     */
+    public ArrayList<String> getMatching(Word queryWord);
 
-    public abstract ArrayList<String> getMatching(Word queryWord);
-    
-    public abstract String getAsQuery(Word word);
-    
-    public Query createQuery() {
-        return new Query(getQueryWord());
-    }
+    /**
+     * Returns the word as a query for this game type, such as "_oo" for the Word "foo".
+     */
+    public String getAsQuery(Word word);
 }

@@ -42,10 +42,6 @@ public class GameRandomDots extends GameDottedWords {
     
     private final WordList wordList;
     
-    public GameRandomDots(int length, int nDots) {
-        this(getWordList(length), length, nDots);
-    }
-    
     public GameRandomDots(WordList wordList, int length, int nDots) {
         super(wordList, length, nDots, getRandomIndex(length));
         this.wordList = wordList;

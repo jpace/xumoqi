@@ -35,10 +35,6 @@ import org.incava.xumoqi.words.WordList;
 public class GameEndsWithDots extends GameDottedWords {
     private final WordList wordList;
 
-    public GameEndsWithDots(int length, int nDots) {
-        this(getWordList(length), length, nDots);
-    }
-    
     public GameEndsWithDots(WordList wordList, int length, int nDots) {
         super(wordList, length, nDots, length - 1);
         this.wordList = wordList;

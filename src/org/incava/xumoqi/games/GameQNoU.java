@@ -47,10 +47,9 @@ public class GameQNoU extends GameDottedWords {
     private ArrayList<String> matching;
     private final int maxLength;
     
-    public GameQNoU(int length, int nDots) {
-        this(getWordList(length), length, nDots);
-    }
-    
+    // @todo: hard-coded word list for now (see above);
+    // will be a new word list and/or index list (into elements in word list).
+    // so this wordList is not currently used.
     public GameQNoU(WordList wordList, int length, int nDots) {
         super(wordList, length, nDots, 2);
         random = new Random();

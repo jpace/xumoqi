@@ -31,15 +31,15 @@ import org.incava.xumoqi.words.Blanks;
 import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
-public abstract class GameDottedWords extends Game {
+public abstract class GameDottedWords implements Game {
     private final WordList wordList;
     private final int length;
     private final Blanks blanks;
 
-    public GameDottedWords(WordList wordList, int length, int nDots, int index) {
+    public GameDottedWords(WordList wordList, int length, int nDots, int blankIndex) {
         this.wordList = wordList;
         this.length = length;
-        this.blanks = new Blanks(nDots, index);
+        this.blanks = new Blanks(nDots, blankIndex);
     }
     
     public String getAsQuery(Word word) {

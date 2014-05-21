@@ -34,14 +34,14 @@ import org.incava.xumoqi.utils.Timer;
 import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
-public class GameNToNPlusOne extends Game {
+public class GameNToNPlusOne implements Game {
     private final WordList fromWordList;
     private final WordList toWordList;
     private ArrayList<String> matching = null;
     
-    public GameNToNPlusOne(int length) {
-        this.fromWordList = getWordList(length);
-        this.toWordList = getWordList(length + 1);
+    public GameNToNPlusOne(WordList fromWordList, WordList toWordList) {
+    	this.fromWordList = fromWordList;
+    	this.toWordList = toWordList;
     }
 
     @Override

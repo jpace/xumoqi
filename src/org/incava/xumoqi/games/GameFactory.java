@@ -28,25 +28,31 @@
 package org.incava.xumoqi.games;
 
 import org.incava.xumoqi.utils.Util;
+import org.incava.xumoqi.words.WordList;
+import org.incava.xumoqi.words.WordLists;
 
 public class GameFactory {
     public static Game createGame(String gameType, int length, int nDots) {
         if (gameType.contains("Starting")) {
-            return new GameStartsWithDots(length, nDots);
+            return new GameStartsWithDots(getWordList(length), length, nDots);
         }
         else if (gameType.contains("Random")) {
-            return new GameRandomDots(length, nDots);
+            return new GameRandomDots(getWordList(length), length, nDots);
         }
         else if (gameType.contains("Ending")) {
-            return new GameEndsWithDots(length, nDots);
+            return new GameEndsWithDots(getWordList(length), length, nDots);
         }
         else if (gameType.contains("to-make")) {
-            return new GameNToNPlusOne(length);
+            return new GameNToNPlusOne(getWordList(length), getWordList(length + 1));
         }
         else if (gameType.equals("Q without U")) {
             Util.log("GAMEFACTORY", "createGame", null);
-            return new GameQNoU(length, nDots);
+            return new GameQNoU(null, length, nDots);
         }
         return null;
+    }
+
+    public static WordList getWordList(int length) {
+        return WordLists.getInstance().getWordList(length);
     }
 }
