@@ -34,7 +34,6 @@ import org.incava.xumoqi.games.GameFactory;
 import org.incava.xumoqi.games.GameParams;
 import org.incava.xumoqi.games.Query;
 import org.incava.xumoqi.games.QueryList;
-import org.incava.xumoqi.games.Results;
 import org.incava.xumoqi.utils.Constants;
 import org.incava.xumoqi.utils.Timer;
 import org.incava.xumoqi.utils.Util;
@@ -74,12 +73,6 @@ public class QueryActivity extends Activity {
         
         queries = intent.getParcelableExtra(Constants.QUERIES);
         Util.log(getClass(), "create.queries", queries.inspect());
-        
-        Results results = intent.getParcelableExtra(Constants.RESULTS);
-        Util.log(getClass(), "create.results", results);
-        
-        Query q = intent.getParcelableExtra(Constants.QUERY);
-        Util.log(getClass(), "create.q", q);
         
         // not an option, for now ...
         int numDots = 1;
@@ -143,10 +136,18 @@ public class QueryActivity extends Activity {
         long duration = timer.getDuration();
         
         Intent intent = new Intent(this, StatusActivity.class);
-        intent.putExtra(Constants.QUERY, query);
-        intent.putExtra(Constants.QUERY_WORD, queryWord);
+
         intent.putExtra(Constants.DURATION, String.valueOf(duration));
         
+        EditText et = (EditText)findViewById(R.id.queryInput);
+        String inputText = et.getText().toString();
+        intent.putExtra(Constants.INPUT_STRING, inputText);
+
+        intent.putExtra(Constants.GAME_PARAMS, gameParams);
+        
+        intent.putExtra(Constants.QUERIES, queries);
+        Util.log(getClass(), "next.queries", queries);
+
         while (matching == null) {
             // waiting for getMatching() to finish; invoked by onCreate() ...
             try {
@@ -157,16 +158,6 @@ public class QueryActivity extends Activity {
         }
         intent.putStringArrayListExtra(Constants.MATCHING, matching);
         
-        EditText et = (EditText)findViewById(R.id.queryInput);
-        String inputText = et.getText().toString();
-        intent.putExtra(Constants.INPUT_STRING, inputText);
-
-        intent.putExtra(Constants.GAME_PARAMS, gameParams);
-        // Util.log(getClass(), "gameParams", gameParams);
-        
-        intent.putExtra(Constants.QUERIES, queries);
-        Util.log(getClass(), "next.queries", queries);
-
         startActivity(intent);
     }
     

@@ -47,7 +47,6 @@ import android.widget.TableLayout;
 
 public class StatusActivity extends Activity {
     private GameParams gameParams = null;
-    private Results results = null;
     private Query query = null;
     private QueryList queries = null;
     
@@ -64,21 +63,20 @@ public class StatusActivity extends Activity {
         queries = intent.getParcelableExtra(Constants.QUERIES);
         Util.log(getClass(), "create.queries", queries);
         
-        Word queryWord = intent.getParcelableExtra(Constants.QUERY_WORD);
-        // Util.log("STATUS", "queryWord", queryWord);
-        // Util.log("STATUS", "queryWord.dotIndex", queryWord.getDotIndex());
+        query = queries.getQuery(-1);
+        Util.log(getClass(), "create.query", query);
         
-        query = intent.getParcelableExtra(Constants.QUERY);
-        Util.log("STATUS", "create.query", query);
-        // Util.log("STATUS", "query.word", query.getWord());
+        Word queryWord = query.getWord();
+        Util.log("STATUS", "queryWord", queryWord);
+        Util.log("STATUS", "queryWord.dotIndex", queryWord.getDotIndex());
         
         String duration = intent.getStringExtra(Constants.DURATION);
-        // Util.log("STATUS", "duration", duration);
+        Util.log("STATUS", "duration", duration);
         
         String inputString = intent.getStringExtra(Constants.INPUT_STRING);
         ArrayList<String> matching = intent.getStringArrayListExtra(Constants.MATCHING);
         Response response = new Response(queryWord, inputString);
-        results = new Results(matching, response.getAll());
+        Results results = new Results(matching, response.getAll());
         Util.log(getClass(), "create.results", results);
         
         query.addResults(results);
@@ -107,14 +105,9 @@ public class StatusActivity extends Activity {
     public void onClickNext(View view) {
         Intent intent = new Intent(this, QueryActivity.class);
         intent.putExtra(Constants.GAME_PARAMS, gameParams);
-        intent.putExtra(Constants.RESULTS, results);
-        Util.log(getClass(), "next.results", results);
         
         intent.putExtra(Constants.QUERIES, queries);
         Util.log(getClass(), "next.queries", queries);
-
-        intent.putExtra(Constants.QUERY, query);
-        Util.log(getClass(), "next.query", query);
 
         startActivity(intent);
     }

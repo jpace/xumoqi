@@ -65,6 +65,10 @@ public class QueryList implements Parcelable {
     public ArrayList<Query> getQueries() {
         return queries;
     }
+    
+    public Query getQuery(int idx) {
+    	return queries.get(idx < 0 ? queries.size() + idx : idx);
+    }
 
     public void addQuery(Query query) {
         queries.add(query);
