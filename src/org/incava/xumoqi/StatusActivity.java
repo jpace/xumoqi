@@ -31,6 +31,7 @@ import java.util.ArrayList;
 
 import org.incava.xumoqi.games.GameParams;
 import org.incava.xumoqi.games.Query;
+import org.incava.xumoqi.games.QueryList;
 import org.incava.xumoqi.games.Response;
 import org.incava.xumoqi.games.Results;
 import org.incava.xumoqi.utils.Constants;
@@ -46,7 +47,8 @@ import android.widget.TableLayout;
 
 public class StatusActivity extends Activity {
     private GameParams gameParams = null;
-    private Results results = null;
+    private Query query = null;
+    private QueryList queries = null;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +58,17 @@ public class StatusActivity extends Activity {
         Intent intent = getIntent();
         
         gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
-        Util.log("STATUS", "gameParams", gameParams);
+        // Util.log("STATUS", "gameParams", gameParams);
         
-        Word queryWord = intent.getParcelableExtra(Constants.QUERY_WORD);
+        queries = intent.getParcelableExtra(Constants.QUERIES);
+        Util.log(getClass(), "create.queries", queries);
+        
+        query = queries.getQuery(-1);
+        Util.log(getClass(), "create.query", query);
+        
+        Word queryWord = query.getWord();
         Util.log("STATUS", "queryWord", queryWord);
         Util.log("STATUS", "queryWord.dotIndex", queryWord.getDotIndex());
-        
-        Query query = intent.getParcelableExtra(Constants.QUERY);
-        Util.log("STATUS", "query", query);
-        Util.log("STATUS", "query.word", query.getWord());
         
         String duration = intent.getStringExtra(Constants.DURATION);
         Util.log("STATUS", "duration", duration);
@@ -72,7 +76,13 @@ public class StatusActivity extends Activity {
         String inputString = intent.getStringExtra(Constants.INPUT_STRING);
         ArrayList<String> matching = intent.getStringArrayListExtra(Constants.MATCHING);
         Response response = new Response(queryWord, inputString);
-        results = new Results(matching, response.getAll());
+        Results results = new Results(matching, response.getAll());
+        Util.log(getClass(), "create.results", results);
+        
+        query.addResults(results);
+        Util.log(getClass(), "create.query", query);
+
+        Util.log(getClass(), "create(2).queries", queries);
 
         TableLayout tableLayout = (TableLayout)findViewById(R.id.statusTable);
         ResultsTable rt = new ResultsTable(this, tableLayout);
@@ -95,7 +105,10 @@ public class StatusActivity extends Activity {
     public void onClickNext(View view) {
         Intent intent = new Intent(this, QueryActivity.class);
         intent.putExtra(Constants.GAME_PARAMS, gameParams);
-        intent.putExtra(Constants.RESULTS, results);
+        
+        intent.putExtra(Constants.QUERIES, queries);
+        Util.log(getClass(), "next.queries", queries);
+
         startActivity(intent);
     }
 }

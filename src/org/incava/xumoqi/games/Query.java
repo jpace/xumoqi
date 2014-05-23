@@ -29,6 +29,7 @@ package org.incava.xumoqi.games;
 
 import java.util.ArrayList;
 
+import org.incava.xumoqi.utils.Util;
 import org.incava.xumoqi.words.Word;
 
 import android.os.Parcel;
@@ -66,6 +67,8 @@ public class Query implements Parcelable {
         this.word = parcel.readParcelable(Word.class.getClassLoader());
         this.results = new ArrayList<Results>();
         parcel.readList(this.results, Results.class.getClassLoader());
+        // Util.log(getClass(), "init.results", results);
+        // Util.log(getClass(), "init.this", this);
     }
     
     public Word getWord() {
@@ -76,8 +79,10 @@ public class Query implements Parcelable {
         return results;
     }
 
-    public void addResult(Results results) {
-        this.results.add(results);
+    public void addResults(Results res) {
+        this.results.add(res);
+        // Util.log(getClass(), "add: res", res);
+        // Util.log(getClass(), "add: results", results);
     }
 
     @Override
@@ -88,6 +93,8 @@ public class Query implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeParcelable(word, flags);
+        Util.log(getClass(), "write: this", this);
+        Util.log(getClass(), "write: results", results);
         parcel.writeList(results);
     }
     
