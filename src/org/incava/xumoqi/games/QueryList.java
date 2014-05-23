@@ -29,55 +29,45 @@ package org.incava.xumoqi.games;
 
 import java.util.ArrayList;
 
-import org.incava.xumoqi.words.Word;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Query implements Parcelable {
-    public static final Parcelable.Creator<Query> CREATOR = new Parcelable.Creator<Query>() {
-        public Query createFromParcel(Parcel parcel) {
-            return new Query(parcel);
+public class QueryList implements Parcelable {
+    public static final Parcelable.Creator<QueryList> CREATOR = new Parcelable.Creator<QueryList>() {
+        public QueryList createFromParcel(Parcel parcel) {
+            return new QueryList(parcel);
         }
         
-        public Query[] newArray(int size) {
-            return new Query[size];
+        public QueryList[] newArray(int size) {
+            return new QueryList[size];
         }
     };
 
-    public final static int MAX_RESULTS = 5;
-
-    private final Word word;
+    public final static int MAX_QUERIES = 5;
 
     // TODO: keep this to a fixed size
-    private final ArrayList<Results> results;
+    private final ArrayList<Query> queries;
 
-    public Query(Word word) {
-        this.word = word;
-        this.results = new ArrayList<Results>();
+    public QueryList() {
+        this.queries = new ArrayList<Query>();
     }
 
-    public Query(Word word, Results results) {
-        this(word);
-        this.results.add(results);
+    public QueryList(Query query) {
+    	this();
+        this.queries.add(query);
     }
     
-    protected Query(Parcel parcel) {
-        this.word = parcel.readParcelable(Word.class.getClassLoader());
-        this.results = new ArrayList<Results>();
-        parcel.readList(this.results, Results.class.getClassLoader());
+    protected QueryList(Parcel parcel) {
+    	this();
+        parcel.readList(this.queries, Query.class.getClassLoader());
     }
     
-    public Word getWord() {
-        return word;
+    public ArrayList<Query> getQueries() {
+        return queries;
     }
 
-    public ArrayList<Results> getResults() {
-        return results;
-    }
-
-    public void addResult(Results results) {
-        this.results.add(results);
+    public void addQuery(Query query) {
+        queries.add(query);
     }
 
     @Override
@@ -87,11 +77,10 @@ public class Query implements Parcelable {
     
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeParcelable(word, flags);
-        parcel.writeList(results);
+        parcel.writeList(queries);
     }
     
     public String toString() {
-        return "word: " + word + "; results: " + results;
+        return "queries: " + queries;
     }
 }
