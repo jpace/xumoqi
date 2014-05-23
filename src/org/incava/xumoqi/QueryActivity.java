@@ -33,6 +33,7 @@ import org.incava.xumoqi.games.Game;
 import org.incava.xumoqi.games.GameFactory;
 import org.incava.xumoqi.games.GameParams;
 import org.incava.xumoqi.games.Query;
+import org.incava.xumoqi.games.QueryList;
 import org.incava.xumoqi.games.Results;
 import org.incava.xumoqi.utils.Constants;
 import org.incava.xumoqi.utils.Timer;
@@ -59,6 +60,7 @@ public class QueryActivity extends Activity {
     private Word queryWord = null;
     private Timer timer = null;
     private Query query = null;
+    private QueryList queries = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +72,14 @@ public class QueryActivity extends Activity {
         gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
         int length = gameParams.getWordLength();
         
+        queries = intent.getParcelableExtra(Constants.QUERIES);
+        Util.log(getClass(), "create.queries", queries.inspect());
+        
         Results results = intent.getParcelableExtra(Constants.RESULTS);
-        Util.log(getClass(), "results", results);
+        Util.log(getClass(), "create.results", results);
+        
+        Query q = intent.getParcelableExtra(Constants.QUERY);
+        Util.log(getClass(), "create.q", q);
         
         // not an option, for now ...
         int numDots = 1;
@@ -79,6 +87,7 @@ public class QueryActivity extends Activity {
         Game game = GameFactory.createGame(gameParams.getGameType(), length, numDots);
         queryWord = game.getQueryWord();
         query = new Query(queryWord);
+        queries.addQuery(query);
         
         fetchMatching(game, queryWord);
         
@@ -117,15 +126,15 @@ public class QueryActivity extends Activity {
     }
     
     private void fetchMatching(final Game game, final Word queryWord) {
-        Thread t = new Thread(new Runnable() {
+        Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Timer t = new Timer("QUERY", "getMatching");
+                    // Timer timer = new Timer("QUERY", "getMatching");
                     matching = game.getMatching(queryWord);
-                    t.done();
+                    // timer.done();
                 }
             });
-        t.start();
+        thread.start();
     }
     
     public void onClickNext(View view) {
@@ -153,7 +162,10 @@ public class QueryActivity extends Activity {
         intent.putExtra(Constants.INPUT_STRING, inputText);
 
         intent.putExtra(Constants.GAME_PARAMS, gameParams);
-        Util.log(getClass(), "gameParams", gameParams);
+        // Util.log(getClass(), "gameParams", gameParams);
+        
+        intent.putExtra(Constants.QUERIES, queries);
+        Util.log(getClass(), "next.queries", queries);
 
         startActivity(intent);
     }

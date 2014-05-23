@@ -83,4 +83,13 @@ public class QueryList implements Parcelable {
     public String toString() {
         return "queries: " + queries;
     }
+    
+    public String inspect() {
+    	StringBuilder sb = new StringBuilder();
+    	sb.append("#queries: " + queries.size() + "\n");
+    	for (int idx = 0; idx < queries.size(); ++idx) {
+    		sb.append("query[" + idx + "]: " + queries.get(idx) + "\n");
+    	}
+    	return sb.toString();
+    }
 }

@@ -32,8 +32,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.incava.xumoqi.utils.Util;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -53,9 +51,6 @@ public class Results implements Parcelable {
     private final TreeSet<String> invalid;
 
     public Results(List<String> matching, List<String> responseList) {
-        Util.log("RESULTS", "matching", matching);
-        Util.log("RESULTS", "responseList", responseList);
-
         correct = new TreeSet<String>();
         missed = new TreeSet<String>();
         invalid = new TreeSet<String>();
@@ -64,9 +59,7 @@ public class Results implements Parcelable {
         all.addAll(responseList);
 
         for (String str : all) {
-            Util.log("RESULTS", "str", str);
             Set<String> set = matching.contains(str) ? (responseList.contains(str) ? correct : missed) : invalid;
-            Util.log("RESULTS", "set", set);
             set.add(str);
         }
     }

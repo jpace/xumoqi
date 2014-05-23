@@ -33,6 +33,7 @@ public class Constants {
     public final static String INPUT_STRING = "InputString";
     public final static String MATCHING = "Matching";
     public final static String RESULTS = "Results";
+    public final static String QUERIES = "Queries";
     public final static String QUERY = "Query";
     public final static String QUERY_WORD = "QueryWord";
 }

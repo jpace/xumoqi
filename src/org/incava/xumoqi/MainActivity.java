@@ -28,6 +28,7 @@
 package org.incava.xumoqi;
 
 import org.incava.xumoqi.games.GameParams;
+import org.incava.xumoqi.games.QueryList;
 import org.incava.xumoqi.utils.Constants;
 import org.incava.xumoqi.utils.Util;
 import org.incava.xumoqi.words.WordLists;
@@ -96,6 +97,9 @@ public class MainActivity extends Activity {
         String gameType = gameTypeSpinner.getSelectedItem().toString();
         GameParams gp = new GameParams(np.getValue(), gameType);
         intent.putExtra(Constants.GAME_PARAMS, gp);
+        
+        QueryList qlist = new QueryList();
+        intent.putExtra(Constants.QUERIES, qlist);
         
         startActivity(intent);
     }
