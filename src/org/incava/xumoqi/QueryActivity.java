@@ -28,6 +28,7 @@
 package org.incava.xumoqi;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.incava.xumoqi.games.Game;
 import org.incava.xumoqi.games.GameFactory;
@@ -58,7 +59,6 @@ public class QueryActivity extends Activity {
     private GameParams gameParams = null;
     private Word queryWord = null;
     private Timer timer = null;
-    private Query query = null;
     private QueryList queries = null;
 
     @Override
@@ -66,29 +66,12 @@ public class QueryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_query);
         
-        Intent intent = getIntent();
-        
-        gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
-        int length = gameParams.getWordLength();
-        
-        queries = intent.getParcelableExtra(Constants.QUERIES);
-        Util.log(getClass(), "create.queries", queries.inspect());
-        
-        // not an option, for now ...
-        int numDots = 1;
-        
-        Game game = GameFactory.createGame(gameParams.getGameType(), length, numDots);
-        queryWord = game.getQueryWord();
-        query = new Query(queryWord);
-        queries.addQuery(query);
-        
-        fetchMatching(game, queryWord);
+        String queryStr = getNextQuery();
         
         setupEditText();
         
         TextView tv = getQueryTextView();
-        String asQuery = game.getAsQuery(queryWord);
-        tv.setText(asQuery);
+        tv.setText(queryStr);
         
         timer = new Timer();
         timer.done("onCreate");
@@ -124,6 +107,7 @@ public class QueryActivity extends Activity {
                 public void run() {
                     // Timer timer = new Timer("QUERY", "getMatching");
                     matching = game.getMatching(queryWord);
+                    log("matching", matching);
                     // timer.done();
                 }
             });
@@ -146,7 +130,7 @@ public class QueryActivity extends Activity {
         intent.putExtra(Constants.GAME_PARAMS, gameParams);
         
         intent.putExtra(Constants.QUERIES, queries);
-        Util.log(getClass(), "next.queries", queries);
+        log("next.queries", queries);
 
         while (matching == null) {
             // waiting for getMatching() to finish; invoked by onCreate() ...
@@ -194,4 +178,62 @@ public class QueryActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    private String getNextQuery() {
+        Intent intent = getIntent();
+
+        gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
+        int length = gameParams.getWordLength();
+        
+        queries = intent.getParcelableExtra(Constants.QUERIES);
+        log("next.queries", queries.inspect());
+        
+        ArrayList<Query> badQueries = new ArrayList<Query>();
+        
+        for (Query q : queries.getQueries()) {
+       		if (!q.isCorrect()) {
+        		badQueries.add(q);
+        	}
+        }
+
+		// not an option, for now ...
+		final int numDots = 1;
+   
+		Game game = GameFactory.createGame(gameParams.getGameType(), length, numDots);
+
+    	log("next.q.badQueries", badQueries);
+    	
+    	Query query = null;
+    	
+    	int nBadQueries = badQueries.size();
+    	
+    	// @TODO tweak this for frequency of repeated queries:
+    	if (nBadQueries != 0 && Math.random() < 0.8) {
+    		Random random = new Random();
+    		int ridx = random.nextInt(nBadQueries);
+        	log("next(RANDOM).ridx", ridx);
+    		query = badQueries.get(ridx);
+    		queryWord = query.getWord();
+        	log("next(RANDOM).queryWord", queryWord);
+        	log("next(RANDOM).query", query);
+    	}
+    	else {
+    		queryWord = game.getQueryWord();
+        	log("next(NEW).queryWord", queryWord);
+    		query = new Query(queryWord);
+        	log("next(NEW).query", query);
+    		queries.addQuery(query);
+    	}
+        
+        fetchMatching(game, queryWord);
+
+        return game.getAsQuery(queryWord);
+    }
+    
+    private void log(String what, Object obj) {
+    	Util.log(getClass(), what, obj);
+    }
+    
+    private void log(String what, String str) {
+    	Util.log(getClass(), what, str);
+    }
 }

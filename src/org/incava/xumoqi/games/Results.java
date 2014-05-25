@@ -32,6 +32,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.incava.xumoqi.utils.Util;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -96,5 +98,9 @@ public class Results implements Parcelable {
 
     public String toString() {
         return "correct: " + correct + "; missed: " + missed + "; invalid: " + invalid;
+    }
+    
+    public boolean isCorrect() {
+   		return getInvalid().isEmpty() && getMissed().isEmpty();
     }
 }

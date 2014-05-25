@@ -61,10 +61,10 @@ public class StatusActivity extends Activity {
         // Util.log("STATUS", "gameParams", gameParams);
         
         queries = intent.getParcelableExtra(Constants.QUERIES);
-        Util.log(getClass(), "create.queries", queries);
+        log("create.queries", queries);
         
         query = queries.getQuery(-1);
-        Util.log(getClass(), "create.query", query);
+        log("create.query", query);
         
         Word queryWord = query.getWord();
         Util.log("STATUS", "queryWord", queryWord);
@@ -77,12 +77,12 @@ public class StatusActivity extends Activity {
         ArrayList<String> matching = intent.getStringArrayListExtra(Constants.MATCHING);
         Response response = new Response(queryWord, inputString);
         Results results = new Results(matching, response.getAll());
-        Util.log(getClass(), "create.results", results);
+        log("create.results", results);
         
         query.addResults(results);
-        Util.log(getClass(), "create.query", query);
+        log("create.query", query);
 
-        Util.log(getClass(), "create(2).queries", queries);
+        log("create(2).queries", queries);
 
         TableLayout tableLayout = (TableLayout)findViewById(R.id.statusTable);
         ResultsTable rt = new ResultsTable(this, tableLayout);
@@ -107,8 +107,16 @@ public class StatusActivity extends Activity {
         intent.putExtra(Constants.GAME_PARAMS, gameParams);
         
         intent.putExtra(Constants.QUERIES, queries);
-        Util.log(getClass(), "next.queries", queries);
+        log("next.queries", queries);
 
         startActivity(intent);
+    }
+    
+    private void log(String what, Object obj) {
+    	Util.log(getClass(), what, obj);
+    }
+    
+    private void log(String what, String str) {
+    	Util.log(getClass(), what, str);
     }
 }

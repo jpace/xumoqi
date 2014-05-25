@@ -49,7 +49,7 @@ public class QueryList implements Parcelable {
     private final ArrayList<Query> queries;
 
     public QueryList() {
-        this.queries = new ArrayList<Query>();
+        this.queries = new ArrayList<Query>(MAX_QUERIES);
     }
 
     public QueryList(Query query) {
@@ -72,6 +72,9 @@ public class QueryList implements Parcelable {
 
     public void addQuery(Query query) {
         queries.add(query);
+        while (queries.size() > MAX_QUERIES) {
+        	queries.remove(0);
+        }
     }
 
     @Override

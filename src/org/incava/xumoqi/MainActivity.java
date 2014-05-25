@@ -87,6 +87,9 @@ public class MainActivity extends Activity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, types, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         gameTypeSpinner.setAdapter(adapter);
+        
+        int current = Util.type ? 2 : 1;
+        gameTypeSpinner.setSelection(current);
     }
     
     public void onClickStart(View view) {

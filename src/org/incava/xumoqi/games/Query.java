@@ -101,4 +101,15 @@ public class Query implements Parcelable {
     public String toString() {
         return "word: " + word + "; results: " + results;
     }
+    
+    public boolean isCorrect() {
+    	// @TODO: add weighting for this, since it shouldn't penalize if,
+    	// for example, the last 4 results were correct
+    	for (Results r : results) {
+    		if (!r.isCorrect()) {
+    			return false;
+    		}
+    	}
+    	return true;
+    }
 }
