@@ -93,13 +93,20 @@ public class Query implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeParcelable(word, flags);
-        Util.log(getClass(), "write: this", this);
-        Util.log(getClass(), "write: results", results);
         parcel.writeList(results);
     }
     
     public String toString() {
         return "word: " + word + "; results: " + results;
+    }
+    
+    public String inspect() {
+    	StringBuilder sb = new StringBuilder();
+    	sb.append("word: ").append(word).append('\n');
+    	for (Results r : results) {
+    		sb.append(r.inspect());
+    	}
+    	return sb.toString();
     }
     
     public boolean isCorrect() {

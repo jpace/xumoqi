@@ -76,6 +76,10 @@ public class QueryList implements Parcelable {
         	queries.remove(0);
         }
     }
+    
+    public int size() {
+    	return queries.size();
+    }
 
     @Override
     public int describeContents() {

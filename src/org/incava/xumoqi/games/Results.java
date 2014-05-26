@@ -97,10 +97,18 @@ public class Results implements Parcelable {
     }
 
     public String toString() {
-        return "correct: " + correct + "; missed: " + missed + "; invalid: " + invalid;
+        return "correct: " + correct + "; invalid: " + invalid + "; missed: " + missed;
     }
     
     public boolean isCorrect() {
    		return getInvalid().isEmpty() && getMissed().isEmpty();
+    }
+    
+    public String inspect() {
+    	StringBuilder sb = new StringBuilder();
+    	sb.append("correct: ").append(correct).append('\n');
+    	sb.append("invalid: ").append(invalid).append('\n');
+    	sb.append("missed: ").append(missed).append('\n');
+    	return sb.toString();
     }
 }

@@ -79,11 +79,11 @@ public class WordLists {
     }
     
     public WordList getWordList(int length) {
-        Timer t = new Timer("WORDLISTS", "getWordList(..., " + length + ")");
+        // Timer t = new Timer("WORDLISTS", "getWordList(..., " + length + ")");
         Util.log("WORDLISTS", "resources", resources);
         WordList wordList = wordListsByLength.get(length);
         if (wordList != null) {
-            t.done("already exists");
+            // t.done("already exists");
             return wordList;
         }
         
@@ -91,7 +91,7 @@ public class WordLists {
         InputStream is = resources.openRawResource(twlRes);
         wordList = new WordList(is);
         wordListsByLength.put(length, wordList);
-        t.done("read");
+        // t.done("read");
         return wordList;
     }
 }

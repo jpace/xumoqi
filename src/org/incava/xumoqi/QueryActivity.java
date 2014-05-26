@@ -60,6 +60,7 @@ public class QueryActivity extends Activity {
     private Word queryWord = null;
     private Timer timer = null;
     private QueryList queries = null;
+    private int queryIndex = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,11 +75,11 @@ public class QueryActivity extends Activity {
         tv.setText(queryStr);
         
         timer = new Timer();
-        timer.done("onCreate");
+        // timer.done("onCreate");
     }
     
     protected void onStart() {
-        timer.done("onStart");
+        // timer.done("onStart");
         super.onStart();
     }
     
@@ -105,9 +106,10 @@ public class QueryActivity extends Activity {
         Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
+                	log("************* fetchMatching.game", game);
                     // Timer timer = new Timer("QUERY", "getMatching");
                     matching = game.getMatching(queryWord);
-                    log("matching", matching);
+                    log("************* fetchMatching.matching", matching);
                     // timer.done();
                 }
             });
@@ -115,7 +117,7 @@ public class QueryActivity extends Activity {
     }
     
     public void onClickNext(View view) {
-        timer.done("onClickNext");
+        // timer.done("onClickNext");
 
         long duration = timer.getDuration();
         
@@ -130,7 +132,9 @@ public class QueryActivity extends Activity {
         intent.putExtra(Constants.GAME_PARAMS, gameParams);
         
         intent.putExtra(Constants.QUERIES, queries);
-        log("next.queries", queries);
+        // log("next.queries", queries);
+        
+        intent.putExtra(Constants.QUERY_INDEX, queryIndex);
 
         while (matching == null) {
             // waiting for getMatching() to finish; invoked by onCreate() ...
@@ -185,7 +189,7 @@ public class QueryActivity extends Activity {
         int length = gameParams.getWordLength();
         
         queries = intent.getParcelableExtra(Constants.QUERIES);
-        log("next.queries", queries.inspect());
+        // log("next.queries", queries.inspect());
         
         ArrayList<Query> badQueries = new ArrayList<Query>();
         
@@ -199,8 +203,9 @@ public class QueryActivity extends Activity {
 		final int numDots = 1;
    
 		Game game = GameFactory.createGame(gameParams.getGameType(), length, numDots);
+		log("game", game);
 
-    	log("next.q.badQueries", badQueries);
+    	// log("next.q.badQueries", badQueries);
     	
     	Query query = null;
     	
@@ -209,9 +214,9 @@ public class QueryActivity extends Activity {
     	// @TODO tweak this for frequency of repeated queries:
     	if (nBadQueries != 0 && Math.random() < 0.8) {
     		Random random = new Random();
-    		int ridx = random.nextInt(nBadQueries);
-        	log("next(RANDOM).ridx", ridx);
-    		query = badQueries.get(ridx);
+    		queryIndex = random.nextInt(nBadQueries);
+        	log("next(RANDOM).queryIndex", queryIndex);
+    		query = badQueries.get(queryIndex);
     		queryWord = query.getWord();
         	log("next(RANDOM).queryWord", queryWord);
         	log("next(RANDOM).query", query);
@@ -222,6 +227,7 @@ public class QueryActivity extends Activity {
     		query = new Query(queryWord);
         	log("next(NEW).query", query);
     		queries.addQuery(query);
+        	queryIndex = queries.size() - 1;
     	}
         
         fetchMatching(game, queryWord);

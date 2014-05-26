@@ -27,7 +27,6 @@
 
 package org.incava.xumoqi.games;
 
-import org.incava.xumoqi.utils.Util;
 import org.incava.xumoqi.words.WordList;
 import org.incava.xumoqi.words.WordLists;
 
@@ -46,7 +45,6 @@ public class GameFactory {
             return new GameNToNPlusOne(getWordList(length), getWordList(length + 1));
         }
         else if (gameType.equals("Q without U")) {
-            Util.log("GAMEFACTORY", "createGame", null);
             return new GameQNoU(null, length, nDots);
         }
         return null;

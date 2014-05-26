@@ -33,4 +33,5 @@ public class Constants {
     public final static String INPUT_STRING = "InputString";
     public final static String MATCHING = "Matching";
     public final static String QUERIES = "Queries";
+    public final static String QUERY_INDEX = "QueryIndex";
 }
