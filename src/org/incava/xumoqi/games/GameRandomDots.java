@@ -53,7 +53,7 @@ public class GameRandomDots extends GameDottedWords {
         Util.log(getClass(), "pat", pat);
         String qstr = queryWord.toString();
         Util.log(getClass(), "qstr", qstr);
-        if (isBlank(0)) {
+        if (queryWord.getDotIndex() == 0) {
             Util.log(getClass(), "qstr", qstr);
             char lastChar = qstr.charAt(getLength() - 1);
             Util.log(getClass(), "lastChar", lastChar);

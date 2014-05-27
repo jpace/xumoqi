@@ -195,7 +195,7 @@ public class QueryActivity extends Activity {
         
         for (Query q : queries.getQueries()) {
        		if (!q.isCorrect()) {
-        		badQueries.add(q);
+       			badQueries.add(q);
         	}
         }
 
@@ -212,11 +212,16 @@ public class QueryActivity extends Activity {
     	int nBadQueries = badQueries.size();
     	
     	// @TODO tweak this for frequency of repeated queries:
-    	if (nBadQueries != 0 && Math.random() < 0.8) {
+    	if (nBadQueries != 0 && Math.random() < 0.5) {
     		Random random = new Random();
-    		queryIndex = random.nextInt(nBadQueries);
+    		int qIdx = random.nextInt(nBadQueries);
+        	log("next(RANDOM).qIdx", qIdx);
+    		
+    		query = badQueries.get(qIdx);
+    		
+    		queryIndex = queries.getQueries().indexOf(query);
         	log("next(RANDOM).queryIndex", queryIndex);
-    		query = badQueries.get(queryIndex);
+        	
     		queryWord = query.getWord();
         	log("next(RANDOM).queryWord", queryWord);
         	log("next(RANDOM).query", query);
