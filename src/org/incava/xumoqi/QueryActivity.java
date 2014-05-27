@@ -106,10 +106,9 @@ public class QueryActivity extends Activity {
         Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                	log("************* fetchMatching.game", game);
                     // Timer timer = new Timer("QUERY", "getMatching");
                     matching = game.getMatching(queryWord);
-                    log("************* fetchMatching.matching", matching);
+                    log("fetchMatching.matching", matching);
                     // timer.done();
                 }
             });
@@ -203,13 +202,15 @@ public class QueryActivity extends Activity {
 		final int numDots = 1;
    
 		Game game = GameFactory.createGame(gameParams.getGameType(), length, numDots);
-		log("game", game);
+		// log("game", game);
 
     	// log("next.q.badQueries", badQueries);
     	
     	Query query = null;
     	
     	int nBadQueries = badQueries.size();
+    	
+    	log("next", "****************************************");
     	
     	// @TODO tweak this for frequency of repeated queries:
     	if (nBadQueries != 0 && Math.random() < 0.5) {
@@ -221,6 +222,8 @@ public class QueryActivity extends Activity {
     		
     		queryIndex = queries.getQueries().indexOf(query);
         	log("next(RANDOM).queryIndex", queryIndex);
+        	
+        	log("next(RANDOM).qIdx == queryIndex", qIdx == queryIndex);
         	
     		queryWord = query.getWord();
         	log("next(RANDOM).queryWord", queryWord);

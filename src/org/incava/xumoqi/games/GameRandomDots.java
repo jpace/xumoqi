@@ -30,7 +30,6 @@ package org.incava.xumoqi.games;
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.incava.xumoqi.utils.Util;
 import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
@@ -50,18 +49,13 @@ public class GameRandomDots extends GameDottedWords {
     
     public ArrayList<String> getMatching(Word queryWord) {
         String pat = queryWord.asPattern();
-        Util.log(getClass(), "pat", pat);
         String qstr = queryWord.toString();
-        Util.log(getClass(), "qstr", qstr);
         if (queryWord.getDotIndex() == 0) {
-            Util.log(getClass(), "qstr", qstr);
             char lastChar = qstr.charAt(getLength() - 1);
-            Util.log(getClass(), "lastChar", lastChar);
             return wordList.getMatchingEndsWith(lastChar, pat);
         }
         else {
         	char firstChar = qstr.charAt(0);
-            Util.log(getClass(), "firstChar", firstChar);
             return wordList.getMatchingStartsWith(firstChar, pat);
         }
     }
