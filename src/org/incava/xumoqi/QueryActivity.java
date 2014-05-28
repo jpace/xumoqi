@@ -28,7 +28,9 @@
 package org.incava.xumoqi;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Random;
+import java.util.TreeMap;
 
 import org.incava.xumoqi.games.Game;
 import org.incava.xumoqi.games.GameFactory;
@@ -43,6 +45,7 @@ import org.incava.xumoqi.words.Word;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -55,6 +58,8 @@ import android.widget.TextView.OnEditorActionListener;
 import android.support.v4.app.NavUtils;
 
 public class QueryActivity extends Activity {
+	private static final Random random = new Random();
+
     private ArrayList<String> matching = null;
     private GameParams gameParams = null;
     private Word queryWord = null;
@@ -127,11 +132,8 @@ public class QueryActivity extends Activity {
         EditText et = (EditText)findViewById(R.id.queryInput);
         String inputText = et.getText().toString();
         intent.putExtra(Constants.INPUT_STRING, inputText);
-
         intent.putExtra(Constants.GAME_PARAMS, gameParams);
-        
         intent.putExtra(Constants.QUERIES, queries);
-        // log("next.queries", queries);
         
         intent.putExtra(Constants.QUERY_INDEX, queryIndex);
 
@@ -190,13 +192,19 @@ public class QueryActivity extends Activity {
         queries = intent.getParcelableExtra(Constants.QUERIES);
         // log("next.queries", queries.inspect());
         
-        ArrayList<Query> badQueries = new ArrayList<Query>();
+        Map<Integer, ArrayList<Query>> queriesByScore = new TreeMap<Integer, ArrayList<Query>>();
         
         for (Query q : queries.getQueries()) {
-       		if (!q.isCorrect()) {
-       			badQueries.add(q);
-        	}
+       		int score = q.getScore();
+   			ArrayList<Query> current = queriesByScore.get(score);
+   			if (current == null) {
+   				current = new ArrayList<Query>();
+   				queriesByScore.put(score, current);
+   			}
+       		current.add(q);
         }
+        
+        log("queriesByScore", queriesByScore);
 
 		// not an option, for now ...
 		final int numDots = 1;
@@ -208,34 +216,40 @@ public class QueryActivity extends Activity {
     	
     	Query query = null;
     	
-    	int nBadQueries = badQueries.size();
-    	
     	log("next", "****************************************");
     	
-    	// @TODO tweak this for frequency of repeated queries:
-    	if (nBadQueries != 0 && Math.random() < 0.5) {
-    		Random random = new Random();
-    		int qIdx = random.nextInt(nBadQueries);
-        	log("next(RANDOM).qIdx", qIdx);
-    		
-    		query = badQueries.get(qIdx);
-    		
-    		queryIndex = queries.getQueries().indexOf(query);
-        	log("next(RANDOM).queryIndex", queryIndex);
-        	
-        	log("next(RANDOM).qIdx == queryIndex", qIdx == queryIndex);
-        	
-    		queryWord = query.getWord();
-        	log("next(RANDOM).queryWord", queryWord);
-        	log("next(RANDOM).query", query);
+    	for (Integer score : queriesByScore.keySet()) {
+    		log("score", score);
+    		int rnd = random.nextInt(100);
+    		log("next.rnd", rnd);
+    		if (rnd > score) {
+    			ArrayList<Query> forScore = queriesByScore.get(score);
+    			log("***** next.forScore", forScore);
+    			int sz = forScore.size();
+    			log("***** next.sz", sz);
+    			int rIdx = random.nextInt(sz);
+    			log("***** next.rIdx", rIdx);
+        		query = forScore.get(rIdx);
+    			log("***** next.query", query);
+        		break;
+    		}
     	}
-    	else {
+    	
+    	if (query == null) {
     		queryWord = game.getQueryWord();
         	log("next(NEW).queryWord", queryWord);
     		query = new Query(queryWord);
         	log("next(NEW).query", query);
     		queries.addQuery(query);
         	queryIndex = queries.size() - 1;
+    	}
+    	else {
+    		queryIndex = queries.getQueries().indexOf(query);
+        	log("next(RANDOM).queryIndex", queryIndex);
+        	
+    		queryWord = query.getWord();
+        	log("next(RANDOM).queryWord", queryWord);
+        	log("next(RANDOM).query", query);
     	}
         
         fetchMatching(game, queryWord);

@@ -76,11 +76,12 @@ public class WordLists {
     
     public void init(Resources res) {
         resources = res;
+        Util.log(getClass(), "init.resources", resources);
     }
     
     public WordList getWordList(int length) {
         // Timer t = new Timer("WORDLISTS", "getWordList(..., " + length + ")");
-        Util.log("WORDLISTS", "resources", resources);
+        Util.log(getClass(), "getWordList.resources", resources);
         WordList wordList = wordListsByLength.get(length);
         if (wordList != null) {
             // t.done("already exists");

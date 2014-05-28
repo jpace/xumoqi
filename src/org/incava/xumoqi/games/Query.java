@@ -119,4 +119,25 @@ public class Query implements Parcelable {
     	}
     	return true;
     }
+    
+    public int getScore() {
+    	int score = 100;
+    	for (int idx = results.size() - 1, count = 0; idx >= 0 && count < 5; --idx) {
+    		Results r = results.get(idx);
+        	Util.log(getClass(), "score.r", r);
+    		if (!r.isCorrect()) {
+    			score *= 0.8;
+    	    	Util.log(getClass(), "score", score);
+    		}
+        	Util.log(getClass(), "score", score);
+    	}
+    	Util.log(getClass(), "score", score);
+    	return score;
+    }
+    
+    public boolean equals(Object other) {
+    	Util.log(getClass(), "this", this);
+    	Util.log(getClass(), "other", other);
+    	return this == other;
+    }
 }

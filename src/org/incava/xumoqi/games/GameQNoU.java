@@ -51,9 +51,14 @@ public class GameQNoU extends GameDottedWords {
     // will be a new word list and/or index list (into elements in word list).
     // so this wordList is not currently used.
     public GameQNoU(WordList wordList, int length, int nDots) {
-        super(wordList, length, nDots, 2);
+        super(wordList, length);
         random = new Random();
         maxLength = length;
+    }
+    
+    // @TODO: eliminate this -- this shouldn't subclass GameDottedWords.
+    public int getBlankIndex(int length) {
+    	return -1;
     }
 
     @Override

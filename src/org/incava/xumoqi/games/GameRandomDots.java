@@ -34,17 +34,18 @@ import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
 public class GameRandomDots extends GameDottedWords {
-    private static int getRandomIndex(int length) {
-        // handles only one dot for now
-        Random rnd = new Random();
-        return rnd.nextInt(length);
-    }
-    
+	private static final Random rnd = new Random();
+
     private final WordList wordList;
     
     public GameRandomDots(WordList wordList, int length, int nDots) {
-        super(wordList, length, nDots, getRandomIndex(length));
+        super(wordList, length);
         this.wordList = wordList;
+    }
+    
+    public int getBlankIndex(int length) {
+        // handles only one dot for now
+        return rnd.nextInt(length);
     }
     
     public ArrayList<String> getMatching(Word queryWord) {
