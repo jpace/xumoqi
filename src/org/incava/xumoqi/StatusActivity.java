@@ -121,13 +121,4 @@ public class StatusActivity extends Activity {
     private void log(String what, Object obj) {
     	Util.log(getClass(), what, obj);
     }
-    
-    
-    private void log(String what, Inspectable insp) {
-    	Util.log(getClass(), what, insp);
-    }
-    
-    private void log(String what, String str) {
-    	Util.log(getClass(), what, str);
-    }
 }

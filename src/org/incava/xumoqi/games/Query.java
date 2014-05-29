@@ -67,8 +67,6 @@ public class Query implements Parcelable {
         this.word = parcel.readParcelable(Word.class.getClassLoader());
         this.results = new ArrayList<Results>();
         parcel.readList(this.results, Results.class.getClassLoader());
-        // Util.log(getClass(), "init.results", results);
-        // Util.log(getClass(), "init.this", this);
     }
     
     public Word getWord() {
@@ -81,8 +79,6 @@ public class Query implements Parcelable {
 
     public void addResults(Results res) {
         this.results.add(res);
-        // Util.log(getClass(), "add: res", res);
-        // Util.log(getClass(), "add: results", results);
     }
 
     @Override
@@ -109,35 +105,16 @@ public class Query implements Parcelable {
     	return sb.toString();
     }
     
-    public boolean isCorrect() {
-    	// @TODO: add weighting for this, since it shouldn't penalize if,
-    	// for example, the last 4 results were correct
-    	for (Results r : results) {
-    		if (!r.isCorrect()) {
-    			return false;
-    		}
-    	}
-    	return true;
-    }
-    
     public int getScore() {
-    	int score = 100;
+    	int score = Results.MAX_SCORE;
     	for (int idx = results.size() - 1, count = 0; idx >= 0 && count < 5; --idx) {
     		Results r = results.get(idx);
         	Util.log(getClass(), "score.r", r);
-    		if (!r.isCorrect()) {
-    			score *= 0.8;
-    	    	Util.log(getClass(), "score", score);
-    		}
-        	Util.log(getClass(), "score", score);
+        	Util.log(getClass(), "score.r.score", r.getScore());
+   			score *= (r.getScore() / 100.0);
+   	    	Util.log(getClass(), "score", score);
     	}
     	Util.log(getClass(), "score", score);
     	return score;
-    }
-    
-    public boolean equals(Object other) {
-    	Util.log(getClass(), "this", this);
-    	Util.log(getClass(), "other", other);
-    	return this == other;
     }
 }

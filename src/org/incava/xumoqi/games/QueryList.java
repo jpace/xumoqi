@@ -28,6 +28,8 @@
 package org.incava.xumoqi.games;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -102,5 +104,20 @@ public class QueryList implements Parcelable {
     		sb.append("query[" + idx + "]: " + queries.get(idx) + "\n");
     	}
     	return sb.toString();
+    }
+
+    public Map<Integer, ArrayList<Query>> getByScore() {
+    	Map<Integer, ArrayList<Query>> queriesByScore = new TreeMap<Integer, ArrayList<Query>>();
+    
+    	for (Query q : queries) {
+    		int score = q.getScore();
+    		ArrayList<Query> current = queriesByScore.get(score);
+    		if (current == null) {
+				current = new ArrayList<Query>();
+				queriesByScore.put(score, current);
+			}
+    		current.add(q);
+    	}
+    	return queriesByScore;
     }
 }

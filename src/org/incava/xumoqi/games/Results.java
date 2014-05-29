@@ -38,6 +38,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Results implements Parcelable {
+	public static final int MAX_SCORE = 100;
+	
     public static final Parcelable.Creator<Results> CREATOR = new Parcelable.Creator<Results>() {
         public Results createFromParcel(Parcel parcel) {
             return new Results(parcel);
@@ -110,5 +112,20 @@ public class Results implements Parcelable {
     	sb.append("invalid: ").append(invalid).append('\n');
     	sb.append("missed: ").append(missed).append('\n');
     	return sb.toString();
+    }
+    
+    public int getScore() {
+    	// @TODO refine this algorithm:
+    	int nMissed = missed.size();
+    	int nInvalid = invalid.size();
+    	int score = MAX_SCORE;
+    	if (nMissed > 0) {
+    		score /= (1 + nMissed);
+    	}
+    	if (nInvalid > 0) {
+    		score /= (1 + nInvalid);
+    	}
+    	Util.log(getClass(), "score", score);
+    	return score;
     }
 }
