@@ -46,6 +46,8 @@ public class GameQNoU extends GameDottedWords {
     private final Random random;
     private ArrayList<String> matching;
     private final int maxLength;
+    private final String re = "twl(\\d).txt:(\\d+): (\\w+)";
+    private final Pattern pattern = Pattern.compile(re);
     
     // @todo: hard-coded word list for now (see above);
     // will be a new word list and/or index list (into elements in word list).
@@ -65,13 +67,10 @@ public class GameQNoU extends GameDottedWords {
     public Word getQueryWord() {
         Timer t = new Timer("Q^U", "getQueryWord()");
         
-        String re = "twl(\\d).txt:(\\d+): (\\w+)";
-        Pattern pat = Pattern.compile(re);
-        
         List<String> possibles = new ArrayList<String>();
         
         for (String loc : locations) {
-            Matcher matcher = pat.matcher(loc);
+            Matcher matcher = pattern.matcher(loc);
             if (matcher.matches()) {
                 String lenstr = matcher.group(1);
                 Integer len = Integer.valueOf(lenstr);

@@ -75,24 +75,34 @@ public class WordLists {
     }
     
     public void init(Resources res) {
+        if (res == null) {
+        	return;
+        }
+        
         resources = res;
+        
         Util.log(getClass(), "init.resources", resources);
+        for (int idx = 0; idx < wordListsByLength.size(); ++idx) {
+        	int len = wordListsByLength.keyAt(idx);
+        	Util.log(getClass(), "init.len", len);
+        	getWordList(len);
+        }
     }
     
     public WordList getWordList(int length) {
         // Timer t = new Timer("WORDLISTS", "getWordList(..., " + length + ")");
         Util.log(getClass(), "getWordList.resources", resources);
         WordList wordList = wordListsByLength.get(length);
-        if (wordList != null) {
-            // t.done("already exists");
-            return wordList;
-        }
-        
+        return wordList == null ? readWordList(length) : wordList; 
+    }
+    
+    private WordList readWordList(int length) {
         int twlRes = lenToRes.get(length);
         InputStream is = resources.openRawResource(twlRes);
-        wordList = new WordList(is);
+        WordList wordList = new WordList(is);
         wordListsByLength.put(length, wordList);
         // t.done("read");
         return wordList;
     }
+
 }

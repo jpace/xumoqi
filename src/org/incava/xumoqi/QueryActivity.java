@@ -30,8 +30,6 @@ package org.incava.xumoqi;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
-import java.util.TreeMap;
-
 import org.incava.xumoqi.games.Game;
 import org.incava.xumoqi.games.GameFactory;
 import org.incava.xumoqi.games.GameParams;
@@ -80,11 +78,11 @@ public class QueryActivity extends Activity {
         tv.setText(queryStr);
         
         timer = new Timer();
-        // timer.done("onCreate");
+        timer.done("onCreate");
     }
     
     protected void onStart() {
-        // timer.done("onStart");
+        timer.done("onStart");
         super.onStart();
     }
     
@@ -111,17 +109,17 @@ public class QueryActivity extends Activity {
         Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    // Timer timer = new Timer("QUERY", "getMatching");
+                    Timer timer = new Timer("QUERY", "getMatching");
                     matching = game.getMatching(queryWord);
                     log("fetchMatching.matching", matching);
-                    // timer.done();
+                    timer.done();
                 }
             });
         thread.start();
     }
     
     public void onClickNext(View view) {
-        // timer.done("onClickNext");
+        timer.done("onClickNext");
 
         long duration = timer.getDuration();
         
@@ -190,36 +188,24 @@ public class QueryActivity extends Activity {
         int length = gameParams.getWordLength();
         
         queries = intent.getParcelableExtra(Constants.QUERIES);
-        // log("next.queries", queries.inspect());
         
         Map<Integer, ArrayList<Query>> queriesByScore = queries.getByScore();
-        log("queriesByScore", queriesByScore);
 
 		// not an option, for now ...
 		final int numDots = 1;
-   
 		Game game = GameFactory.createGame(gameParams.getGameType(), length, numDots);
-		// log("game", game);
-
-    	log("next", "****************************************");
 
     	Query query = getRandomQuery(queriesByScore);
     	
     	if (query == null) {
     		queryWord = game.getQueryWord();
-        	log("next(NEW).queryWord", queryWord);
     		query = new Query(queryWord);
-        	log("next(NEW).query", query);
     		queries.addQuery(query);
         	queryIndex = queries.size() - 1;
     	}
     	else {
     		queryIndex = queries.getQueries().indexOf(query);
-        	log("next(RANDOM).queryIndex", queryIndex);
-        	
     		queryWord = query.getWord();
-        	log("next(RANDOM).queryWord", queryWord);
-        	log("next(RANDOM).query", query);
     	}
         
         fetchMatching(game, queryWord);
@@ -228,25 +214,16 @@ public class QueryActivity extends Activity {
     }
     
     private void log(String what, Object obj) {
-    	// Util.log(getClass(), what, obj);
+    	Util.log(getClass(), what, obj);
     }
     
-    private void log(String what, String str) {
-    	// Util.log(getClass(), what, str);
-    }
-
     private Query getRandomQuery(Map<Integer, ArrayList<Query>> queriesByScore) {
 		for (Integer score : queriesByScore.keySet()) {
-			log("score", score);
 			int rnd = random.nextInt(Results.MAX_SCORE);
-			log("next.rnd", rnd);
 			if (rnd > score) {
 				ArrayList<Query> forScore = queriesByScore.get(score);
-				log("***** next.forScore", forScore);
 				int sz = forScore.size();
-				log("***** next.sz", sz);
 				int rIdx = random.nextInt(sz);
-				log("***** next.rIdx", rIdx);
 	    		return forScore.get(rIdx);
 			}
 		}

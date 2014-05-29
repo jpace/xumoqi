@@ -35,8 +35,6 @@ import org.incava.xumoqi.games.QueryList;
 import org.incava.xumoqi.games.Response;
 import org.incava.xumoqi.games.Results;
 import org.incava.xumoqi.utils.Constants;
-import org.incava.xumoqi.utils.Inspectable;
-import org.incava.xumoqi.utils.Util;
 import org.incava.xumoqi.words.Word;
 
 import android.os.Bundle;
@@ -59,36 +57,23 @@ public class StatusActivity extends Activity {
         Intent intent = getIntent();
         
         gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
-        // Util.log("STATUS", "gameParams", gameParams);
-        
         queries = intent.getParcelableExtra(Constants.QUERIES);
-        // log("create.queries", queries);
         
         int queryIndex = intent.getIntExtra(Constants.QUERY_INDEX, -1);
-        log("create.queryIndex", queryIndex);
-        
         query = queries.getQuery(queryIndex);
-        log("create.query", query);
         
         Word queryWord = query.getWord();
-        log("queryWord", queryWord);
-        log("queryWord.dotIndex", queryWord.getDotIndex());
         
         // String duration = intent.getStringExtra(Constants.DURATION);
         // log("duration", duration);
         
         String inputString = intent.getStringExtra(Constants.INPUT_STRING);
         ArrayList<String> matching = intent.getStringArrayListExtra(Constants.MATCHING);
-        log("matching", matching);
         
         Response response = new Response(queryWord, inputString);
         Results results = new Results(matching, response.getAll());
-        log("create.results", results);
         
         query.addResults(results);
-        // log("create.query", query);
-
-        // log("create(2).queries", queries);
 
         TableLayout tableLayout = (TableLayout)findViewById(R.id.statusTable);
         ResultsTable rt = new ResultsTable(this, tableLayout);
@@ -113,12 +98,7 @@ public class StatusActivity extends Activity {
         intent.putExtra(Constants.GAME_PARAMS, gameParams);
         
         intent.putExtra(Constants.QUERIES, queries);
-        log("next.queries", queries);
 
         startActivity(intent);
-    }
-    
-    private void log(String what, Object obj) {
-    	Util.log(getClass(), what, obj);
     }
 }

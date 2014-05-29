@@ -28,8 +28,9 @@
 package org.incava.xumoqi.games;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-import org.incava.xumoqi.utils.Util;
 import org.incava.xumoqi.words.Word;
 
 import android.os.Parcel;
@@ -47,6 +48,7 @@ public class Query implements Parcelable {
     };
 
     public final static int MAX_RESULTS = 5;
+    private final static Random random = new Random();
 
     private final Word word;
 
@@ -79,6 +81,9 @@ public class Query implements Parcelable {
 
     public void addResults(Results res) {
         this.results.add(res);
+        while (this.results.size() >= MAX_RESULTS) {
+        	this.results.remove(0);
+        }
     }
 
     @Override
@@ -105,16 +110,19 @@ public class Query implements Parcelable {
     	return sb.toString();
     }
     
-    public int getScore() {
-    	int score = Results.MAX_SCORE;
-    	for (int idx = results.size() - 1, count = 0; idx >= 0 && count < 5; --idx) {
-    		Results r = results.get(idx);
-        	Util.log(getClass(), "score.r", r);
-        	Util.log(getClass(), "score.r.score", r.getScore());
-   			score *= (r.getScore() / 100.0);
-   	    	Util.log(getClass(), "score", score);
+    public ArrayList<Integer> getScores() {
+    	ArrayList<Integer> scores = new ArrayList<Integer>();
+    	for (Results r : results) {
+    		scores.add(r.getScore());
     	}
-    	Util.log(getClass(), "score", score);
-    	return score;
+    	return scores;
+    }
+    
+    public int getScore() {
+    	final int maxRecent = MAX_RESULTS;
+    	ArrayList<Integer> scores = getScores();
+    	int fromIdx = scores.size() - Math.min(scores.size(),  maxRecent);
+    	List<Integer> recent = scores.subList(fromIdx, scores.size());
+    	return recent.get(random.nextInt(recent.size()));
     }
 }

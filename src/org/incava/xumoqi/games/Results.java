@@ -116,15 +116,8 @@ public class Results implements Parcelable {
     
     public int getScore() {
     	// @TODO refine this algorithm:
-    	int nMissed = missed.size();
-    	int nInvalid = invalid.size();
-    	int score = MAX_SCORE;
-    	if (nMissed > 0) {
-    		score /= (1 + nMissed);
-    	}
-    	if (nInvalid > 0) {
-    		score /= (1 + nInvalid);
-    	}
+    	int total = correct.size() + missed.size() + invalid.size();
+    	int score = (100 * correct.size()) / total; 
     	Util.log(getClass(), "score", score);
     	return score;
     }
