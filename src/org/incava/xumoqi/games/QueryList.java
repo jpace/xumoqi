@@ -28,13 +28,15 @@
 package org.incava.xumoqi.games;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.Random;
 import java.util.TreeMap;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 public class QueryList implements Parcelable {
+	private final static Random random = new Random();
+	
     public static final Parcelable.Creator<QueryList> CREATOR = new Parcelable.Creator<QueryList>() {
         public QueryList createFromParcel(Parcel parcel) {
             return new QueryList(parcel);
@@ -106,8 +108,27 @@ public class QueryList implements Parcelable {
     	return sb.toString();
     }
 
-    public Map<Integer, ArrayList<Query>> getByScore() {
-    	Map<Integer, ArrayList<Query>> queriesByScore = new TreeMap<Integer, ArrayList<Query>>();
+    public Query getRandomQuery() {
+    	// this is sorted so lower scores are processed first:
+    	TreeMap<Integer, ArrayList<Query>> byScore = getByScore();
+		for (Integer score : byScore.keySet()) {
+			int rnd = random.nextInt(Results.MAX_SCORE);
+			if (rnd > score) {
+				ArrayList<Query> forScore = byScore.get(score);
+				int sz = forScore.size();
+				int rIdx = random.nextInt(sz);
+	    		return forScore.get(rIdx);
+			}
+		}
+		return null;
+    }
+    
+    public int indexOf(Query query) {
+    	return queries.indexOf(query);
+    }
+
+    private TreeMap<Integer, ArrayList<Query>> getByScore() {
+    	TreeMap<Integer, ArrayList<Query>> queriesByScore = new TreeMap<Integer, ArrayList<Query>>();
     
     	for (Query q : queries) {
     		int score = q.getScore();

@@ -28,14 +28,11 @@
 package org.incava.xumoqi;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Random;
 import org.incava.xumoqi.games.Game;
 import org.incava.xumoqi.games.GameFactory;
 import org.incava.xumoqi.games.GameParams;
 import org.incava.xumoqi.games.Query;
 import org.incava.xumoqi.games.QueryList;
-import org.incava.xumoqi.games.Results;
 import org.incava.xumoqi.utils.Constants;
 import org.incava.xumoqi.utils.Lo;
 import org.incava.xumoqi.utils.Timer;
@@ -57,8 +54,6 @@ import android.widget.TextView.OnEditorActionListener;
 import android.support.v4.app.NavUtils;
 
 public class QueryActivity extends Activity {
-	private static final Random random = new Random();
-
     private ArrayList<String> matching = null;
     private GameParams gameParams = null;
     private Word queryWord = null;
@@ -71,6 +66,11 @@ public class QueryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_query);
         
+        Intent intent = getIntent();
+
+        gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
+        queries = intent.getParcelableExtra(Constants.QUERIES);
+        
         String queryStr = getNextQuery();
         
         setupEditText();
@@ -79,7 +79,7 @@ public class QueryActivity extends Activity {
         tv.setText(queryStr);
         
         timer = new Timer(getClass(), "");
-        timer.done();
+        timer.done("onCreate");
     }
     
     protected void onStart() {
@@ -121,30 +121,11 @@ public class QueryActivity extends Activity {
     
     public void onClickNext(View view) {
         timer.done("onClickNext");
-
-        long duration = timer.getDuration();
         
         Intent intent = new Intent(this, StatusActivity.class);
-
-        intent.putExtra(Constants.DURATION, String.valueOf(duration));
-        
-        EditText et = (EditText)findViewById(R.id.queryInput);
-        String inputText = et.getText().toString();
-        intent.putExtra(Constants.INPUT_STRING, inputText);
-        intent.putExtra(Constants.GAME_PARAMS, gameParams);
-        intent.putExtra(Constants.QUERIES, queries);
-        
-        intent.putExtra(Constants.QUERY_INDEX, queryIndex);
-
-        while (matching == null) {
-            // waiting for getMatching() to finish; invoked by onCreate() ...
-            try {
-                Thread.sleep(100);
-            }
-            catch (InterruptedException e) {
-            }
-        }
-        intent.putStringArrayListExtra(Constants.MATCHING, matching);
+        saveDuration(intent);
+        saveQuery(intent);
+        saveMatching(intent);
         
         startActivity(intent);
     }
@@ -185,51 +166,62 @@ public class QueryActivity extends Activity {
     private String getNextQuery() {
         Intent intent = getIntent();
 
-        gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
-        int length = gameParams.getWordLength();
+        Game game = getGame();
         
-        queries = intent.getParcelableExtra(Constants.QUERIES);
-        
-        Map<Integer, ArrayList<Query>> queriesByScore = queries.getByScore();
-        
-        Resources resources = getResources();
-
-		// not an option, for now ...
-		final int numDots = 1;
-		Game game = GameFactory.createGame(resources, gameParams.getGameType(), length, numDots);
-
-    	Query query = getRandomQuery(queriesByScore);
+    	Query randomQuery = queries.getRandomQuery();
     	
-    	int qIdx = queries.getQueries().indexOf(query);
+    	int qIdx = queries.indexOf(randomQuery);
     	int prevQueryIndex = intent.getIntExtra(Constants.QUERY_INDEX, -1);
     	
     	// don't repeat the previous query:
-    	if (query == null || qIdx == prevQueryIndex) {
+    	if (randomQuery == null || qIdx == prevQueryIndex) {
     		queryWord = game.getQueryWord();
-    		query = new Query(queryWord);
-    		queries.addQuery(query);
+    		Query newQuery = new Query(queryWord);
+    		queries.addQuery(newQuery);
         	queryIndex = queries.size() - 1;
     	}
     	else {
-    		queryIndex = queries.getQueries().indexOf(query);
-    		queryWord = query.getWord();
+    		queryIndex = qIdx;
+    		queryWord = randomQuery.getWord();
     	}
         
         fetchMatching(game, queryWord);
 
         return game.getAsQuery(queryWord);
     }
+
+    private Game getGame() {
+    	// numDots is not an option, for now ...
+    	final int numDots = 1;
+        Resources resources = getResources();
+        int length = gameParams.getWordLength();
+    	return GameFactory.createGame(resources, gameParams.getGameType(), length, numDots);
+    }
     
-    private Query getRandomQuery(Map<Integer, ArrayList<Query>> queriesByScore) {
-		for (Integer score : queriesByScore.keySet()) {
-			int rnd = random.nextInt(Results.MAX_SCORE);
-			if (rnd > score) {
-				ArrayList<Query> forScore = queriesByScore.get(score);
-				int sz = forScore.size();
-				int rIdx = random.nextInt(sz);
-	    		return forScore.get(rIdx);
-			}
-		}
-		return null;
+    private void saveDuration(Intent intent) {
+        long duration = timer.getDuration();
+        intent.putExtra(Constants.DURATION, String.valueOf(duration));
+    }
+    
+    private void saveQuery(Intent intent) {
+        EditText et = (EditText)findViewById(R.id.queryInput);
+        String inputText = et.getText().toString();
+        intent.putExtra(Constants.INPUT_STRING, inputText);
+        
+        intent.putExtra(Constants.GAME_PARAMS, gameParams);
+        intent.putExtra(Constants.QUERIES, queries);
+        intent.putExtra(Constants.QUERY_INDEX, queryIndex);
+    }
+
+    private void saveMatching(Intent intent) {
+	    while (matching == null) {
+	        // waiting for getMatching() to finish; invoked by onCreate() ...
+	        try {
+	            Thread.sleep(100);
+	        }
+	        catch (InterruptedException e) {
+	        }
+	    }
+	    intent.putStringArrayListExtra(Constants.MATCHING, matching);
     }
 }
