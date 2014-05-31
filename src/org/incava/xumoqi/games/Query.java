@@ -52,7 +52,6 @@ public class Query implements Parcelable {
 
     private final Word word;
 
-    // TODO: keep this to a fixed size
     private final ArrayList<Results> results;
 
     public Query(Word word) {
@@ -119,7 +118,7 @@ public class Query implements Parcelable {
     }
     
     public int getScore() {
-    	final int maxRecent = MAX_RESULTS;
+    	final int maxRecent = 3;
     	ArrayList<Integer> scores = getScores();
     	int fromIdx = scores.size() - Math.min(scores.size(),  maxRecent);
     	List<Integer> recent = scores.subList(fromIdx, scores.size());

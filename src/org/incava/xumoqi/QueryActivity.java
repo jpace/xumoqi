@@ -37,13 +37,14 @@ import org.incava.xumoqi.games.Query;
 import org.incava.xumoqi.games.QueryList;
 import org.incava.xumoqi.games.Results;
 import org.incava.xumoqi.utils.Constants;
+import org.incava.xumoqi.utils.Lo;
 import org.incava.xumoqi.utils.Timer;
-import org.incava.xumoqi.utils.Util;
 import org.incava.xumoqi.words.Word;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -77,8 +78,8 @@ public class QueryActivity extends Activity {
         TextView tv = getQueryTextView();
         tv.setText(queryStr);
         
-        timer = new Timer();
-        timer.done("onCreate");
+        timer = new Timer(getClass(), "");
+        timer.done();
     }
     
     protected void onStart() {
@@ -111,7 +112,7 @@ public class QueryActivity extends Activity {
                 public void run() {
                     Timer timer = new Timer("QUERY", "getMatching");
                     matching = game.getMatching(queryWord);
-                    log("fetchMatching.matching", matching);
+                    Lo.g(this, "fetchMatching.matching", matching);
                     timer.done();
                 }
             });
@@ -190,14 +191,20 @@ public class QueryActivity extends Activity {
         queries = intent.getParcelableExtra(Constants.QUERIES);
         
         Map<Integer, ArrayList<Query>> queriesByScore = queries.getByScore();
+        
+        Resources resources = getResources();
 
 		// not an option, for now ...
 		final int numDots = 1;
-		Game game = GameFactory.createGame(gameParams.getGameType(), length, numDots);
+		Game game = GameFactory.createGame(resources, gameParams.getGameType(), length, numDots);
 
     	Query query = getRandomQuery(queriesByScore);
     	
-    	if (query == null) {
+    	int qIdx = queries.getQueries().indexOf(query);
+    	int prevQueryIndex = intent.getIntExtra(Constants.QUERY_INDEX, -1);
+    	
+    	// don't repeat the previous query:
+    	if (query == null || qIdx == prevQueryIndex) {
     		queryWord = game.getQueryWord();
     		query = new Query(queryWord);
     		queries.addQuery(query);
@@ -211,10 +218,6 @@ public class QueryActivity extends Activity {
         fetchMatching(game, queryWord);
 
         return game.getAsQuery(queryWord);
-    }
-    
-    private void log(String what, Object obj) {
-    	Util.log(getClass(), what, obj);
     }
     
     private Query getRandomQuery(Map<Integer, ArrayList<Query>> queriesByScore) {

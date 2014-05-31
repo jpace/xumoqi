@@ -31,12 +31,9 @@ import org.incava.xumoqi.games.GameParams;
 import org.incava.xumoqi.games.QueryList;
 import org.incava.xumoqi.utils.Constants;
 import org.incava.xumoqi.utils.Util;
-import org.incava.xumoqi.words.WordLists;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -48,11 +45,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-        Resources res = getResources();
-        
-        // Global variable initialization: WordLists need the Android resource, which (evidently) does not change during the App execution.
-        WordLists.getInstance().init(res);
         
         setUpNumberPicker();
         setUpGameTypeSpinner();

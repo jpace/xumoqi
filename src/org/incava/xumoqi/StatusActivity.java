@@ -35,6 +35,7 @@ import org.incava.xumoqi.games.QueryList;
 import org.incava.xumoqi.games.Response;
 import org.incava.xumoqi.games.Results;
 import org.incava.xumoqi.utils.Constants;
+import org.incava.xumoqi.utils.Lo;
 import org.incava.xumoqi.words.Word;
 
 import android.os.Bundle;
@@ -48,6 +49,7 @@ public class StatusActivity extends Activity {
     private GameParams gameParams = null;
     private Query query = null;
     private QueryList queries = null;
+    private int queryIndex = -1;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,8 @@ public class StatusActivity extends Activity {
         gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
         queries = intent.getParcelableExtra(Constants.QUERIES);
         
-        int queryIndex = intent.getIntExtra(Constants.QUERY_INDEX, -1);
+        queryIndex = intent.getIntExtra(Constants.QUERY_INDEX, -1);
+        Lo.g(this, "create.queryIndex", queryIndex);
         query = queries.getQuery(queryIndex);
         
         Word queryWord = query.getWord();
@@ -98,6 +101,7 @@ public class StatusActivity extends Activity {
         intent.putExtra(Constants.GAME_PARAMS, gameParams);
         
         intent.putExtra(Constants.QUERIES, queries);
+        intent.putExtra(Constants.QUERY_INDEX, queryIndex);
 
         startActivity(intent);
     }

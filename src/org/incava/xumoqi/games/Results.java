@@ -32,8 +32,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.incava.xumoqi.utils.Util;
-
+import org.incava.xumoqi.utils.Lo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -118,7 +117,6 @@ public class Results implements Parcelable {
     	// @TODO refine this algorithm:
     	int total = correct.size() + missed.size() + invalid.size();
     	int score = (100 * correct.size()) / total; 
-    	Util.log(getClass(), "score", score);
     	return score;
     }
 }

@@ -42,7 +42,15 @@ public class Timer {
     }
 
     public Timer() {
-        this(null, null);
+        this("", "");
+    }
+
+    public Timer(Class<?> cls, String activity) {
+    	this(cls.getSimpleName(), activity);
+    }
+
+    public Timer(Object obj, String activity) {
+    	this(obj.getClass().getSimpleName(), activity);
     }
 
     public void done(String msg) {

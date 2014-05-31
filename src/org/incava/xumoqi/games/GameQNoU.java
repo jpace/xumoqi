@@ -6,8 +6,8 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.incava.xumoqi.utils.Lo;
 import org.incava.xumoqi.utils.Timer;
-import org.incava.xumoqi.utils.Util;
 import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
@@ -49,7 +49,7 @@ public class GameQNoU extends GameDottedWords {
     private final String re = "twl(\\d).txt:(\\d+): (\\w+)";
     private final Pattern pattern = Pattern.compile(re);
     
-    // @todo: hard-coded word list for now (see above);
+    // @TODO: hard-coded word list for now (see above);
     // will be a new word list and/or index list (into elements in word list).
     // so this wordList is not currently used.
     public GameQNoU(WordList wordList, int length, int nDots) {
@@ -77,19 +77,19 @@ public class GameQNoU extends GameDottedWords {
 
                 if (len <= maxLength) {
                     // String line = matcher.group(2);
-                    // Util.log(getClass(), "line", line);
+                    // Util.log(this, "line", line);
                     String word = matcher.group(3);
-                    Util.log(getClass(), "word", word);
+                    Lo.g(this, "word", word);
                     possibles.add(word);
                 }
             }
         }
 
-        Util.log(getClass(), "possibles", possibles);
+        Lo.g(this, "possibles", possibles);
 
         int idx = random.nextInt(possibles.size());
         String qword = possibles.get(idx);
-        Util.log(getClass(), "qword", qword);
+        Lo.g(this, "qword", qword);
 
         int blankIdx = random.nextInt(qword.length());
         
