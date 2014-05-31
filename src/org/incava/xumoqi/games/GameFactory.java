@@ -27,32 +27,33 @@
 
 package org.incava.xumoqi.games;
 
-import org.incava.xumoqi.utils.Util;
 import org.incava.xumoqi.words.WordList;
 import org.incava.xumoqi.words.WordLists;
 
+import android.content.res.Resources;
+
 public class GameFactory {
-    public static Game createGame(String gameType, int length, int nDots) {
+    public static Game createGame(Resources resources, String gameType, int length, int nDots) {
         if (gameType.contains("Starting")) {
-            return new GameStartsWithDots(getWordList(length), length, nDots);
+            return new GameStartsWithDots(getWordList(resources, length), length, nDots);
         }
         else if (gameType.contains("Random")) {
-            return new GameRandomDots(getWordList(length), length, nDots);
+            return new GameRandomDots(getWordList(resources, length), length, nDots);
         }
         else if (gameType.contains("Ending")) {
-            return new GameEndsWithDots(getWordList(length), length, nDots);
+            return new GameEndsWithDots(getWordList(resources, length), length, nDots);
         }
         else if (gameType.contains("to-make")) {
-            return new GameNToNPlusOne(getWordList(length), getWordList(length + 1));
+            return new GameNToNPlusOne(getWordList(resources, length), getWordList(resources, length + 1));
         }
         else if (gameType.equals("Q without U")) {
-            Util.log("GAMEFACTORY", "createGame", null);
+        	// this doesn't use a word list (yet)
             return new GameQNoU(null, length, nDots);
         }
         return null;
     }
 
-    public static WordList getWordList(int length) {
-        return WordLists.getInstance().getWordList(length);
+    private static WordList getWordList(Resources resources, int length) {
+        return WordLists.getInstance().getWordList(resources, length);
     }
 }

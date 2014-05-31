@@ -36,10 +36,14 @@ public class GameEndsWithDots extends GameDottedWords {
     private final WordList wordList;
 
     public GameEndsWithDots(WordList wordList, int length, int nDots) {
-        super(wordList, length, nDots, length - 1);
+        super(wordList, length);
         this.wordList = wordList;
     }
     
+    public int getBlankIndex(int length) {
+        return length - 1;
+    }
+
     public ArrayList<String> getMatching(Word queryWord) {
         // this is the substring up to the "." at the end
         String qstr = queryWord.toString();

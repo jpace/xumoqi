@@ -31,12 +31,9 @@ import org.incava.xumoqi.games.GameParams;
 import org.incava.xumoqi.games.QueryList;
 import org.incava.xumoqi.utils.Constants;
 import org.incava.xumoqi.utils.Util;
-import org.incava.xumoqi.words.WordLists;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -48,12 +45,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-        Resources res = getResources();
-        Util.log("MAIN", "res", res);
-        
-        // Global variable initialization: WordLists need the Android resource, which (evidently) does not change during the App execution.
-        WordLists.getInstance().init(res);
         
         setUpNumberPicker();
         setUpGameTypeSpinner();
@@ -87,6 +78,9 @@ public class MainActivity extends Activity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, types, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         gameTypeSpinner.setAdapter(adapter);
+        
+        int current = Util.type ? 2 : 1;
+        gameTypeSpinner.setSelection(current);
     }
     
     public void onClickStart(View view) {

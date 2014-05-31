@@ -28,11 +28,15 @@
 package org.incava.xumoqi.games;
 
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.TreeMap;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 public class QueryList implements Parcelable {
+	private final static Random random = new Random();
+	
     public static final Parcelable.Creator<QueryList> CREATOR = new Parcelable.Creator<QueryList>() {
         public QueryList createFromParcel(Parcel parcel) {
             return new QueryList(parcel);
@@ -49,7 +53,7 @@ public class QueryList implements Parcelable {
     private final ArrayList<Query> queries;
 
     public QueryList() {
-        this.queries = new ArrayList<Query>();
+        this.queries = new ArrayList<Query>(MAX_QUERIES);
     }
 
     public QueryList(Query query) {
@@ -72,6 +76,13 @@ public class QueryList implements Parcelable {
 
     public void addQuery(Query query) {
         queries.add(query);
+        while (queries.size() > MAX_QUERIES) {
+        	queries.remove(0);
+        }
+    }
+    
+    public int size() {
+    	return queries.size();
     }
 
     @Override
@@ -95,5 +106,39 @@ public class QueryList implements Parcelable {
     		sb.append("query[" + idx + "]: " + queries.get(idx) + "\n");
     	}
     	return sb.toString();
+    }
+
+    public Query getRandomQuery() {
+    	// this is sorted so lower scores are processed first:
+    	TreeMap<Integer, ArrayList<Query>> byScore = getByScore();
+		for (Integer score : byScore.keySet()) {
+			int rnd = random.nextInt(Results.MAX_SCORE);
+			if (rnd > score) {
+				ArrayList<Query> forScore = byScore.get(score);
+				int sz = forScore.size();
+				int rIdx = random.nextInt(sz);
+	    		return forScore.get(rIdx);
+			}
+		}
+		return null;
+    }
+    
+    public int indexOf(Query query) {
+    	return queries.indexOf(query);
+    }
+
+    private TreeMap<Integer, ArrayList<Query>> getByScore() {
+    	TreeMap<Integer, ArrayList<Query>> queriesByScore = new TreeMap<Integer, ArrayList<Query>>();
+    
+    	for (Query q : queries) {
+    		int score = q.getScore();
+    		ArrayList<Query> current = queriesByScore.get(score);
+    		if (current == null) {
+				current = new ArrayList<Query>();
+				queriesByScore.put(score, current);
+			}
+    		current.add(q);
+    	}
+    	return queriesByScore;
     }
 }

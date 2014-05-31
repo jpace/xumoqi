@@ -29,49 +29,40 @@ package org.incava.xumoqi.utils;
 
 import android.util.Log;
 
-public class Timer {
-    private final String component;
-    private final String activity;
-    private final long start;
-
-    public Timer(String component, String activity) {
-        this.component = component;
-        this.activity = activity;
-        start = System.currentTimeMillis();
-        log("start");
-    }
-
-    public Timer() {
-        this("", "");
-    }
-
-    public Timer(Class<?> cls, String activity) {
-    	this(cls.getSimpleName(), activity);
-    }
-
-    public Timer(Object obj, String activity) {
-    	this(obj.getClass().getSimpleName(), activity);
-    }
-
-    public void done(String msg) {
-        long end = System.currentTimeMillis();
-        log("duration: " + msg, end - start);
-    }
-
-    public void done() {
-        long end = System.currentTimeMillis();
-        log("duration", end - start);
+public class Lo {
+    public static void g(String component, String msg, Object obj) {
+    	Log.i(component, msg + ": " + obj);
     }
     
-    public long getDuration() {
-        return System.currentTimeMillis() - start;
+    public static void g(String component, String msg, Inspectable insp) {
+    	Log.i(component, msg + ": " + insp.inspect());
     }
     
-    private void log(String what, long time) {
-        Log.i(component, activity + ": " + what + ": " + time);
+    public static void g(String component, String msg, String str) {
+    	Log.i(component, msg + ": '" + str + "'");
     }
     
-    private void log(String what) {
-        Log.i(component, activity + ": " + what);
+    public static void g(Class<?> cls, String msg, Object obj) {
+    	g(cls.getSimpleName(), msg, obj);
+    }
+    
+    public static void g(Class<?> cls, String msg, Inspectable insp) {
+    	g(cls.getSimpleName(), msg, insp.inspect());
+    }
+    
+    public static void g(Class<?> cls, String msg, String str) {
+    	g(cls.getSimpleName(), msg, str);
+    }
+    
+    public static void g(Object whence, String msg, Object obj) {
+    	g(whence.getClass().getSimpleName(), msg, obj);
+    }
+    
+    public static void g(Object whence, String msg, Inspectable insp) {
+    	g(whence.getClass().getSimpleName(), msg, insp.inspect());
+    }
+    
+    public static void g(Object whence, String msg, String str) {
+    	g(whence.getClass().getSimpleName(), msg, str);
     }
 }

@@ -27,20 +27,19 @@
 
 package org.incava.xumoqi.games;
 
-import org.incava.xumoqi.words.Blanks;
 import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
 public abstract class GameDottedWords implements Game {
     private final WordList wordList;
     private final int length;
-    private final Blanks blanks;
 
-    public GameDottedWords(WordList wordList, int length, int nDots, int blankIndex) {
+    public GameDottedWords(WordList wordList, int length) {
         this.wordList = wordList;
         this.length = length;
-        this.blanks = new Blanks(nDots, blankIndex);
     }
+    
+    public abstract int getBlankIndex(int length);
     
     public String getAsQuery(Word word) {
         return word.asQuery();
@@ -48,12 +47,8 @@ public abstract class GameDottedWords implements Game {
 
     public Word getQueryWord() {
         String word = getRandomWord();
-        int dotIdx = blanks.getIndex();
+        int dotIdx = getBlankIndex(length);
         return new Word(word, dotIdx);
-    }
-
-    protected int getNumDots() {
-        return blanks.getTotal();
     }
 
     protected String getRandomWord() {
@@ -64,10 +59,6 @@ public abstract class GameDottedWords implements Game {
         return length;
     }
 
-    protected boolean isBlank(int idx) {
-        return blanks.isBlank(idx);
-    }
-    
     protected WordList getWordList() {
         return wordList;
     }

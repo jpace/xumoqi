@@ -30,9 +30,8 @@ package org.incava.xumoqi.words;
 import java.io.InputStream;
 
 import org.incava.xumoqi.R;
+import org.incava.xumoqi.utils.Lo;
 import org.incava.xumoqi.utils.Timer;
-import org.incava.xumoqi.utils.Util;
-
 import android.content.res.Resources;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
@@ -50,48 +49,56 @@ public class WordLists {
         return instance;
     }
         
-    private Resources resources;
     private SparseIntArray lenToRes;
     private final SparseArray<WordList> wordListsByLength;
     
     private WordLists() {
+    	int[] twls = new int[] {
+            R.raw.twl2,
+            R.raw.twl3,
+            R.raw.twl4,
+            R.raw.twl5,
+            R.raw.twl6,
+            R.raw.twl7,
+            R.raw.twl8,
+            R.raw.twl9,
+            R.raw.twl10,
+            R.raw.twl11,
+            R.raw.twl12,
+            R.raw.twl13,
+            R.raw.twl14,
+            R.raw.twl15,
+        };
+
         lenToRes = new SparseIntArray();
-        lenToRes.put(2, R.raw.twl2);
-        lenToRes.put(3, R.raw.twl3);
-        lenToRes.put(4, R.raw.twl4);
-        lenToRes.put(5, R.raw.twl5);
-        lenToRes.put(6, R.raw.twl6);
-        lenToRes.put(7, R.raw.twl7);
-        lenToRes.put(8, R.raw.twl8);
-        lenToRes.put(9, R.raw.twl9);
-        lenToRes.put(10, R.raw.twl10);
-        lenToRes.put(11, R.raw.twl11);
-        lenToRes.put(12, R.raw.twl12);
-        lenToRes.put(13, R.raw.twl13);
-        lenToRes.put(14, R.raw.twl14);
-        lenToRes.put(15, R.raw.twl15);
+
+        int len = 2;
+        for (int twl : twls) {
+            lenToRes.put(len, twl);
+            ++len;
+        }
         
         wordListsByLength = new SparseArray<WordList>();
     }
     
-    public void init(Resources res) {
-        resources = res;
+    public WordList getWordList(Resources resources, int length) {
+        Timer t = new Timer("WORDLISTS", "getWordList(" + length + ")");
+        Lo.g(getClass(), "getWordList.resources", resources);
+        WordList wordList = wordListsByLength.get(length);
+        if (wordList == null) {
+        	wordList = readWordList(resources, length); 
+        }
+        t.done();
+        return wordList;
     }
     
-    public WordList getWordList(int length) {
-        Timer t = new Timer("WORDLISTS", "getWordList(..., " + length + ")");
-        Util.log("WORDLISTS", "resources", resources);
-        WordList wordList = wordListsByLength.get(length);
-        if (wordList != null) {
-            t.done("already exists");
-            return wordList;
-        }
-        
+    private WordList readWordList(Resources resources, int length) {
+        Timer t = new Timer("WORDLISTS", "readWordList(" + length + ")");
         int twlRes = lenToRes.get(length);
         InputStream is = resources.openRawResource(twlRes);
-        wordList = new WordList(is);
+        WordList wordList = new WordList(is);
         wordListsByLength.put(length, wordList);
-        t.done("read");
+        t.done();
         return wordList;
     }
 }

@@ -36,6 +36,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Results implements Parcelable {
+	public static final int MAX_SCORE = 100;
+	
     public static final Parcelable.Creator<Results> CREATOR = new Parcelable.Creator<Results>() {
         public Results createFromParcel(Parcel parcel) {
             return new Results(parcel);
@@ -65,9 +67,9 @@ public class Results implements Parcelable {
     }
     
     protected Results(Parcel parcel) {
-        correct = new TreeSet<String>(Arrays.asList(parcel.createStringArray()));
-        missed = new TreeSet<String>(Arrays.asList(parcel.createStringArray()));
-        invalid = new TreeSet<String>(Arrays.asList(parcel.createStringArray()));
+        correct = readStringSet(parcel);
+        missed = readStringSet(parcel);
+        invalid = readStringSet(parcel);
     }
     
     @Override
@@ -77,11 +79,11 @@ public class Results implements Parcelable {
     
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeStringArray(correct.toArray(new String[correct.size()]));
-        parcel.writeStringArray(missed.toArray(new String[missed.size()]));
-        parcel.writeStringArray(invalid.toArray(new String[invalid.size()]));
+    	writeStringSet(parcel, correct);
+    	writeStringSet(parcel, missed);
+    	writeStringSet(parcel, invalid);
     }
-
+    
     public TreeSet<String> getCorrect() {
         return correct;
     }
@@ -95,6 +97,34 @@ public class Results implements Parcelable {
     }
 
     public String toString() {
-        return "correct: " + correct + "; missed: " + missed + "; invalid: " + invalid;
+        return "correct: " + correct + "; invalid: " + invalid + "; missed: " + missed;
+    }
+    
+    public boolean isCorrect() {
+   		return getInvalid().isEmpty() && getMissed().isEmpty();
+    }
+    
+    public String inspect() {
+    	StringBuilder sb = new StringBuilder();
+    	sb.append("correct: ").append(correct).append('\n');
+    	sb.append("invalid: ").append(invalid).append('\n');
+    	sb.append("missed: ").append(missed).append('\n');
+    	return sb.toString();
+    }
+    
+    public int getScore() {
+    	// @TODO refine this algorithm:
+    	int total = correct.size() + missed.size() + invalid.size();
+    	return (100 * correct.size()) / total; 
+    }
+
+    private void writeStringSet(Parcel parcel, TreeSet<String> set) {
+    	parcel.writeStringArray(set.toArray(new String[set.size()]));
+    }
+    
+    private TreeSet<String> readStringSet(Parcel parcel) {
+    	String[] strAry = parcel.createStringArray();
+    	List<String> list = Arrays.asList(strAry);
+    	return new TreeSet<String>(list);
     }
 }

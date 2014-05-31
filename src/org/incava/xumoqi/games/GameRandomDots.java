@@ -34,27 +34,30 @@ import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
 public class GameRandomDots extends GameDottedWords {
-    private static int getRandomIndex(int length) {
-        // handles only one dot for now
-        Random rnd = new Random();
-        return rnd.nextInt(length);
-    }
-    
+	private static final Random rnd = new Random();
+
     private final WordList wordList;
     
     public GameRandomDots(WordList wordList, int length, int nDots) {
-        super(wordList, length, nDots, getRandomIndex(length));
+        super(wordList, length);
         this.wordList = wordList;
+    }
+    
+    public int getBlankIndex(int length) {
+        // handles only one dot for now
+        return rnd.nextInt(length);
     }
     
     public ArrayList<String> getMatching(Word queryWord) {
         String pat = queryWord.asPattern();
         String qstr = queryWord.toString();
-        if (isBlank(0)) {
-            return wordList.getMatchingEndsWith(qstr.charAt(getLength() - 1), pat);
+        if (queryWord.getDotIndex() == 0) {
+            char lastChar = qstr.charAt(getLength() - 1);
+            return wordList.getMatchingEndsWith(lastChar, pat);
         }
         else {
-            return wordList.getMatchingStartsWith(qstr.charAt(0), pat);
+        	char firstChar = qstr.charAt(0);
+            return wordList.getMatchingStartsWith(firstChar, pat);
         }
     }
 }

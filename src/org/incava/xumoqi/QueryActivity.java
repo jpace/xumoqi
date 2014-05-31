@@ -28,20 +28,20 @@
 package org.incava.xumoqi;
 
 import java.util.ArrayList;
-
 import org.incava.xumoqi.games.Game;
 import org.incava.xumoqi.games.GameFactory;
 import org.incava.xumoqi.games.GameParams;
 import org.incava.xumoqi.games.Query;
 import org.incava.xumoqi.games.QueryList;
 import org.incava.xumoqi.utils.Constants;
+import org.incava.xumoqi.utils.Lo;
 import org.incava.xumoqi.utils.Timer;
-import org.incava.xumoqi.utils.Util;
 import org.incava.xumoqi.words.Word;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -58,8 +58,8 @@ public class QueryActivity extends Activity {
     private GameParams gameParams = null;
     private Word queryWord = null;
     private Timer timer = null;
-    private Query query = null;
     private QueryList queries = null;
+    private int queryIndex = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,30 +67,18 @@ public class QueryActivity extends Activity {
         setContentView(R.layout.activity_query);
         
         Intent intent = getIntent();
-        
+
         gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
-        int length = gameParams.getWordLength();
-        
         queries = intent.getParcelableExtra(Constants.QUERIES);
-        Util.log(getClass(), "create.queries", queries.inspect());
         
-        // not an option, for now ...
-        int numDots = 1;
-        
-        Game game = GameFactory.createGame(gameParams.getGameType(), length, numDots);
-        queryWord = game.getQueryWord();
-        query = new Query(queryWord);
-        queries.addQuery(query);
-        
-        fetchMatching(game, queryWord);
+        String queryStr = getNextQuery();
         
         setupEditText();
         
         TextView tv = getQueryTextView();
-        String asQuery = game.getAsQuery(queryWord);
-        tv.setText(asQuery);
+        tv.setText(queryStr);
         
-        timer = new Timer();
+        timer = new Timer(getClass(), "");
         timer.done("onCreate");
     }
     
@@ -122,9 +110,10 @@ public class QueryActivity extends Activity {
         Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    // Timer timer = new Timer("QUERY", "getMatching");
+                    Timer timer = new Timer("QUERY", "getMatching");
                     matching = game.getMatching(queryWord);
-                    // timer.done();
+                    Lo.g(this, "fetchMatching.matching", matching);
+                    timer.done();
                 }
             });
         thread.start();
@@ -132,31 +121,11 @@ public class QueryActivity extends Activity {
     
     public void onClickNext(View view) {
         timer.done("onClickNext");
-
-        long duration = timer.getDuration();
         
         Intent intent = new Intent(this, StatusActivity.class);
-
-        intent.putExtra(Constants.DURATION, String.valueOf(duration));
-        
-        EditText et = (EditText)findViewById(R.id.queryInput);
-        String inputText = et.getText().toString();
-        intent.putExtra(Constants.INPUT_STRING, inputText);
-
-        intent.putExtra(Constants.GAME_PARAMS, gameParams);
-        
-        intent.putExtra(Constants.QUERIES, queries);
-        Util.log(getClass(), "next.queries", queries);
-
-        while (matching == null) {
-            // waiting for getMatching() to finish; invoked by onCreate() ...
-            try {
-                Thread.sleep(100);
-            }
-            catch (InterruptedException e) {
-            }
-        }
-        intent.putStringArrayListExtra(Constants.MATCHING, matching);
+        saveDuration(intent);
+        saveQuery(intent);
+        saveMatching(intent);
         
         startActivity(intent);
     }
@@ -194,4 +163,65 @@ public class QueryActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    private String getNextQuery() {
+        Intent intent = getIntent();
+
+        Game game = getGame();
+        
+    	Query randomQuery = queries.getRandomQuery();
+    	
+    	int qIdx = queries.indexOf(randomQuery);
+    	int prevQueryIndex = intent.getIntExtra(Constants.QUERY_INDEX, -1);
+    	
+    	// don't repeat the previous query:
+    	if (randomQuery == null || qIdx == prevQueryIndex) {
+    		queryWord = game.getQueryWord();
+    		Query newQuery = new Query(queryWord);
+    		queries.addQuery(newQuery);
+        	queryIndex = queries.size() - 1;
+    	}
+    	else {
+    		queryIndex = qIdx;
+    		queryWord = randomQuery.getWord();
+    	}
+        
+        fetchMatching(game, queryWord);
+
+        return game.getAsQuery(queryWord);
+    }
+
+    private Game getGame() {
+    	// numDots is not an option, for now ...
+    	final int numDots = 1;
+        Resources resources = getResources();
+        int length = gameParams.getWordLength();
+    	return GameFactory.createGame(resources, gameParams.getGameType(), length, numDots);
+    }
+    
+    private void saveDuration(Intent intent) {
+        long duration = timer.getDuration();
+        intent.putExtra(Constants.DURATION, String.valueOf(duration));
+    }
+    
+    private void saveQuery(Intent intent) {
+        EditText et = (EditText)findViewById(R.id.queryInput);
+        String inputText = et.getText().toString();
+        intent.putExtra(Constants.INPUT_STRING, inputText);
+        
+        intent.putExtra(Constants.GAME_PARAMS, gameParams);
+        intent.putExtra(Constants.QUERIES, queries);
+        intent.putExtra(Constants.QUERY_INDEX, queryIndex);
+    }
+
+    private void saveMatching(Intent intent) {
+	    while (matching == null) {
+	        // waiting for getMatching() to finish; invoked by onCreate() ...
+	        try {
+	            Thread.sleep(100);
+	        }
+	        catch (InterruptedException e) {
+	        }
+	    }
+	    intent.putStringArrayListExtra(Constants.MATCHING, matching);
+    }
 }

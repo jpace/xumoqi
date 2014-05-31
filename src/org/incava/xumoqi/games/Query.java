@@ -28,8 +28,9 @@
 package org.incava.xumoqi.games;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-import org.incava.xumoqi.utils.Util;
 import org.incava.xumoqi.words.Word;
 
 import android.os.Parcel;
@@ -47,10 +48,10 @@ public class Query implements Parcelable {
     };
 
     public final static int MAX_RESULTS = 5;
+    private final static Random random = new Random();
 
     private final Word word;
 
-    // TODO: keep this to a fixed size
     private final ArrayList<Results> results;
 
     public Query(Word word) {
@@ -67,8 +68,6 @@ public class Query implements Parcelable {
         this.word = parcel.readParcelable(Word.class.getClassLoader());
         this.results = new ArrayList<Results>();
         parcel.readList(this.results, Results.class.getClassLoader());
-        // Util.log(getClass(), "init.results", results);
-        // Util.log(getClass(), "init.this", this);
     }
     
     public Word getWord() {
@@ -81,8 +80,9 @@ public class Query implements Parcelable {
 
     public void addResults(Results res) {
         this.results.add(res);
-        // Util.log(getClass(), "add: res", res);
-        // Util.log(getClass(), "add: results", results);
+        while (this.results.size() >= MAX_RESULTS) {
+        	this.results.remove(0);
+        }
     }
 
     @Override
@@ -93,12 +93,35 @@ public class Query implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeParcelable(word, flags);
-        Util.log(getClass(), "write: this", this);
-        Util.log(getClass(), "write: results", results);
         parcel.writeList(results);
     }
     
     public String toString() {
         return "word: " + word + "; results: " + results;
+    }
+    
+    public String inspect() {
+    	StringBuilder sb = new StringBuilder();
+    	sb.append("word: ").append(word).append('\n');
+    	for (Results r : results) {
+    		sb.append(r.inspect());
+    	}
+    	return sb.toString();
+    }
+    
+    public ArrayList<Integer> getScores() {
+    	ArrayList<Integer> scores = new ArrayList<Integer>();
+    	for (Results r : results) {
+    		scores.add(r.getScore());
+    	}
+    	return scores;
+    }
+    
+    public int getScore() {
+    	final int maxRecent = 3;
+    	ArrayList<Integer> scores = getScores();
+    	int fromIdx = scores.size() - Math.min(scores.size(),  maxRecent);
+    	List<Integer> recent = scores.subList(fromIdx, scores.size());
+    	return recent.get(random.nextInt(recent.size()));
     }
 }
