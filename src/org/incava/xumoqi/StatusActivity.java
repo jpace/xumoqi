@@ -29,11 +29,13 @@ package org.incava.xumoqi;
 
 import java.util.ArrayList;
 
+import org.incava.xumoqi.games.GameIterations;
 import org.incava.xumoqi.games.GameParams;
 import org.incava.xumoqi.games.Query;
 import org.incava.xumoqi.games.QueryList;
 import org.incava.xumoqi.games.Response;
 import org.incava.xumoqi.games.Results;
+import org.incava.xumoqi.gui.ResultsTable;
 import org.incava.xumoqi.utils.Constants;
 import org.incava.xumoqi.utils.Lo;
 import org.incava.xumoqi.words.Word;
@@ -50,6 +52,7 @@ public class StatusActivity extends Activity {
     private Query query = null;
     private QueryList queries = null;
     private int queryIndex = -1;
+    private GameIterations gameIterations = null;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,7 @@ public class StatusActivity extends Activity {
         
         gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
         queries = intent.getParcelableExtra(Constants.QUERIES);
+        gameIterations = intent.getParcelableExtra(Constants.GAME_ITERATIONS);
         
         queryIndex = intent.getIntExtra(Constants.QUERY_INDEX, -1);
         Lo.g(this, "create.queryIndex", queryIndex);
@@ -102,6 +106,7 @@ public class StatusActivity extends Activity {
         
         intent.putExtra(Constants.QUERIES, queries);
         intent.putExtra(Constants.QUERY_INDEX, queryIndex);
+        intent.putExtra(Constants.GAME_ITERATIONS, gameIterations);
 
         startActivity(intent);
     }

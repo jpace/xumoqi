@@ -30,6 +30,7 @@ package org.incava.xumoqi;
 import java.util.ArrayList;
 import org.incava.xumoqi.games.Game;
 import org.incava.xumoqi.games.GameFactory;
+import org.incava.xumoqi.games.GameIterations;
 import org.incava.xumoqi.games.GameParams;
 import org.incava.xumoqi.games.Query;
 import org.incava.xumoqi.games.QueryList;
@@ -56,10 +57,10 @@ import android.support.v4.app.NavUtils;
 public class QueryActivity extends Activity {
     private ArrayList<String> matching = null;
     private GameParams gameParams = null;
-    private Word queryWord = null;
     private Timer timer = null;
     private QueryList queries = null;
     private int queryIndex = -1;
+    private GameIterations gameIterations = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ public class QueryActivity extends Activity {
 
         gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
         queries = intent.getParcelableExtra(Constants.QUERIES);
+        gameIterations = intent.getParcelableExtra(Constants.GAME_ITERATIONS);
         
         String queryStr = getNextQuery();
         
@@ -172,7 +174,9 @@ public class QueryActivity extends Activity {
     	
     	int qIdx = queries.indexOf(randomQuery);
     	int prevQueryIndex = intent.getIntExtra(Constants.QUERY_INDEX, -1);
-    	
+
+        Word queryWord = null;
+
     	// don't repeat the previous query:
     	if (randomQuery == null || qIdx == prevQueryIndex) {
     		queryWord = game.getQueryWord();
@@ -211,6 +215,7 @@ public class QueryActivity extends Activity {
         intent.putExtra(Constants.GAME_PARAMS, gameParams);
         intent.putExtra(Constants.QUERIES, queries);
         intent.putExtra(Constants.QUERY_INDEX, queryIndex);
+        intent.putExtra(Constants.GAME_ITERATIONS, gameIterations);
     }
 
     private void saveMatching(Intent intent) {

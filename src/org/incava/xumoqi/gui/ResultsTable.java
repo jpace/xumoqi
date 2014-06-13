@@ -25,7 +25,7 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi;
+package org.incava.xumoqi.gui;
 
 import java.util.Set;
 import org.incava.xumoqi.games.Results;

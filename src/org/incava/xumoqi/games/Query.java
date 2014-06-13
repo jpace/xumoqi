@@ -51,7 +51,6 @@ public class Query implements Parcelable {
     private final static Random random = new Random();
 
     private final Word word;
-
     private final ArrayList<Results> results;
 
     public Query(Word word) {

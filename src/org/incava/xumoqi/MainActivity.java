@@ -27,6 +27,7 @@
 
 package org.incava.xumoqi;
 
+import org.incava.xumoqi.games.GameIterations;
 import org.incava.xumoqi.games.GameParams;
 import org.incava.xumoqi.games.QueryList;
 import org.incava.xumoqi.utils.Constants;
@@ -94,6 +95,9 @@ public class MainActivity extends Activity {
         
         QueryList qlist = new QueryList();
         intent.putExtra(Constants.QUERIES, qlist);
+        
+        GameIterations gameIterations = new GameIterations(); 
+        intent.putExtra(Constants.GAME_ITERATIONS, gameIterations);
         
         startActivity(intent);
     }
