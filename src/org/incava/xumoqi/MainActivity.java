@@ -28,7 +28,6 @@
 package org.incava.xumoqi;
 
 import org.incava.xumoqi.games.GameIterations;
-import org.incava.xumoqi.games.GameParams;
 import org.incava.xumoqi.games.QueryList;
 import org.incava.xumoqi.utils.Constants;
 import org.incava.xumoqi.utils.Util;
@@ -87,16 +86,15 @@ public class MainActivity extends Activity {
     public void onClickStart(View view) {
         Intent intent = new Intent(this, QueryActivity.class);
         NumberPicker np = getNumberPicker();
+        int wordLength = np.getValue();
         
         Spinner gameTypeSpinner = getGameTypeSpinner();
         String gameType = gameTypeSpinner.getSelectedItem().toString();
-        GameParams gp = new GameParams(np.getValue(), gameType);
-        intent.putExtra(Constants.GAME_PARAMS, gp);
         
         QueryList qlist = new QueryList();
         intent.putExtra(Constants.QUERIES, qlist);
         
-        GameIterations gameIterations = new GameIterations(); 
+        GameIterations gameIterations = new GameIterations(wordLength, gameType); 
         intent.putExtra(Constants.GAME_ITERATIONS, gameIterations);
         
         startActivity(intent);

@@ -30,7 +30,6 @@ package org.incava.xumoqi;
 import java.util.ArrayList;
 
 import org.incava.xumoqi.games.GameIterations;
-import org.incava.xumoqi.games.GameParams;
 import org.incava.xumoqi.games.Query;
 import org.incava.xumoqi.games.QueryList;
 import org.incava.xumoqi.games.Response;
@@ -48,7 +47,6 @@ import android.view.View;
 import android.widget.TableLayout;
 
 public class StatusActivity extends Activity {
-    private GameParams gameParams = null;
     private Query query = null;
     private QueryList queries = null;
     private int queryIndex = -1;
@@ -61,7 +59,6 @@ public class StatusActivity extends Activity {
         
         Intent intent = getIntent();
         
-        gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
         queries = intent.getParcelableExtra(Constants.QUERIES);
         gameIterations = intent.getParcelableExtra(Constants.GAME_ITERATIONS);
         
@@ -102,7 +99,6 @@ public class StatusActivity extends Activity {
 
     public void onClickNext(View view) {
         Intent intent = new Intent(this, QueryActivity.class);
-        intent.putExtra(Constants.GAME_PARAMS, gameParams);
         
         intent.putExtra(Constants.QUERIES, queries);
         intent.putExtra(Constants.QUERY_INDEX, queryIndex);

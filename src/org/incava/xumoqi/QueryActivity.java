@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import org.incava.xumoqi.games.Game;
 import org.incava.xumoqi.games.GameFactory;
 import org.incava.xumoqi.games.GameIterations;
-import org.incava.xumoqi.games.GameParams;
 import org.incava.xumoqi.games.Query;
 import org.incava.xumoqi.games.QueryList;
 import org.incava.xumoqi.utils.Constants;
@@ -56,7 +55,6 @@ import android.support.v4.app.NavUtils;
 
 public class QueryActivity extends Activity {
     private ArrayList<String> matching = null;
-    private GameParams gameParams = null;
     private Timer timer = null;
     private QueryList queries = null;
     private int queryIndex = -1;
@@ -69,9 +67,10 @@ public class QueryActivity extends Activity {
         
         Intent intent = getIntent();
 
-        gameParams = intent.getParcelableExtra(Constants.GAME_PARAMS);
         queries = intent.getParcelableExtra(Constants.QUERIES);
         gameIterations = intent.getParcelableExtra(Constants.GAME_ITERATIONS);
+        
+        Lo.g(this, "gameIterations", gameIterations);
         
         String queryStr = getNextQuery();
         
@@ -198,8 +197,9 @@ public class QueryActivity extends Activity {
     	// numDots is not an option, for now ...
     	final int numDots = 1;
         Resources resources = getResources();
-        int length = gameParams.getWordLength();
-    	return GameFactory.createGame(resources, gameParams.getGameType(), length, numDots);
+        int length = gameIterations.getWordLength();
+        String gameType = gameIterations.getGameType();
+    	return GameFactory.createGame(resources, gameType, length, numDots);
     }
     
     private void saveDuration(Intent intent) {
@@ -212,7 +212,6 @@ public class QueryActivity extends Activity {
         String inputText = et.getText().toString();
         intent.putExtra(Constants.INPUT_STRING, inputText);
         
-        intent.putExtra(Constants.GAME_PARAMS, gameParams);
         intent.putExtra(Constants.QUERIES, queries);
         intent.putExtra(Constants.QUERY_INDEX, queryIndex);
         intent.putExtra(Constants.GAME_ITERATIONS, gameIterations);
