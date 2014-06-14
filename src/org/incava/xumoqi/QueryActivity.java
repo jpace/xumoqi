@@ -28,8 +28,10 @@
 package org.incava.xumoqi;
 
 import java.util.ArrayList;
+
 import org.incava.xumoqi.games.Game;
 import org.incava.xumoqi.games.GameFactory;
+import org.incava.xumoqi.games.GameIteration;
 import org.incava.xumoqi.games.GameIterations;
 import org.incava.xumoqi.games.Query;
 import org.incava.xumoqi.games.QueryList;
@@ -214,6 +216,9 @@ public class QueryActivity extends Activity {
         
         intent.putExtra(Constants.QUERIES, queries);
         intent.putExtra(Constants.QUERY_INDEX, queryIndex);
+        
+        GameIteration gi = new GameIteration();
+        gameIterations.addIteration(gi);
         intent.putExtra(Constants.GAME_ITERATIONS, gameIterations);
     }
 

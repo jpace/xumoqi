@@ -27,9 +27,30 @@
 
 package org.incava.xumoqi.games;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * Current iteration and history of games (queries) executed.
+ * Game:
+ *     type (e.g., random blanks)
+ *     word length
+ *     queries: {
+ *         query pattern: {
+ *             matching
+ *             iterations: [
+ *                 response
+ *                 score (response v. matching)
+ *             ]
+ *         }
+ *         history: [ query patterns ]
+ *     } 
+ * 
+ * @author jpace
+ */
 public class GameIterations implements Parcelable {
     public static final Parcelable.Creator<GameIterations> CREATOR = new Parcelable.Creator<GameIterations>() {
         public GameIterations createFromParcel(Parcel parcel) {
@@ -43,14 +64,17 @@ public class GameIterations implements Parcelable {
 
     private final int wordLength;
     private final String gameType;
+    private final ArrayList<GameIteration> iterations;
     
 	public GameIterations(int wordLength, String gameType) {
 		this.wordLength = wordLength;
 		this.gameType = gameType;
+		this.iterations = new ArrayList<GameIteration>(); 
 	}
 
     private GameIterations(Parcel parcel) {
         this(parcel.readInt(), parcel.readString());
+        parcel.readList(this.iterations, GameIteration.class.getClassLoader());
     }
 
     public int getWordLength() {
@@ -59,6 +83,14 @@ public class GameIterations implements Parcelable {
 
     public String getGameType() {
         return gameType;
+    }
+    
+    public List<GameIteration> getIterations() {
+    	return iterations;
+    }
+
+    public void addIteration(GameIteration it) {
+    	iterations.add(it);
     }
 
     @Override
@@ -70,6 +102,7 @@ public class GameIterations implements Parcelable {
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeInt(wordLength);
         parcel.writeString(gameType);
+        parcel.writeList(iterations);
     }
     
     public String toString() {

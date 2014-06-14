@@ -51,10 +51,6 @@ public class Word implements Parcelable {
         this.dotIdx = dotIdx;
     }
     
-    public Word(String str) {
-        this(str, NO_INDEX);
-    }
-    
     protected Word(Parcel parcel) {
         this(parcel.readString(), parcel.readInt());
     }
