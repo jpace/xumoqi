@@ -102,6 +102,7 @@ public class QueryActivity extends Activity {
                     return false;
                 }
             };
+       
         EditText et = (EditText)findViewById(R.id.queryInput);
         et.setOnEditorActionListener(tveal);
         et.requestFocus();
@@ -212,7 +213,7 @@ public class QueryActivity extends Activity {
     private void saveQuery(Intent intent) {
         EditText et = (EditText)findViewById(R.id.queryInput);
         String inputText = et.getText().toString();
-        intent.putExtra(Constants.INPUT_STRING, inputText);
+        intent.putExtra(Constants.USER_INPUT, inputText);
         
         intent.putExtra(Constants.QUERIES, queries);
         intent.putExtra(Constants.QUERY_INDEX, queryIndex);

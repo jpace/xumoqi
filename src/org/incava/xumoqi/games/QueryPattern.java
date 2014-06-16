@@ -27,33 +27,37 @@
 
 package org.incava.xumoqi.games;
 
-import java.util.ArrayList;
-import java.util.Random;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-import org.incava.xumoqi.words.Word;
-import org.incava.xumoqi.words.WordList;
+public class QueryPattern implements Parcelable {
+    public static final Parcelable.Creator<QueryPattern> CREATOR = new Parcelable.Creator<QueryPattern>() {
+        public QueryPattern createFromParcel(Parcel parcel) {
+            return new QueryPattern(parcel);
+        }
+        
+        public QueryPattern[] newArray(int size) {
+            return new QueryPattern[size];
+        }
+    };
 
-public class GameRandomDots extends GameDottedWords {
-	private static final Random rnd = new Random();
-
-    private final WordList wordList;
+    private final String str;
     
-    public GameRandomDots(WordList wordList, int length, int nDots) {
-        super(wordList, length);
-        this.wordList = wordList;
+    public QueryPattern(String str) {
+        this.str = str;
+	}
+
+    protected QueryPattern(Parcel parcel) {
+        this(parcel.readString());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
     
-    public int getBlankIndex(int length) {
-        // handles only one dot for now
-        return rnd.nextInt(length);
-    }
-    
-    public ArrayList<String> getMatching(Word queryWord) {
-        if (queryWord.getDotIndex() == 0) {
-        	return wordList.getMatchingEndsWith(queryWord);
-        }
-        else {
-        	return wordList.getMatchingStartsWith(queryWord);
-        }
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeString(str);
     }
 }

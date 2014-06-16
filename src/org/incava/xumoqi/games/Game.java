@@ -33,7 +33,7 @@ import org.incava.xumoqi.words.Word;
 
 public interface Game {
 	/**
-	 * Returns a new, random word to be queries.
+	 * Returns a new, random word to be queried.
 	 */
     public Word getQueryWord();
 

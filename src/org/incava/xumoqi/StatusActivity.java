@@ -71,7 +71,7 @@ public class StatusActivity extends Activity {
         // String duration = intent.getStringExtra(Constants.DURATION);
         // log("duration", duration);
         
-        String inputString = intent.getStringExtra(Constants.INPUT_STRING);
+        String inputString = intent.getStringExtra(Constants.USER_INPUT);
         ArrayList<String> matching = intent.getStringArrayListExtra(Constants.MATCHING);
         
         Response response = new Response(queryWord, inputString);
