@@ -35,6 +35,8 @@ import org.incava.xumoqi.games.GameIteration;
 import org.incava.xumoqi.games.GameIterations;
 import org.incava.xumoqi.games.Query;
 import org.incava.xumoqi.games.QueryList;
+import org.incava.xumoqi.gui.Enterable;
+import org.incava.xumoqi.gui.EnterableEditText;
 import org.incava.xumoqi.utils.Constants;
 import org.incava.xumoqi.utils.Lo;
 import org.incava.xumoqi.utils.Timer;
@@ -44,18 +46,14 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 import android.support.v4.app.NavUtils;
 
-public class QueryActivity extends Activity {
+public class QueryActivity extends Activity implements Enterable {
     private ArrayList<String> matching = null;
     private Timer timer = null;
     private QueryList queries = null;
@@ -90,26 +88,14 @@ public class QueryActivity extends Activity {
         super.onStart();
     }
     
-    private void setupEditText() {
-        OnEditorActionListener tveal = new OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    if (actionId == EditorInfo.IME_ACTION_SEND || 
-                        (event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN)) {
-                        onClickNext(null);
-                        return true;
-                    }
-                    return false;
-                }
-            };
-       
-        EditText et = (EditText)findViewById(R.id.queryInput);
-        et.setOnEditorActionListener(tveal);
-        et.requestFocus();
-        
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+    public void onEnter() {
+        onClickNext(null);
     }
-    
+
+    private void setupEditText() {
+    	EnterableEditText.setupEditText(this, this, (EditText)findViewById(R.id.queryInput));
+    }
+
     private void fetchMatching(final Game game, final Word queryWord) {
         Thread thread = new Thread(new Runnable() {
                 @Override
