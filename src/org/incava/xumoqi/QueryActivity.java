@@ -74,7 +74,7 @@ public class QueryActivity extends Activity implements Enterable {
         
         String queryStr = getNextQuery();
         
-        setupEditText();
+    	EnterableEditText.setupEditText(this, this, (EditText)findViewById(R.id.queryInput));
         
         TextView tv = getQueryTextView();
         tv.setText(queryStr);
@@ -90,10 +90,6 @@ public class QueryActivity extends Activity implements Enterable {
     
     public void onEnter() {
         onClickNext(null);
-    }
-
-    private void setupEditText() {
-    	EnterableEditText.setupEditText(this, this, (EditText)findViewById(R.id.queryInput));
     }
 
     private void fetchMatching(final Game game, final Word queryWord) {

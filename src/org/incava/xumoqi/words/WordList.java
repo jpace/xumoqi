@@ -77,17 +77,17 @@ public class WordList {
         wordMap.addWord(word.charAt(idx), word);
     }
 
-    public List<String> getWords() {
-        return words;
+    public ArrayList<String> getMatching(Word queryWord) {
+        return queryWord.getDotIndex() == 0 ? getMatchingEndsWith(queryWord) : getMatchingStartsWith(queryWord);
     }
-    
-    public ArrayList<String> getMatchingEndsWith(Word queryWord) {
+
+    private ArrayList<String> getMatchingEndsWith(Word queryWord) {
         String qstr = queryWord.toString();
     	Lo.g(this, "qstr", qstr);
     	return getMatchingForChar(byLast, queryWord, qstr.length() - 1);
     }
     
-    public ArrayList<String> getMatchingStartsWith(Word queryWord) {
+    private ArrayList<String> getMatchingStartsWith(Word queryWord) {
     	return getMatchingForChar(byFirst, queryWord, 0);
     }    
 
@@ -99,18 +99,6 @@ public class WordList {
         return getMatching(pat, forChar);
     }
 
-    private ArrayList<String> getForIndex(WordMapByChar wordMap, String str, int idx) {
-        return wordMap.getMatches(str.charAt(idx), str);
-    }
-
-    public ArrayList<String> getStartingWith(String str) {
-        return getForIndex(byFirst, str, 0);
-    }
-
-    public ArrayList<String> getEndingWith(String str) {
-        return getForIndex(byLast, str, str.length() - 1);
-    }
-    
     private ArrayList<String> getMatching(String pat, List<String> strs) {
         ArrayList<String> matching = new ArrayList<String>();
         Pattern pattern = Pattern.compile(pat);

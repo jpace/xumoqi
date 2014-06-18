@@ -29,7 +29,9 @@ package org.incava.xumoqi.games;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
+import org.incava.xumoqi.utils.Lo;
 import org.incava.xumoqi.utils.Timer;
 import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
@@ -74,17 +76,22 @@ public class GameNToNPlusOne implements Game {
     }
 
     public ArrayList<String> getMatching(Word queryWord) {
-        Timer t = new Timer("N-N+1", "getMatching(" + queryWord + ")");
-        List<String> words = toWordList.getWords();
         String str = queryWord.toString();
-        ArrayList<String> matching = new ArrayList<String>();
-        for (String wd : words) {
-            if (wd.endsWith(str) || wd.startsWith(str)) {
-                matching.add(wd);
-            }
-        }
-        t.done();
-        return matching;
+        
+        Word startingWith = new Word(str + ".", str.length());
+        ArrayList<String> msw = toWordList.getMatching(startingWith);
+        Lo.g(this, "msw", msw);
+        
+        Word endingWith = new Word("." + str, 0);
+        ArrayList<String> mew = toWordList.getMatching(endingWith);
+        Lo.g(this, "mew", mew);
+        
+        TreeSet<String> matchSet = new TreeSet<String>(msw);
+        matchSet.addAll(mew);
+        
+        Lo.g(this, "matchSet", matchSet);
+        
+        return new ArrayList<String>(matchSet);
     }
 
     private boolean containsOnlyPlural(Word word) {

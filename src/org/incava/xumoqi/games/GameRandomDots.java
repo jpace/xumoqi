@@ -49,11 +49,6 @@ public class GameRandomDots extends GameDottedWords {
     }
     
     public ArrayList<String> getMatching(Word queryWord) {
-        if (queryWord.getDotIndex() == 0) {
-        	return wordList.getMatchingEndsWith(queryWord);
-        }
-        else {
-        	return wordList.getMatchingStartsWith(queryWord);
-        }
+    	return wordList.getMatching(queryWord);
     }
 }

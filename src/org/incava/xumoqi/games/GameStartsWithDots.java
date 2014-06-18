@@ -45,9 +45,6 @@ public class GameStartsWithDots extends GameDottedWords {
     }
     
     public ArrayList<String> getMatching(Word queryWord) {
-        // this is the substring after the "." at the beginning
-        String qstr = queryWord.toString();
-        String ending = qstr.substring(1, qstr.length());
-        return wordList.getEndingWith(ending);
+        return wordList.getMatching(queryWord);
     }
 }
