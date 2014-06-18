@@ -66,7 +66,16 @@ public class WordList {
         iordr.readStream(is);
     }
 
-    public void addWord(String word) {
+    public ArrayList<String> getMatching(Word queryWord) {
+        return queryWord.getDotIndex() == 0 ? getMatchingEndsWith(queryWord) : getMatchingStartsWith(queryWord);
+    }
+    
+    public String getRandomWord() {
+    	int idx = random.nextInt(words.size());
+    	return words.get(idx);
+    }
+
+    private void addWord(String word) {
         words.add(word);
         // TODO: optimize this: this adds 30% when reading the word list
         addWord(byFirst, 0, word);
@@ -75,10 +84,6 @@ public class WordList {
     
     private void addWord(WordMapByChar wordMap, int idx, String word) {
         wordMap.addWord(word.charAt(idx), word);
-    }
-
-    public ArrayList<String> getMatching(Word queryWord) {
-        return queryWord.getDotIndex() == 0 ? getMatchingEndsWith(queryWord) : getMatchingStartsWith(queryWord);
     }
 
     private ArrayList<String> getMatchingEndsWith(Word queryWord) {
@@ -109,10 +114,5 @@ public class WordList {
         }
         
         return matching;
-    }
-    
-    public String getRandomWord() {
-    	int idx = random.nextInt(words.size());
-    	return words.get(idx);
     }
 }

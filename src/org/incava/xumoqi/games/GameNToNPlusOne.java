@@ -28,7 +28,6 @@
 package org.incava.xumoqi.games;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.TreeSet;
 
 import org.incava.xumoqi.utils.Lo;
@@ -56,18 +55,19 @@ public class GameNToNPlusOne implements Game {
         return "_" + str + ", " + str + "_";  
     }
     
-    public Word getQueryWord(boolean includeOnlyPlurals) {
+    private Word getQueryWord(boolean includeWhenOnlyPlurals) {
         // TODO: no plurals (other than 2-letter words?)
         Timer t = new Timer("N-N+1", "getQueryWord()");
         Word word = null;
         while (matching == null || matching.isEmpty()) {
-            word = new Word(fromWordList.getRandomWord(), Word.NO_INDEX);
+        	String randomWord = fromWordList.getRandomWord();
+            word = new Word(randomWord, Word.NO_INDEX);
             t.done("word: " + word + " from fromWordList");
-            matching = getMatching(word);
+            matching = fetchMatching(randomWord);
             t.done("matching " + matching);
             
-            if (containsOnlyPlural(word) && !includeOnlyPlurals) {
-                matching = null;
+            if (matchingContainsOnlyPlural(randomWord)) {
+            	matching = null;
             }
         }
 
@@ -76,8 +76,10 @@ public class GameNToNPlusOne implements Game {
     }
 
     public ArrayList<String> getMatching(Word queryWord) {
-        String str = queryWord.toString();
-        
+    	return matching;
+    }
+
+    private ArrayList<String> fetchMatching(String str) {
         Word startingWith = new Word(str + ".", str.length());
         ArrayList<String> msw = toWordList.getMatching(startingWith);
         Lo.g(this, "msw", msw);
@@ -94,7 +96,7 @@ public class GameNToNPlusOne implements Game {
         return new ArrayList<String>(matchSet);
     }
 
-    private boolean containsOnlyPlural(Word word) {
-        return matching.size() == 1 && matching.get(0).equals(word.toString() + 's');
+    private boolean matchingContainsOnlyPlural(String str) {
+        return matching.size() == 1 && matching.get(0).equals(str + 's');
     }
 }
