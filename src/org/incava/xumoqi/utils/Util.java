@@ -37,4 +37,8 @@ public class Util {
         }
         return sb.toString();
     }
+    
+    public static String replaceAt(String str, int idx, char ch) {
+    	return str.substring(0, idx) + ch + str.substring(idx + 1, str.length());  	
+    }
 }

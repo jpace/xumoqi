@@ -175,7 +175,7 @@ public class QueryActivity extends Activity implements Enterable {
         
         fetchMatching(game, queryWord);
 
-        return game.getAsQuery(queryWord);
+        return queryWord.asQuery();
     }
 
     private Game getGame() {
@@ -200,7 +200,8 @@ public class QueryActivity extends Activity implements Enterable {
         intent.putExtra(Constants.QUERIES, queries);
         intent.putExtra(Constants.QUERY_INDEX, queryIndex);
         
-        GameIteration gi = new GameIteration();
+        GameIteration gi = new GameIteration(queries.getQuery(queryIndex).getWord());
+        Lo.g(this, "gi", gi);
         gameIterations.addIteration(gi);
         intent.putExtra(Constants.GAME_ITERATIONS, gameIterations);
     }

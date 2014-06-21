@@ -27,6 +27,8 @@
 
 package org.incava.xumoqi.words;
 
+import org.incava.xumoqi.utils.Util;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -44,15 +46,26 @@ public class Word implements Parcelable {
     public static final int NO_INDEX = -1;
     
     private final String str;
+    private final String asQuery;
+    private final String asPattern;
     private final int dotIdx;
 
     public Word(String str, int dotIdx) {
         this.str = str;
         this.dotIdx = dotIdx;
+        this.asQuery = sub('_');
+        this.asPattern = sub('.');
+    }
+    
+    public Word(String str, int dotIdx, String asQuery, String asPattern) {
+        this.str = str;
+        this.dotIdx = dotIdx;
+        this.asQuery = asQuery;
+        this.asPattern = asPattern;
     }
     
     protected Word(Parcel parcel) {
-        this(parcel.readString(), parcel.readInt());
+        this(parcel.readString(), parcel.readInt(), parcel.readString(), parcel.readString());
     }
 
     @Override
@@ -64,6 +77,8 @@ public class Word implements Parcelable {
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeString(str);
         parcel.writeInt(dotIdx);
+        parcel.writeString(asQuery);
+        parcel.writeString(asPattern);
     }
 
     public String toString() {
@@ -79,19 +94,14 @@ public class Word implements Parcelable {
     }
     
     public String asQuery() {
-        return sub('_');
+        return asQuery;
     }
     
     public String asPattern() {
-        return sub('.');
+        return asPattern;
     }
     
     public String sub(char ch) {
-        if (dotIdx == NO_INDEX) {
-            return str;
-        }
-        else {
-            return str.substring(0, dotIdx) + ch + str.substring(dotIdx + 1, str.length());
-        }
+        return dotIdx == NO_INDEX ? str : Util.replaceAt(str, dotIdx, ch);
     }
 }   

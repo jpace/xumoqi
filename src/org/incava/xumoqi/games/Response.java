@@ -30,6 +30,7 @@ package org.incava.xumoqi.games;
 import java.util.Arrays;
 import java.util.List;
 
+import org.incava.xumoqi.utils.Lo;
 import org.incava.xumoqi.words.Word;
 
 public class Response {
@@ -64,7 +65,9 @@ public class Response {
     }
     
     private void replaceWithFullWord(Word queryWord, int idx, char ch) {
+    	Lo.g(this, "queryWord", queryWord);
         String t = queryWord.sub(ch);
+    	Lo.g(this, "t", t);
         strs.set(idx, t);
     }
 }

@@ -67,31 +67,21 @@ public class GameQNoU extends GameDottedWords {
     public Word getQueryWord() {
         Timer t = new Timer("Q^U", "getQueryWord()");
         
-        List<String> possibles = new ArrayList<String>();
-        
-        for (String loc : locations) {
-            Matcher matcher = pattern.matcher(loc);
-            if (matcher.matches()) {
-                String lenstr = matcher.group(1);
-                Integer len = Integer.valueOf(lenstr);
-
-                if (len <= maxLength) {
-                    // String line = matcher.group(2);
-                    // Util.log(this, "line", line);
-                    String word = matcher.group(3);
-                    Lo.g(this, "word", word);
-                    possibles.add(word);
-                }
-            }
-        }
-
+        List<String> possibles = getWordsUpToMaxLength();
         Lo.g(this, "possibles", possibles);
 
         int idx = random.nextInt(possibles.size());
         String qword = possibles.get(idx);
         Lo.g(this, "qword", qword);
 
-        int blankIdx = random.nextInt(qword.length());
+        int blankIdx = -1;
+        while (blankIdx == -1) {
+        	int chIdx = random.nextInt(qword.length());
+        	Lo.g(this, "chIdx", chIdx);
+        	if (qword.charAt(chIdx) != 'q') {
+        		blankIdx = chIdx;
+        	}
+        }
         
         matching = new ArrayList<String>();
         matching.add(qword);
@@ -105,8 +95,32 @@ public class GameQNoU extends GameDottedWords {
         return matching;
     }
 
-    @Override
-    public String getAsQuery(Word word) {
-        return word.asQuery();
+    private List<String> getWordsUpToMaxLength() {
+	    List<String> possibles = new ArrayList<String>();
+	    
+	    for (String location : locations) {
+	    	String word = parseLine(location);
+	    	if (word != null) {
+	    		possibles.add(word);
+	    	}
+	    }
+	    return possibles;
+    }
+    
+    private String parseLine(String line) {
+        Matcher matcher = pattern.matcher(line);
+        if (matcher.matches()) {
+            String lenstr = matcher.group(1);
+            Integer len = Integer.valueOf(lenstr);
+
+            if (len <= maxLength) {
+                // String line = matcher.group(2);
+                // Util.log(this, "line", line);
+                String word = matcher.group(3);
+                Lo.g(this, "word", word);
+                return word;
+            }
+        }
+        return null;
     }
 }

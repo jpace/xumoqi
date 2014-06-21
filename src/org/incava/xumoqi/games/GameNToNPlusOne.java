@@ -50,29 +50,24 @@ public class GameNToNPlusOne implements Game {
         return getQueryWord(false);
     }
     
-    public String getAsQuery(Word word) {
-        String str = word.toString();
-        return "_" + str + ", " + str + "_";  
-    }
-    
     private Word getQueryWord(boolean includeWhenOnlyPlurals) {
         // TODO: no plurals (other than 2-letter words?)
         Timer t = new Timer("N-N+1", "getQueryWord()");
-        Word word = null;
-        while (matching == null || matching.isEmpty()) {
-        	String randomWord = fromWordList.getRandomWord();
-            word = new Word(randomWord, Word.NO_INDEX);
-            t.done("word: " + word + " from fromWordList");
-            matching = fetchMatching(randomWord);
+        while (true) {
+        	String shorterWord = fromWordList.getRandomWord();
+            matching = fetchMatching(shorterWord);
             t.done("matching " + matching);
             
-            if (matchingContainsOnlyPlural(randomWord)) {
+            if (matchingContainsOnlyPlural(shorterWord)) {
             	matching = null;
             }
+            
+            if (matching != null && !matching.isEmpty()) {
+                Word word = new Word(shorterWord, Word.NO_INDEX, "_" + shorterWord + ", " + shorterWord + "_", null);
+                t.done("word: " + word + " from fromWordList");
+                return word;
+            }
         }
-
-        t.done("final WORD: " + word);
-        return word;
     }
 
     public ArrayList<String> getMatching(Word queryWord) {

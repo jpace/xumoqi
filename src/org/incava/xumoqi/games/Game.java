@@ -41,9 +41,4 @@ public interface Game {
      * Returns words (as strings) that match the given <code>queryWord</code>.
      */
     public ArrayList<String> getMatching(Word queryWord);
-
-    /**
-     * Returns the word as a query for this game type, such as "_oo" for the Word "foo".
-     */
-    public String getAsQuery(Word word);
 }

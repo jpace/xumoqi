@@ -41,10 +41,6 @@ public abstract class GameDottedWords implements Game {
     
     public abstract int getBlankIndex(int length);
     
-    public String getAsQuery(Word word) {
-        return word.asQuery();
-    }
-
     public Word getQueryWord() {
         String word = getRandomWord();
         int dotIdx = getBlankIndex(length);

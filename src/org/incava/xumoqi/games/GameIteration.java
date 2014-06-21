@@ -27,6 +27,8 @@
 
 package org.incava.xumoqi.games;
 
+import org.incava.xumoqi.words.Word;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -40,12 +42,19 @@ public class GameIteration implements Parcelable {
             return new GameIteration[size];
         }
     };
+    
+    private final Word word;
 
-	public GameIteration() {
+	public GameIteration(Word word) {
+		this.word = word;
 	}
 
     private GameIteration(Parcel parcel) {
-        this();
+        this.word = parcel.readParcelable(Word.class.getClassLoader());
+    }
+
+    public Word getWord() {
+        return word;
     }
 
     @Override
@@ -55,5 +64,10 @@ public class GameIteration implements Parcelable {
     
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeParcelable(word, flags);
+    }
+    
+    public String toString() {
+    	return "word: " + word;
     }
 }
