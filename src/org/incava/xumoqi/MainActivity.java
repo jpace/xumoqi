@@ -28,9 +28,10 @@
 package org.incava.xumoqi;
 
 import org.incava.xumoqi.games.GameIterations;
-import org.incava.xumoqi.games.QueryList;
+import org.incava.xumoqi.query.QueryList;
 import org.incava.xumoqi.utils.Constants;
 import org.incava.xumoqi.utils.Util;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;

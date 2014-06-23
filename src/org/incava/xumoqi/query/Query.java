@@ -25,12 +25,13 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi.games;
+package org.incava.xumoqi.query;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.incava.xumoqi.utils.Util;
 import org.incava.xumoqi.words.Word;
 
 import android.os.Parcel;
@@ -119,8 +120,7 @@ public class Query implements Parcelable {
     public int getScore() {
     	final int maxRecent = 3;
     	ArrayList<Integer> scores = getScores();
-    	int fromIdx = scores.size() - Math.min(scores.size(),  maxRecent);
-    	List<Integer> recent = scores.subList(fromIdx, scores.size());
+    	List<Integer> recent = Util.getEndOfList(scores, maxRecent);
     	return recent.get(random.nextInt(recent.size()));
     }
 }

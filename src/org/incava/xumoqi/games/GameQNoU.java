@@ -74,14 +74,7 @@ public class GameQNoU extends GameDottedWords {
         String qword = possibles.get(idx);
         Lo.g(this, "qword", qword);
 
-        int blankIdx = -1;
-        while (blankIdx == -1) {
-        	int chIdx = random.nextInt(qword.length());
-        	Lo.g(this, "chIdx", chIdx);
-        	if (qword.charAt(chIdx) != 'q') {
-        		blankIdx = chIdx;
-        	}
-        }
+        int blankIdx = getBlankIndex(qword);
         
         matching = new ArrayList<String>();
         matching.add(qword);
@@ -93,6 +86,16 @@ public class GameQNoU extends GameDottedWords {
     @Override
     public ArrayList<String> getMatching(Word queryWord) {
         return matching;
+    }
+    
+    private int getBlankIndex(String str) {
+        while (true) {
+        	int chIdx = random.nextInt(str.length());
+        	Lo.g(this, "chIdx", chIdx);
+        	if (str.charAt(chIdx) != 'q') {
+        		return chIdx;
+        	}
+        }
     }
 
     private List<String> getWordsUpToMaxLength() {

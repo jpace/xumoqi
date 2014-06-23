@@ -30,11 +30,11 @@ package org.incava.xumoqi;
 import java.util.ArrayList;
 
 import org.incava.xumoqi.games.GameIterations;
-import org.incava.xumoqi.games.Query;
-import org.incava.xumoqi.games.QueryList;
-import org.incava.xumoqi.games.Response;
-import org.incava.xumoqi.games.Results;
 import org.incava.xumoqi.gui.ResultsTable;
+import org.incava.xumoqi.query.Query;
+import org.incava.xumoqi.query.QueryList;
+import org.incava.xumoqi.query.Response;
+import org.incava.xumoqi.query.Results;
 import org.incava.xumoqi.utils.Constants;
 import org.incava.xumoqi.utils.Lo;
 import org.incava.xumoqi.words.Word;

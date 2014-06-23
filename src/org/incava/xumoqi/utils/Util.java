@@ -27,6 +27,8 @@
 
 package org.incava.xumoqi.utils;
 
+import java.util.List;
+
 public class Util {
     public static final boolean type = true;
     
@@ -40,5 +42,10 @@ public class Util {
     
     public static String replaceAt(String str, int idx, char ch) {
     	return str.substring(0, idx) + ch + str.substring(idx + 1, str.length());  	
+    }
+    
+    public static <T> List<T> getEndOfList(List<T> list, int num) { 
+    	int fromIdx = list.size() - Math.min(list.size(), num);
+    	return list.subList(fromIdx, list.size());
     }
 }

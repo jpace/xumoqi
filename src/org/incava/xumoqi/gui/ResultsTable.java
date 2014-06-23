@@ -28,7 +28,8 @@
 package org.incava.xumoqi.gui;
 
 import java.util.Set;
-import org.incava.xumoqi.games.Results;
+
+import org.incava.xumoqi.query.Results;
 
 import android.app.Activity;
 import android.graphics.Color;
