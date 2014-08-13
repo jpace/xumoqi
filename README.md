@@ -15,11 +15,11 @@ Game types are:
 
  * Random blank(s): this displays words with a random letter missing.
 
-For each game type, the user enters either the entire word, or only the missing letters.
-Letters and words can be separated by commas and/or spaces.
+For each game type, the user enters either the entire word, or only the missing
+letters. Letters and words can be separated by commas and/or spaces.
 
-This version of XuMoQi uses the Scrabble Tournament Word List (TWL), the dictionary used in Canada,
-Thailand, and the United States.
+This version of XuMoQi uses the Scrabble Tournament Word List (TWL), the
+dictionary used in Canada, Thailand, and the United States.
 
 Copyright (c) by Jeff Pace, 2014.
 
