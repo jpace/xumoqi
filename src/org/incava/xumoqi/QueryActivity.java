@@ -33,10 +33,12 @@ import org.incava.xumoqi.games.Game;
 import org.incava.xumoqi.games.GameFactory;
 import org.incava.xumoqi.games.GameIteration;
 import org.incava.xumoqi.games.GameIterations;
+import org.incava.xumoqi.games.GameParameters;
 import org.incava.xumoqi.gui.Enterable;
 import org.incava.xumoqi.gui.EnterableEditText;
 import org.incava.xumoqi.query.Query;
 import org.incava.xumoqi.query.QueryList;
+import org.incava.xumoqi.query.Response;
 import org.incava.xumoqi.utils.Constants;
 import org.incava.xumoqi.utils.Lo;
 import org.incava.xumoqi.utils.Timer;
@@ -59,6 +61,7 @@ public class QueryActivity extends Activity implements Enterable {
     private QueryList queries = null;
     private int queryIndex = -1;
     private GameIterations gameIterations = null;
+    private Word queryWord = null; 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,14 +70,15 @@ public class QueryActivity extends Activity implements Enterable {
         
         Intent intent = getIntent();
 
-        queries = intent.getParcelableExtra(Constants.QUERIES);
+        queries = GameParameters.getQueryList(intent);
         gameIterations = intent.getParcelableExtra(Constants.GAME_ITERATIONS);
         
         Lo.g(this, "gameIterations", gameIterations);
+        Lo.g(this, "queries", queries);
         
         String queryStr = getNextQuery();
         
-    	EnterableEditText.setupEditText(this, this, (EditText)findViewById(R.id.queryInput));
+    	EnterableEditText.setupEditText(this, this, getInputTextView());
         
         TextView tv = getQueryTextView();
         tv.setText(queryStr);
@@ -92,7 +96,7 @@ public class QueryActivity extends Activity implements Enterable {
         onClickNext(null);
     }
 
-    private void fetchMatching(final Game game, final Word queryWord) {
+    private void fetchMatching(final Game game) {
         Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -109,6 +113,7 @@ public class QueryActivity extends Activity implements Enterable {
         timer.done("onClickNext");
         
         Intent intent = new Intent(this, StatusActivity.class);
+        
         saveDuration(intent);
         saveQuery(intent);
         saveMatching(intent);
@@ -123,6 +128,10 @@ public class QueryActivity extends Activity implements Enterable {
 
     private TextView getQueryTextView() {
         return (TextView)findViewById(R.id.queryText);
+    }
+    
+    private EditText getInputTextView() {
+    	return (EditText)findViewById(R.id.queryInput);
     }
 
     @Override
@@ -159,7 +168,7 @@ public class QueryActivity extends Activity implements Enterable {
     	int qIdx = queries.indexOf(randomQuery);
     	int prevQueryIndex = intent.getIntExtra(Constants.QUERY_INDEX, -1);
 
-        Word queryWord = null;
+        queryWord = null;
 
     	// don't repeat the previous query:
     	if (randomQuery == null || qIdx == prevQueryIndex) {
@@ -172,8 +181,12 @@ public class QueryActivity extends Activity implements Enterable {
     		queryIndex = qIdx;
     		queryWord = randomQuery.getWord();
     	}
-        
-        fetchMatching(game, queryWord);
+
+        GameIteration gi = new GameIteration(queryWord);
+        Lo.g(this, "gi", gi);
+        gameIterations.addIteration(gi);
+
+        fetchMatching(game);
 
         return queryWord.asQuery();
     }
@@ -193,17 +206,13 @@ public class QueryActivity extends Activity implements Enterable {
     }
     
     private void saveQuery(Intent intent) {
-        EditText et = (EditText)findViewById(R.id.queryInput);
+        EditText et = getInputTextView();
         String inputText = et.getText().toString();
-        intent.putExtra(Constants.USER_INPUT, inputText);
         
-        intent.putExtra(Constants.QUERIES, queries);
+        intent.putExtra(Constants.RESPONSE, new Response(queryWord, inputText));
+        GameParameters.saveQueryList(intent, queries);
         intent.putExtra(Constants.QUERY_INDEX, queryIndex);
-        
-        GameIteration gi = new GameIteration(queries.getQuery(queryIndex).getWord());
-        Lo.g(this, "gi", gi);
-        gameIterations.addIteration(gi);
-        intent.putExtra(Constants.GAME_ITERATIONS, gameIterations);
+        GameParameters.saveGameIterations(intent, gameIterations);
     }
 
     private void saveMatching(Intent intent) {

@@ -27,13 +27,27 @@
 
 package org.incava.xumoqi.query;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.incava.xumoqi.utils.Lo;
 import org.incava.xumoqi.words.Word;
 
-public class Response {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Response implements Parcelable {
+    public static final Parcelable.Creator<Response> CREATOR = new Parcelable.Creator<Response>() {
+        public Response createFromParcel(Parcel parcel) {
+            return new Response(parcel);
+        }
+        
+        public Response[] newArray(int size) {
+            return new Response[size];
+        }
+    };
+
     private final List<String> strs;
 
     public Response(Word queryWord, String str) {
@@ -41,6 +55,21 @@ public class Response {
         String[] words = trimmed.split("[\\s,]+");
         strs = Arrays.asList(words);
         updateWithFullWords(queryWord);
+    }
+    
+    protected Response(Parcel parcel) {
+    	strs = new ArrayList<String>();
+    	parcel.readStringList(strs);
+    }
+    
+	@Override
+	public int describeContents() {
+		return 0;
+    }
+        
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+    	parcel.writeStringList(strs);
     }
 
     public boolean contains(String str) {

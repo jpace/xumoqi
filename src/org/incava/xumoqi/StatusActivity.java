@@ -30,6 +30,7 @@ package org.incava.xumoqi;
 import java.util.ArrayList;
 
 import org.incava.xumoqi.games.GameIterations;
+import org.incava.xumoqi.games.GameParameters;
 import org.incava.xumoqi.gui.ResultsTable;
 import org.incava.xumoqi.query.Query;
 import org.incava.xumoqi.query.QueryList;
@@ -37,7 +38,6 @@ import org.incava.xumoqi.query.Response;
 import org.incava.xumoqi.query.Results;
 import org.incava.xumoqi.utils.Constants;
 import org.incava.xumoqi.utils.Lo;
-import org.incava.xumoqi.words.Word;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -59,24 +59,21 @@ public class StatusActivity extends Activity {
         
         Intent intent = getIntent();
         
-        queries = intent.getParcelableExtra(Constants.QUERIES);
-        gameIterations = intent.getParcelableExtra(Constants.GAME_ITERATIONS);
+        queries = GameParameters.getQueryList(intent);
+        gameIterations = GameParameters.getGameIterations(intent);
         
         queryIndex = intent.getIntExtra(Constants.QUERY_INDEX, -1);
         Lo.g(this, "create.queryIndex", queryIndex);
         query = queries.getQuery(queryIndex);
         
-        Word queryWord = query.getWord();
-        
         // String duration = intent.getStringExtra(Constants.DURATION);
         // log("duration", duration);
         
-        String inputString = intent.getStringExtra(Constants.USER_INPUT);
+        Response response = intent.getParcelableExtra(Constants.RESPONSE);
+        Lo.g(this, "response", response);
+        
         ArrayList<String> matching = intent.getStringArrayListExtra(Constants.MATCHING);
-        
-        Response response = new Response(queryWord, inputString);
         Results results = new Results(matching, response.getAll());
-        
         query.addResults(results);
 
         TableLayout tableLayout = (TableLayout)findViewById(R.id.statusTable);
@@ -100,9 +97,9 @@ public class StatusActivity extends Activity {
     public void onClickNext(View view) {
         Intent intent = new Intent(this, QueryActivity.class);
         
-        intent.putExtra(Constants.QUERIES, queries);
+        GameParameters.saveQueryList(intent, queries);
         intent.putExtra(Constants.QUERY_INDEX, queryIndex);
-        intent.putExtra(Constants.GAME_ITERATIONS, gameIterations);
+        GameParameters.saveGameIterations(intent, gameIterations);
 
         startActivity(intent);
     }

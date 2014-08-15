@@ -68,6 +68,6 @@ public class GameIteration implements Parcelable {
     }
     
     public String toString() {
-    	return "word: " + word;
+    	return "word: " + word + "; word.dotIndex: " + word.getDotIndex();
     }
 }

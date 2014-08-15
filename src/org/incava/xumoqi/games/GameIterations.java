@@ -30,6 +30,8 @@ package org.incava.xumoqi.games;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.incava.xumoqi.utils.Inspectable;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -51,7 +53,7 @@ import android.os.Parcelable;
  * 
  * @author jpace
  */
-public class GameIterations implements Parcelable {
+public class GameIterations implements Parcelable, Inspectable {
     public static final Parcelable.Creator<GameIterations> CREATOR = new Parcelable.Creator<GameIterations>() {
         public GameIterations createFromParcel(Parcel parcel) {
             return new GameIterations(parcel);
@@ -107,5 +109,9 @@ public class GameIterations implements Parcelable {
     
     public String toString() {
         return "wordLength: " + wordLength + "; gameType: " + gameType;
+    }
+    
+    public String inspect() {
+        return "wordLength: " + wordLength + "\n\tgameType: " + gameType + "\n\titerations: " + iterations;
     }
 }
