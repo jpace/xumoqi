@@ -39,7 +39,6 @@ import org.incava.xumoqi.gui.EnterableEditText;
 import org.incava.xumoqi.query.Query;
 import org.incava.xumoqi.query.QueryList;
 import org.incava.xumoqi.query.Response;
-import org.incava.xumoqi.utils.Constants;
 import org.incava.xumoqi.utils.Lo;
 import org.incava.xumoqi.utils.Timer;
 import org.incava.xumoqi.words.Word;
@@ -71,7 +70,7 @@ public class QueryActivity extends Activity implements Enterable {
         Intent intent = getIntent();
 
         queries = GameParameters.getQueryList(intent);
-        gameIterations = intent.getParcelableExtra(Constants.GAME_ITERATIONS);
+        gameIterations = GameParameters.getGameIterations(intent);
         
         Lo.g(this, "gameIterations", gameIterations);
         Lo.g(this, "queries", queries);
@@ -85,10 +84,15 @@ public class QueryActivity extends Activity implements Enterable {
         
         timer = new Timer(getClass(), "");
         timer.done("onCreate");
+
+    	long currTime = System.currentTimeMillis();
+    	Lo.g(this, "onCreate:currTime", currTime);
     }
     
     protected void onStart() {
-        timer.done("onStart");
+    	// timer.done("onStart");
+    	long currTime = System.currentTimeMillis();
+    	Lo.g(this, "onStart:currTime", currTime);
         super.onStart();
     }
     
@@ -111,9 +115,15 @@ public class QueryActivity extends Activity implements Enterable {
     
     public void onClickNext(View view) {
         timer.done("onClickNext");
-        
+
+    	long currTime = System.currentTimeMillis();
+    	Lo.g(this, "onClickNext:currTime", currTime);
+
         Intent intent = new Intent(this, StatusActivity.class);
-        
+
+    	long currTime2 = System.currentTimeMillis();
+    	Lo.g(this, "onClickNext:currTime2", currTime2);
+
         saveDuration(intent);
         saveQuery(intent);
         saveMatching(intent);
@@ -160,14 +170,12 @@ public class QueryActivity extends Activity implements Enterable {
 
     private String getNextQuery() {
         Intent intent = getIntent();
-
         Game game = getGame();
-        
-    	Query randomQuery = queries.getRandomQuery();
+        Query randomQuery = queries.getRandomQuery();
     	
     	int qIdx = queries.indexOf(randomQuery);
-    	int prevQueryIndex = intent.getIntExtra(Constants.QUERY_INDEX, -1);
-
+    	int prevQueryIndex = GameParameters.getQueryIndex(intent);
+        
         queryWord = null;
 
     	// don't repeat the previous query:
@@ -201,17 +209,19 @@ public class QueryActivity extends Activity implements Enterable {
     }
     
     private void saveDuration(Intent intent) {
+    	long currTime = System.currentTimeMillis();
+    	Lo.g(this, "currTime", currTime);
         long duration = timer.getDuration();
-        intent.putExtra(Constants.DURATION, String.valueOf(duration));
+        GameParameters.saveDuration(intent, duration);
     }
     
     private void saveQuery(Intent intent) {
         EditText et = getInputTextView();
         String inputText = et.getText().toString();
         
-        intent.putExtra(Constants.RESPONSE, new Response(queryWord, inputText));
+        GameParameters.saveResponse(intent, new Response(queryWord, inputText));
         GameParameters.saveQueryList(intent, queries);
-        intent.putExtra(Constants.QUERY_INDEX, queryIndex);
+        GameParameters.saveQueryIndex(intent, queryIndex);
         GameParameters.saveGameIterations(intent, gameIterations);
     }
 
@@ -224,6 +234,6 @@ public class QueryActivity extends Activity implements Enterable {
 	        catch (InterruptedException e) {
 	        }
 	    }
-	    intent.putStringArrayListExtra(Constants.MATCHING, matching);
+        GameParameters.saveMatching(intent, matching);
     }
 }

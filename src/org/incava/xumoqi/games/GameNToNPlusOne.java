@@ -63,7 +63,8 @@ public class GameNToNPlusOne implements Game {
             }
             
             if (matching != null && !matching.isEmpty()) {
-                Word word = new Word(shorterWord, Word.NO_INDEX, "_" + shorterWord + ", " + shorterWord + "_", null);
+            	String asQuery = "_" + shorterWord + ", " + shorterWord + "_";
+                Word word = new Word(shorterWord, Word.NO_INDEX, asQuery, null);
                 t.done("word: " + word + " from fromWordList");
                 return word;
             }
@@ -73,19 +74,20 @@ public class GameNToNPlusOne implements Game {
     public ArrayList<String> getMatching(Word queryWord) {
     	return matching;
     }
+    
+    private ArrayList<String> getMatchingForWord(String str, int dotIndex) {
+    	Word word = new Word(str, dotIndex);
+    	ArrayList<String> matching = toWordList.getMatching(word);
+    	Lo.g(this, "matching", matching);
+    	return matching;
+    }
 
     private ArrayList<String> fetchMatching(String str) {
-        Word startingWith = new Word(str + ".", str.length());
-        ArrayList<String> msw = toWordList.getMatching(startingWith);
-        Lo.g(this, "msw", msw);
-        
-        Word endingWith = new Word("." + str, 0);
-        ArrayList<String> mew = toWordList.getMatching(endingWith);
-        Lo.g(this, "mew", mew);
+        ArrayList<String> msw = getMatchingForWord(str + ".", str.length());
+        ArrayList<String> mew = getMatchingForWord("." + str, 0);
         
         TreeSet<String> matchSet = new TreeSet<String>(msw);
         matchSet.addAll(mew);
-        
         Lo.g(this, "matchSet", matchSet);
         
         return new ArrayList<String>(matchSet);

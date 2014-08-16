@@ -36,7 +36,6 @@ import org.incava.xumoqi.query.Query;
 import org.incava.xumoqi.query.QueryList;
 import org.incava.xumoqi.query.Response;
 import org.incava.xumoqi.query.Results;
-import org.incava.xumoqi.utils.Constants;
 import org.incava.xumoqi.utils.Lo;
 
 import android.os.Bundle;
@@ -62,17 +61,17 @@ public class StatusActivity extends Activity {
         queries = GameParameters.getQueryList(intent);
         gameIterations = GameParameters.getGameIterations(intent);
         
-        queryIndex = intent.getIntExtra(Constants.QUERY_INDEX, -1);
+        queryIndex = GameParameters.getQueryIndex(intent);
         Lo.g(this, "create.queryIndex", queryIndex);
         query = queries.getQuery(queryIndex);
         
-        // String duration = intent.getStringExtra(Constants.DURATION);
-        // log("duration", duration);
+        long duration = GameParameters.getDuration(intent);
+        Lo.g(this, "duration", duration);
         
-        Response response = intent.getParcelableExtra(Constants.RESPONSE);
+        Response response = GameParameters.getResponse(intent);
         Lo.g(this, "response", response);
         
-        ArrayList<String> matching = intent.getStringArrayListExtra(Constants.MATCHING);
+        ArrayList<String> matching = GameParameters.getMatching(intent);
         Results results = new Results(matching, response.getAll());
         query.addResults(results);
 
@@ -98,7 +97,7 @@ public class StatusActivity extends Activity {
         Intent intent = new Intent(this, QueryActivity.class);
         
         GameParameters.saveQueryList(intent, queries);
-        intent.putExtra(Constants.QUERY_INDEX, queryIndex);
+        GameParameters.saveQueryIndex(intent, queryIndex);
         GameParameters.saveGameIterations(intent, gameIterations);
 
         startActivity(intent);
