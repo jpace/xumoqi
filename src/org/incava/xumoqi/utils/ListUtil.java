@@ -27,18 +27,28 @@
 
 package org.incava.xumoqi.utils;
 
-public class Util {
-    public static final boolean type = true;
+import java.util.List;
+import java.util.Random;
+
+public class ListUtil {
+    private static final Random random = new Random();
     
-    public static String repeat(String s, int num) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < num; ++i) {
-            sb.append(s);
-        }
-        return sb.toString();
+    public static <T> List<T> getEndOfList(List<T> list, int num) { 
+    	int fromIdx = list.size() - Math.min(list.size(), num);
+    	return list.subList(fromIdx, list.size());
     }
     
-    public static String replaceAt(String str, int idx, char ch) {
-    	return str.substring(0, idx) + ch + str.substring(idx + 1, str.length());  	
+    public static <T> T getRandomElement(List<T> list) {
+        int idx = random.nextInt(list.size());
+        return list.get(idx);
+    }
+
+    public static <T> String inspect(List<T> list, String name) {
+    	StringBuilder sb = new StringBuilder();
+    	sb.append("#" + name + "(s): " + list.size() + "\n");
+    	for (int idx = 0; idx < list.size(); ++idx) {
+    		sb.append("name[" + idx + "]: " + list.get(idx) + "\n");
+    	}
+    	return sb.toString();
     }
 }

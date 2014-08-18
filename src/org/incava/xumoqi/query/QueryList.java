@@ -31,10 +31,14 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.TreeMap;
 
+import org.incava.xumoqi.utils.Inspectable;
+import org.incava.xumoqi.utils.ListUtil;
+import org.incava.xumoqi.utils.MapUtil;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class QueryList implements Parcelable {
+public class QueryList implements Parcelable, Inspectable {
 	private final static Random random = new Random();
 	
     public static final Parcelable.Creator<QueryList> CREATOR = new Parcelable.Creator<QueryList>() {
@@ -100,12 +104,7 @@ public class QueryList implements Parcelable {
     }
     
     public String inspect() {
-    	StringBuilder sb = new StringBuilder();
-    	sb.append("#queries: " + queries.size() + "\n");
-    	for (int idx = 0; idx < queries.size(); ++idx) {
-    		sb.append("query[" + idx + "]: " + queries.get(idx) + "\n");
-    	}
-    	return sb.toString();
+    	return ListUtil.inspect(queries, "query");
     }
 
     public Query getRandomQuery() {
@@ -115,9 +114,7 @@ public class QueryList implements Parcelable {
 			int rnd = random.nextInt(Results.MAX_SCORE);
 			if (rnd > score) {
 				ArrayList<Query> forScore = byScore.get(score);
-				int sz = forScore.size();
-				int rIdx = random.nextInt(sz);
-	    		return forScore.get(rIdx);
+	    		return ListUtil.getRandomElement(forScore);
 			}
 		}
 		return null;
@@ -129,15 +126,9 @@ public class QueryList implements Parcelable {
 
     private TreeMap<Integer, ArrayList<Query>> getByScore() {
     	TreeMap<Integer, ArrayList<Query>> queriesByScore = new TreeMap<Integer, ArrayList<Query>>();
-    
-    	for (Query q : queries) {
-    		int score = q.getScore();
-    		ArrayList<Query> current = queriesByScore.get(score);
-    		if (current == null) {
-				current = new ArrayList<Query>();
-				queriesByScore.put(score, current);
-			}
-    		current.add(q);
+    	for (Query query : queries) {
+    		int score = query.getScore();
+    		MapUtil.putMultiTreeMap(queriesByScore, score, query);
     	}
     	return queriesByScore;
     }

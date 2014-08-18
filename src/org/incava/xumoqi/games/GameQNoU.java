@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.incava.xumoqi.utils.ListUtil;
 import org.incava.xumoqi.utils.Lo;
 import org.incava.xumoqi.utils.Timer;
 import org.incava.xumoqi.words.Word;
@@ -70,7 +71,7 @@ public class GameQNoU extends GameDottedWords {
         List<String> possibles = getWordsUpToMaxLength();
         Lo.g(this, "possibles", possibles);
 
-        String qword = Util.getRandomElement(possibles);
+        String qword = ListUtil.getRandomElement(possibles);
         Lo.g(this, "qword", qword);
 
         int blankIdx = getBlankIndex(qword);
