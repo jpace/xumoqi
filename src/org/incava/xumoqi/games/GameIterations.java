@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.incava.xumoqi.utils.Inspectable;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -51,7 +50,7 @@ import android.os.Parcelable;
  *         history: [ query patterns ]
  *     } 
  * 
- * @author jpace
+ * @author me
  */
 public class GameIterations implements Parcelable, Inspectable {
     public static final Parcelable.Creator<GameIterations> CREATOR = new Parcelable.Creator<GameIterations>() {
@@ -64,26 +63,21 @@ public class GameIterations implements Parcelable, Inspectable {
         }
     };
 
-    private final int wordLength;
-    private final String gameType;
+    private final GameType gameType;
     private final ArrayList<GameIteration> iterations;
     
-	public GameIterations(int wordLength, String gameType) {
-		this.wordLength = wordLength;
+	public GameIterations(GameType gameType) {
 		this.gameType = gameType;
 		this.iterations = new ArrayList<GameIteration>(); 
 	}
 
     private GameIterations(Parcel parcel) {
-        this(parcel.readInt(), parcel.readString());
+        this.gameType = parcel.readParcelable(GameType.class.getClassLoader());
+		this.iterations = new ArrayList<GameIteration>(); 
         parcel.readList(this.iterations, GameIteration.class.getClassLoader());
     }
 
-    public int getWordLength() {
-        return wordLength;
-    }
-
-    public String getGameType() {
+    public GameType getGameType() {
         return gameType;
     }
     
@@ -102,16 +96,15 @@ public class GameIterations implements Parcelable, Inspectable {
     
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeInt(wordLength);
-        parcel.writeString(gameType);
+        parcel.writeParcelable(gameType, flags);
         parcel.writeList(iterations);
     }
     
     public String toString() {
-        return "wordLength: " + wordLength + "; gameType: " + gameType;
+        return "gameType: " + gameType;
     }
     
     public String inspect() {
-        return "wordLength: " + wordLength + "\n\tgameType: " + gameType + "\n\titerations: " + iterations;
+        return "gameType: " + gameType + "\n\titerations: " + iterations;
     }
 }

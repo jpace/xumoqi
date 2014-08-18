@@ -28,9 +28,11 @@
 package org.incava.xumoqi.utils;
 
 import java.util.List;
+import java.util.Random;
 
 public class Util {
     public static final boolean type = true;
+    private static final Random random = new Random();
     
     public static String repeat(String s, int num) {
         StringBuilder sb = new StringBuilder();
@@ -47,5 +49,10 @@ public class Util {
     public static <T> List<T> getEndOfList(List<T> list, int num) { 
     	int fromIdx = list.size() - Math.min(list.size(), num);
     	return list.subList(fromIdx, list.size());
+    }
+    
+    public static <T> T getRandomElement(List<T> list) {
+        int idx = random.nextInt(list.size());
+        return list.get(idx);
     }
 }

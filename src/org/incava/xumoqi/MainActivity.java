@@ -29,6 +29,7 @@ package org.incava.xumoqi;
 
 import org.incava.xumoqi.games.GameIterations;
 import org.incava.xumoqi.games.GameParameters;
+import org.incava.xumoqi.games.GameType;
 import org.incava.xumoqi.query.QueryList;
 import org.incava.xumoqi.utils.Util;
 
@@ -90,12 +91,13 @@ public class MainActivity extends Activity {
         int wordLength = np.getValue();
         
         Spinner gameTypeSpinner = getGameTypeSpinner();
-        String gameType = gameTypeSpinner.getSelectedItem().toString();
+        String gameTypeStr = gameTypeSpinner.getSelectedItem().toString();
         
         QueryList qlist = new QueryList();
         GameParameters.saveQueryList(intent, qlist);
         
-        GameIterations gameIterations = new GameIterations(wordLength, gameType); 
+        GameType gameType = new GameType(wordLength, gameTypeStr);
+        GameIterations gameIterations = new GameIterations(gameType); 
         GameParameters.saveGameIterations(intent, gameIterations);
         
         startActivity(intent);

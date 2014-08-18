@@ -30,10 +30,10 @@ package org.incava.xumoqi;
 import java.util.ArrayList;
 
 import org.incava.xumoqi.games.Game;
-import org.incava.xumoqi.games.GameFactory;
 import org.incava.xumoqi.games.GameIteration;
 import org.incava.xumoqi.games.GameIterations;
 import org.incava.xumoqi.games.GameParameters;
+import org.incava.xumoqi.games.GameType;
 import org.incava.xumoqi.gui.Enterable;
 import org.incava.xumoqi.gui.EnterableEditText;
 import org.incava.xumoqi.query.Query;
@@ -203,9 +203,8 @@ public class QueryActivity extends Activity implements Enterable {
     	// numDots is not an option, for now ...
     	final int numDots = 1;
         Resources resources = getResources();
-        int length = gameIterations.getWordLength();
-        String gameType = gameIterations.getGameType();
-    	return GameFactory.createGame(resources, gameType, length, numDots);
+        GameType gameType = gameIterations.getGameType();
+    	return gameType.createGame(resources, numDots);
     }
     
     private void saveDuration(Intent intent) {

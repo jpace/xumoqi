@@ -70,8 +70,7 @@ public class GameQNoU extends GameDottedWords {
         List<String> possibles = getWordsUpToMaxLength();
         Lo.g(this, "possibles", possibles);
 
-        int idx = random.nextInt(possibles.size());
-        String qword = possibles.get(idx);
+        String qword = Util.getRandomElement(possibles);
         Lo.g(this, "qword", qword);
 
         int blankIdx = getBlankIndex(qword);
