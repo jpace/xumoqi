@@ -61,7 +61,7 @@ public class GameQNoU extends GameDottedWords {
     
     // @TODO: eliminate this -- this shouldn't subclass GameDottedWords.
     public int getBlankIndex(int length) {
-    	return -1;
+        return -1;
     }
 
     @Override
@@ -90,24 +90,24 @@ public class GameQNoU extends GameDottedWords {
     
     private int getBlankIndex(String str) {
         while (true) {
-        	int chIdx = random.nextInt(str.length());
-        	Lo.g(this, "chIdx", chIdx);
-        	if (str.charAt(chIdx) != 'q') {
-        		return chIdx;
-        	}
+            int chIdx = random.nextInt(str.length());
+            Lo.g(this, "chIdx", chIdx);
+            if (str.charAt(chIdx) != 'q') {
+                return chIdx;
+            }
         }
     }
 
     private List<String> getWordsUpToMaxLength() {
-	    List<String> possibles = new ArrayList<String>();
-	    
-	    for (String location : locations) {
-	    	String word = parseLine(location);
-	    	if (word != null) {
-	    		possibles.add(word);
-	    	}
-	    }
-	    return possibles;
+        List<String> possibles = new ArrayList<String>();
+        
+        for (String location : locations) {
+            String word = parseLine(location);
+            if (word != null) {
+                possibles.add(word);
+            }
+        }
+        return possibles;
     }
     
     private String parseLine(String line) {

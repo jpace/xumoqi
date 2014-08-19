@@ -77,7 +77,7 @@ public class QueryActivity extends Activity implements Enterable {
         
         String queryStr = getNextQuery();
         
-    	EnterableEditText.setupEditText(this, this, getInputTextView());
+        EnterableEditText.setupEditText(this, this, getInputTextView());
         
         TextView tv = getQueryTextView();
         tv.setText(queryStr);
@@ -85,14 +85,14 @@ public class QueryActivity extends Activity implements Enterable {
         timer = new Timer(getClass(), "");
         timer.done("onCreate");
 
-    	long currTime = System.currentTimeMillis();
-    	Lo.g(this, "onCreate:currTime", currTime);
+        long currTime = System.currentTimeMillis();
+        Lo.g(this, "onCreate:currTime", currTime);
     }
     
     protected void onStart() {
-    	// timer.done("onStart");
-    	long currTime = System.currentTimeMillis();
-    	Lo.g(this, "onStart:currTime", currTime);
+        // timer.done("onStart");
+        long currTime = System.currentTimeMillis();
+        Lo.g(this, "onStart:currTime", currTime);
         super.onStart();
     }
     
@@ -116,13 +116,13 @@ public class QueryActivity extends Activity implements Enterable {
     public void onClickNext(View view) {
         timer.done("onClickNext");
 
-    	long currTime = System.currentTimeMillis();
-    	Lo.g(this, "onClickNext:currTime", currTime);
+        long currTime = System.currentTimeMillis();
+        Lo.g(this, "onClickNext:currTime", currTime);
 
         Intent intent = new Intent(this, StatusActivity.class);
 
-    	long currTime2 = System.currentTimeMillis();
-    	Lo.g(this, "onClickNext:currTime2", currTime2);
+        long currTime2 = System.currentTimeMillis();
+        Lo.g(this, "onClickNext:currTime2", currTime2);
 
         saveDuration(intent);
         saveQuery(intent);
@@ -141,7 +141,7 @@ public class QueryActivity extends Activity implements Enterable {
     }
     
     private EditText getInputTextView() {
-    	return (EditText)findViewById(R.id.queryInput);
+        return (EditText)findViewById(R.id.queryInput);
     }
 
     @Override
@@ -172,23 +172,23 @@ public class QueryActivity extends Activity implements Enterable {
         Intent intent = getIntent();
         Game game = getGame();
         Query randomQuery = queries.getRandomQuery();
-    	
-    	int qIdx = queries.indexOf(randomQuery);
-    	int prevQueryIndex = GameParameters.getQueryIndex(intent);
+        
+        int qIdx = queries.indexOf(randomQuery);
+        int prevQueryIndex = GameParameters.getQueryIndex(intent);
         
         queryWord = null;
 
-    	// don't repeat the previous query:
-    	if (randomQuery == null || qIdx == prevQueryIndex) {
-    		queryWord = game.getQueryWord();
-    		Query newQuery = new Query(queryWord);
-    		queries.addQuery(newQuery);
-        	queryIndex = queries.size() - 1;
-    	}
-    	else {
-    		queryIndex = qIdx;
-    		queryWord = randomQuery.getWord();
-    	}
+        // don't repeat the previous query:
+        if (randomQuery == null || qIdx == prevQueryIndex) {
+            queryWord = game.getQueryWord();
+            Query newQuery = new Query(queryWord);
+            queries.addQuery(newQuery);
+            queryIndex = queries.size() - 1;
+        }
+        else {
+            queryIndex = qIdx;
+            queryWord = randomQuery.getWord();
+        }
 
         GameIteration gi = new GameIteration(queryWord);
         Lo.g(this, "gi", gi);
@@ -200,16 +200,16 @@ public class QueryActivity extends Activity implements Enterable {
     }
 
     private Game getGame() {
-    	// numDots is not an option, for now ...
-    	final int numDots = 1;
+        // numDots is not an option, for now ...
+        final int numDots = 1;
         Resources resources = getResources();
         GameType gameType = gameIterations.getGameType();
-    	return gameType.createGame(resources, numDots);
+        return gameType.createGame(resources, numDots);
     }
     
     private void saveDuration(Intent intent) {
-    	long currTime = System.currentTimeMillis();
-    	Lo.g(this, "currTime", currTime);
+        long currTime = System.currentTimeMillis();
+        Lo.g(this, "currTime", currTime);
         long duration = timer.getDuration();
         GameParameters.saveDuration(intent, duration);
     }
@@ -225,14 +225,14 @@ public class QueryActivity extends Activity implements Enterable {
     }
 
     private void saveMatching(Intent intent) {
-	    while (matching == null) {
-	        // waiting for getMatching() to finish; invoked by onCreate() ...
-	        try {
-	            Thread.sleep(100);
-	        }
-	        catch (InterruptedException e) {
-	        }
-	    }
+        while (matching == null) {
+            // waiting for getMatching() to finish; invoked by onCreate() ...
+            try {
+                Thread.sleep(100);
+            }
+            catch (InterruptedException e) {
+            }
+        }
         GameParameters.saveMatching(intent, matching);
     }
 }

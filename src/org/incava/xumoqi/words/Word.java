@@ -101,7 +101,7 @@ public class Word implements Parcelable {
         return asPattern;
     }
     
-    public String sub(char ch) {
+    public final String sub(char ch) {
         return dotIdx == NO_INDEX ? str : Util.replaceAt(str, dotIdx, ch);
     }
 }   

@@ -36,8 +36,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Results implements Parcelable {
-	public static final int MAX_SCORE = 100;
-	
+    public static final int MAX_SCORE = 100;
+    
     public static final Parcelable.Creator<Results> CREATOR = new Parcelable.Creator<Results>() {
         public Results createFromParcel(Parcel parcel) {
             return new Results(parcel);
@@ -79,9 +79,9 @@ public class Results implements Parcelable {
     
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
-    	writeStringSet(parcel, correct);
-    	writeStringSet(parcel, missed);
-    	writeStringSet(parcel, invalid);
+        writeStringSet(parcel, correct);
+        writeStringSet(parcel, missed);
+        writeStringSet(parcel, invalid);
     }
     
     public TreeSet<String> getCorrect() {
@@ -101,30 +101,30 @@ public class Results implements Parcelable {
     }
     
     public boolean isCorrect() {
-   		return getInvalid().isEmpty() && getMissed().isEmpty();
+        return getInvalid().isEmpty() && getMissed().isEmpty();
     }
     
     public String inspect() {
-    	StringBuilder sb = new StringBuilder();
-    	sb.append("correct: ").append(correct).append('\n');
-    	sb.append("invalid: ").append(invalid).append('\n');
-    	sb.append("missed: ").append(missed).append('\n');
-    	return sb.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append("correct: ").append(correct).append('\n');
+        sb.append("invalid: ").append(invalid).append('\n');
+        sb.append("missed: ").append(missed).append('\n');
+        return sb.toString();
     }
     
     public int getScore() {
-    	// @TODO refine this algorithm:
-    	int total = correct.size() + missed.size() + invalid.size();
-    	return (100 * correct.size()) / total; 
+        // @TODO refine this algorithm:
+        int total = correct.size() + missed.size() + invalid.size();
+        return (100 * correct.size()) / total; 
     }
 
     private void writeStringSet(Parcel parcel, TreeSet<String> set) {
-    	parcel.writeStringArray(set.toArray(new String[set.size()]));
+        parcel.writeStringArray(set.toArray(new String[set.size()]));
     }
     
     private TreeSet<String> readStringSet(Parcel parcel) {
-    	String[] strAry = parcel.createStringArray();
-    	List<String> list = Arrays.asList(strAry);
-    	return new TreeSet<String>(list);
+        String[] strAry = parcel.createStringArray();
+        List<String> list = Arrays.asList(strAry);
+        return new TreeSet<String>(list);
     }
 }

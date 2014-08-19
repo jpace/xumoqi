@@ -32,9 +32,9 @@ import java.util.ArrayList;
 import org.incava.xumoqi.words.Word;
 
 public interface Game {
-	/**
-	 * Returns a new, random word to be queried.
-	 */
+    /**
+     * Returns a new, random word to be queried.
+     */
     public Word getQueryWord();
 
     /**

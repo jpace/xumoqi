@@ -81,7 +81,7 @@ public class Query implements Parcelable {
     public void addResults(Results res) {
         this.results.add(res);
         while (this.results.size() >= MAX_RESULTS) {
-        	this.results.remove(0);
+            this.results.remove(0);
         }
     }
 
@@ -101,26 +101,26 @@ public class Query implements Parcelable {
     }
     
     public String inspect() {
-    	StringBuilder sb = new StringBuilder();
-    	sb.append("word: ").append(word).append('\n');
-    	for (Results r : results) {
-    		sb.append(r.inspect());
-    	}
-    	return sb.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append("word: ").append(word).append('\n');
+        for (Results r : results) {
+            sb.append(r.inspect());
+        }
+        return sb.toString();
     }
     
     public ArrayList<Integer> getScores() {
-    	ArrayList<Integer> scores = new ArrayList<Integer>();
-    	for (Results r : results) {
-    		scores.add(r.getScore());
-    	}
-    	return scores;
+        ArrayList<Integer> scores = new ArrayList<Integer>();
+        for (Results r : results) {
+            scores.add(r.getScore());
+        }
+        return scores;
     }
     
     public int getScore() {
-    	final int maxRecent = 3;
-    	ArrayList<Integer> scores = getScores();
-    	List<Integer> recent = ListUtil.getEndOfList(scores, maxRecent);
-    	return recent.get(random.nextInt(recent.size()));
+        final int maxRecent = 3;
+        ArrayList<Integer> scores = getScores();
+        List<Integer> recent = ListUtil.getEndOfList(scores, maxRecent);
+        return recent.get(random.nextInt(recent.size()));
     }
 }

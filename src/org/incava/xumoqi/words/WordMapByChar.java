@@ -31,40 +31,44 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
-public abstract class WordMapByChar {
+import org.incava.xumoqi.utils.MapUtil;
+import org.incava.xumoqi.utils.StringUtil;
+
+public class WordMapByChar {
     private final Map<Character, ArrayList<String>> byChar;
     
     public WordMapByChar() {
         byChar = new HashMap<Character, ArrayList<String>>();
     }
 
-    public void addWord(Character ch, String word) {
-        ArrayList<String> currList = byChar.get(ch);
-        if (currList == null) {
-            currList = new ArrayList<String>();
-            byChar.put(ch, currList);
-        }
-        currList.add(word);
+    public void addWord(String word, int idx) {
+        char ch = StringUtil.charAt(word, idx);
+        MapUtil.putMultiMap(byChar, ch, word);
     }
 
     public List<String> getForChar(Character ch) {
         return byChar.get(ch);
     }
     
-    public ArrayList<String> getMatches(Character ch, String str) {
-        ArrayList<String> matches = new ArrayList<String>();
-        List<String> words = getForChar(ch);
-        if (words == null) {
-            return matches;
-        }
-        for (String word : words) {
-            if (isMatch(word, str)) {
-                matches.add(word);
-            }
-        }
-        return matches;
+    public ArrayList<String> getMatchingForChar(Word queryWord, int idx) {
+        String pat = queryWord.asPattern();
+        String qstr = queryWord.toString();
+        char ch = StringUtil.charAt(qstr, idx);
+        List<String> forChar = getForChar(ch);
+        return getMatching(pat, forChar);
     }
 
-    public abstract boolean isMatch(String word, String str);
+    private ArrayList<String> getMatching(String pat, List<String> strs) {
+        ArrayList<String> matching = new ArrayList<String>();
+        Pattern pattern = Pattern.compile(pat);
+        for (String str : strs) {
+            if (pattern.matcher(str).matches()) {
+                matching.add(str);
+            }
+        }
+        
+        return matching;
+    }
 }

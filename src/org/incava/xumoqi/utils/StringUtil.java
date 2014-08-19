@@ -27,6 +27,16 @@
 
 package org.incava.xumoqi.utils;
 
-public interface Inspectable {
-    public String inspect();
+import java.util.Arrays;
+import java.util.List;
+
+public class StringUtil {
+    public static char charAt(String str, int index) {
+        return str.charAt(index >= 0 ? index : str.length() + index);
+    }
+    
+    public static List<String> split(String str, String delim) {
+        String[] words = str.split(delim);
+        return Arrays.asList(words);
+    }
 }

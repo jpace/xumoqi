@@ -34,8 +34,8 @@ public class ListUtil {
     private static final Random random = new Random();
     
     public static <T> List<T> getEndOfList(List<T> list, int num) { 
-    	int fromIdx = list.size() - Math.min(list.size(), num);
-    	return list.subList(fromIdx, list.size());
+        int fromIdx = list.size() - Math.min(list.size(), num);
+        return list.subList(fromIdx, list.size());
     }
     
     public static <T> T getRandomElement(List<T> list) {
@@ -44,11 +44,11 @@ public class ListUtil {
     }
 
     public static <T> String inspect(List<T> list, String name) {
-    	StringBuilder sb = new StringBuilder();
-    	sb.append("#" + name + "(s): " + list.size() + "\n");
-    	for (int idx = 0; idx < list.size(); ++idx) {
-    		sb.append("name[" + idx + "]: " + list.get(idx) + "\n");
-    	}
-    	return sb.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append("#" + name + "(s): " + list.size() + "\n");
+        for (int idx = 0; idx < list.size(); ++idx) {
+            sb.append(name + "[" + idx + "]: " + list.get(idx) + "\n");
+        }
+        return sb.toString();
     }
 }

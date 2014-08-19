@@ -53,7 +53,7 @@ public class WordLists {
     private final SparseArray<WordList> wordListsByLength;
     
     private WordLists() {
-    	int[] twls = new int[] {
+        int[] twls = new int[] {
             R.raw.twl2,
             R.raw.twl3,
             R.raw.twl4,
@@ -86,7 +86,7 @@ public class WordLists {
         Lo.g(this, "getWordList.resources", resources);
         WordList wordList = wordListsByLength.get(length);
         if (wordList == null) {
-        	wordList = readWordList(resources, length); 
+            wordList = readWordList(resources, length); 
         }
         t.done();
         return wordList;

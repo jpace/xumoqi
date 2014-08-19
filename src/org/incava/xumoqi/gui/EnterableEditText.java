@@ -44,8 +44,8 @@ public class EnterableEditText {
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                     if (actionId == EditorInfo.IME_ACTION_SEND || 
                         (event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN)) {
-                    	Lo.g(this, "************************************", "");
-                    	Lo.g(this, "event", event);
+                        Lo.g(this, "************************************", "");
+                        Lo.g(this, "event", event);
                         ent.onEnter();
                         return true;
                     }

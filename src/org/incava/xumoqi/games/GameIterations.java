@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.incava.xumoqi.utils.Inspectable;
+import org.incava.xumoqi.utils.ListUtil;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -66,14 +68,14 @@ public class GameIterations implements Parcelable, Inspectable {
     private final GameType gameType;
     private final ArrayList<GameIteration> iterations;
     
-	public GameIterations(GameType gameType) {
-		this.gameType = gameType;
-		this.iterations = new ArrayList<GameIteration>(); 
-	}
+    public GameIterations(GameType gameType) {
+        this.gameType = gameType;
+        this.iterations = new ArrayList<GameIteration>(); 
+    }
 
     private GameIterations(Parcel parcel) {
         this.gameType = parcel.readParcelable(GameType.class.getClassLoader());
-		this.iterations = new ArrayList<GameIteration>(); 
+        this.iterations = new ArrayList<GameIteration>(); 
         parcel.readList(this.iterations, GameIteration.class.getClassLoader());
     }
 
@@ -82,11 +84,11 @@ public class GameIterations implements Parcelable, Inspectable {
     }
     
     public List<GameIteration> getIterations() {
-    	return iterations;
+        return iterations;
     }
 
     public void addIteration(GameIteration it) {
-    	iterations.add(it);
+        iterations.add(it);
     }
 
     @Override
@@ -105,6 +107,6 @@ public class GameIterations implements Parcelable, Inspectable {
     }
     
     public String inspect() {
-        return "gameType: " + gameType + "\n\titerations: " + iterations;
+        return "gameType: " + gameType + "\n\t" + ListUtil.inspect(iterations, "iteration");
     }
 }

@@ -28,31 +28,20 @@
 package org.incava.xumoqi.words;
 
 import java.io.InputStream;
-import java.util.*;
-import java.util.regex.Pattern;
-
+import java.util.ArrayList;
+import java.util.List;
 import org.incava.xumoqi.io.IOReader;
-import org.incava.xumoqi.utils.Lo;
+import org.incava.xumoqi.utils.ListUtil;
 
 public class WordList {
     private final List<String> words;
     private final WordMapByChar byFirst;
     private final WordMapByChar byLast;
-    private final Random random;
     
     public WordList() {
         words = new ArrayList<String>();
-        byFirst = new WordMapByChar() {
-                public boolean isMatch(String word, String str) {
-                    return word.startsWith(str);
-                }
-            };
-        byLast = new WordMapByChar() {
-                public boolean isMatch(String word, String str) {
-                    return word.endsWith(str);
-                }
-            };
-        random = new Random();
+        byFirst = new WordMapByChar();
+        byLast = new WordMapByChar();
     }
 
     public WordList(InputStream is) {
@@ -71,48 +60,21 @@ public class WordList {
     }
     
     public String getRandomWord() {
-    	int idx = random.nextInt(words.size());
-    	return words.get(idx);
+        return ListUtil.getRandomElement(words);
     }
-
+    
     private void addWord(String word) {
         words.add(word);
         // TODO: optimize this: this adds 30% when reading the word list
-        addWord(byFirst, 0, word);
-        addWord(byLast, word.length() - 1, word);
+        byFirst.addWord(word, 0);
+        byLast.addWord(word, -1);
     }
     
-    private void addWord(WordMapByChar wordMap, int idx, String word) {
-        wordMap.addWord(word.charAt(idx), word);
-    }
-
     private ArrayList<String> getMatchingEndsWith(Word queryWord) {
-        String qstr = queryWord.toString();
-    	Lo.g(this, "qstr", qstr);
-    	return getMatchingForChar(byLast, queryWord, qstr.length() - 1);
+        return byLast.getMatchingForChar(queryWord, -1);
     }
     
     private ArrayList<String> getMatchingStartsWith(Word queryWord) {
-    	return getMatchingForChar(byFirst, queryWord, 0);
+        return byFirst.getMatchingForChar(queryWord, 0);
     }    
-
-    private ArrayList<String> getMatchingForChar(WordMapByChar wordMap, Word queryWord, int idx) {
-        String pat = queryWord.asPattern();
-        String qstr = queryWord.toString();
-        char ch = qstr.charAt(idx);
-        List<String> forChar = wordMap.getForChar(ch);
-        return getMatching(pat, forChar);
-    }
-
-    private ArrayList<String> getMatching(String pat, List<String> strs) {
-        ArrayList<String> matching = new ArrayList<String>();
-        Pattern pattern = Pattern.compile(pat);
-        for (String str : strs) {
-            if (pattern.matcher(str).matches()) {
-                matching.add(str);
-            }
-        }
-        
-        return matching;
-    }
 }

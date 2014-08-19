@@ -34,7 +34,7 @@ import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
 public class GameRandomDots extends GameDottedWords {
-	private static final Random rnd = new Random();
+    private static final Random rnd = new Random();
 
     private final WordList wordList;
     
@@ -49,6 +49,6 @@ public class GameRandomDots extends GameDottedWords {
     }
     
     public ArrayList<String> getMatching(Word queryWord) {
-    	return wordList.getMatching(queryWord);
+        return wordList.getMatching(queryWord);
     }
 }

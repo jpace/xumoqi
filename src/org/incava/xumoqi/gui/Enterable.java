@@ -28,5 +28,5 @@
 package org.incava.xumoqi.gui;
 
 public interface Enterable {
-	public void onEnter();
+    public void onEnter();
 }

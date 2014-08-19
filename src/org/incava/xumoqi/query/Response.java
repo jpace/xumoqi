@@ -28,10 +28,9 @@
 package org.incava.xumoqi.query;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import org.incava.xumoqi.utils.Lo;
+import org.incava.xumoqi.utils.StringUtil;
 import org.incava.xumoqi.words.Word;
 
 import android.os.Parcel;
@@ -51,25 +50,23 @@ public class Response implements Parcelable {
     private final List<String> strs;
 
     public Response(Word queryWord, String str) {
-        String trimmed = str.trim();
-        String[] words = trimmed.split("[\\s,]+");
-        strs = Arrays.asList(words);
+        strs = StringUtil.split(str.trim(), "[\\s,]+");
         updateWithFullWords(queryWord);
     }
     
     protected Response(Parcel parcel) {
-    	strs = new ArrayList<String>();
-    	parcel.readStringList(strs);
+        strs = new ArrayList<String>();
+        parcel.readStringList(strs);
     }
     
-	@Override
-	public int describeContents() {
-		return 0;
+    @Override
+    public int describeContents() {
+        return 0;
     }
         
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
-    	parcel.writeStringList(strs);
+        parcel.writeStringList(strs);
     }
 
     public boolean contains(String str) {
@@ -86,17 +83,16 @@ public class Response implements Parcelable {
     
     private void updateWithFullWords(Word queryWord) {
         for (int idx = 0; idx < strs.size(); ++idx) {
-            String s = strs.get(idx);
-            if (s.length() == 1) {
-                replaceWithFullWord(queryWord, idx, s.charAt(0));
-            }
+            updateWithFullWord(queryWord, idx);
         }
     }
-    
-    private void replaceWithFullWord(Word queryWord, int idx, char ch) {
-    	Lo.g(this, "queryWord", queryWord);
-        String t = queryWord.sub(ch);
-    	Lo.g(this, "t", t);
-        strs.set(idx, t);
+
+    private void updateWithFullWord(Word queryWord, int idx) {
+        String s = strs.get(idx);
+        if (s.length() == 1) {
+            char ch = s.charAt(0);
+            String t = queryWord.sub(ch);
+            strs.set(idx, t);
+        }
     }
 }

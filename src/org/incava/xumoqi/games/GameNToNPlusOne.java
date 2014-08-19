@@ -41,8 +41,8 @@ public class GameNToNPlusOne implements Game {
     private ArrayList<String> matching = null;
     
     public GameNToNPlusOne(WordList fromWordList, WordList toWordList) {
-    	this.fromWordList = fromWordList;
-    	this.toWordList = toWordList;
+        this.fromWordList = fromWordList;
+        this.toWordList = toWordList;
     }
 
     @Override
@@ -54,16 +54,16 @@ public class GameNToNPlusOne implements Game {
         // TODO: no plurals (other than 2-letter words?)
         Timer t = new Timer("N-N+1", "getQueryWord()");
         while (true) {
-        	String shorterWord = fromWordList.getRandomWord();
+            String shorterWord = fromWordList.getRandomWord();
             matching = fetchMatching(shorterWord);
             t.done("matching " + matching);
             
             if (matchingContainsOnlyPlural(shorterWord)) {
-            	matching = null;
+                matching = null;
             }
             
             if (matching != null && !matching.isEmpty()) {
-            	String asQuery = "_" + shorterWord + ", " + shorterWord + "_";
+                String asQuery = "_" + shorterWord + ", " + shorterWord + "_";
                 Word word = new Word(shorterWord, Word.NO_INDEX, asQuery, null);
                 t.done("word: " + word + " from fromWordList");
                 return word;
@@ -72,14 +72,14 @@ public class GameNToNPlusOne implements Game {
     }
 
     public ArrayList<String> getMatching(Word queryWord) {
-    	return matching;
+        return matching;
     }
     
     private ArrayList<String> getMatchingForWord(String str, int dotIndex) {
-    	Word word = new Word(str, dotIndex);
-    	ArrayList<String> matching = toWordList.getMatching(word);
-    	Lo.g(this, "matching", matching);
-    	return matching;
+        Word word = new Word(str, dotIndex);
+        ArrayList<String> matching = toWordList.getMatching(word);
+        Lo.g(this, "matching", matching);
+        return matching;
     }
 
     private ArrayList<String> fetchMatching(String str) {

@@ -47,10 +47,10 @@ public class GameType implements Parcelable {
     private final int wordLength;
     private final String gameType;
     
-	public GameType(int wordLength, String gameType) {
-		this.wordLength = wordLength;
-		this.gameType = gameType;
-	}
+    public GameType(int wordLength, String gameType) {
+        this.wordLength = wordLength;
+        this.gameType = gameType;
+    }
 
     private GameType(Parcel parcel) {
         this(parcel.readInt(), parcel.readString());
@@ -70,7 +70,7 @@ public class GameType implements Parcelable {
             return new GameNToNPlusOne(getWordList(resources, wordLength), getWordList(resources, wordLength + 1));
         }
         else if (gameType.equals("Q without U")) {
-        	// this doesn't use a word list (yet)
+            // this doesn't use a word list (yet)
             return new GameQNoU(null, wordLength, nDots);
         }
         return null;

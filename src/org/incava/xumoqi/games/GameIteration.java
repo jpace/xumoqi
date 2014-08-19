@@ -45,9 +45,9 @@ public class GameIteration implements Parcelable {
     
     private final Word word;
 
-	public GameIteration(Word word) {
-		this.word = word;
-	}
+    public GameIteration(Word word) {
+        this.word = word;
+    }
 
     private GameIteration(Parcel parcel) {
         this.word = parcel.readParcelable(Word.class.getClassLoader());
@@ -68,6 +68,6 @@ public class GameIteration implements Parcelable {
     }
     
     public String toString() {
-    	return "word: " + word + "; word.dotIndex: " + word.getDotIndex();
+        return "word: " + word + "; word.dotIndex: " + word.getDotIndex();
     }
 }

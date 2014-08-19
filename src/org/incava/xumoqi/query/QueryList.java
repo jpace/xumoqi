@@ -39,8 +39,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class QueryList implements Parcelable, Inspectable {
-	private final static Random random = new Random();
-	
+    private final static Random random = new Random();
+    
     public static final Parcelable.Creator<QueryList> CREATOR = new Parcelable.Creator<QueryList>() {
         public QueryList createFromParcel(Parcel parcel) {
             return new QueryList(parcel);
@@ -61,12 +61,12 @@ public class QueryList implements Parcelable, Inspectable {
     }
 
     public QueryList(Query query) {
-    	this();
+        this();
         this.queries.add(query);
     }
     
     protected QueryList(Parcel parcel) {
-    	this();
+        this();
         parcel.readList(this.queries, Query.class.getClassLoader());
     }
     
@@ -75,18 +75,18 @@ public class QueryList implements Parcelable, Inspectable {
     }
     
     public Query getQuery(int idx) {
-    	return queries.get(idx < 0 ? queries.size() + idx : idx);
+        return queries.get(idx < 0 ? queries.size() + idx : idx);
     }
 
     public void addQuery(Query query) {
         queries.add(query);
         while (queries.size() > MAX_QUERIES) {
-        	queries.remove(0);
+            queries.remove(0);
         }
     }
     
     public int size() {
-    	return queries.size();
+        return queries.size();
     }
 
     @Override
@@ -104,32 +104,32 @@ public class QueryList implements Parcelable, Inspectable {
     }
     
     public String inspect() {
-    	return ListUtil.inspect(queries, "query");
+        return ListUtil.inspect(queries, "query");
     }
 
     public Query getRandomQuery() {
-    	// this is sorted so lower scores are processed first:
-    	TreeMap<Integer, ArrayList<Query>> byScore = getByScore();
-		for (Integer score : byScore.keySet()) {
-			int rnd = random.nextInt(Results.MAX_SCORE);
-			if (rnd > score) {
-				ArrayList<Query> forScore = byScore.get(score);
-	    		return ListUtil.getRandomElement(forScore);
-			}
-		}
-		return null;
+        // this is sorted so lower scores are processed first:
+        TreeMap<Integer, ArrayList<Query>> byScore = getByScore();
+        for (Integer score : byScore.keySet()) {
+            int rnd = random.nextInt(Results.MAX_SCORE);
+            if (rnd > score) {
+                ArrayList<Query> forScore = byScore.get(score);
+                return ListUtil.getRandomElement(forScore);
+            }
+        }
+        return null;
     }
     
     public int indexOf(Query query) {
-    	return queries.indexOf(query);
+        return queries.indexOf(query);
     }
 
     private TreeMap<Integer, ArrayList<Query>> getByScore() {
-    	TreeMap<Integer, ArrayList<Query>> queriesByScore = new TreeMap<Integer, ArrayList<Query>>();
-    	for (Query query : queries) {
-    		int score = query.getScore();
-    		MapUtil.putMultiTreeMap(queriesByScore, score, query);
-    	}
-    	return queriesByScore;
+        TreeMap<Integer, ArrayList<Query>> queriesByScore = new TreeMap<Integer, ArrayList<Query>>();
+        for (Query query : queries) {
+            int score = query.getScore();
+            MapUtil.putMultiMap(queriesByScore, score, query);
+        }
+        return queriesByScore;
     }
 }
