@@ -28,9 +28,9 @@
 package org.incava.xumoqi;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.incava.xumoqi.games.Game;
-import org.incava.xumoqi.games.GameIteration;
 import org.incava.xumoqi.games.GameIterations;
 import org.incava.xumoqi.games.GameParameters;
 import org.incava.xumoqi.games.GameType;
@@ -39,8 +39,7 @@ import org.incava.xumoqi.gui.EnterableEditText;
 import org.incava.xumoqi.query.Query;
 import org.incava.xumoqi.query.QueryList;
 import org.incava.xumoqi.query.Response;
-import org.incava.xumoqi.utils.Lo;
-import org.incava.xumoqi.utils.Timer;
+import org.incava.xumoqi.utils.*;
 import org.incava.xumoqi.words.Word;
 
 import android.os.Bundle;
@@ -69,8 +68,8 @@ public class QueryActivity extends Activity implements Enterable {
         
         Intent intent = getIntent();
 
-        queries = GameParameters.getQueryList(intent);
         gameIterations = GameParameters.getGameIterations(intent);
+        queries = gameIterations.getQueries();
         
         Lo.g(this, "gameIterations", gameIterations);
         Lo.g(this, "queries", queries);
@@ -85,14 +84,12 @@ public class QueryActivity extends Activity implements Enterable {
         timer = new Timer(getClass(), "");
         timer.done("onCreate");
 
-        long currTime = System.currentTimeMillis();
-        Lo.g(this, "onCreate:currTime", currTime);
+        logTime("onCreate:currTime");
     }
     
     protected void onStart() {
         // timer.done("onStart");
-        long currTime = System.currentTimeMillis();
-        Lo.g(this, "onStart:currTime", currTime);
+        logTime("onStart:currTime");
         super.onStart();
     }
     
@@ -104,25 +101,28 @@ public class QueryActivity extends Activity implements Enterable {
         Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Timer timer = new Timer("QUERY", "getMatching");
+                    // Timer timer = new Timer("QUERY", "getMatching");
                     matching = game.getMatching(queryWord);
-                    Lo.g(this, "fetchMatching.matching", matching);
-                    timer.done();
+                    // Lo.g(this, "fetchMatching.matching", matching);
+                    // timer.done();
                 }
             });
         thread.start();
     }
     
+    private void logTime(String msg) {
+        // long currTime = System.currentTimeMillis();
+        // Lo.g(this, msg, currTime);
+    }
+    
     public void onClickNext(View view) {
         timer.done("onClickNext");
 
-        long currTime = System.currentTimeMillis();
-        Lo.g(this, "onClickNext:currTime", currTime);
+        logTime("onClickNext:currTime");
 
         Intent intent = new Intent(this, StatusActivity.class);
 
-        long currTime2 = System.currentTimeMillis();
-        Lo.g(this, "onClickNext:currTime2", currTime2);
+        logTime("onClickNext:currTime2");
 
         saveDuration(intent);
         saveQuery(intent);
@@ -169,12 +169,19 @@ public class QueryActivity extends Activity implements Enterable {
     }
 
     private String getNextQuery() {
-        Intent intent = getIntent();
+        Lo.g(this, "getNextQuery() ............................... ");
+        
         Game game = getGame();
         Query randomQuery = queries.getRandomQuery();
         
         int qIdx = queries.indexOf(randomQuery);
-        int prevQueryIndex = GameParameters.getQueryIndex(intent);
+        Lo.g(this, "qIdx", qIdx);
+        
+        List<Integer> prevIndices = gameIterations.getQueryIndices();
+        Lo.g(this, "prevIndices", prevIndices);
+        
+        int prevQueryIndex = ListUtil.get(prevIndices, -1, -1);
+        Lo.g(this, "prevQueryIndex", prevQueryIndex);
         
         queryWord = null;
 
@@ -190,10 +197,7 @@ public class QueryActivity extends Activity implements Enterable {
             queryWord = randomQuery.getWord();
         }
 
-        GameIteration gi = new GameIteration(queryWord);
-        Lo.g(this, "gi", gi);
-        gameIterations.addIteration(gi);
-
+        gameIterations.setQueryIndex(queryIndex);
         fetchMatching(game);
 
         return queryWord.asQuery();
@@ -208,8 +212,7 @@ public class QueryActivity extends Activity implements Enterable {
     }
     
     private void saveDuration(Intent intent) {
-        long currTime = System.currentTimeMillis();
-        Lo.g(this, "currTime", currTime);
+        logTime("saveDuration:currTime");
         long duration = timer.getDuration();
         GameParameters.saveDuration(intent, duration);
     }
@@ -219,8 +222,6 @@ public class QueryActivity extends Activity implements Enterable {
         String inputText = et.getText().toString();
         
         GameParameters.saveResponse(intent, new Response(queryWord, inputText));
-        GameParameters.saveQueryList(intent, queries);
-        GameParameters.saveQueryIndex(intent, queryIndex);
         GameParameters.saveGameIterations(intent, gameIterations);
     }
 

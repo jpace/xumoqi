@@ -27,6 +27,7 @@
 
 package org.incava.xumoqi.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -50,5 +51,30 @@ public class ListUtil {
             sb.append(name + "[" + idx + "]: " + list.get(idx) + "\n");
         }
         return sb.toString();
+    }
+
+    public static List<Integer> toIntegerList(int[] ary) {
+        List<Integer> list = new ArrayList<Integer>();
+        for (int idx = 0; idx < ary.length; ++idx) {
+            list.add(ary[idx]);
+        }
+        return list;
+    }
+    
+    public static int[] toIntArray(List<Integer> list) {
+        int[] ary = new int[list.size()];
+        for (int idx = 0; idx < list.size(); ++idx) {
+            ary[idx] = list.get(idx);
+        }
+        return ary;
+    }
+    
+    public static <T> T get(List<T> list, int index, T defaultValue) {
+        int size = list.size();
+        return size == 0 ? defaultValue : list.get(index < 0 ? list.size() + index : index);
+    }
+    
+    public static <T> T get(List<T> list, int index) {
+        return get(list, index, null);
     }
 }

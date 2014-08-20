@@ -42,6 +42,10 @@ public class Lo {
         Log.i(component, msg + ": '" + str + "'");
     }
     
+    public static void g(String component, String msg) {
+        Log.i(component, msg);
+    }
+    
     public static void g(Class<?> cls, String msg, Object obj) {
         g(cls.getSimpleName(), msg, obj);
     }
@@ -54,6 +58,10 @@ public class Lo {
         g(cls.getSimpleName(), msg, str);
     }
     
+    public static void g(Class<?> cls, String msg) {
+        g(cls.getSimpleName(), msg);
+    }
+    
     public static void g(Object whence, String msg, Object obj) {
         g(whence.getClass().getSimpleName(), msg, obj);
     }
@@ -64,5 +72,9 @@ public class Lo {
     
     public static void g(Object whence, String msg, String str) {
         g(whence.getClass().getSimpleName(), msg, str);
+    }
+
+    public static void g(Object whence, String msg) {
+        g(whence.getClass().getSimpleName(), msg);
     }
 }

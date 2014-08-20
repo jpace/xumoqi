@@ -30,8 +30,9 @@ package org.incava.xumoqi.games;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.incava.xumoqi.utils.Inspectable;
-import org.incava.xumoqi.utils.ListUtil;
+import org.incava.xumoqi.query.Query;
+import org.incava.xumoqi.query.QueryList;
+import org.incava.xumoqi.utils.*;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -39,9 +40,10 @@ import android.os.Parcelable;
 /**
  * Current iteration and history of games (queries) executed.
  * Game:
- *     type (e.g., random blanks)
- *     word length
- *     queries: {
+ *     gameType:
+ *         type (e.g., random blanks)
+ *         word length
+ *     queries: [
  *         query pattern: {
  *             matching
  *             iterations: [
@@ -50,7 +52,7 @@ import android.os.Parcelable;
  *             ]
  *         }
  *         history: [ query patterns ]
- *     } 
+ *     ]
  * 
  * @author me
  */
@@ -66,29 +68,36 @@ public class GameIterations implements Parcelable, Inspectable {
     };
 
     private final GameType gameType;
-    private final ArrayList<GameIteration> iterations;
+    private final QueryList queries;
+    private final List<Integer> queryIndices;
     
     public GameIterations(GameType gameType) {
         this.gameType = gameType;
-        this.iterations = new ArrayList<GameIteration>(); 
+        this.queries = new QueryList();
+        this.queryIndices = new ArrayList<Integer>();
     }
 
     private GameIterations(Parcel parcel) {
         this.gameType = parcel.readParcelable(GameType.class.getClassLoader());
-        this.iterations = new ArrayList<GameIteration>(); 
-        parcel.readList(this.iterations, GameIteration.class.getClassLoader());
+        this.queries = parcel.readParcelable(QueryList.class.getClassLoader());
+        int[] ary = parcel.createIntArray();
+        this.queryIndices = ListUtil.toIntegerList(ary);
     }
 
     public GameType getGameType() {
         return gameType;
     }
     
-    public List<GameIteration> getIterations() {
-        return iterations;
+    public QueryList getQueries() {
+        return queries;
     }
 
-    public void addIteration(GameIteration it) {
-        iterations.add(it);
+    public void addQuery(Query query) {
+        queries.addQuery(query);
+    }
+    
+    public List<Integer> getQueryIndices() {
+        return queryIndices;
     }
 
     @Override
@@ -99,7 +108,9 @@ public class GameIterations implements Parcelable, Inspectable {
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeParcelable(gameType, flags);
-        parcel.writeList(iterations);
+        parcel.writeParcelable(queries, flags);
+        int[] ary = ListUtil.toIntArray(queryIndices);
+        parcel.writeIntArray(ary);
     }
     
     public String toString() {
@@ -107,6 +118,10 @@ public class GameIterations implements Parcelable, Inspectable {
     }
     
     public String inspect() {
-        return "gameType: " + gameType + "\n\t" + ListUtil.inspect(iterations, "iteration");
+        return "gameType: " + gameType + "\n\t" + queries.inspect();
+    }
+
+    public void setQueryIndex(int queryIndex) {
+        queryIndices.add(queryIndex);
     }
 }

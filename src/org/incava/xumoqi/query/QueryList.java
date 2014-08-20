@@ -31,9 +31,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.TreeMap;
 
-import org.incava.xumoqi.utils.Inspectable;
-import org.incava.xumoqi.utils.ListUtil;
-import org.incava.xumoqi.utils.MapUtil;
+import org.incava.xumoqi.utils.*;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -51,13 +49,10 @@ public class QueryList implements Parcelable, Inspectable {
         }
     };
 
-    public final static int MAX_QUERIES = 5;
-
-    // TODO: keep this to a fixed size
     private final ArrayList<Query> queries;
 
     public QueryList() {
-        this.queries = new ArrayList<Query>(MAX_QUERIES);
+        this.queries = new ArrayList<Query>();
     }
 
     public QueryList(Query query) {
@@ -75,14 +70,11 @@ public class QueryList implements Parcelable, Inspectable {
     }
     
     public Query getQuery(int idx) {
-        return queries.get(idx < 0 ? queries.size() + idx : idx);
+        return ListUtil.get(queries, idx);
     }
 
     public void addQuery(Query query) {
         queries.add(query);
-        while (queries.size() > MAX_QUERIES) {
-            queries.remove(0);
-        }
     }
     
     public int size() {
@@ -96,6 +88,7 @@ public class QueryList implements Parcelable, Inspectable {
     
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
+        Lo.g(this, "queries", queries);
         parcel.writeList(queries);
     }
     

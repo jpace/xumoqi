@@ -32,6 +32,4 @@ public class Constants {
     public final static String GAME_ITERATIONS = "GameIterations";
     public final static String MATCHING = "Matching";
     public final static String RESPONSE = "Response";
-    public final static String QUERIES = "Queries";
-    public final static String QUERY_INDEX = "QueryIndex";
 }

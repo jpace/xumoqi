@@ -30,8 +30,7 @@ package org.incava.xumoqi.words;
 import java.io.InputStream;
 
 import org.incava.xumoqi.R;
-import org.incava.xumoqi.utils.Lo;
-import org.incava.xumoqi.utils.Timer;
+import org.incava.xumoqi.utils.*;
 import android.content.res.Resources;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
@@ -82,23 +81,23 @@ public class WordLists {
     }
     
     public WordList getWordList(Resources resources, int length) {
-        Timer t = new Timer("WORDLISTS", "getWordList(" + length + ")");
-        Lo.g(this, "getWordList.resources", resources);
+        // Timer t = new Timer("WORDLISTS", "getWordList(" + length + ")");
+        // Lo.g(this, "getWordList.resources", resources);
         WordList wordList = wordListsByLength.get(length);
         if (wordList == null) {
             wordList = readWordList(resources, length); 
         }
-        t.done();
+        // t.done();
         return wordList;
     }
     
     private WordList readWordList(Resources resources, int length) {
-        Timer t = new Timer("WORDLISTS", "readWordList(" + length + ")");
+        // Timer t = new Timer("WORDLISTS", "readWordList(" + length + ")");
         int twlRes = lenToRes.get(length);
         InputStream is = resources.openRawResource(twlRes);
         WordList wordList = new WordList(is);
         wordListsByLength.put(length, wordList);
-        t.done();
+        // t.done();
         return wordList;
     }
 }

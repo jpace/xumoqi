@@ -30,7 +30,6 @@ package org.incava.xumoqi;
 import org.incava.xumoqi.games.GameIterations;
 import org.incava.xumoqi.games.GameParameters;
 import org.incava.xumoqi.games.GameType;
-import org.incava.xumoqi.query.QueryList;
 import org.incava.xumoqi.utils.Util;
 
 import android.os.Bundle;
@@ -92,9 +91,6 @@ public class MainActivity extends Activity {
         
         Spinner gameTypeSpinner = getGameTypeSpinner();
         String gameTypeStr = gameTypeSpinner.getSelectedItem().toString();
-        
-        QueryList qlist = new QueryList();
-        GameParameters.saveQueryList(intent, qlist);
         
         GameType gameType = new GameType(wordLength, gameTypeStr);
         GameIterations gameIterations = new GameIterations(gameType); 

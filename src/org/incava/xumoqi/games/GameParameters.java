@@ -29,35 +29,18 @@ package org.incava.xumoqi.games;
 
 import java.util.ArrayList;
 
-import org.incava.xumoqi.query.QueryList;
 import org.incava.xumoqi.query.Response;
 import org.incava.xumoqi.utils.Constants;
 
 import android.content.Intent;
 
 public class GameParameters {
-    public static QueryList getQueryList(Intent intent) {
-        return intent.getParcelableExtra(Constants.QUERIES);
-    }
-    
-    public static void saveQueryList(Intent intent, QueryList queryList) {
-        intent.putExtra(Constants.QUERIES, queryList);
-    }
-
     public static GameIterations getGameIterations(Intent intent) {
         return intent.getParcelableExtra(Constants.GAME_ITERATIONS);
     }
 
     public static void saveGameIterations(Intent intent, GameIterations gameIterations) {
         intent.putExtra(Constants.GAME_ITERATIONS, gameIterations);
-    }
-
-    public static int getQueryIndex(Intent intent) {
-        return intent.getIntExtra(Constants.QUERY_INDEX, -1);
-    }
-
-    public static void saveQueryIndex(Intent intent, int queryIndex) {
-        intent.putExtra(Constants.QUERY_INDEX, queryIndex);    
     }
 
     public static Response getResponse(Intent intent) {

@@ -28,6 +28,7 @@
 package org.incava.xumoqi;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.incava.xumoqi.games.GameIterations;
 import org.incava.xumoqi.games.GameParameters;
@@ -36,7 +37,7 @@ import org.incava.xumoqi.query.Query;
 import org.incava.xumoqi.query.QueryList;
 import org.incava.xumoqi.query.Response;
 import org.incava.xumoqi.query.Results;
-import org.incava.xumoqi.utils.Lo;
+import org.incava.xumoqi.utils.*;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -58,18 +59,25 @@ public class StatusActivity extends Activity {
         
         Intent intent = getIntent();
         
-        queries = GameParameters.getQueryList(intent);
+        Lo.g(this, "onCreate ............................ ");
+        
         gameIterations = GameParameters.getGameIterations(intent);
+        queries = gameIterations.getQueries();
         
-        queryIndex = GameParameters.getQueryIndex(intent);
-        Lo.g(this, "create.queryIndex", queryIndex);
+        List<Integer> queryIndices = gameIterations.getQueryIndices();
+        Lo.g(this, "queryIndices", queryIndices);
+        
+        queryIndex = ListUtil.get(queryIndices, -1);
+        Lo.g(this, "queryIndex", queryIndex);
+        
         query = queries.getQuery(queryIndex);
+        Lo.g(this, "query", query);
         
-        long duration = GameParameters.getDuration(intent);
-        Lo.g(this, "duration", duration);
+        // long duration = GameParameters.getDuration(intent);
+        // Lo.g(this, "duration", duration);
         
         Response response = GameParameters.getResponse(intent);
-        Lo.g(this, "response", response);
+        // Lo.g(this, "response", response);
         
         ArrayList<String> matching = GameParameters.getMatching(intent);
         Results results = new Results(matching, response.getAll());
@@ -95,11 +103,7 @@ public class StatusActivity extends Activity {
 
     public void onClickNext(View view) {
         Intent intent = new Intent(this, QueryActivity.class);
-        
-        GameParameters.saveQueryList(intent, queries);
-        GameParameters.saveQueryIndex(intent, queryIndex);
         GameParameters.saveGameIterations(intent, gameIterations);
-
         startActivity(intent);
     }
 }

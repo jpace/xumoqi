@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.incava.xumoqi.utils.ListUtil;
+import org.incava.xumoqi.utils.*;
 import org.incava.xumoqi.words.Word;
 
 import android.os.Parcel;
@@ -120,6 +120,7 @@ public class Query implements Parcelable {
     public int getScore() {
         final int maxRecent = 3;
         ArrayList<Integer> scores = getScores();
+        // Lo.g(this, "getScore() ... scores", scores);
         List<Integer> recent = ListUtil.getEndOfList(scores, maxRecent);
         return recent.get(random.nextInt(recent.size()));
     }
