@@ -56,8 +56,6 @@ import android.support.v4.app.NavUtils;
 public class QueryActivity extends Activity implements Enterable {
     private ArrayList<String> matching = null;
     private Timer timer = null;
-    private QueryList queries = null;
-    private int queryIndex = -1;
     private GameIterations gameIterations = null;
     private Word queryWord = null; 
 
@@ -69,10 +67,7 @@ public class QueryActivity extends Activity implements Enterable {
         Intent intent = getIntent();
 
         gameIterations = GameParameters.getGameIterations(intent);
-        queries = gameIterations.getQueries();
-        
         Lo.g("gameIterations", gameIterations);
-        Lo.g("queries", queries);
         
         String queryStr = getNextQuery();
         
@@ -97,7 +92,7 @@ public class QueryActivity extends Activity implements Enterable {
         onClickNext(null);
     }
 
-    private void fetchMatching(final Game game) {
+    private void fetchMatching(final Game game, final Word queryWord) {
         Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -169,9 +164,8 @@ public class QueryActivity extends Activity implements Enterable {
     }
 
     private String getNextQuery() {
-        Lo.g("getNextQuery() ............................... ");
-        
         Game game = getGame();
+        QueryList queries = gameIterations.getQueries();
         Query randomQuery = queries.getRandomQuery();
         
         int qIdx = queries.indexOf(randomQuery);
@@ -183,7 +177,7 @@ public class QueryActivity extends Activity implements Enterable {
         int prevQueryIndex = ListUtil.get(prevIndices, -1, -1);
         Lo.g("prevQueryIndex", prevQueryIndex);
         
-        queryWord = null;
+        int queryIndex;
 
         // don't repeat the previous query:
         if (randomQuery == null || qIdx == prevQueryIndex) {
@@ -198,7 +192,7 @@ public class QueryActivity extends Activity implements Enterable {
         }
 
         gameIterations.setQueryIndex(queryIndex);
-        fetchMatching(game);
+        fetchMatching(game, queryWord);
 
         return queryWord.asQuery();
     }

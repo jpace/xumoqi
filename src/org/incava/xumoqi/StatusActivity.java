@@ -47,9 +47,6 @@ import android.view.View;
 import android.widget.TableLayout;
 
 public class StatusActivity extends Activity {
-    private Query query = null;
-    private QueryList queries = null;
-    private int queryIndex = -1;
     private GameIterations gameIterations = null;
     
     @Override
@@ -62,15 +59,16 @@ public class StatusActivity extends Activity {
         Lo.g("onCreate ............................ ");
         
         gameIterations = GameParameters.getGameIterations(intent);
-        queries = gameIterations.getQueries();
+        
+        QueryList queries = gameIterations.getQueries();
         
         List<Integer> queryIndices = gameIterations.getQueryIndices();
         Lo.g("queryIndices", queryIndices);
         
-        queryIndex = ListUtil.get(queryIndices, -1);
+        int queryIndex = ListUtil.get(queryIndices, -1);
         Lo.g("queryIndex", queryIndex);
         
-        query = queries.getQuery(queryIndex);
+        Query query = queries.getQuery(queryIndex);
         Lo.g("query", query);
         
         // long duration = GameParameters.getDuration(intent);
