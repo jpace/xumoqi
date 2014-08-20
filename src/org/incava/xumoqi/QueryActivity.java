@@ -71,8 +71,8 @@ public class QueryActivity extends Activity implements Enterable {
         gameIterations = GameParameters.getGameIterations(intent);
         queries = gameIterations.getQueries();
         
-        Lo.g(this, "gameIterations", gameIterations);
-        Lo.g(this, "queries", queries);
+        Lo.g("gameIterations", gameIterations);
+        Lo.g("queries", queries);
         
         String queryStr = getNextQuery();
         
@@ -103,7 +103,7 @@ public class QueryActivity extends Activity implements Enterable {
                 public void run() {
                     // Timer timer = new Timer("QUERY", "getMatching");
                     matching = game.getMatching(queryWord);
-                    // Lo.g(this, "fetchMatching.matching", matching);
+                    // Lo.g("fetchMatching.matching", matching);
                     // timer.done();
                 }
             });
@@ -112,7 +112,7 @@ public class QueryActivity extends Activity implements Enterable {
     
     private void logTime(String msg) {
         // long currTime = System.currentTimeMillis();
-        // Lo.g(this, msg, currTime);
+        // Lo.g(msg, currTime);
     }
     
     public void onClickNext(View view) {
@@ -169,19 +169,19 @@ public class QueryActivity extends Activity implements Enterable {
     }
 
     private String getNextQuery() {
-        Lo.g(this, "getNextQuery() ............................... ");
+        Lo.g("getNextQuery() ............................... ");
         
         Game game = getGame();
         Query randomQuery = queries.getRandomQuery();
         
         int qIdx = queries.indexOf(randomQuery);
-        Lo.g(this, "qIdx", qIdx);
+        Lo.g("qIdx", qIdx);
         
         List<Integer> prevIndices = gameIterations.getQueryIndices();
-        Lo.g(this, "prevIndices", prevIndices);
+        Lo.g("prevIndices", prevIndices);
         
         int prevQueryIndex = ListUtil.get(prevIndices, -1, -1);
-        Lo.g(this, "prevQueryIndex", prevQueryIndex);
+        Lo.g("prevQueryIndex", prevQueryIndex);
         
         queryWord = null;
 

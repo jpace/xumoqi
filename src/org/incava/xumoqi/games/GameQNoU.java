@@ -69,10 +69,10 @@ public class GameQNoU extends GameDottedWords {
         Timer t = new Timer("Q^U", "getQueryWord()");
         
         List<String> possibles = getWordsUpToMaxLength();
-        Lo.g(this, "possibles", possibles);
+        Lo.g("possibles", possibles);
 
         String qword = ListUtil.getRandomElement(possibles);
-        Lo.g(this, "qword", qword);
+        Lo.g("qword", qword);
 
         int blankIdx = getBlankIndex(qword);
         
@@ -91,7 +91,7 @@ public class GameQNoU extends GameDottedWords {
     private int getBlankIndex(String str) {
         while (true) {
             int chIdx = random.nextInt(str.length());
-            Lo.g(this, "chIdx", chIdx);
+            Lo.g("chIdx", chIdx);
             if (str.charAt(chIdx) != 'q') {
                 return chIdx;
             }
@@ -120,7 +120,7 @@ public class GameQNoU extends GameDottedWords {
                 // String line = matcher.group(2);
                 // Util.log(this, "line", line);
                 String word = matcher.group(3);
-                Lo.g(this, "word", word);
+                Lo.g("word", word);
                 return word;
             }
         }

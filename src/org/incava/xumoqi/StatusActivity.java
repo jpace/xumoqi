@@ -59,25 +59,25 @@ public class StatusActivity extends Activity {
         
         Intent intent = getIntent();
         
-        Lo.g(this, "onCreate ............................ ");
+        Lo.g("onCreate ............................ ");
         
         gameIterations = GameParameters.getGameIterations(intent);
         queries = gameIterations.getQueries();
         
         List<Integer> queryIndices = gameIterations.getQueryIndices();
-        Lo.g(this, "queryIndices", queryIndices);
+        Lo.g("queryIndices", queryIndices);
         
         queryIndex = ListUtil.get(queryIndices, -1);
-        Lo.g(this, "queryIndex", queryIndex);
+        Lo.g("queryIndex", queryIndex);
         
         query = queries.getQuery(queryIndex);
-        Lo.g(this, "query", query);
+        Lo.g("query", query);
         
         // long duration = GameParameters.getDuration(intent);
-        // Lo.g(this, "duration", duration);
+        // Lo.g("duration", duration);
         
         Response response = GameParameters.getResponse(intent);
-        // Lo.g(this, "response", response);
+        // Lo.g("response", response);
         
         ArrayList<String> matching = GameParameters.getMatching(intent);
         Results results = new Results(matching, response.getAll());

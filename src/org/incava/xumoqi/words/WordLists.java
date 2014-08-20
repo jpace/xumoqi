@@ -82,7 +82,7 @@ public class WordLists {
     
     public WordList getWordList(Resources resources, int length) {
         // Timer t = new Timer("WORDLISTS", "getWordList(" + length + ")");
-        // Lo.g(this, "getWordList.resources", resources);
+        // Lo.g("getWordList.resources", resources);
         WordList wordList = wordListsByLength.get(length);
         if (wordList == null) {
             wordList = readWordList(resources, length); 

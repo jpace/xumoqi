@@ -88,7 +88,7 @@ public class QueryList implements Parcelable, Inspectable {
     
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
-        Lo.g(this, "queries", queries);
+        Lo.g("queries", queries);
         parcel.writeList(queries);
     }
     

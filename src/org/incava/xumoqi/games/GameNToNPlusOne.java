@@ -78,7 +78,7 @@ public class GameNToNPlusOne implements Game {
     private ArrayList<String> getMatchingForWord(String str, int dotIndex) {
         Word word = new Word(str, dotIndex);
         ArrayList<String> matching = toWordList.getMatching(word);
-        Lo.g(this, "matching", matching);
+        Lo.g("matching", matching);
         return matching;
     }
 
@@ -88,7 +88,7 @@ public class GameNToNPlusOne implements Game {
         
         TreeSet<String> matchSet = new TreeSet<String>(msw);
         matchSet.addAll(mew);
-        Lo.g(this, "matchSet", matchSet);
+        Lo.g("matchSet", matchSet);
         
         return new ArrayList<String>(matchSet);
     }

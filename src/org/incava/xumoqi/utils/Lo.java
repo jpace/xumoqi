@@ -30,51 +30,48 @@ package org.incava.xumoqi.utils;
 import android.util.Log;
 
 public class Lo {
-    public static void g(String component, String msg, Object obj) {
-        Log.i(component, msg + ": " + obj);
+    public static void g(String msg, Object obj) {
+        gobj(msg, obj);
     }
     
-    public static void g(String component, String msg, Inspectable insp) {
-        Log.i(component, msg + ": " + insp.inspect());
+    public static void g(String msg, Inspectable insp) {
+        gobj(msg, insp.inspect());
     }
     
-    public static void g(String component, String msg, String str) {
-        Log.i(component, msg + ": '" + str + "'");
+    public static void g(String msg, String str) {
+        gobj(msg, "'" + str + "'");
     }
     
-    public static void g(String component, String msg) {
-        Log.i(component, msg);
-    }
-    
-    public static void g(Class<?> cls, String msg, Object obj) {
-        g(cls.getSimpleName(), msg, obj);
-    }
-    
-    public static void g(Class<?> cls, String msg, Inspectable insp) {
-        g(cls.getSimpleName(), msg, insp.inspect());
-    }
-    
-    public static void g(Class<?> cls, String msg, String str) {
-        g(cls.getSimpleName(), msg, str);
-    }
-    
-    public static void g(Class<?> cls, String msg) {
-        g(cls.getSimpleName(), msg);
-    }
-    
-    public static void g(Object whence, String msg, Object obj) {
-        g(whence.getClass().getSimpleName(), msg, obj);
-    }
-    
-    public static void g(Object whence, String msg, Inspectable insp) {
-        g(whence.getClass().getSimpleName(), msg, insp.inspect());
-    }
-    
-    public static void g(Object whence, String msg, String str) {
-        g(whence.getClass().getSimpleName(), msg, str);
+    public static void g(String msg) {
+        gobj(msg, null);
     }
 
-    public static void g(Object whence, String msg) {
-        g(whence.getClass().getSimpleName(), msg);
+    private static void gobj(String msg, Object obj) {
+        StackTraceElement caller = getCaller();
+        Log.i(getFileLine(caller), getClassMethod(caller) + " " + getMessage(msg, obj));
+    }
+
+    private static StackTraceElement getCaller() {
+        final String loClsName = "org.incava.xumoqi.utils.Lo";
+        StackTraceElement[] stes = new Exception("").getStackTrace();
+        for (int si = 0; si < stes.length && si < 15; ++si) { 
+            StackTraceElement ste = stes[si];
+            if (!ste.getClassName().equals(loClsName)) {
+                return ste;
+            }
+        }
+        return null;
+    }
+    
+    private static String getMessage(String msg, Object obj) {
+        return msg + (obj == null ? "" : ": " + obj);
+    }
+    
+    private static String getFileLine(StackTraceElement ste) {
+        return ste.getFileName().replace(".java", "") + "@" + ste.getLineNumber();
+    }
+    
+    private static String getClassMethod(StackTraceElement ste) {
+        return ste.getClassName().replaceFirst(".*\\.", "") + "#" + ste.getMethodName();
     }
 }

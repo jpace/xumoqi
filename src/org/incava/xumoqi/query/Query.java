@@ -120,7 +120,7 @@ public class Query implements Parcelable {
     public int getScore() {
         final int maxRecent = 3;
         ArrayList<Integer> scores = getScores();
-        // Lo.g(this, "getScore() ... scores", scores);
+        // Lo.g("getScore() ... scores", scores);
         List<Integer> recent = ListUtil.getEndOfList(scores, maxRecent);
         return recent.get(random.nextInt(recent.size()));
     }
