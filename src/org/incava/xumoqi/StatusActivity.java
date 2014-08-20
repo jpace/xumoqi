@@ -34,7 +34,6 @@ import org.incava.xumoqi.games.GameIterations;
 import org.incava.xumoqi.games.GameParameters;
 import org.incava.xumoqi.gui.ResultsTable;
 import org.incava.xumoqi.query.Query;
-import org.incava.xumoqi.query.QueryList;
 import org.incava.xumoqi.query.Response;
 import org.incava.xumoqi.query.Results;
 import org.incava.xumoqi.utils.*;
@@ -56,19 +55,9 @@ public class StatusActivity extends Activity {
         
         Intent intent = getIntent();
         
-        Lo.g("onCreate ............................ ");
-        
         gameIterations = GameParameters.getGameIterations(intent);
         
-        QueryList queries = gameIterations.getQueries();
-        
-        List<Integer> queryIndices = gameIterations.getQueryIndices();
-        Lo.g("queryIndices", queryIndices);
-        
-        int queryIndex = ListUtil.get(queryIndices, -1);
-        Lo.g("queryIndex", queryIndex);
-        
-        Query query = queries.getQuery(queryIndex);
+        Query query = gameIterations.getCurrentQuery();
         Lo.g("query", query);
         
         // long duration = GameParameters.getDuration(intent);

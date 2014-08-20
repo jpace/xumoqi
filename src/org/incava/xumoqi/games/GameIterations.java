@@ -100,6 +100,16 @@ public class GameIterations implements Parcelable, Inspectable {
         return queryIndices;
     }
 
+    public Query getCurrentQuery() {
+        int queryIndex = ListUtil.get(queryIndices, -1);
+        Lo.g("queryIndex", queryIndex);
+    
+        Query query = queries.getQuery(queryIndex);
+        Lo.g("query", query);
+        
+        return query;
+    }
+
     @Override
     public int describeContents() {
         return 0;
