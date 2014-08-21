@@ -34,6 +34,7 @@ import org.incava.xumoqi.query.Query;
 import org.incava.xumoqi.query.QueryList;
 import org.incava.xumoqi.utils.*;
 
+import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -94,6 +95,8 @@ public class GameIterations implements Parcelable, Inspectable {
 
     public void addQuery(Query query) {
         queries.addQuery(query);
+        int queryIndex = queries.size() - 1;
+        setQueryIndex(queryIndex);
     }
     
     public List<Integer> getQueryIndices() {
@@ -110,17 +113,8 @@ public class GameIterations implements Parcelable, Inspectable {
         return query;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-    
-    @Override
-    public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeParcelable(gameType, flags);
-        parcel.writeParcelable(queries, flags);
-        int[] ary = ListUtil.toIntArray(queryIndices);
-        parcel.writeIntArray(ary);
+    public Game createGame(Resources resources) {
+        return gameType.createGame(resources);
     }
     
     public String toString() {
@@ -133,5 +127,50 @@ public class GameIterations implements Parcelable, Inspectable {
 
     public void setQueryIndex(int queryIndex) {
         queryIndices.add(queryIndex);
+    }
+
+    public Query getNextQuery(Game game, Resources resources) {
+        Query randomQuery = getRandomQuery();
+        
+        if (randomQuery == null) {
+            Query newQuery = new Query(game.getQueryWord());
+            addQuery(newQuery);
+            return newQuery;
+        }
+        else {
+            int queryIndex = queries.indexOf(randomQuery);
+            Lo.g("queryIndex", queryIndex);
+            setQueryIndex(queryIndex);
+            return randomQuery;
+        }
+    }
+
+    private Query getRandomQuery() {
+        Query randomQuery = queries.getRandomQuery();
+        Lo.g("randomQuery", randomQuery);
+        
+        int qIdx = queries.indexOf(randomQuery);
+        Lo.g("qIdx", qIdx);
+        
+        Lo.g("queryIndices", queryIndices);
+        
+        // don't repeat the previous one:
+        int prevQueryIndex = ListUtil.get(queryIndices, -1, -1);
+        Lo.g("prevQueryIndex", prevQueryIndex);
+        
+        return prevQueryIndex == qIdx ? null : randomQuery;
+    }
+    
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+    
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeParcelable(gameType, flags);
+        parcel.writeParcelable(queries, flags);
+        int[] ary = ListUtil.toIntArray(queryIndices);
+        parcel.writeIntArray(ary);
     }
 }

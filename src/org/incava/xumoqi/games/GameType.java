@@ -56,22 +56,22 @@ public class GameType implements Parcelable {
         this(parcel.readInt(), parcel.readString());
     }
 
-    public Game createGame(Resources resources, int nDots) {
+    public Game createGame(Resources resources) {
         if (gameType.contains("Starting")) {
-            return new GameStartsWithDots(getWordList(resources, wordLength), wordLength, nDots);
+            return new GameStartsWithDots(getWordList(resources, wordLength), wordLength);
         }
         else if (gameType.contains("Random")) {
-            return new GameRandomDots(getWordList(resources, wordLength), wordLength, nDots);
+            return new GameRandomDots(getWordList(resources, wordLength), wordLength);
         }
         else if (gameType.contains("Ending")) {
-            return new GameEndsWithDots(getWordList(resources, wordLength), wordLength, nDots);
+            return new GameEndsWithDots(getWordList(resources, wordLength), wordLength);
         }
         else if (gameType.contains("to-make")) {
             return new GameNToNPlusOne(getWordList(resources, wordLength), getWordList(resources, wordLength + 1));
         }
         else if (gameType.equals("Q without U")) {
             // this doesn't use a word list (yet)
-            return new GameQNoU(null, wordLength, nDots);
+            return new GameQNoU(null, wordLength);
         }
         return null;
     }

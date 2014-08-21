@@ -28,8 +28,6 @@
 package org.incava.xumoqi;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import org.incava.xumoqi.games.GameIterations;
 import org.incava.xumoqi.games.GameParameters;
 import org.incava.xumoqi.gui.ResultsTable;

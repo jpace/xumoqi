@@ -28,16 +28,13 @@
 package org.incava.xumoqi;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.incava.xumoqi.games.Game;
 import org.incava.xumoqi.games.GameIterations;
 import org.incava.xumoqi.games.GameParameters;
-import org.incava.xumoqi.games.GameType;
 import org.incava.xumoqi.gui.Enterable;
 import org.incava.xumoqi.gui.EnterableEditText;
 import org.incava.xumoqi.query.Query;
-import org.incava.xumoqi.query.QueryList;
 import org.incava.xumoqi.query.Response;
 import org.incava.xumoqi.utils.*;
 import org.incava.xumoqi.words.Word;
@@ -57,7 +54,6 @@ public class QueryActivity extends Activity implements Enterable {
     private ArrayList<String> matching = null;
     private Timer timer = null;
     private GameIterations gameIterations = null;
-    private Word queryWord = null; 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,47 +160,16 @@ public class QueryActivity extends Activity implements Enterable {
     }
 
     private String getNextQuery() {
-        Game game = getGame();
-        QueryList queries = gameIterations.getQueries();
-        Query randomQuery = queries.getRandomQuery();
-        
-        int qIdx = queries.indexOf(randomQuery);
-        Lo.g("qIdx", qIdx);
-        
-        List<Integer> prevIndices = gameIterations.getQueryIndices();
-        Lo.g("prevIndices", prevIndices);
-        
-        int prevQueryIndex = ListUtil.get(prevIndices, -1, -1);
-        Lo.g("prevQueryIndex", prevQueryIndex);
-        
-        int queryIndex;
+        Resources resources = getResources();
+        Game game = gameIterations.createGame(resources);
+        Query query = gameIterations.getNextQuery(game, resources);
+        Word queryWord = query.getWord();
 
-        // don't repeat the previous query:
-        if (randomQuery == null || qIdx == prevQueryIndex) {
-            queryWord = game.getQueryWord();
-            Query newQuery = new Query(queryWord);
-            queries.addQuery(newQuery);
-            queryIndex = queries.size() - 1;
-        }
-        else {
-            queryIndex = qIdx;
-            queryWord = randomQuery.getWord();
-        }
-
-        gameIterations.setQueryIndex(queryIndex);
         fetchMatching(game, queryWord);
 
         return queryWord.asQuery();
     }
 
-    private Game getGame() {
-        // numDots is not an option, for now ...
-        final int numDots = 1;
-        Resources resources = getResources();
-        GameType gameType = gameIterations.getGameType();
-        return gameType.createGame(resources, numDots);
-    }
-    
     private void saveDuration(Intent intent) {
         logTime("saveDuration:currTime");
         long duration = timer.getDuration();
@@ -214,7 +179,10 @@ public class QueryActivity extends Activity implements Enterable {
     private void saveQuery(Intent intent) {
         EditText et = getInputTextView();
         String inputText = et.getText().toString();
-        
+
+        Query query = gameIterations.getCurrentQuery();
+        Word queryWord = query.getWord();
+
         GameParameters.saveResponse(intent, new Response(queryWord, inputText));
         GameParameters.saveGameIterations(intent, gameIterations);
     }

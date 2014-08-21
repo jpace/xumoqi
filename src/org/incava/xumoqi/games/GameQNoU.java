@@ -53,7 +53,7 @@ public class GameQNoU extends GameDottedWords {
     // @TODO: hard-coded word list for now (see above);
     // will be a new word list and/or index list (into elements in word list).
     // so this wordList is not currently used.
-    public GameQNoU(WordList wordList, int length, int nDots) {
+    public GameQNoU(WordList wordList, int length) {
         super(wordList, length);
         random = new Random();
         maxLength = length;
