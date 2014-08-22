@@ -29,7 +29,6 @@ package org.incava.xumoqi.games;
 
 import java.util.ArrayList;
 
-import org.incava.xumoqi.query.Response;
 import org.incava.xumoqi.utils.Constants;
 
 import android.content.Intent;
@@ -43,14 +42,6 @@ public class GameParameters {
         intent.putExtra(Constants.GAME_ITERATIONS, gameIterations);
     }
 
-    public static Response getResponse(Intent intent) {
-        return intent.getParcelableExtra(Constants.RESPONSE);
-    }
-
-    public static void saveResponse(Intent intent, Response gameIterations) {
-        intent.putExtra(Constants.RESPONSE, gameIterations);
-    }
-    
     public static ArrayList<String> getMatching(Intent intent) {
         return intent.getStringArrayListExtra(Constants.MATCHING);
     }
@@ -67,5 +58,13 @@ public class GameParameters {
     public static void saveDuration(Intent intent, long duration) {
         String durStr = String.valueOf(duration);
         intent.putExtra(Constants.DURATION, durStr);
+    }
+
+    public static String getInputText(Intent intent) {
+        return intent.getStringExtra(Constants.INPUT_TEXT);
+    }
+    
+    public static void saveInputText(Intent intent, String inputText) {
+        intent.putExtra(Constants.INPUT_TEXT, inputText);
     }
 }

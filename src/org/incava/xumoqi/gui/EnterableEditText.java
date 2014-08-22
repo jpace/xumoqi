@@ -27,8 +27,6 @@
 
 package org.incava.xumoqi.gui;
 
-import org.incava.xumoqi.utils.Lo;
-
 import android.app.Activity;
 import android.view.KeyEvent;
 import android.view.WindowManager;
@@ -37,6 +35,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+/**
+ * Sets up an EditText of an Active to respond to Enter, calling onEnter(). 
+ * Also sets the focus to that EditText and displays the keyboard.
+ *    
+ * @author jpace
+ */
 public class EnterableEditText {
     public static void setupEditText(Activity activity, final Enterable ent, EditText et) {
         OnEditorActionListener tveal = new OnEditorActionListener() {
@@ -44,8 +48,6 @@ public class EnterableEditText {
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                     if (actionId == EditorInfo.IME_ACTION_SEND || 
                         (event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN)) {
-                        Lo.g("************************************", "");
-                        Lo.g("event", event);
                         ent.onEnter();
                         return true;
                     }

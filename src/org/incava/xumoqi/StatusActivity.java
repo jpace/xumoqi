@@ -57,16 +57,17 @@ public class StatusActivity extends Activity {
         
         Query query = gameIterations.getCurrentQuery();
         Lo.g("query", query);
+        Lo.g("query.getWord()", query.getWord());
+        
+        String inputText = GameParameters.getInputText(intent);
+        Lo.g("inputText", inputText);
         
         // long duration = GameParameters.getDuration(intent);
         // Lo.g("duration", duration);
         
-        Response response = GameParameters.getResponse(intent);
-        // Lo.g("response", response);
-        
+        Response response = new Response(query.getWord(), inputText);
         ArrayList<String> matching = GameParameters.getMatching(intent);
-        Results results = new Results(matching, response.getAll());
-        query.addResults(results);
+        Results results = query.addResults(response, matching);
 
         TableLayout tableLayout = (TableLayout)findViewById(R.id.statusTable);
         ResultsTable rt = new ResultsTable(this, tableLayout);

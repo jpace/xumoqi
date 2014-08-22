@@ -30,6 +30,6 @@ package org.incava.xumoqi.utils;
 public class Constants {
     public final static String DURATION = "Duration";
     public final static String GAME_ITERATIONS = "GameIterations";
+    public final static String INPUT_TEXT = "InputText";
     public final static String MATCHING = "Matching";
-    public final static String RESPONSE = "Response";
 }

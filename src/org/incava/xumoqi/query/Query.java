@@ -74,26 +74,17 @@ public class Query implements Parcelable {
         return word;
     }
 
-    public ArrayList<Results> getResults() {
+    public Results addResults(Response response, ArrayList<String> matching) {
+        Results results = new Results(matching, response.getAll());
+        addResults(results);
         return results;
     }
 
-    public void addResults(Results res) {
+    private void addResults(Results res) {
         this.results.add(res);
         while (this.results.size() >= MAX_RESULTS) {
             this.results.remove(0);
         }
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-    
-    @Override
-    public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeParcelable(word, flags);
-        parcel.writeList(results);
     }
     
     public String toString() {
@@ -104,7 +95,7 @@ public class Query implements Parcelable {
         StringBuilder sb = new StringBuilder();
         sb.append("word: ").append(word).append('\n');
         for (Results r : results) {
-            sb.append(r.inspect());
+            sb.append(r.inspect()).append('\n');
         }
         return sb.toString();
     }
@@ -123,5 +114,16 @@ public class Query implements Parcelable {
         // Lo.g("getScore() ... scores", scores);
         List<Integer> recent = ListUtil.getEndOfList(scores, maxRecent);
         return recent.get(random.nextInt(recent.size()));
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+    
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeParcelable(word, flags);
+        parcel.writeList(results);
     }
 }

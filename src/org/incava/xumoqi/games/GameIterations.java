@@ -93,7 +93,7 @@ public class GameIterations implements Parcelable, Inspectable {
         return queries;
     }
 
-    public void addQuery(Query query) {
+    private void addQuery(Query query) {
         queries.addQuery(query);
         int queryIndex = queries.size() - 1;
         setQueryIndex(queryIndex);
@@ -105,12 +105,7 @@ public class GameIterations implements Parcelable, Inspectable {
 
     public Query getCurrentQuery() {
         int queryIndex = ListUtil.get(queryIndices, -1);
-        Lo.g("queryIndex", queryIndex);
-    
-        Query query = queries.getQuery(queryIndex);
-        Lo.g("query", query);
-        
-        return query;
+        return queries.getQuery(queryIndex);
     }
 
     public Game createGame(Resources resources) {

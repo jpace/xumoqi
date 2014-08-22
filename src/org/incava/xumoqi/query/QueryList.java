@@ -80,17 +80,6 @@ public class QueryList implements Parcelable, Inspectable {
     public int size() {
         return queries.size();
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-    
-    @Override
-    public void writeToParcel(Parcel parcel, int flags) {
-        Lo.g("queries", queries);
-        parcel.writeList(queries);
-    }
     
     public String toString() {
         return "queries: " + queries;
@@ -101,7 +90,8 @@ public class QueryList implements Parcelable, Inspectable {
     }
 
     public Query getRandomQuery() {
-        // this is sorted so lower scores are processed first:
+        // This is sorted so lower scores are processed first,
+        // thus being more likely to be "matched" earlier. 
         TreeMap<Integer, ArrayList<Query>> byScore = getByScore();
         for (Integer score : byScore.keySet()) {
             int rnd = random.nextInt(Results.MAX_SCORE);
@@ -124,5 +114,15 @@ public class QueryList implements Parcelable, Inspectable {
             MapUtil.putMultiMap(queriesByScore, score, query);
         }
         return queriesByScore;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+    
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeList(queries);
     }
 }

@@ -35,7 +35,6 @@ import org.incava.xumoqi.games.GameParameters;
 import org.incava.xumoqi.gui.Enterable;
 import org.incava.xumoqi.gui.EnterableEditText;
 import org.incava.xumoqi.query.Query;
-import org.incava.xumoqi.query.Response;
 import org.incava.xumoqi.utils.*;
 import org.incava.xumoqi.words.Word;
 
@@ -64,8 +63,11 @@ public class QueryActivity extends Activity implements Enterable {
 
         gameIterations = GameParameters.getGameIterations(intent);
         Lo.g("gameIterations", gameIterations);
-        
-        String queryStr = getNextQuery();
+
+        Query query = getNextQuery();
+        Word queryWord = query.getWord();
+
+        String queryStr = queryWord.asQuery();
         
         EnterableEditText.setupEditText(this, this, getInputTextView());
         
@@ -92,10 +94,10 @@ public class QueryActivity extends Activity implements Enterable {
         Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    // Timer timer = new Timer("QUERY", "getMatching");
+                    Timer timer = new Timer("QUERY", "getMatching");
                     matching = game.getMatching(queryWord);
-                    // Lo.g("fetchMatching.matching", matching);
-                    // timer.done();
+                    timer.done();
+                    Lo.g("fetchMatching.matching", matching);
                 }
             });
         thread.start();
@@ -159,15 +161,13 @@ public class QueryActivity extends Activity implements Enterable {
         return super.onOptionsItemSelected(item);
     }
 
-    private String getNextQuery() {
+    private Query getNextQuery() {
         Resources resources = getResources();
         Game game = gameIterations.createGame(resources);
         Query query = gameIterations.getNextQuery(game, resources);
         Word queryWord = query.getWord();
-
         fetchMatching(game, queryWord);
-
-        return queryWord.asQuery();
+        return query;
     }
 
     private void saveDuration(Intent intent) {
@@ -180,10 +180,7 @@ public class QueryActivity extends Activity implements Enterable {
         EditText et = getInputTextView();
         String inputText = et.getText().toString();
 
-        Query query = gameIterations.getCurrentQuery();
-        Word queryWord = query.getWord();
-
-        GameParameters.saveResponse(intent, new Response(queryWord, inputText));
+        GameParameters.saveInputText(intent, inputText);
         GameParameters.saveGameIterations(intent, gameIterations);
     }
 

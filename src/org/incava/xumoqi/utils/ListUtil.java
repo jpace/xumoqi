@@ -34,9 +34,10 @@ import java.util.Random;
 public class ListUtil {
     private static final Random random = new Random();
     
-    public static <T> List<T> getEndOfList(List<T> list, int num) { 
-        int fromIdx = list.size() - Math.min(list.size(), num);
-        return list.subList(fromIdx, list.size());
+    public static <T> List<T> getEndOfList(List<T> list, int num) {
+        int listSize = list.size();
+        int fromIdx = listSize - Math.min(listSize, num);
+        return list.subList(fromIdx, listSize);
     }
     
     public static <T> T getRandomElement(List<T> list) {
@@ -69,11 +70,21 @@ public class ListUtil {
         return ary;
     }
     
+    /**
+     * Returns the nth element in the list. If <code>index</code> is
+     * negative, the nth from the last element is returned, where -1
+     * is the last element in the list. <code>defaultValue<code> is
+     * returned if <code>index</code> is out of range of the list.
+     */
     public static <T> T get(List<T> list, int index, T defaultValue) {
         int size = list.size();
         return size == 0 ? defaultValue : list.get(index < 0 ? list.size() + index : index);
     }
     
+    /**
+     * As above, returning null if <code>index</code> is out of the
+     * list range.
+     */
     public static <T> T get(List<T> list, int index) {
         return get(list, index, null);
     }

@@ -30,7 +30,6 @@ package org.incava.xumoqi.words;
 import java.io.InputStream;
 
 import org.incava.xumoqi.R;
-import org.incava.xumoqi.utils.*;
 import android.content.res.Resources;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
