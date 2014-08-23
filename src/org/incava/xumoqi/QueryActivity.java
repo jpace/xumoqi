@@ -27,30 +27,27 @@
 
 package org.incava.xumoqi;
 
-import java.util.ArrayList;
-
-import org.incava.xumoqi.games.Game;
 import org.incava.xumoqi.games.GameIterations;
 import org.incava.xumoqi.games.GameParameters;
 import org.incava.xumoqi.gui.Enterable;
 import org.incava.xumoqi.gui.EnterableEditText;
 import org.incava.xumoqi.query.Query;
-import org.incava.xumoqi.utils.*;
+import org.incava.xumoqi.utils.Lo;
+import org.incava.xumoqi.utils.Timer;
 import org.incava.xumoqi.words.Word;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.support.v4.app.NavUtils;
 
 public class QueryActivity extends Activity implements Enterable {
-    private ArrayList<String> matching = null;
     private Timer timer = null;
     private GameIterations gameIterations = null;
 
@@ -60,19 +57,14 @@ public class QueryActivity extends Activity implements Enterable {
         setContentView(R.layout.activity_query);
         
         Intent intent = getIntent();
-
         gameIterations = GameParameters.getGameIterations(intent);
-        Lo.g("gameIterations", gameIterations);
 
-        Query query = getNextQuery();
-        Word queryWord = query.getWord();
+        Resources resources = getResources();
+        Query query = gameIterations.getNextQuery(resources);
 
-        String queryStr = queryWord.asQuery();
-        
         EnterableEditText.setupEditText(this, this, getInputTextView());
         
-        TextView tv = getQueryTextView();
-        tv.setText(queryStr);
+        setQueryText(query);
         
         timer = new Timer(getClass(), "");
         timer.done("onCreate");
@@ -90,22 +82,9 @@ public class QueryActivity extends Activity implements Enterable {
         onClickNext(null);
     }
 
-    private void fetchMatching(final Game game, final Word queryWord) {
-        Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    Timer timer = new Timer("QUERY", "getMatching");
-                    matching = game.getMatching(queryWord);
-                    timer.done();
-                    Lo.g("fetchMatching.matching", matching);
-                }
-            });
-        thread.start();
-    }
-    
     private void logTime(String msg) {
-        // long currTime = System.currentTimeMillis();
-        // Lo.g(msg, currTime);
+        long currTime = System.currentTimeMillis();
+        Lo.g(msg, currTime);
     }
     
     public void onClickNext(View view) {
@@ -119,7 +98,6 @@ public class QueryActivity extends Activity implements Enterable {
 
         saveDuration(intent);
         saveQuery(intent);
-        saveMatching(intent);
         
         startActivity(intent);
     }
@@ -161,15 +139,6 @@ public class QueryActivity extends Activity implements Enterable {
         return super.onOptionsItemSelected(item);
     }
 
-    private Query getNextQuery() {
-        Resources resources = getResources();
-        Game game = gameIterations.createGame(resources);
-        Query query = gameIterations.getNextQuery(game, resources);
-        Word queryWord = query.getWord();
-        fetchMatching(game, queryWord);
-        return query;
-    }
-
     private void saveDuration(Intent intent) {
         logTime("saveDuration:currTime");
         long duration = timer.getDuration();
@@ -183,16 +152,11 @@ public class QueryActivity extends Activity implements Enterable {
         GameParameters.saveInputText(intent, inputText);
         GameParameters.saveGameIterations(intent, gameIterations);
     }
-
-    private void saveMatching(Intent intent) {
-        while (matching == null) {
-            // waiting for getMatching() to finish; invoked by onCreate() ...
-            try {
-                Thread.sleep(100);
-            }
-            catch (InterruptedException e) {
-            }
-        }
-        GameParameters.saveMatching(intent, matching);
+    
+    private void setQueryText(Query query) {
+        Word queryWord = query.getWord();
+        String queryStr = queryWord.asQuery();
+        TextView tv = getQueryTextView();
+        tv.setText(queryStr);
     }
 }

@@ -35,7 +35,7 @@ public class Lo {
     }
     
     public static void g(String msg, Inspectable insp) {
-        gobj(msg, insp.inspect());
+        gobj(msg, insp == null ? null : insp.inspect());
     }
     
     public static void g(String msg, String str) {

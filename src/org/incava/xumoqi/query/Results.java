@@ -27,6 +27,8 @@
 
 package org.incava.xumoqi.query;
 
+import org.incava.xumoqi.utils.Inspectable;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -35,7 +37,7 @@ import java.util.TreeSet;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Results implements Parcelable {
+public class Results implements Parcelable, Inspectable {
     public static final int MAX_SCORE = 100;
     
     public static final Parcelable.Creator<Results> CREATOR = new Parcelable.Creator<Results>() {

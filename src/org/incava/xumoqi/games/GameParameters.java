@@ -27,44 +27,36 @@
 
 package org.incava.xumoqi.games;
 
-import java.util.ArrayList;
-
-import org.incava.xumoqi.utils.Constants;
-
 import android.content.Intent;
 
 public class GameParameters {
+    private final static String DURATION = "Duration";
+    private final static String GAME_ITERATIONS = "GameIterations";
+    private final static String INPUT_TEXT = "InputText";
+
     public static GameIterations getGameIterations(Intent intent) {
-        return intent.getParcelableExtra(Constants.GAME_ITERATIONS);
+        return intent.getParcelableExtra(GAME_ITERATIONS);
     }
 
     public static void saveGameIterations(Intent intent, GameIterations gameIterations) {
-        intent.putExtra(Constants.GAME_ITERATIONS, gameIterations);
-    }
-
-    public static ArrayList<String> getMatching(Intent intent) {
-        return intent.getStringArrayListExtra(Constants.MATCHING);
-    }
-
-    public static void saveMatching(Intent intent, ArrayList<String> matching) {
-        intent.putStringArrayListExtra(Constants.MATCHING, matching);
+        intent.putExtra(GAME_ITERATIONS, gameIterations);
     }
 
     public static long getDuration(Intent intent) {
-        String durStr = intent.getStringExtra(Constants.DURATION);
+        String durStr = intent.getStringExtra(DURATION);
         return Long.valueOf(durStr);
     }
     
     public static void saveDuration(Intent intent, long duration) {
         String durStr = String.valueOf(duration);
-        intent.putExtra(Constants.DURATION, durStr);
+        intent.putExtra(DURATION, durStr);
     }
 
     public static String getInputText(Intent intent) {
-        return intent.getStringExtra(Constants.INPUT_TEXT);
+        return intent.getStringExtra(INPUT_TEXT);
     }
     
     public static void saveInputText(Intent intent, String inputText) {
-        intent.putExtra(Constants.INPUT_TEXT, inputText);
+        intent.putExtra(INPUT_TEXT, inputText);
     }
 }

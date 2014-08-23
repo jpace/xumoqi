@@ -85,57 +85,23 @@ public class GameIterations implements Parcelable, Inspectable {
         this.queryIndices = ListUtil.toIntegerList(ary);
     }
 
-    public GameType getGameType() {
-        return gameType;
-    }
-    
-    public QueryList getQueries() {
-        return queries;
-    }
-
-    private void addQuery(Query query) {
-        queries.addQuery(query);
-        int queryIndex = queries.size() - 1;
-        setQueryIndex(queryIndex);
-    }
-    
-    public List<Integer> getQueryIndices() {
-        return queryIndices;
-    }
-
     public Query getCurrentQuery() {
         int queryIndex = ListUtil.get(queryIndices, -1);
         return queries.getQuery(queryIndex);
     }
 
-    public Game createGame(Resources resources) {
-        return gameType.createGame(resources);
-    }
-    
-    public String toString() {
-        return "gameType: " + gameType;
-    }
-    
-    public String inspect() {
-        return "gameType: " + gameType + "\n\t" + queries.inspect();
-    }
-
-    public void setQueryIndex(int queryIndex) {
-        queryIndices.add(queryIndex);
-    }
-
-    public Query getNextQuery(Game game, Resources resources) {
+    public Query getNextQuery(Resources resources) {
         Query randomQuery = getRandomQuery();
         
         if (randomQuery == null) {
-            Query newQuery = new Query(game.getQueryWord());
+            Game game = gameType.createGame(resources);
+            Query newQuery = new Query(game);
             addQuery(newQuery);
             return newQuery;
         }
         else {
             int queryIndex = queries.indexOf(randomQuery);
-            Lo.g("queryIndex", queryIndex);
-            setQueryIndex(queryIndex);
+            queryIndices.add(queryIndex);
             return randomQuery;
         }
     }
@@ -156,6 +122,14 @@ public class GameIterations implements Parcelable, Inspectable {
         return prevQueryIndex == qIdx ? null : randomQuery;
     }
     
+    public String toString() {
+        return "gameType: " + gameType;
+    }
+    
+    public String inspect() {
+        return "gameType: " + gameType + "\n\t" + queries.inspect();
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -167,5 +141,11 @@ public class GameIterations implements Parcelable, Inspectable {
         parcel.writeParcelable(queries, flags);
         int[] ary = ListUtil.toIntArray(queryIndices);
         parcel.writeIntArray(ary);
+    }
+
+    private void addQuery(Query query) {
+        queries.addQuery(query);
+        int queryIndex = queries.size() - 1;
+        queryIndices.add(queryIndex);
     }
 }

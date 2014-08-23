@@ -27,15 +27,11 @@
 
 package org.incava.xumoqi;
 
-import java.util.ArrayList;
 import org.incava.xumoqi.games.GameIterations;
 import org.incava.xumoqi.games.GameParameters;
 import org.incava.xumoqi.gui.ResultsTable;
 import org.incava.xumoqi.query.Query;
-import org.incava.xumoqi.query.Response;
 import org.incava.xumoqi.query.Results;
-import org.incava.xumoqi.utils.*;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -52,22 +48,14 @@ public class StatusActivity extends Activity {
         setContentView(R.layout.activity_status);
         
         Intent intent = getIntent();
-        
         gameIterations = GameParameters.getGameIterations(intent);
         
         Query query = gameIterations.getCurrentQuery();
-        Lo.g("query", query);
-        Lo.g("query.getWord()", query.getWord());
-        
         String inputText = GameParameters.getInputText(intent);
-        Lo.g("inputText", inputText);
         
         // long duration = GameParameters.getDuration(intent);
-        // Lo.g("duration", duration);
         
-        Response response = new Response(query.getWord(), inputText);
-        ArrayList<String> matching = GameParameters.getMatching(intent);
-        Results results = query.addResults(response, matching);
+        Results results = query.addResults(inputText);
 
         TableLayout tableLayout = (TableLayout)findViewById(R.id.statusTable);
         ResultsTable rt = new ResultsTable(this, tableLayout);

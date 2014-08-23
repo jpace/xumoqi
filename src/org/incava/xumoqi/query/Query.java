@@ -31,13 +31,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.incava.xumoqi.games.Game;
 import org.incava.xumoqi.utils.*;
 import org.incava.xumoqi.words.Word;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Query implements Parcelable {
+public class Query implements Parcelable, Inspectable {
     public static final Parcelable.Creator<Query> CREATOR = new Parcelable.Creator<Query>() {
         public Query createFromParcel(Parcel parcel) {
             return new Query(parcel);
@@ -53,28 +54,57 @@ public class Query implements Parcelable {
 
     private final Word word;
     private final ArrayList<Results> results;
+    private ArrayList<String> matching = null;
 
-    public Query(Word word) {
-        this.word = word;
+    public Query(final Game game) {
+        this.word = game.getQueryWord();
         this.results = new ArrayList<Results>();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Timer timer = new Timer("Query", "init");
+                Query.this.matching = game.getMatching(Query.this.word);
+                timer.done();
+                Lo.g("matching", matching);
+            }
+        });
+        thread.start();
     }
 
-    public Query(Word word, Results results) {
-        this(word);
-        this.results.add(results);
-    }
-    
     protected Query(Parcel parcel) {
         this.word = parcel.readParcelable(Word.class.getClassLoader());
         this.results = new ArrayList<Results>();
         parcel.readList(this.results, Results.class.getClassLoader());
+        this.matching = new ArrayList<String>();
+        parcel.readStringList(matching);
     }
     
+    public ArrayList<String> getMatching() {
+        // wait until game.getMatching(...) is done:
+        while (matching == null) {
+            try {
+                Thread.sleep(50);
+            }
+            catch (InterruptedException e) {
+            }
+        }
+        return matching;
+    }
+
     public Word getWord() {
         return word;
     }
 
-    public Results addResults(Response response, ArrayList<String> matching) {
+    public Results addResults(String inputText) {
+        Response response = new Response(word, inputText);
+        ArrayList<String> matching = getMatching();
+    
+        Lo.g("matching", matching);
+
+        return addResults(response, matching);
+    }
+
+    private Results addResults(Response response, ArrayList<String> matching) {
         Results results = new Results(matching, response.getAll());
         addResults(results);
         return results;
@@ -94,9 +124,12 @@ public class Query implements Parcelable {
     public String inspect() {
         StringBuilder sb = new StringBuilder();
         sb.append("word: ").append(word).append('\n');
+        sb.append("results:");
         for (Results r : results) {
             sb.append(r.inspect()).append('\n');
         }
+        sb.append("matching:");
+        sb.append(ListUtil.inspect(matching, "matching"));
         return sb.toString();
     }
     
@@ -125,5 +158,7 @@ public class Query implements Parcelable {
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeParcelable(word, flags);
         parcel.writeList(results);
+        // save it once it's been read:
+        parcel.writeStringList(getMatching());
     }
 }
