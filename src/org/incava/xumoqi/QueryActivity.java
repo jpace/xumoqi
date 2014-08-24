@@ -66,9 +66,6 @@ public class QueryActivity extends Activity implements Enterable {
         setQueryText(query);
         
         timer = new Timer(getClass(), "");
-        timer.done("onCreate");
-
-        Lo.time("onCreate:currTime");
     }
     
     protected void onStart() {
@@ -82,6 +79,10 @@ public class QueryActivity extends Activity implements Enterable {
     }
 
     public void onClickNext(View view) {
+        long duration = timer.getDuration();
+        
+        Lo.g("duration", duration);
+        
         timer.done("onClickNext");
 
         Lo.time("onClickNext:currTime");
@@ -90,8 +91,13 @@ public class QueryActivity extends Activity implements Enterable {
 
         Lo.time("onClickNext:currTime2");
 
-        saveDuration(intent);
-        saveQuery(intent);
+        GameParameters.saveDuration(intent, duration);
+
+        EditText et = getInputTextView();
+        String inputText = et.getText().toString();
+
+        GameParameters.saveInputText(intent, inputText);
+        GameParameters.saveGameIterations(intent, gameIterations);
         
         startActivity(intent);
     }
@@ -133,20 +139,6 @@ public class QueryActivity extends Activity implements Enterable {
         return super.onOptionsItemSelected(item);
     }
 
-    private void saveDuration(Intent intent) {
-        Lo.time("saveDuration:currTime");
-        long duration = timer.getDuration();
-        GameParameters.saveDuration(intent, duration);
-    }
-    
-    private void saveQuery(Intent intent) {
-        EditText et = getInputTextView();
-        String inputText = et.getText().toString();
-
-        GameParameters.saveInputText(intent, inputText);
-        GameParameters.saveGameIterations(intent, gameIterations);
-    }
-    
     private void setQueryText(Query query) {
         Word queryWord = query.getWord();
         String queryStr = queryWord.asQuery();

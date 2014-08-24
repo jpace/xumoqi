@@ -125,9 +125,7 @@ public class Query implements Parcelable, Inspectable {
         StringBuilder sb = new StringBuilder();
         sb.append("word: ").append(word).append('\n');
         sb.append("results:");
-        for (Results r : results) {
-            sb.append(r.inspect()).append('\n');
-        }
+        sb.append(ListUtil.inspect(results, "results"));
         sb.append("matching:");
         sb.append(ListUtil.inspect(matching, "matching"));
         return sb.toString();

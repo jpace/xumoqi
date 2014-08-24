@@ -108,8 +108,8 @@ public class Results implements Parcelable, Inspectable {
     
     public String inspect() {
         StringBuilder sb = new StringBuilder();
-        sb.append("correct: ").append(correct).append('\n');
-        sb.append("invalid: ").append(invalid).append('\n');
+        sb.append("correct: ").append(correct).append("\n\t");
+        sb.append("invalid: ").append(invalid).append("\n\t");
         sb.append("missed: ").append(missed).append('\n');
         return sb.toString();
     }
