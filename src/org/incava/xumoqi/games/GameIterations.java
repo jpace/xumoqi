@@ -30,6 +30,7 @@ package org.incava.xumoqi.games;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.incava.xumoqi.gui.ParcelUtil;
 import org.incava.xumoqi.query.Query;
 import org.incava.xumoqi.query.QueryList;
 import org.incava.xumoqi.utils.*;
@@ -81,8 +82,7 @@ public class GameIterations implements Parcelable, Inspectable {
     private GameIterations(Parcel parcel) {
         this.gameType = parcel.readParcelable(GameType.class.getClassLoader());
         this.queries = parcel.readParcelable(QueryList.class.getClassLoader());
-        int[] ary = parcel.createIntArray();
-        this.queryIndices = ListUtil.toIntegerList(ary);
+        this.queryIndices = ParcelUtil.readIntegerList(parcel);
     }
 
     public Query getCurrentQuery() {
@@ -94,16 +94,20 @@ public class GameIterations implements Parcelable, Inspectable {
         Query randomQuery = getRandomQuery();
         
         if (randomQuery == null) {
-            Game game = gameType.createGame(resources);
-            Query newQuery = new Query(game);
-            addQuery(newQuery);
-            return newQuery;
+            return getNewQuery(resources);
         }
         else {
             int queryIndex = queries.indexOf(randomQuery);
             queryIndices.add(queryIndex);
             return randomQuery;
         }
+    }
+    
+    private Query getNewQuery(Resources resources) {
+        Game game = gameType.createGame(resources);
+        Query newQuery = new Query(game);
+        addQuery(newQuery);
+        return newQuery;
     }
 
     private Query getRandomQuery() {
@@ -139,8 +143,7 @@ public class GameIterations implements Parcelable, Inspectable {
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeParcelable(gameType, flags);
         parcel.writeParcelable(queries, flags);
-        int[] ary = ListUtil.toIntArray(queryIndices);
-        parcel.writeIntArray(ary);
+        ParcelUtil.writeIntegerList(parcel, queryIndices);
     }
 
     private void addQuery(Query query) {

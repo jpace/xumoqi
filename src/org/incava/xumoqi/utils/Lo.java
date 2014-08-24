@@ -45,6 +45,11 @@ public class Lo {
     public static void g(String msg) {
         gobj(msg, null);
     }
+    
+    public static void time(String msg) {
+        long currTime = System.currentTimeMillis();
+        Lo.g(msg, currTime);
+    }
 
     private static void gobj(String msg, Object obj) {
         StackTraceElement caller = getCaller();

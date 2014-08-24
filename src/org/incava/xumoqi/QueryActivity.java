@@ -63,18 +63,17 @@ public class QueryActivity extends Activity implements Enterable {
         Query query = gameIterations.getNextQuery(resources);
 
         EnterableEditText.setupEditText(this, this, getInputTextView());
-        
         setQueryText(query);
         
         timer = new Timer(getClass(), "");
         timer.done("onCreate");
 
-        logTime("onCreate:currTime");
+        Lo.time("onCreate:currTime");
     }
     
     protected void onStart() {
         // timer.done("onStart");
-        logTime("onStart:currTime");
+        Lo.time("onStart:currTime");
         super.onStart();
     }
     
@@ -82,19 +81,14 @@ public class QueryActivity extends Activity implements Enterable {
         onClickNext(null);
     }
 
-    private void logTime(String msg) {
-        long currTime = System.currentTimeMillis();
-        Lo.g(msg, currTime);
-    }
-    
     public void onClickNext(View view) {
         timer.done("onClickNext");
 
-        logTime("onClickNext:currTime");
+        Lo.time("onClickNext:currTime");
 
         Intent intent = new Intent(this, StatusActivity.class);
 
-        logTime("onClickNext:currTime2");
+        Lo.time("onClickNext:currTime2");
 
         saveDuration(intent);
         saveQuery(intent);
@@ -140,7 +134,7 @@ public class QueryActivity extends Activity implements Enterable {
     }
 
     private void saveDuration(Intent intent) {
-        logTime("saveDuration:currTime");
+        Lo.time("saveDuration:currTime");
         long duration = timer.getDuration();
         GameParameters.saveDuration(intent, duration);
     }
