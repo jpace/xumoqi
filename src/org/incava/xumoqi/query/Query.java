@@ -77,6 +77,7 @@ public class Query implements Parcelable, Inspectable {
         parcel.readList(this.results, Results.class.getClassLoader());
         this.matching = new ArrayList<String>();
         parcel.readStringList(matching);
+        Lo.g("this", this);
     }
     
     public ArrayList<String> getMatching() {
@@ -88,6 +89,7 @@ public class Query implements Parcelable, Inspectable {
             catch (InterruptedException e) {
             }
         }
+        Lo.g("matching", matching);
         return matching;
     }
 
@@ -98,13 +100,7 @@ public class Query implements Parcelable, Inspectable {
     public Results addResults(String inputText) {
         Response response = new Response(word, inputText);
         ArrayList<String> matching = getMatching();
-    
         Lo.g("matching", matching);
-
-        return addResults(response, matching);
-    }
-
-    private Results addResults(Response response, ArrayList<String> matching) {
         Results results = new Results(matching, response.getAll());
         addResults(results);
         return results;
@@ -124,9 +120,7 @@ public class Query implements Parcelable, Inspectable {
     public String inspect() {
         StringBuilder sb = new StringBuilder();
         sb.append("word: ").append(word).append('\n');
-        sb.append("results:");
         sb.append(ListUtil.inspect(results, "results"));
-        sb.append("matching:");
         sb.append(ListUtil.inspect(matching, "matching"));
         return sb.toString();
     }
@@ -142,7 +136,6 @@ public class Query implements Parcelable, Inspectable {
     public int getScore() {
         final int maxRecent = 3;
         ArrayList<Integer> scores = getScores();
-        // Lo.g("getScore() ... scores", scores);
         List<Integer> recent = ListUtil.getEndOfList(scores, maxRecent);
         return recent.get(random.nextInt(recent.size()));
     }
@@ -156,7 +149,7 @@ public class Query implements Parcelable, Inspectable {
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeParcelable(word, flags);
         parcel.writeList(results);
-        // save it once it's been read:
+        // save it after it's been read:
         parcel.writeStringList(getMatching());
     }
 }

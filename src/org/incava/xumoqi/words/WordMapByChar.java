@@ -68,7 +68,6 @@ public class WordMapByChar {
                 matching.add(str);
             }
         }
-        
         return matching;
     }
 }

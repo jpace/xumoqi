@@ -26,7 +26,6 @@
 */
 package org.incava.xumoqi.games;
 
-import org.incava.xumoqi.utils.Inspectable;
 import org.incava.xumoqi.words.WordList;
 import org.incava.xumoqi.words.WordLists;
 
@@ -34,7 +33,7 @@ import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class GameType implements Parcelable, Inspectable {
+public class GameType implements Parcelable {
     public static final Parcelable.Creator<GameType> CREATOR = new Parcelable.Creator<GameType>() {
         public GameType createFromParcel(Parcel parcel) {
             return new GameType(parcel);
@@ -102,9 +101,5 @@ public class GameType implements Parcelable, Inspectable {
     
     public String toString() {
         return "wordLength: " + wordLength + "; gameType: " + gameType;
-    }
-    
-    public String inspect() {
-        return "wordLength: " + wordLength + "\n\tgameType: " + gameType;
     }
 }

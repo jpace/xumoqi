@@ -47,12 +47,16 @@ public class ListUtil {
 
     public static <T> String inspect(List<T> list, String name) {
         StringBuilder sb = new StringBuilder();
-        sb.append("#" + name + "(s): " + list.size() + "\n");
-        for (int idx = 0; idx < list.size(); ++idx) {
-            sb.append(name).append('[').append(idx).append("]: ");
-            T element = list.get(idx);
-            sb.append(element instanceof Inspectable ? ((Inspectable)element).inspect() : element.toString());
-            sb.append('\n');
+        if (list.isEmpty()) {
+            sb.append("{0} ").append(name).append('\n');
+        }
+        else {
+            for (int idx = 0; idx < list.size(); ++idx) {
+                sb.append(name).append('[').append(idx).append("]: ");
+                T element = list.get(idx);
+                sb.append(element instanceof Inspectable ? ((Inspectable)element).inspect() : element.toString());
+                sb.append('\n');
+            }
         }
         return sb.toString();
     }

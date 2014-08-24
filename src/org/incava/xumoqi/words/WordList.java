@@ -46,7 +46,6 @@ public class WordList {
 
     public WordList(InputStream is) {
         this();
-        
         IOReader iordr = new IOReader() {
                 public void onRead(String str) {
                     addWord(str);
