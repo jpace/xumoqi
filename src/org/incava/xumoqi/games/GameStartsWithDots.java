@@ -27,24 +27,14 @@
 
 package org.incava.xumoqi.games;
 
-import java.util.ArrayList;
-
-import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
 public class GameStartsWithDots extends GameDottedWords {
-    private final WordList wordList;
-    
     public GameStartsWithDots(WordList wordList, int length) {
         super(wordList, length);
-        this.wordList = wordList;
     }
     
     public int getBlankIndex(int length) {
         return 0;
-    }
-    
-    public ArrayList<String> getMatching(Word queryWord) {
-        return wordList.getMatching(queryWord);
     }
 }

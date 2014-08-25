@@ -80,7 +80,8 @@ public class MainActivity extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         gameTypeSpinner.setAdapter(adapter);
         
-        int current = Util.type ? 2 : 1;
+        // 4 == q-no-u
+        int current = Util.type ? 4 : 1;
         gameTypeSpinner.setSelection(current);
     }
     

@@ -70,7 +70,7 @@ public class QueryActivity extends Activity implements Enterable {
     
     protected void onStart() {
         // timer.done("onStart");
-        Lo.time("onStart:currTime");
+        // Lo.time("onStart:currTime");
         super.onStart();
     }
     
@@ -85,11 +85,11 @@ public class QueryActivity extends Activity implements Enterable {
         
         timer.done("onClickNext");
 
-        Lo.time("onClickNext:currTime");
+        // Lo.time("onClickNext:currTime");
 
         Intent intent = new Intent(this, StatusActivity.class);
 
-        Lo.time("onClickNext:currTime2");
+        // Lo.time("onClickNext:currTime2");
 
         GameParameters.saveDuration(intent, duration);
 

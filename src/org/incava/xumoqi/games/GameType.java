@@ -70,8 +70,7 @@ public class GameType implements Parcelable {
             return new GameNToNPlusOne(getWordList(resources, wordLength), getWordList(resources, wordLength + 1));
         }
         else if (gameType.equals("Q without U")) {
-            // this doesn't use a word list (yet)
-            return new GameQNoU(null, wordLength);
+            return new GameQNoU(getWordList(resources, wordLength), wordLength);
         }
         return null;
     }

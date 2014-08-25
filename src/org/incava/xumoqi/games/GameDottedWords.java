@@ -27,6 +27,8 @@
 
 package org.incava.xumoqi.games;
 
+import java.util.ArrayList;
+
 import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
@@ -45,6 +47,10 @@ public abstract class GameDottedWords implements Game {
         String word = getRandomWord();
         int dotIdx = getBlankIndex(length);
         return new Word(word, dotIdx);
+    }
+    
+    public ArrayList<String> getMatching(Word queryWord) {
+        return wordList.getMatching(queryWord);
     }
 
     protected String getRandomWord() {

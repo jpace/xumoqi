@@ -27,28 +27,19 @@
 
 package org.incava.xumoqi.games;
 
-import java.util.ArrayList;
 import java.util.Random;
 
-import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
 public class GameRandomDots extends GameDottedWords {
-    private static final Random rnd = new Random();
+    private static final Random random = new Random();
 
-    private final WordList wordList;
-    
     public GameRandomDots(WordList wordList, int length) {
         super(wordList, length);
-        this.wordList = wordList;
     }
     
     public int getBlankIndex(int length) {
         // handles only one dot for now
-        return rnd.nextInt(length);
-    }
-    
-    public ArrayList<String> getMatching(Word queryWord) {
-        return wordList.getMatching(queryWord);
+        return random.nextInt(length);
     }
 }

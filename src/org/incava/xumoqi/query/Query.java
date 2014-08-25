@@ -77,7 +77,6 @@ public class Query implements Parcelable, Inspectable {
         parcel.readList(this.results, Results.class.getClassLoader());
         this.matching = new ArrayList<String>();
         parcel.readStringList(matching);
-        Lo.g("this", this);
     }
     
     public ArrayList<String> getMatching() {
