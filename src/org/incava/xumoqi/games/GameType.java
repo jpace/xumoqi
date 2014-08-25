@@ -26,6 +26,9 @@
 */
 package org.incava.xumoqi.games;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.incava.xumoqi.words.WordList;
 import org.incava.xumoqi.words.WordLists;
 
@@ -70,7 +73,11 @@ public class GameType implements Parcelable {
             return new GameNToNPlusOne(getWordList(resources, wordLength), getWordList(resources, wordLength + 1));
         }
         else if (gameType.equals("Q without U")) {
-            return new GameQNoU(getWordList(resources, wordLength), wordLength);
+            List<WordList> wordLists = new ArrayList<WordList>();
+            for (int len = 2; len <= wordLength; ++len) {
+                wordLists.add(getWordList(resources, len));
+            }
+            return new GameQNoU(wordLists, wordLength);
         }
         return null;
     }

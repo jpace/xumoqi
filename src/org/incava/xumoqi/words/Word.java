@@ -67,18 +67,9 @@ public class Word implements Parcelable {
     protected Word(Parcel parcel) {
         this(parcel.readString(), parcel.readInt(), parcel.readString(), parcel.readString());
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
     
-    @Override
-    public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeString(str);
-        parcel.writeInt(dotIdx);
-        parcel.writeString(asQuery);
-        parcel.writeString(asPattern);
+    public int length() {
+        return str.length();
     }
 
     public String toString() {
@@ -103,5 +94,18 @@ public class Word implements Parcelable {
     
     public final String sub(char ch) {
         return dotIdx == NO_INDEX ? str : Util.replaceAt(str, dotIdx, ch);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+    
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeString(str);
+        parcel.writeInt(dotIdx);
+        parcel.writeString(asQuery);
+        parcel.writeString(asPattern);
     }
 }   

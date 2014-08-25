@@ -28,10 +28,10 @@
 package org.incava.xumoqi.games;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.incava.xumoqi.utils.Lo;
-import org.incava.xumoqi.utils.Timer;
 import org.incava.xumoqi.words.GrepList;
 import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
@@ -69,38 +69,35 @@ public class GameQNoU implements Game {
     };
     
     private final Random random;
-    private ArrayList<String> matching;
     private final GrepList grepList;
+    private final List<WordList> wordLists;
     
     // @TODO: hard-coded word list for now (see above)
-    public GameQNoU(WordList wordList, int length) {
+    public GameQNoU(List<WordList> wordLists, int length) {
+        this.wordLists = wordLists;
         random = new Random();
         grepList = new GrepList(locations, length);
     }
     
     @Override
     public Word getQueryWord() {
-        Timer t = new Timer("Q^U", "getQueryWord()");
         String qword = grepList.getRandomWord();
         Lo.g("qword", qword);
-
         int blankIdx = getBlankIndex(qword);
-        
-        matching = new ArrayList<String>();
-        matching.add(qword);
-        t.done();
-        
         return new Word(qword, blankIdx);
     }
 
     @Override
     public ArrayList<String> getMatching(Word queryWord) {
-        return matching;
+        int length = queryWord.length();
+        WordList wordList = wordLists.get(length - 2);
+        return wordList.getMatching(queryWord);
     }
     
     private int getBlankIndex(String str) {
+        int len = str.length();
         while (true) {
-            int chIdx = random.nextInt(str.length());
+            int chIdx = random.nextInt(len);
             Lo.g("chIdx", chIdx);
             if (str.charAt(chIdx) != 'q') {
                 return chIdx;
