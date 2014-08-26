@@ -25,16 +25,8 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi.games;
+package org.incava.xumoqi.util;
 
-import org.incava.xumoqi.words.WordList;
-
-public class GameEndsWithDots extends GameDottedWords {
-    public GameEndsWithDots(WordList wordList, int length) {
-        super(wordList, length);
-    }
-    
-    public int getBlankIndex(int length) {
-        return length - 1;
-    }
+public interface Inspectable {
+    public String inspect();
 }

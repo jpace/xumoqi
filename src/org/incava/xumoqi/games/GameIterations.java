@@ -33,7 +33,7 @@ import java.util.List;
 import org.incava.xumoqi.gui.ParcelUtil;
 import org.incava.xumoqi.query.Query;
 import org.incava.xumoqi.query.QueryList;
-import org.incava.xumoqi.utils.*;
+import org.incava.xumoqi.util.*;
 
 import android.content.res.Resources;
 import android.os.Parcel;
@@ -108,8 +108,7 @@ public class GameIterations implements Parcelable, Inspectable {
     }
     
     private Query getNewQuery(Resources resources) {
-        Game game = gameType.createGame(resources);
-        Query newQuery = new Query(game);
+        Query newQuery = gameType.createQuery(resources);
         queries.addQuery(newQuery);
         addQueryIndex(newQuery);
         return newQuery;

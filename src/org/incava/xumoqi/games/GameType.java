@@ -29,6 +29,13 @@ package org.incava.xumoqi.games;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.incava.xumoqi.query.Query;
+import org.incava.xumoqi.querytype.EndsWithDots;
+import org.incava.xumoqi.querytype.NToNPlusOne;
+import org.incava.xumoqi.querytype.QNoU;
+import org.incava.xumoqi.querytype.QueryType;
+import org.incava.xumoqi.querytype.RandomDots;
+import org.incava.xumoqi.querytype.StartsWithDots;
 import org.incava.xumoqi.words.WordList;
 import org.incava.xumoqi.words.WordLists;
 
@@ -58,26 +65,31 @@ public class GameType implements Parcelable {
     private GameType(Parcel parcel) {
         this(parcel.readInt(), parcel.readString());
     }
+    
+    public Query createQuery(Resources resources) {
+        QueryType game = createGame(resources);
+        return new Query(game);
+    }
 
-    public Game createGame(Resources resources) {
+    private QueryType createGame(Resources resources) {
         if (gameType.contains("Starting")) {
-            return new GameStartsWithDots(getWordList(resources, wordLength), wordLength);
+            return new StartsWithDots(getWordList(resources, wordLength), wordLength);
         }
         else if (gameType.contains("Random")) {
-            return new GameRandomDots(getWordList(resources, wordLength), wordLength);
+            return new RandomDots(getWordList(resources, wordLength), wordLength);
         }
         else if (gameType.contains("Ending")) {
-            return new GameEndsWithDots(getWordList(resources, wordLength), wordLength);
+            return new EndsWithDots(getWordList(resources, wordLength), wordLength);
         }
         else if (gameType.contains("to-make")) {
-            return new GameNToNPlusOne(getWordList(resources, wordLength), getWordList(resources, wordLength + 1));
+            return new NToNPlusOne(getWordList(resources, wordLength), getWordList(resources, wordLength + 1));
         }
         else if (gameType.equals("Q without U")) {
             List<WordList> wordLists = new ArrayList<WordList>();
             for (int len = 2; len <= wordLength; ++len) {
                 wordLists.add(getWordList(resources, len));
             }
-            return new GameQNoU(wordLists, wordLength);
+            return new QNoU(wordLists, wordLength);
         }
         return null;
     }

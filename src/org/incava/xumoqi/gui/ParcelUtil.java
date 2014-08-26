@@ -29,7 +29,7 @@ package org.incava.xumoqi.gui;
 
 import java.util.List;
 
-import org.incava.xumoqi.utils.ListUtil;
+import org.incava.xumoqi.util.ListUtil;
 
 import android.os.Parcel;
 

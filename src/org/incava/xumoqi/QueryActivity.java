@@ -32,8 +32,8 @@ import org.incava.xumoqi.games.GameParameters;
 import org.incava.xumoqi.gui.Enterable;
 import org.incava.xumoqi.gui.EnterableEditText;
 import org.incava.xumoqi.query.Query;
-import org.incava.xumoqi.utils.Lo;
-import org.incava.xumoqi.utils.Timer;
+import org.incava.xumoqi.util.Lo;
+import org.incava.xumoqi.util.Timer;
 import org.incava.xumoqi.words.Word;
 
 import android.app.Activity;

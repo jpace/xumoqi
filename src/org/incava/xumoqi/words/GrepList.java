@@ -32,8 +32,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.incava.xumoqi.utils.ListUtil;
-import org.incava.xumoqi.utils.Lo;
+import org.incava.xumoqi.util.ListUtil;
+import org.incava.xumoqi.util.Lo;
 
 public class GrepList {
     private final String re = "twl(\\d).txt:(\\d+): (\\w+)";

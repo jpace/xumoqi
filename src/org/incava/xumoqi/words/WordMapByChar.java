@@ -33,8 +33,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import org.incava.xumoqi.utils.MapUtil;
-import org.incava.xumoqi.utils.StringUtil;
+import org.incava.xumoqi.util.MapUtil;
+import org.incava.xumoqi.util.StringUtil;
 
 public class WordMapByChar {
     private final Map<Character, ArrayList<String>> byChar;

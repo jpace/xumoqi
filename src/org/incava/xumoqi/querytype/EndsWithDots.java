@@ -25,43 +25,16 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi.games;
+package org.incava.xumoqi.querytype;
 
-import java.util.ArrayList;
-
-import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
-public abstract class GameDottedWords implements Game {
-    private final WordList wordList;
-    private final int length;
-
-    public GameDottedWords(WordList wordList, int length) {
-        this.wordList = wordList;
-        this.length = length;
+public class EndsWithDots extends DottedWords {
+    public EndsWithDots(WordList wordList, int length) {
+        super(wordList, length);
     }
     
-    public abstract int getBlankIndex(int length);
-    
-    public Word getQueryWord() {
-        String word = getRandomWord();
-        int dotIdx = getBlankIndex(length);
-        return new Word(word, dotIdx);
-    }
-    
-    public ArrayList<String> getMatching(Word queryWord) {
-        return wordList.getMatching(queryWord);
-    }
-
-    protected String getRandomWord() {
-        return wordList.getRandomWord();
-    }
-
-    protected int getLength() {
-        return length;
-    }
-
-    protected WordList getWordList() {
-        return wordList;
+    public int getBlankIndex() {
+        return getLength() - 1;
     }
 }

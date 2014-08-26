@@ -25,20 +25,16 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi.games;
+package org.incava.xumoqi.querytype;
 
-import java.util.ArrayList;
+import org.incava.xumoqi.words.WordList;
 
-import org.incava.xumoqi.words.Word;
-
-public interface Game {
-    /**
-     * Returns a new, random word to be queried.
-     */
-    public Word getQueryWord();
-
-    /**
-     * Returns words (as strings) that match the given <code>queryWord</code>.
-     */
-    public ArrayList<String> getMatching(Word queryWord);
+public class StartsWithDots extends DottedWords {
+    public StartsWithDots(WordList wordList, int length) {
+        super(wordList, length);
+    }
+    
+    public int getBlankIndex() {
+        return 0;
+    }
 }

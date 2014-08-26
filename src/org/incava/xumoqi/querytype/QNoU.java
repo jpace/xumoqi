@@ -25,18 +25,18 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi.games;
+package org.incava.xumoqi.querytype;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.incava.xumoqi.utils.Lo;
+import org.incava.xumoqi.util.Lo;
 import org.incava.xumoqi.words.GrepList;
 import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
-public class GameQNoU implements Game {
+public class QNoU implements QueryType {
     // output from grep -n 'q[^u]{,4}$' twl*
     private final String[] locations = new String[] {
         "twl2.txt:80: qi", 
@@ -73,7 +73,7 @@ public class GameQNoU implements Game {
     private final List<WordList> wordLists;
     
     // @TODO: hard-coded word list for now (see above)
-    public GameQNoU(List<WordList> wordLists, int length) {
+    public QNoU(List<WordList> wordLists, int length) {
         this.wordLists = wordLists;
         random = new Random();
         grepList = new GrepList(locations, length);

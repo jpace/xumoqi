@@ -30,7 +30,7 @@ package org.incava.xumoqi.query;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.incava.xumoqi.utils.StringUtil;
+import org.incava.xumoqi.util.StringUtil;
 import org.incava.xumoqi.words.Word;
 
 import android.os.Parcel;

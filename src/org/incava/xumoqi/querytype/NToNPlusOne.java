@@ -25,22 +25,22 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi.games;
+package org.incava.xumoqi.querytype;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
 
-import org.incava.xumoqi.utils.Lo;
-import org.incava.xumoqi.utils.Timer;
+import org.incava.xumoqi.util.Lo;
+import org.incava.xumoqi.util.Timer;
 import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
-public class GameNToNPlusOne implements Game {
+public class NToNPlusOne implements QueryType {
     private final WordList fromWordList;
     private final WordList toWordList;
     private ArrayList<String> matching = null;
     
-    public GameNToNPlusOne(WordList fromWordList, WordList toWordList) {
+    public NToNPlusOne(WordList fromWordList, WordList toWordList) {
         this.fromWordList = fromWordList;
         this.toWordList = toWordList;
     }

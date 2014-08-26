@@ -25,18 +25,35 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi.utils;
+package org.incava.xumoqi.querytype;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.ArrayList;
 
-public class StringUtil {
-    public static char charAt(String str, int index) {
-        return str.charAt(index >= 0 ? index : str.length() + index);
+import org.incava.xumoqi.words.Word;
+import org.incava.xumoqi.words.WordList;
+
+public abstract class DottedWords implements QueryType {
+    private final WordList wordList;
+    private final int length;
+
+    public DottedWords(WordList wordList, int length) {
+        this.wordList = wordList;
+        this.length = length;
     }
     
-    public static List<String> split(String str, String delim) {
-        String[] words = str.split(delim);
-        return Arrays.asList(words);
+    public abstract int getBlankIndex();
+    
+    public Word getQueryWord() {
+        String word = wordList.getRandomWord();
+        int dotIdx = getBlankIndex();
+        return new Word(word, dotIdx);
+    }
+    
+    public ArrayList<String> getMatching(Word queryWord) {
+        return wordList.getMatching(queryWord);
+    }
+
+    protected int getLength() {
+        return length;
     }
 }

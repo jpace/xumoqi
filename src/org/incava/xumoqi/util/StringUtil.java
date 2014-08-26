@@ -25,21 +25,18 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi.games;
+package org.incava.xumoqi.util;
 
-import java.util.Random;
+import java.util.Arrays;
+import java.util.List;
 
-import org.incava.xumoqi.words.WordList;
-
-public class GameRandomDots extends GameDottedWords {
-    private static final Random random = new Random();
-
-    public GameRandomDots(WordList wordList, int length) {
-        super(wordList, length);
+public class StringUtil {
+    public static char charAt(String str, int index) {
+        return str.charAt(index >= 0 ? index : str.length() + index);
     }
     
-    public int getBlankIndex(int length) {
-        // handles only one dot for now
-        return random.nextInt(length);
+    public static List<String> split(String str, String delim) {
+        String[] words = str.split(delim);
+        return Arrays.asList(words);
     }
 }

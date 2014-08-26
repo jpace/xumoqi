@@ -25,20 +25,18 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi.utils;
+package org.incava.xumoqi.util;
 
-public class Util {
-    public static final boolean type = true;
-    
-    public static String repeat(String s, int num) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < num; ++i) {
-            sb.append(s);
+import java.util.ArrayList;
+import java.util.Map;
+
+public class MapUtil {
+    public static <K, V> void putMultiMap(Map<K, ArrayList<V>> map, K key, V value) {
+        ArrayList<V> current = map.get(key);
+        if (current == null) {
+            current = new ArrayList<V>();
+            map.put(key, current);
         }
-        return sb.toString();
-    }
-    
-    public static String replaceAt(String str, int idx, char ch) {
-        return str.substring(0, idx) + ch + str.substring(idx + 1, str.length());
+        current.add(value);
     }
 }

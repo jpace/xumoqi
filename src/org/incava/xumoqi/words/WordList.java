@@ -31,7 +31,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import org.incava.xumoqi.io.IOReader;
-import org.incava.xumoqi.utils.ListUtil;
+import org.incava.xumoqi.util.ListUtil;
 
 public class WordList {
     private final List<String> words;

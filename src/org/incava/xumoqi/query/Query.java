@@ -31,8 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.incava.xumoqi.games.Game;
-import org.incava.xumoqi.utils.*;
+import org.incava.xumoqi.querytype.QueryType;
+import org.incava.xumoqi.util.*;
 import org.incava.xumoqi.words.Word;
 
 import android.os.Parcel;
@@ -56,7 +56,7 @@ public class Query implements Parcelable, Inspectable {
     private final ArrayList<Results> results;
     private ArrayList<String> matching = null;
 
-    public Query(final Game game) {
+    public Query(final QueryType game) {
         this.word = game.getQueryWord();
         this.results = new ArrayList<Results>();
         Thread thread = new Thread(new Runnable() {

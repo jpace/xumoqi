@@ -25,8 +25,20 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi.utils;
+package org.incava.xumoqi.querytype;
 
-public interface Inspectable {
-    public String inspect();
+import java.util.ArrayList;
+
+import org.incava.xumoqi.words.Word;
+
+public interface QueryType {
+    /**
+     * Returns a new, random word to be queried.
+     */
+    public Word getQueryWord();
+
+    /**
+     * Returns words (as strings) that match the given <code>queryWord</code>.
+     */
+    public ArrayList<String> getMatching(Word queryWord);
 }

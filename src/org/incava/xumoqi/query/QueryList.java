@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.TreeMap;
 
-import org.incava.xumoqi.utils.*;
+import org.incava.xumoqi.util.*;
 
 import android.os.Parcel;
 import android.os.Parcelable;

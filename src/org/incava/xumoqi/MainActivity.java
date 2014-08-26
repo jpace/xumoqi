@@ -30,7 +30,7 @@ package org.incava.xumoqi;
 import org.incava.xumoqi.games.GameIterations;
 import org.incava.xumoqi.games.GameParameters;
 import org.incava.xumoqi.games.GameType;
-import org.incava.xumoqi.utils.Util;
+import org.incava.xumoqi.util.Util;
 
 import android.os.Bundle;
 import android.app.Activity;

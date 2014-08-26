@@ -27,7 +27,7 @@
 
 package org.incava.xumoqi.words;
 
-import org.incava.xumoqi.utils.Util;
+import org.incava.xumoqi.util.Util;
 
 import android.os.Parcel;
 import android.os.Parcelable;
