@@ -27,7 +27,7 @@
 
 package org.incava.xumoqi;
 
-import org.incava.xumoqi.games.GameIterations;
+import org.incava.xumoqi.games.Game;
 import org.incava.xumoqi.games.GameParameters;
 import org.incava.xumoqi.gui.Enterable;
 import org.incava.xumoqi.gui.EnterableEditText;
@@ -49,7 +49,7 @@ import android.widget.TextView;
 
 public class QueryActivity extends Activity implements Enterable {
     private Timer timer = null;
-    private GameIterations gameIterations = null;
+    private Game gameIterations = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

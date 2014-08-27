@@ -27,7 +27,7 @@
 
 package org.incava.xumoqi;
 
-import org.incava.xumoqi.games.GameIterations;
+import org.incava.xumoqi.games.Game;
 import org.incava.xumoqi.games.GameParameters;
 import org.incava.xumoqi.gui.ResultsTable;
 import org.incava.xumoqi.query.Query;
@@ -40,7 +40,7 @@ import android.view.View;
 import android.widget.TableLayout;
 
 public class StatusActivity extends Activity {
-    private GameIterations gameIterations = null;
+    private Game gameIterations = null;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {

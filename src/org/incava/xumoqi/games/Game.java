@@ -58,14 +58,14 @@ import android.os.Parcelable;
  * 
  * @author me
  */
-public class GameIterations implements Parcelable, Inspectable {
-    public static final Parcelable.Creator<GameIterations> CREATOR = new Parcelable.Creator<GameIterations>() {
-        public GameIterations createFromParcel(Parcel parcel) {
-            return new GameIterations(parcel);
+public class Game implements Parcelable, Inspectable {
+    public static final Parcelable.Creator<Game> CREATOR = new Parcelable.Creator<Game>() {
+        public Game createFromParcel(Parcel parcel) {
+            return new Game(parcel);
         }
         
-        public GameIterations[] newArray(int size) {
-            return new GameIterations[size];
+        public Game[] newArray(int size) {
+            return new Game[size];
         }
     };
 
@@ -73,13 +73,13 @@ public class GameIterations implements Parcelable, Inspectable {
     private final QueryList queries;
     private final List<Integer> queryIndices;
     
-    public GameIterations(GameType gameType) {
+    public Game(GameType gameType) {
         this.gameType = gameType;
         this.queries = new QueryList();
         this.queryIndices = new ArrayList<Integer>();
     }
 
-    private GameIterations(Parcel parcel) {
+    private Game(Parcel parcel) {
         this.gameType = parcel.readParcelable(GameType.class.getClassLoader());
         this.queries = parcel.readParcelable(QueryList.class.getClassLoader());
         this.queryIndices = ParcelUtil.readIntegerList(parcel);

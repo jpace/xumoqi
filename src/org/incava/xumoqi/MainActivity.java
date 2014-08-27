@@ -27,7 +27,7 @@
 
 package org.incava.xumoqi;
 
-import org.incava.xumoqi.games.GameIterations;
+import org.incava.xumoqi.games.Game;
 import org.incava.xumoqi.games.GameParameters;
 import org.incava.xumoqi.games.GameType;
 import org.incava.xumoqi.util.Util;
@@ -94,7 +94,7 @@ public class MainActivity extends Activity {
         String gameTypeStr = gameTypeSpinner.getSelectedItem().toString();
         
         GameType gameType = new GameType(wordLength, gameTypeStr);
-        GameIterations gameIterations = new GameIterations(gameType); 
+        Game gameIterations = new Game(gameType); 
         GameParameters.saveGameIterations(intent, gameIterations);
         
         startActivity(intent);

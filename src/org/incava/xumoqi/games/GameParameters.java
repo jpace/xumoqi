@@ -34,11 +34,11 @@ public class GameParameters {
     private final static String GAME_ITERATIONS = "GameIterations";
     private final static String INPUT_TEXT = "InputText";
 
-    public static GameIterations getGameIterations(Intent intent) {
+    public static Game getGameIterations(Intent intent) {
         return intent.getParcelableExtra(GAME_ITERATIONS);
     }
 
-    public static void saveGameIterations(Intent intent, GameIterations gameIterations) {
+    public static void saveGameIterations(Intent intent, Game gameIterations) {
         intent.putExtra(GAME_ITERATIONS, gameIterations);
     }
 
