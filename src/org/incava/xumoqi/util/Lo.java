@@ -27,6 +27,9 @@
 
 package org.incava.xumoqi.util;
 
+import java.util.Arrays;
+import java.util.List;
+
 import android.util.Log;
 
 public class Lo {
@@ -53,30 +56,15 @@ public class Lo {
 
     private static void gobj(String msg, Object obj) {
         StackTraceElement caller = getCaller();
-        Log.i(getFileLine(caller), getClassMethod(caller) + " " + getMessage(msg, obj));
+        Log.i(StackTraceUtil.getFileLine(caller), StackTraceUtil.getClassMethod(caller) + " " + getMessage(msg, obj));
     }
 
     private static StackTraceElement getCaller() {
-        final String loClsName = "org.incava.xumoqi.utils.Lo";
-        StackTraceElement[] stes = new Exception("").getStackTrace();
-        for (int si = 0; si < stes.length && si < 15; ++si) { 
-            StackTraceElement ste = stes[si];
-            if (!ste.getClassName().equals(loClsName)) {
-                return ste;
-            }
-        }
-        return null;
+        List<String> skipClasses = Arrays.asList("org.incava.xumoqi.util.Lo");
+        return StackTraceUtil.getCaller(skipClasses);
     }
     
     private static String getMessage(String msg, Object obj) {
         return msg + (obj == null ? "" : ": " + obj);
-    }
-    
-    private static String getFileLine(StackTraceElement ste) {
-        return ste.getFileName().replace(".java", "") + "@" + ste.getLineNumber();
-    }
-    
-    private static String getClassMethod(StackTraceElement ste) {
-        return ste.getClassName().replaceFirst(".*\\.", "") + "#" + ste.getMethodName();
     }
 }
