@@ -88,6 +88,8 @@ public class Query implements Parcelable, Inspectable {
             catch (InterruptedException e) {
             }
         }
+        Lo.g("word", word);
+        Lo.g("word.asQuery", word.asQuery());
         Lo.g("matching", matching);
         return matching;
     }
