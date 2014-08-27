@@ -38,6 +38,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TableLayout;
+import android.widget.TextView;
 
 public class StatusActivity extends Activity {
     private Game gameIterations = null;
@@ -59,6 +60,11 @@ public class StatusActivity extends Activity {
 
         TableLayout tableLayout = (TableLayout)findViewById(R.id.statusTable);
         ResultsTable rt = new ResultsTable(this, tableLayout);
+        
+        TextView tv = (TextView)findViewById(R.id.hintTextView);
+        if (tv != null) {
+            tv.setText("here's a new hint!");
+        }
 
         rt.set(results);
     }
