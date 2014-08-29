@@ -25,39 +25,21 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi.words;
+package org.incava.xumoqi.util;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.regex.Pattern;
 
-import org.incava.xumoqi.util.MapUtil;
-import org.incava.xumoqi.util.StringListUtil;
-import org.incava.xumoqi.util.StringUtil;
-
-public class WordMapByChar {
-    private final Map<Character, ArrayList<String>> byChar;
-    private final int index;
-    
-    public WordMapByChar(int index) {
-        byChar = new HashMap<Character, ArrayList<String>>();
-        this.index = index;
-    }
-
-    public void addWord(String word) {
-        char ch = StringUtil.charAt(word, index);
-        MapUtil.putMultiMap(byChar, ch, word);
-    }
-
-    public List<String> getForChar(Character ch) {
-        return byChar.get(ch);
-    }
-    
-    public ArrayList<String> getMatchingForChar(Word queryWord) {
-        String pat = queryWord.asPattern();
-        char ch = queryWord.getChar(index);
-        List<String> forChar = getForChar(ch);
-        return StringListUtil.getMatching(forChar, pat);
+public class StringListUtil {
+    public static ArrayList<String> getMatching(List<String> list, String pat) {
+        ArrayList<String> matching = new ArrayList<String>();
+        Pattern pattern = Pattern.compile(pat);
+        for (String str : list) {
+            if (pattern.matcher(str).matches()) {
+                matching.add(str);
+            }
+        }
+        return matching;
     }
 }
