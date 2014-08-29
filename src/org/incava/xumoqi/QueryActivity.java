@@ -34,8 +34,6 @@ import org.incava.xumoqi.gui.EnterableEditText;
 import org.incava.xumoqi.query.Query;
 import org.incava.xumoqi.util.Lo;
 import org.incava.xumoqi.util.Timer;
-import org.incava.xumoqi.words.Word;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -140,8 +138,7 @@ public class QueryActivity extends Activity implements Enterable {
     }
 
     private void setQueryText(Query query) {
-        Word queryWord = query.getWord();
-        String queryStr = queryWord.asQuery();
+        String queryStr = query.getQueryString();
         TextView tv = getQueryTextView();
         tv.setText(queryStr);
     }

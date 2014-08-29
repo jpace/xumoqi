@@ -27,6 +27,9 @@
 
 package org.incava.xumoqi.words;
 
+import java.util.ArrayList;
+
+import org.incava.xumoqi.util.StringUtil;
 import org.incava.xumoqi.util.Util;
 
 import android.os.Parcel;
@@ -76,12 +79,20 @@ public class Word implements Parcelable {
         return str;
     }
     
-    public int getDotIndex() {
-        return dotIdx;
+    public char getChar(int index) {
+        return StringUtil.charAt(str, index);
+    }
+    
+    public boolean startsWithBlank() {
+        return dotIdx == 0;
     }
     
     public boolean equals(Object obj) {
-        return obj instanceof Word && ((Word)obj).str.equals(this.str);
+        return obj instanceof Word && equals((Word)obj);
+    }
+    
+    public boolean equals(Word other) {
+        return other.str.equals(this.str);
     }
     
     public String asQuery() {

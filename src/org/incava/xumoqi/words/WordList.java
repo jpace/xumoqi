@@ -30,6 +30,7 @@ package org.incava.xumoqi.words;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.incava.xumoqi.io.IOReader;
 import org.incava.xumoqi.util.ListUtil;
 
@@ -40,8 +41,8 @@ public class WordList {
     
     public WordList() {
         words = new ArrayList<String>();
-        byFirst = new WordMapByChar();
-        byLast = new WordMapByChar();
+        byFirst = new WordMapByChar(0);
+        byLast = new WordMapByChar(-1);
     }
 
     public WordList(InputStream is) {
@@ -55,7 +56,8 @@ public class WordList {
     }
 
     public ArrayList<String> getMatching(Word queryWord) {
-        return queryWord.getDotIndex() == 0 ? getMatchingEndsWith(queryWord) : getMatchingStartsWith(queryWord);
+        WordMapByChar wordMap = queryWord.startsWithBlank() ? byLast : byFirst;
+        return wordMap.getMatchingForChar(queryWord);
     }
     
     public String getRandomWord() {
@@ -65,15 +67,7 @@ public class WordList {
     private void addWord(String word) {
         words.add(word);
         // TODO: optimize this: this adds 30% when reading the word list
-        byFirst.addWord(word, 0);
-        byLast.addWord(word, -1);
+        byFirst.addWord(word);
+        byLast.addWord(word);
     }
-    
-    private ArrayList<String> getMatchingEndsWith(Word queryWord) {
-        return byLast.getMatchingForChar(queryWord, -1);
-    }
-    
-    private ArrayList<String> getMatchingStartsWith(Word queryWord) {
-        return byFirst.getMatchingForChar(queryWord, 0);
-    }    
 }
