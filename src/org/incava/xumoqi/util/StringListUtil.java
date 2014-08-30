@@ -29,6 +29,7 @@ package org.incava.xumoqi.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringListUtil {
@@ -41,5 +42,17 @@ public class StringListUtil {
             }
         }
         return matching;
+    }
+
+    public static List<Matcher> getMatchers(List<String> list, String pat) {
+        List<Matcher> matchers = new ArrayList<Matcher>();
+        Pattern pattern = Pattern.compile(pat);
+        for (String str : list) {
+            Matcher matcher = pattern.matcher(str);
+            if (matcher.matches()) {
+                matchers.add(matcher);
+            }
+        }
+        return matchers;
     }
 }

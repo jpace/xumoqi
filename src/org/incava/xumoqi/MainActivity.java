@@ -67,7 +67,7 @@ public class MainActivity extends Activity {
     }
     
     private void setUpNumberPicker() {
-        int max = Util.type ? 8 : 3;
+        int max = Util.type ? 14 : 3;
         NumberPicker np = getNumberPicker();
         np.setMaxValue(max);
         np.setMinValue(2);

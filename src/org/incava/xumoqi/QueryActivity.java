@@ -63,7 +63,7 @@ public class QueryActivity extends Activity implements Enterable {
         EnterableEditText.setupEditText(this, this, getInputTextView());
         setQueryText(query);
         
-        timer = new Timer(getClass(), "");
+        timer = new Timer(this, "onCreate");
     }
     
     protected void onStart() {
@@ -79,7 +79,7 @@ public class QueryActivity extends Activity implements Enterable {
     public void onClickNext(View view) {
         long duration = timer.getDuration();
         
-        Lo.g("duration", duration);
+        // Lo.g("duration", duration);
         
         timer.done("onClickNext");
 

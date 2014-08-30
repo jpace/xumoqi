@@ -54,6 +54,13 @@ public class WordList {
             };
         iordr.readStream(is);
     }
+    
+    public WordList(List<String> words) {
+        this();
+        for (String word : words) {
+            addWord(word);
+        }
+    }
 
     public ArrayList<String> getMatching(Word queryWord) {
         WordMapByChar wordMap = queryWord.startsWithBlank() ? byLast : byFirst;

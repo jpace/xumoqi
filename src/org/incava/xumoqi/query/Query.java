@@ -62,9 +62,9 @@ public class Query implements Parcelable, Inspectable {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                Timer timer = new Timer("Query", "init");
+                // Timer t = new Timer(this, "init");
                 Query.this.matching = game.getMatching(Query.this.word);
-                timer.done();
+                // t.done();
                 Lo.g("matching", matching);
             }
         });

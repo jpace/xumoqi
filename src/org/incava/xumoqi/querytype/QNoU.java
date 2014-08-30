@@ -72,11 +72,11 @@ public class QNoU implements QueryType {
     private final GrepList grepList;
     private final List<WordList> wordLists;
     
-    // @TODO: hard-coded word list for now (see above)
-    public QNoU(List<WordList> wordLists, int length) {
+    public QNoU(List<WordList> wordLists, int maxLength) {
         this.wordLists = wordLists;
         random = new Random();
-        grepList = new GrepList(locations, length);
+        String lineRe = getLineRegexp(maxLength);
+        grepList = new GrepList(locations, lineRe);
     }
     
     @Override
@@ -103,5 +103,13 @@ public class QNoU implements QueryType {
                 return chIdx;
             }
         }
+    }
+
+    private String getLineRegexp(int maxLength) {
+        StringBuilder sb = new StringBuilder("twl(?:");
+        sb.append(maxLength >= 10 ? "[0-9]|1\\d+" : "[0-" + maxLength + "]");
+        // TODO: shouldn't have useless line numbers:
+        sb.append(").txt:\\d+: (\\w+)");
+        return sb.toString();
     }
 }

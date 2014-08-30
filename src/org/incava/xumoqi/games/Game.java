@@ -117,11 +117,7 @@ public class Game implements Parcelable, Inspectable {
     private Query getRandomQuery() {
         Query randomQuery = queries.getRandomQuery();
         int qIdx = queries.indexOf(randomQuery);
-        Lo.g("qIdx", qIdx);
-        
         List<Integer> lastThree = ListUtil.getEndOfList(queryIndices, 3);
-        Lo.g("lastThree", lastThree);
-        
         return lastThree.contains(qIdx) ? null : randomQuery;
     }
     

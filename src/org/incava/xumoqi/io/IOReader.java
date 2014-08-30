@@ -30,6 +30,8 @@ package org.incava.xumoqi.io;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class IOReader {
     public void readStream(InputStream is, Integer maxLength) {
@@ -69,4 +71,15 @@ public class IOReader {
     
     public void onRead(String str) {
     }
+
+    public static List<String> readTextStream(InputStream is) {
+        final List<String> list = new ArrayList<String>();
+        IOReader ior = new IOReader() {
+            public void onRead(String str) {
+                list.add(str);
+            }
+        };
+        ior.readStream(is);
+        return list;
+    };
 }

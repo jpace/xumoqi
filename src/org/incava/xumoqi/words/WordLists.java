@@ -27,9 +27,12 @@
 
 package org.incava.xumoqi.words;
 
-import java.io.InputStream;
+import java.util.List;
 
 import org.incava.xumoqi.R;
+import org.incava.xumoqi.android.ResourceUtil;
+import org.incava.xumoqi.util.Timer;
+
 import android.content.res.Resources;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
@@ -69,7 +72,7 @@ public class WordLists {
         };
 
         lenToRes = new SparseIntArray();
-
+        
         int len = 2;
         for (int twl : twls) {
             lenToRes.put(len, twl);
@@ -80,23 +83,20 @@ public class WordLists {
     }
     
     public WordList getWordList(Resources resources, int length) {
-        // Timer t = new Timer("WORDLISTS", "getWordList(" + length + ")");
-        // Lo.g("getWordList.resources", resources);
         WordList wordList = wordListsByLength.get(length);
         if (wordList == null) {
             wordList = readWordList(resources, length); 
         }
-        // t.done();
         return wordList;
     }
     
     private WordList readWordList(Resources resources, int length) {
-        // Timer t = new Timer("WORDLISTS", "readWordList(" + length + ")");
+        Timer t = new Timer(this, "readWordList(" + length + ")");
         int twlRes = lenToRes.get(length);
-        InputStream is = resources.openRawResource(twlRes);
-        WordList wordList = new WordList(is);
+        List<String> words = ResourceUtil.readTextResource(resources, twlRes);
+        WordList wordList = new WordList(words);
         wordListsByLength.put(length, wordList);
-        // t.done();
+        t.done();
         return wordList;
     }
 }

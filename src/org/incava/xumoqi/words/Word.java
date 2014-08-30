@@ -27,8 +27,6 @@
 
 package org.incava.xumoqi.words;
 
-import java.util.ArrayList;
-
 import org.incava.xumoqi.util.StringUtil;
 import org.incava.xumoqi.util.Util;
 

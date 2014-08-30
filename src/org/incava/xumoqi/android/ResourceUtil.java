@@ -25,35 +25,18 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi.words;
+package org.incava.xumoqi.android;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.InputStream;
 import java.util.List;
-import java.util.regex.Matcher;
 
-import org.incava.xumoqi.util.ListUtil;
-import org.incava.xumoqi.util.Lo;
-import org.incava.xumoqi.util.StringListUtil;
+import org.incava.xumoqi.io.IOReader;
 
-public class GrepList {
-    private final String[] lines;
-    private final List<String> words;
+import android.content.res.Resources;
 
-    public GrepList(String[] lines, String lineRe) {
-        this.lines = lines;
-        this.words = new ArrayList<String>();
-        
-        List<Matcher> matchers = StringListUtil.getMatchers(Arrays.asList(lines), lineRe);
-        for (Matcher m : matchers) {
-            String word = m.group(1);
-            this.words.add(word);
-        }
-    }
-
-    public String getRandomWord() {
-        String qword = ListUtil.getRandomElement(words);
-        Lo.g("qword", qword);
-        return qword;
+public class ResourceUtil {
+    public static List<String> readTextResource(Resources resources, int res) {
+        InputStream is = resources.openRawResource(res);
+        return IOReader.readTextStream(is);
     }
 }
