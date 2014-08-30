@@ -37,46 +37,16 @@ import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
 public class QNoU implements QueryType {
-    // output from grep -n 'q[^u]{,4}$' twl*
-    private final String[] locations = new String[] {
-        "twl2.txt:80: qi", 
-        "twl3.txt:719: qat", 
-        "twl3.txt:720: qis", 
-        "twl3.txt:834: suq", 
-        "twl4.txt:2822: qadi", 
-        "twl4.txt:2823: qaid", 
-        "twl4.txt:2824: qats", 
-        "twl4.txt:2825: qoph", 
-        "twl4.txt:3358: suqs", 
-        "twl5.txt:1103: burqa", 
-        "twl5.txt:2524: faqir", 
-        "twl5.txt:6036: qadis", 
-        "twl5.txt:6037: qaids", 
-        "twl5.txt:6038: qanat", 
-        "twl5.txt:6039: qophs", 
-        "twl5.txt:8013: tranq", 
-        "twl5.txt:8199: umiaq", 
-        "twl6.txt:1861: buqsha", 
-        "twl6.txt:1893: burqas", 
-        "twl6.txt:4676: faqirs", 
-        "twl6.txt:12278: sheqel", 
-        "twl6.txt:14209: tranqs", 
-        "twl6.txt:14496: umiaqs", 
-        "twl7.txt:2821: buqshas", 
-        "twl7.txt:18845: sheqels", 
-        "twl8.txt:15259: mbaqanga", 
-        "twl8.txt:23244: sheqalim",
-    };
-    
     private final Random random;
     private final GrepList grepList;
     private final List<WordList> wordLists;
     
-    public QNoU(List<WordList> wordLists, int maxLength) {
+    public QNoU(List<String> grepLines, List<WordList> wordLists, int maxLength) {
+        // index 0 == wordList of length 2:
         this.wordLists = wordLists;
         random = new Random();
         String lineRe = getLineRegexp(maxLength);
-        grepList = new GrepList(locations, lineRe);
+        grepList = new GrepList(grepLines, lineRe);
     }
     
     @Override
@@ -106,10 +76,10 @@ public class QNoU implements QueryType {
     }
 
     private String getLineRegexp(int maxLength) {
+        // output from grep -N 'q[^u]' twl*
         StringBuilder sb = new StringBuilder("twl(?:");
         sb.append(maxLength >= 10 ? "[0-9]|1\\d+" : "[0-" + maxLength + "]");
-        // TODO: shouldn't have useless line numbers:
-        sb.append(").txt:\\d+: (\\w+)");
+        sb.append(").txt:(\\w+)");
         return sb.toString();
     }
 }

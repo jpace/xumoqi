@@ -28,7 +28,6 @@
 package org.incava.xumoqi.words;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 
@@ -37,14 +36,12 @@ import org.incava.xumoqi.util.Lo;
 import org.incava.xumoqi.util.StringListUtil;
 
 public class GrepList {
-    private final String[] lines;
     private final List<String> words;
 
-    public GrepList(String[] lines, String lineRe) {
-        this.lines = lines;
+    public GrepList(List<String> lines, String lineRe) {
         this.words = new ArrayList<String>();
         
-        List<Matcher> matchers = StringListUtil.getMatchers(Arrays.asList(lines), lineRe);
+        List<Matcher> matchers = StringListUtil.getMatchers(lines, lineRe);
         for (Matcher m : matchers) {
             String word = m.group(1);
             this.words.add(word);

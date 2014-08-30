@@ -93,7 +93,7 @@ public class WordLists {
     private WordList readWordList(Resources resources, int length) {
         Timer t = new Timer(this, "readWordList(" + length + ")");
         int twlRes = lenToRes.get(length);
-        List<String> words = ResourceUtil.readTextResource(resources, twlRes);
+        List<String> words = ResourceUtil.getTextResource(resources, twlRes);
         WordList wordList = new WordList(words);
         wordListsByLength.put(length, wordList);
         t.done();

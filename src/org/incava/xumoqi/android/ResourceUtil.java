@@ -33,10 +33,20 @@ import java.util.List;
 import org.incava.xumoqi.io.IOReader;
 
 import android.content.res.Resources;
+import android.util.SparseArray;
 
 public class ResourceUtil {
+    private static SparseArray<List<String>> resourceToLines = new SparseArray<List<String>>();
+    
+    public static List<String> getTextResource(Resources resources, int res) {
+        List<String> lines = resourceToLines.get(res);
+        return lines == null ? readTextResource(resources, res) : lines;
+    }
+    
     public static List<String> readTextResource(Resources resources, int res) {
         InputStream is = resources.openRawResource(res);
-        return IOReader.readTextStream(is);
+        List<String> lines = IOReader.readTextStream(is);
+        resourceToLines.put(res, lines);
+        return lines;
     }
 }
