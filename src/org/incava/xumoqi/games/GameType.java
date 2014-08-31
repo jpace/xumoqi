@@ -29,8 +29,11 @@ package org.incava.xumoqi.games;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.incava.xumoqi.R;
 import org.incava.xumoqi.query.Query;
 import org.incava.xumoqi.querytype.EndsWithDots;
+import org.incava.xumoqi.querytype.Letter;
+import org.incava.xumoqi.querytype.LetterZ;
 import org.incava.xumoqi.querytype.NToNPlusOne;
 import org.incava.xumoqi.querytype.QNoU;
 import org.incava.xumoqi.querytype.QueryType;
@@ -85,13 +88,25 @@ public class GameType implements Parcelable {
             return new NToNPlusOne(getWordList(resources, wordLength), getWordList(resources, wordLength + 1));
         }
         else if (gameType.equals("Q without U")) {
-            List<WordList> wordLists = new ArrayList<WordList>();
-            for (int len = 2; len <= wordLength; ++len) {
-                wordLists.add(getWordList(resources, len));
-            }
-            return new QNoU(resources, wordLists, wordLength);
+            return createLetterGame(resources, R.raw.qnou, 'q');
+        }
+        else if (gameType.equals("Containing 'Z'")) {
+            return createLetterGame(resources, R.raw.zs, 'z');
         }
         return null;
+    }
+    
+    private QueryType createLetterGame(Resources resources, int res, char letter) {
+        List<WordList> wordLists = getWordListList(resources);
+        return new Letter(resources, wordLists, wordLength, res, letter);
+    }
+
+    private List<WordList> getWordListList(Resources resources) {
+        List<WordList> wordLists = new ArrayList<WordList>();
+        for (int len = 2; len <= wordLength; ++len) {
+            wordLists.add(getWordList(resources, len));
+        }
+        return wordLists;
     }
 
     private WordList getWordList(Resources resources, int length) {

@@ -19,6 +19,7 @@
         <item>Random blank</item>
         <item>N-to-make-N+1</item>
         <item>Q without U</item>
+        <item>Containing \'Z\'</item>
         <item>&gt; 60% vowels</item>
     </string-array>
     <string-array name="free_game_types">
