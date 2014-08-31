@@ -646,7 +646,7 @@
         android:layout_width="90sp"
         android:layout_height="50sp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="34dp"
         android:layout_toRightOf="@+id/statusRestart"
         android:onClick="onClickNext"

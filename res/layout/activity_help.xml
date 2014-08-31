@@ -25,7 +25,7 @@
         android:layout_height="50sp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="26dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginRight="40dp"
         android:text="@string/done"
         android:textSize="18sp"
