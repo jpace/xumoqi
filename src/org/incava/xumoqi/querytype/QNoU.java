@@ -27,59 +27,15 @@
 
 package org.incava.xumoqi.querytype;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-import org.incava.xumoqi.util.Lo;
-import org.incava.xumoqi.words.GrepList;
-import org.incava.xumoqi.words.Word;
+import org.incava.xumoqi.R;
 import org.incava.xumoqi.words.WordList;
 
-public class QNoU implements QueryType {
-    private final Random random;
-    private final GrepList grepList;
-    private final List<WordList> wordLists;
-    
-    public QNoU(List<String> grepLines, List<WordList> wordLists, int maxLength) {
-        // index 0 == wordList of length 2:
-        this.wordLists = wordLists;
-        random = new Random();
-        String lineRe = getLineRegexp(maxLength);
-        grepList = new GrepList(grepLines, lineRe);
-    }
-    
-    @Override
-    public Word getQueryWord() {
-        String qword = grepList.getRandomWord();
-        Lo.g("qword", qword);
-        int blankIdx = getBlankIndex(qword);
-        return new Word(qword, blankIdx);
-    }
+import android.content.res.Resources;
 
-    @Override
-    public ArrayList<String> getMatching(Word queryWord) {
-        int length = queryWord.length();
-        WordList wordList = wordLists.get(length - 2);
-        return wordList.getMatching(queryWord);
-    }
-    
-    private int getBlankIndex(String str) {
-        int len = str.length();
-        while (true) {
-            int chIdx = random.nextInt(len);
-            Lo.g("chIdx", chIdx);
-            if (str.charAt(chIdx) != 'q') {
-                return chIdx;
-            }
-        }
-    }
-
-    private String getLineRegexp(int maxLength) {
-        // output from grep -N 'q[^u]' twl*
-        StringBuilder sb = new StringBuilder("twl(?:");
-        sb.append(maxLength >= 10 ? "[0-9]|1\\d+" : "[0-" + maxLength + "]");
-        sb.append(").txt:(\\w+)");
-        return sb.toString();
+public class QNoU extends Letter {
+    public QNoU(Resources resources, List<WordList> wordLists, int maxLength) {
+        super(resources, wordLists, maxLength, R.raw.qnou, 'q');
     }
 }

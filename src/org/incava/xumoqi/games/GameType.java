@@ -29,8 +29,6 @@ package org.incava.xumoqi.games;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.incava.xumoqi.R;
-import org.incava.xumoqi.android.ResourceUtil;
 import org.incava.xumoqi.query.Query;
 import org.incava.xumoqi.querytype.EndsWithDots;
 import org.incava.xumoqi.querytype.NToNPlusOne;
@@ -91,8 +89,7 @@ public class GameType implements Parcelable {
             for (int len = 2; len <= wordLength; ++len) {
                 wordLists.add(getWordList(resources, len));
             }
-            List<String> grepLines = ResourceUtil.getTextResource(resources, R.raw.qnou);
-            return new QNoU(grepLines, wordLists, wordLength);
+            return new QNoU(resources, wordLists, wordLength);
         }
         return null;
     }
