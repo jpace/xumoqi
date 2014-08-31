@@ -33,6 +33,7 @@ import java.util.Random;
 
 import org.incava.xumoqi.android.ResourceUtil;
 import org.incava.xumoqi.util.Lo;
+import org.incava.xumoqi.util.Timer;
 import org.incava.xumoqi.words.GrepList;
 import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
@@ -66,7 +67,10 @@ public class Letter implements QueryType {
     public ArrayList<String> getMatching(Word queryWord) {
         int length = queryWord.length();
         WordList wordList = wordLists.get(length - 2);
-        return wordList.getMatching(queryWord);
+        Timer t = new Timer(this, "length" + length);
+        ArrayList<String> matching = wordList.getMatching(queryWord);
+        t.done();
+        return matching;
     }
   
     private int getBlankIndex(String str) {
