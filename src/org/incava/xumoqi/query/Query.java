@@ -32,7 +32,8 @@ import java.util.List;
 import java.util.Random;
 
 import org.incava.xumoqi.querytype.QueryType;
-import org.incava.xumoqi.util.*;
+import org.incava.xumoqi.util.Inspectable;
+import org.incava.xumoqi.util.ListUtil;
 import org.incava.xumoqi.words.Word;
 
 import android.os.Parcel;
@@ -65,7 +66,6 @@ public class Query implements Parcelable, Inspectable {
                 // Timer t = new Timer(this, "init");
                 Query.this.matching = game.getMatching(Query.this.word);
                 // t.done();
-                Lo.g("matching", matching);
             }
         });
         thread.start();
@@ -98,7 +98,6 @@ public class Query implements Parcelable, Inspectable {
     public Results addResults(String inputText) {
         Response response = new Response(word, inputText);
         ArrayList<String> matching = getMatching();
-        Lo.g("matching", matching);
         Results results = new Results(matching, response.getAll());
         addResults(results);
         return results;

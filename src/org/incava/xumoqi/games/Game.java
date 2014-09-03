@@ -102,6 +102,10 @@ public class Game implements Parcelable, Inspectable {
         }
     }
     
+    public int getLength() {
+        return gameType.getWordLength();
+    }
+    
     private void addQueryIndex(Query query) {
         int queryIndex = queries.indexOf(query);
         queryIndices.add(queryIndex);

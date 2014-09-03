@@ -32,6 +32,8 @@ import org.incava.xumoqi.games.GameParameters;
 import org.incava.xumoqi.gui.ResultsTable;
 import org.incava.xumoqi.query.Query;
 import org.incava.xumoqi.query.Results;
+import org.incava.xumoqi.util.Lo;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -54,7 +56,8 @@ public class StatusActivity extends Activity {
         Query query = gameIterations.getCurrentQuery();
         String inputText = GameParameters.getInputText(intent);
         
-        // long duration = GameParameters.getDuration(intent);
+        long duration = GameParameters.getDuration(intent);
+        Lo.g("duration", duration);
         
         Results results = query.addResults(inputText);
 
@@ -78,11 +81,15 @@ public class StatusActivity extends Activity {
 
     public void onClickRestart(View view) {
         Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        nextActivity(intent);
     }
 
     public void onClickNext(View view) {
         Intent intent = new Intent(this, QueryActivity.class);
+        nextActivity(intent);
+    }
+
+    private void nextActivity(Intent intent) {
         GameParameters.saveGameIterations(intent, gameIterations);
         startActivity(intent);
     }

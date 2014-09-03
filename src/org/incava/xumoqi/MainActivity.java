@@ -30,6 +30,7 @@ package org.incava.xumoqi;
 import org.incava.xumoqi.games.Game;
 import org.incava.xumoqi.games.GameParameters;
 import org.incava.xumoqi.games.GameType;
+import org.incava.xumoqi.util.Lo;
 import org.incava.xumoqi.util.Util;
 
 import android.os.Bundle;
@@ -71,6 +72,10 @@ public class MainActivity extends Activity {
         NumberPicker np = getNumberPicker();
         np.setMaxValue(max);
         np.setMinValue(2);
+
+        Intent intent = getIntent();
+        Game gameIterations = GameParameters.getGameIterations(intent);
+        np.setValue(gameIterations == null ? (Util.type ? 4 : 2) : gameIterations.getLength());
     }
     
     private void setUpGameTypeSpinner() {

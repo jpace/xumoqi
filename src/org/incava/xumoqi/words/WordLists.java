@@ -31,7 +31,6 @@ import java.util.List;
 
 import org.incava.xumoqi.R;
 import org.incava.xumoqi.android.ResourceUtil;
-import org.incava.xumoqi.util.Timer;
 
 import android.content.res.Resources;
 import android.util.SparseArray;
@@ -91,12 +90,10 @@ public class WordLists {
     }
     
     private WordList readWordList(Resources resources, int length) {
-        Timer t = new Timer(this, "readWordList(" + length + ")");
         int twlRes = lenToRes.get(length);
         List<String> words = ResourceUtil.getTextResource(resources, twlRes);
         WordList wordList = new WordList(words);
         wordListsByLength.put(length, wordList);
-        t.done();
         return wordList;
     }
 }

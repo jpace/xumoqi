@@ -32,7 +32,6 @@ import java.util.List;
 import java.util.Random;
 
 import org.incava.xumoqi.android.ResourceUtil;
-import org.incava.xumoqi.util.Lo;
 import org.incava.xumoqi.util.Timer;
 import org.incava.xumoqi.words.GrepList;
 import org.incava.xumoqi.words.Word;
@@ -77,7 +76,6 @@ public class Letter implements QueryType {
         int len = str.length();
         while (true) {
             int chIdx = random.nextInt(len);
-            Lo.g("chIdx", chIdx);
             if (str.charAt(chIdx) != rootLetter) {
                 return chIdx;
             }

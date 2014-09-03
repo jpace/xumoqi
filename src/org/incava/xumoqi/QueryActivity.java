@@ -34,6 +34,7 @@ import org.incava.xumoqi.gui.EnterableEditText;
 import org.incava.xumoqi.query.Query;
 import org.incava.xumoqi.util.Lo;
 import org.incava.xumoqi.util.Timer;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -48,6 +49,7 @@ import android.widget.TextView;
 public class QueryActivity extends Activity implements Enterable {
     private Timer timer = null;
     private Game gameIterations = null;
+    private long startTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,30 +66,32 @@ public class QueryActivity extends Activity implements Enterable {
         setQueryText(query);
         
         timer = new Timer(this, "onCreate");
+        startTime = System.currentTimeMillis();
     }
-    
+
+    /*
     protected void onStart() {
-        // timer.done("onStart");
-        // Lo.time("onStart:currTime");
+        timer.done("onStart");
+        Lo.time("onStart:currTime");
         super.onStart();
     }
+    */
     
     public void onEnter() {
         onClickNext(null);
     }
 
     public void onClickNext(View view) {
-        long duration = timer.getDuration();
+        long endTime = System.currentTimeMillis();
+        long duration = endTime - startTime;
         
-        // Lo.g("duration", duration);
+        Lo.g("startTime", startTime);
+        Lo.g("endTime  ", endTime);
+        Lo.g("duration", duration);
         
         timer.done("onClickNext");
 
-        // Lo.time("onClickNext:currTime");
-
         Intent intent = new Intent(this, StatusActivity.class);
-
-        // Lo.time("onClickNext:currTime2");
 
         GameParameters.saveDuration(intent, duration);
 
@@ -102,6 +106,7 @@ public class QueryActivity extends Activity implements Enterable {
     
     public void onClickRestart(View view) {
         Intent intent = new Intent(this, MainActivity.class);
+        GameParameters.saveGameIterations(intent, gameIterations);
         startActivity(intent);
     }
 
