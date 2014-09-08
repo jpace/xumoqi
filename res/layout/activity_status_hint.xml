@@ -652,5 +652,4 @@
         android:onClick="onClickNext"
         android:text="@string/next"
         android:textSize="18sp" />
-
 </RelativeLayout>

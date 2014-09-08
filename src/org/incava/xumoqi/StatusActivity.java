@@ -49,6 +49,7 @@ public class StatusActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status);
+        // setContentView(R.layout.activity_status_hint);
         
         Intent intent = getIntent();
         gameIterations = GameParameters.getGameIterations(intent);
