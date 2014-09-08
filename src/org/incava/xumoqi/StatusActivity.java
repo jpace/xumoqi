@@ -43,7 +43,7 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 
 public class StatusActivity extends Activity {
-    private Game gameIterations = null;
+    private Game game = null;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +52,9 @@ public class StatusActivity extends Activity {
         // setContentView(R.layout.activity_status_hint);
         
         Intent intent = getIntent();
-        gameIterations = GameParameters.getGameIterations(intent);
+        game = GameParameters.getGame(intent);
         
-        Query query = gameIterations.getCurrentQuery();
+        Query query = game.getCurrentQuery();
         String inputText = GameParameters.getInputText(intent);
         
         long duration = GameParameters.getDuration(intent);
@@ -91,7 +91,7 @@ public class StatusActivity extends Activity {
     }
 
     private void nextActivity(Intent intent) {
-        GameParameters.saveGameIterations(intent, gameIterations);
+        GameParameters.saveGame(intent, game);
         startActivity(intent);
     }
 }

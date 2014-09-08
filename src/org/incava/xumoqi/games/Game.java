@@ -106,25 +106,6 @@ public class Game implements Parcelable, Inspectable {
         return gameType.getWordLength();
     }
     
-    private void addQueryIndex(Query query) {
-        int queryIndex = queries.indexOf(query);
-        queryIndices.add(queryIndex);
-    }
-    
-    private Query getNewQuery(Resources resources) {
-        Query newQuery = gameType.createQuery(resources);
-        queries.addQuery(newQuery);
-        addQueryIndex(newQuery);
-        return newQuery;
-    }
-
-    private Query getRandomQuery() {
-        Query randomQuery = queries.getRandomQuery();
-        int qIdx = queries.indexOf(randomQuery);
-        List<Integer> lastThree = ListUtil.getEndOfList(queryIndices, 3);
-        return lastThree.contains(qIdx) ? null : randomQuery;
-    }
-    
     public String toString() {
         return "gameType: " + gameType;
     }
@@ -143,5 +124,24 @@ public class Game implements Parcelable, Inspectable {
         parcel.writeParcelable(gameType, flags);
         parcel.writeParcelable(queries, flags);
         ParcelUtil.writeIntegerList(parcel, queryIndices);
+    }
+    
+    private void addQueryIndex(Query query) {
+        int queryIndex = queries.indexOf(query);
+        queryIndices.add(queryIndex);
+    }
+    
+    private Query getNewQuery(Resources resources) {
+        Query newQuery = gameType.createQuery(resources);
+        queries.addQuery(newQuery);
+        addQueryIndex(newQuery);
+        return newQuery;
+    }
+
+    private Query getRandomQuery() {
+        Query randomQuery = queries.getRandomQuery();
+        int qIdx = queries.indexOf(randomQuery);
+        List<Integer> lastThree = ListUtil.getEndOfList(queryIndices, 3);
+        return lastThree.contains(qIdx) ? null : randomQuery;
     }
 }

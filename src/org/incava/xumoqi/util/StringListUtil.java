@@ -37,7 +37,8 @@ public class StringListUtil {
         ArrayList<String> matching = new ArrayList<String>();
         Pattern pattern = Pattern.compile(pat);
         for (String str : list) {
-            if (pattern.matcher(str).matches()) {
+            Matcher matcher = pattern.matcher(str);
+            if (matcher.matches()) {
                 matching.add(str);
             }
         }

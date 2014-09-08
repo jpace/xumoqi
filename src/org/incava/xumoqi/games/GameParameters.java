@@ -31,15 +31,15 @@ import android.content.Intent;
 
 public class GameParameters {
     private final static String DURATION = "Duration";
-    private final static String GAME_ITERATIONS = "GameIterations";
+    private final static String GAME = "Game";
     private final static String INPUT_TEXT = "InputText";
 
-    public static Game getGameIterations(Intent intent) {
-        return intent.getParcelableExtra(GAME_ITERATIONS);
+    public static Game getGame(Intent intent) {
+        return intent.getParcelableExtra(GAME);
     }
 
-    public static void saveGameIterations(Intent intent, Game gameIterations) {
-        intent.putExtra(GAME_ITERATIONS, gameIterations);
+    public static void saveGame(Intent intent, Game gameIterations) {
+        intent.putExtra(GAME, gameIterations);
     }
 
     public static long getDuration(Intent intent) {

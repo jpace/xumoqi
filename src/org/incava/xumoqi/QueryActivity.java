@@ -48,7 +48,7 @@ import android.widget.TextView;
 
 public class QueryActivity extends Activity implements Enterable {
     private Timer timer = null;
-    private Game gameIterations = null;
+    private Game game = null;
     private long startTime;
 
     @Override
@@ -57,10 +57,10 @@ public class QueryActivity extends Activity implements Enterable {
         setContentView(R.layout.activity_query);
         
         Intent intent = getIntent();
-        gameIterations = GameParameters.getGameIterations(intent);
+        game = GameParameters.getGame(intent);
 
         Resources resources = getResources();
-        Query query = gameIterations.getNextQuery(resources);
+        Query query = game.getNextQuery(resources);
 
         EnterableEditText.setupEditText(this, this, getInputTextView());
         setQueryText(query);
@@ -99,23 +99,15 @@ public class QueryActivity extends Activity implements Enterable {
         String inputText = et.getText().toString();
 
         GameParameters.saveInputText(intent, inputText);
-        GameParameters.saveGameIterations(intent, gameIterations);
+        GameParameters.saveGame(intent, game);
         
         startActivity(intent);
     }
     
     public void onClickRestart(View view) {
         Intent intent = new Intent(this, MainActivity.class);
-        GameParameters.saveGameIterations(intent, gameIterations);
+        GameParameters.saveGame(intent, game);
         startActivity(intent);
-    }
-
-    private TextView getQueryTextView() {
-        return (TextView)findViewById(R.id.queryText);
-    }
-    
-    private EditText getInputTextView() {
-        return (EditText)findViewById(R.id.queryInput);
     }
 
     @Override
@@ -140,6 +132,14 @@ public class QueryActivity extends Activity implements Enterable {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private TextView getQueryTextView() {
+        return (TextView)findViewById(R.id.queryText);
+    }
+    
+    private EditText getInputTextView() {
+        return (EditText)findViewById(R.id.queryInput);
     }
 
     private void setQueryText(Query query) {

@@ -30,7 +30,6 @@ package org.incava.xumoqi;
 import org.incava.xumoqi.games.Game;
 import org.incava.xumoqi.games.GameParameters;
 import org.incava.xumoqi.games.GameType;
-import org.incava.xumoqi.util.Lo;
 import org.incava.xumoqi.util.Util;
 
 import android.os.Bundle;
@@ -59,6 +58,31 @@ public class MainActivity extends Activity {
         return true;
     }
     
+    public void onClickStart(View view) {
+        Intent intent = new Intent(this, QueryActivity.class);
+        
+        GameType gameType = getGameType();
+        Game game = new Game(gameType); 
+        GameParameters.saveGame(intent, game);
+        
+        startActivity(intent);
+    }
+    
+    public void onClickHelp(View view) {
+        Intent intent = new Intent(this, HelpActivity.class);
+        startActivity(intent);
+    }
+    
+    private GameType getGameType() {
+        NumberPicker np = getNumberPicker();
+        int wordLength = np.getValue();
+        
+        Spinner gameTypeSpinner = getGameTypeSpinner();
+        String gameTypeStr = gameTypeSpinner.getSelectedItem().toString();
+        
+        return new GameType(wordLength, gameTypeStr);
+    }
+    
     private NumberPicker getNumberPicker() {
         return (NumberPicker)findViewById(R.id.wordLengthNumberPicker);
     }
@@ -74,8 +98,8 @@ public class MainActivity extends Activity {
         np.setMinValue(2);
 
         Intent intent = getIntent();
-        Game gameIterations = GameParameters.getGameIterations(intent);
-        np.setValue(gameIterations == null ? (Util.type ? 4 : 2) : gameIterations.getLength());
+        Game game = GameParameters.getGame(intent);
+        np.setValue(game == null ? (Util.type ? 4 : 2) : game.getLength());
     }
     
     private void setUpGameTypeSpinner() {
@@ -88,25 +112,5 @@ public class MainActivity extends Activity {
         // 2: random blank; 4: q-no-u
         int current = Util.type ? 2 : 1;
         gameTypeSpinner.setSelection(current);
-    }
-    
-    public void onClickStart(View view) {
-        Intent intent = new Intent(this, QueryActivity.class);
-        NumberPicker np = getNumberPicker();
-        int wordLength = np.getValue();
-        
-        Spinner gameTypeSpinner = getGameTypeSpinner();
-        String gameTypeStr = gameTypeSpinner.getSelectedItem().toString();
-        
-        GameType gameType = new GameType(wordLength, gameTypeStr);
-        Game gameIterations = new Game(gameType); 
-        GameParameters.saveGameIterations(intent, gameIterations);
-        
-        startActivity(intent);
-    }
-    
-    public void onClickHelp(View view) {
-        Intent intent = new Intent(this, HelpActivity.class);
-        startActivity(intent);
     }
 }
