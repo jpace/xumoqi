@@ -57,14 +57,14 @@ public class Query implements Parcelable, Inspectable {
     private final ArrayList<Results> results;
     private ArrayList<String> matching = null;
 
-    public Query(final QueryType game) {
-        this.word = game.getQueryWord();
+    public Query(final QueryType queryType) {
+        this.word = queryType.getQueryWord();
         this.results = new ArrayList<Results>();
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 // Timer t = new Timer(this, "init");
-                Query.this.matching = game.getMatching(Query.this.word);
+                Query.this.matching = queryType.getMatching(Query.this.word);
                 // t.done();
             }
         });
