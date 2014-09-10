@@ -33,7 +33,7 @@
         android:typeface="monospace"
         android:textSize="32sp" />
 
-    <org.incava.xumoqi.MultiLineSendEditText
+    <org.incava.xumoqi.android.MultiLineSendEditText
         android:id="@+id/queryInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
