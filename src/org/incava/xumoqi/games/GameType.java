@@ -26,9 +26,13 @@
 */
 package org.incava.xumoqi.games;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.incava.xumoqi.query.Query;
 import org.incava.xumoqi.querytype.QueryType;
 import org.incava.xumoqi.querytype.QueryTypeFactory;
+import org.incava.xumoqi.util.ListUtil;
 
 import android.content.res.Resources;
 import android.os.Parcel;
@@ -46,27 +50,28 @@ public class GameType implements Parcelable {
     };
 
     private final int wordLength;
-    private final String gameType;
+    private final List<String> queryTypes;
     
     public GameType(int wordLength, String gameType) {
         this.wordLength = wordLength;
-        this.gameType = gameType;
+        this.queryTypes = new ArrayList<String>();
+        queryTypes.add(gameType);
     }
 
     private GameType(Parcel parcel) {
-        this(parcel.readInt(), parcel.readString());
+        this.wordLength = parcel.readInt();
+        this.queryTypes = new ArrayList<String>();
+        parcel.readStringList(queryTypes);
     }
     
     public Query createQuery(Resources resources) {
-        QueryType queryType = QueryTypeFactory.createQueryType(resources, gameType, wordLength);
+        String queryTypeStr = ListUtil.getRandomElement(queryTypes);
+        QueryType queryType = QueryTypeFactory.createQueryType(resources, queryTypeStr, wordLength);
         return new Query(queryType);
     }
+    
     public int getWordLength() {
         return wordLength;
-    }
-
-    public String getGameType() {
-        return gameType;
     }
 
     @Override
@@ -77,10 +82,10 @@ public class GameType implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeInt(wordLength);
-        parcel.writeString(gameType);
+        parcel.writeStringList(queryTypes);
     }
     
     public String toString() {
-        return "wordLength: " + wordLength + "; gameType: " + gameType;
+        return "wordLength: " + wordLength + "; queryTypes: " + queryTypes;
     }
 }
