@@ -31,8 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.incava.xumoqi.lang.Inspectable;
 import org.incava.xumoqi.querytype.QueryType;
-import org.incava.xumoqi.util.Inspectable;
 import org.incava.xumoqi.util.ListUtil;
 import org.incava.xumoqi.words.Word;
 

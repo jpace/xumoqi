@@ -27,7 +27,7 @@
 
 package org.incava.xumoqi.query;
 
-import org.incava.xumoqi.util.Inspectable;
+import org.incava.xumoqi.lang.Inspectable;
 
 import java.util.Arrays;
 import java.util.List;

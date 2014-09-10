@@ -30,6 +30,8 @@ package org.incava.xumoqi.util;
 import java.util.Arrays;
 import java.util.List;
 
+import org.incava.xumoqi.lang.Inspectable;
+
 import android.util.Log;
 
 public class Lo {

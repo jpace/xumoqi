@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.incava.xumoqi.gui.ParcelUtil;
+import org.incava.xumoqi.lang.Inspectable;
 import org.incava.xumoqi.query.Query;
 import org.incava.xumoqi.query.QueryList;
 import org.incava.xumoqi.util.*;

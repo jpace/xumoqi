@@ -33,13 +33,14 @@ import org.incava.xumoqi.words.WordList;
 
 public class RandomDots extends DottedWords {
     private static final Random random = new Random();
+    private final int index;
 
     public RandomDots(WordList wordList, int length) {
         super(wordList, length);
+        index = random.nextInt(length);
     }
     
     public int getBlankIndex() {
-        // handles only one dot for now
-        return random.nextInt(getLength());
+        return index;
     }
 }

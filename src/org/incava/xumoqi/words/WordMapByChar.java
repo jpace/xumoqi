@@ -32,9 +32,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.incava.xumoqi.lang.StringUtil;
 import org.incava.xumoqi.util.MapUtil;
 import org.incava.xumoqi.util.StringListUtil;
-import org.incava.xumoqi.util.StringUtil;
 
 public class WordMapByChar {
     private final Map<Character, ArrayList<String>> byChar;

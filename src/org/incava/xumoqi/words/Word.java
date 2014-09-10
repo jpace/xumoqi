@@ -27,7 +27,7 @@
 
 package org.incava.xumoqi.words;
 
-import org.incava.xumoqi.util.StringUtil;
+import org.incava.xumoqi.lang.StringUtil;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -89,7 +89,7 @@ public class Word implements Parcelable {
     }
     
     public boolean equals(Word other) {
-        return other.str.equals(this.str);
+        return other != null && other.str.equals(this.str);
     }
     
     public String asQuery() {

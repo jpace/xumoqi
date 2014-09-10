@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.incava.xumoqi.lang.Inspectable;
+
 public class ListUtil {
     private static final Random random = new Random();
     

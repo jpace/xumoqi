@@ -37,16 +37,32 @@ import org.incava.xumoqi.words.Word;
 import android.content.res.Resources;
 
 public class CustomQuery implements QueryType {
+    private final String pattern;
+    private final String hint;
+    private final List<String> words;
+    
     public CustomQuery(Resources resources, int res) {
         List<String> lines = ResourceUtil.getTextResource(resources, res);
-        Lo.g("lines", lines);
+        String type = getFieldValue(lines, 0);
+        Lo.g("type", type);
+        this.pattern = getFieldValue(lines, 1);
+        Lo.g("pattern", pattern);
+        this.hint = getFieldValue(lines, 2);
+        Lo.g("hint", hint);
+        this.words = lines.subList(3, lines.size());
+        Lo.g("words", words);
     }
 
     public Word getQueryWord() {
-        return null;
+        int index = pattern.indexOf('.');
+        return new Word(pattern, index);
     }
 
     public ArrayList<String> getMatching(Word queryWord) {
-        return null;
+        return new ArrayList<String>(words);
+    }
+    
+    private String getFieldValue(List<String> lines, int lineNum) {
+        return lines.get(lineNum).replaceFirst(".*:\\s*", "");
     }
 }

@@ -81,6 +81,7 @@ public class MainActivity extends Activity {
         String gameTypeStr = gameTypeSpinner.getSelectedItem().toString();
         
         // @TODO gameTypeStr = "BA<blank>";
+        gameTypeStr = "BA<blank>";
         
         return new GameType(wordLength, gameTypeStr);
     }
