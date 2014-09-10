@@ -39,4 +39,16 @@ public class StringUtil {
         String[] words = str.split(delim);
         return Arrays.asList(words);
     }
+    
+    public static String repeat(String s, int num) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < num; ++i) {
+            sb.append(s);
+        }
+        return sb.toString();
+    }
+    
+    public static String replaceAt(String str, int idx, char ch) {
+        return str.substring(0, idx) + ch + str.substring(idx + 1, str.length());
+    }
 }

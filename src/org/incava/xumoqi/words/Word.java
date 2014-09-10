@@ -28,7 +28,6 @@
 package org.incava.xumoqi.words;
 
 import org.incava.xumoqi.util.StringUtil;
-import org.incava.xumoqi.util.Util;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -102,7 +101,7 @@ public class Word implements Parcelable {
     }
     
     public final String sub(char ch) {
-        return dotIdx == NO_INDEX ? str : Util.replaceAt(str, dotIdx, ch);
+        return dotIdx == NO_INDEX ? str : StringUtil.replaceAt(str, dotIdx, ch);
     }
 
     @Override
