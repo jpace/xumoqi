@@ -34,7 +34,6 @@ import android.view.inputmethod.InputConnection;
 import android.widget.EditText;
 
 public class MultiLineSendEditText extends EditText {
-
     public MultiLineSendEditText(Context context) {
         super(context);
     }

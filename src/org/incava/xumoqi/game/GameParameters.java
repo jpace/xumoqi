@@ -25,7 +25,7 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi.games;
+package org.incava.xumoqi.game;
 
 import android.content.Intent;
 

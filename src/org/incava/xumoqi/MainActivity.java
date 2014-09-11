@@ -27,9 +27,9 @@
 
 package org.incava.xumoqi;
 
-import org.incava.xumoqi.games.Game;
-import org.incava.xumoqi.games.GameParameters;
-import org.incava.xumoqi.games.GameType;
+import org.incava.xumoqi.game.Game;
+import org.incava.xumoqi.game.GameParameters;
+import org.incava.xumoqi.game.GameType;
 import org.incava.xumoqi.util.Util;
 
 import android.os.Bundle;

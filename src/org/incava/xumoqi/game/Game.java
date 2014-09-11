@@ -25,12 +25,12 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi.games;
+package org.incava.xumoqi.game;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.incava.xumoqi.gui.ParcelUtil;
+import org.incava.xumoqi.android.ParcelUtil;
 import org.incava.xumoqi.lang.Inspectable;
 import org.incava.xumoqi.query.Query;
 import org.incava.xumoqi.query.QueryList;

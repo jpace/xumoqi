@@ -25,7 +25,7 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi.gui;
+package org.incava.xumoqi.android;
 
 public interface Enterable {
     public void onEnter();

@@ -24,7 +24,7 @@
   This program includes code from the GPL'd program:
   http://sourceforge.net/projects/scrabbledict/
 */
-package org.incava.xumoqi.games;
+package org.incava.xumoqi.game;
 
 import java.util.ArrayList;
 import java.util.List;

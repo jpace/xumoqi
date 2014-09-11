@@ -27,8 +27,8 @@
 
 package org.incava.xumoqi;
 
-import org.incava.xumoqi.games.Game;
-import org.incava.xumoqi.games.GameParameters;
+import org.incava.xumoqi.game.Game;
+import org.incava.xumoqi.game.GameParameters;
 import org.incava.xumoqi.gui.ResultsTable;
 import org.incava.xumoqi.query.Query;
 import org.incava.xumoqi.query.Results;
