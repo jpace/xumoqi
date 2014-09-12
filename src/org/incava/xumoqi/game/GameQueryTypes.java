@@ -27,42 +27,45 @@
 
 package org.incava.xumoqi.game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.incava.xumoqi.query.Query;
+import org.incava.xumoqi.querytype.QueryType;
+import org.incava.xumoqi.querytype.QueryTypeFactory;
+import org.incava.xumoqi.util.ListUtil;
 
 import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class GameType implements Parcelable {
-    public static final Parcelable.Creator<GameType> CREATOR = new Parcelable.Creator<GameType>() {
-        public GameType createFromParcel(Parcel parcel) {
-            return new GameType(parcel);
+public class GameQueryTypes implements Parcelable {
+    private final List<String> queryTypes;
+    
+    public static final Parcelable.Creator<GameQueryTypes> CREATOR = new Parcelable.Creator<GameQueryTypes>() {
+        public GameQueryTypes createFromParcel(Parcel parcel) {
+            return new GameQueryTypes(parcel);
         }
         
-        public GameType[] newArray(int size) {
-            return new GameType[size];
+        public GameQueryTypes[] newArray(int size) {
+            return new GameQueryTypes[size];
         }
     };
 
-    private final int wordLength;
-    private final GameQueryTypes queryTypes;
-    
-    public GameType(int wordLength, String gameType) {
-        this.wordLength = wordLength;
-        this.queryTypes = new GameQueryTypes(gameType);
+    public GameQueryTypes(String gameType) {
+        this.queryTypes = new ArrayList<String>();
+        queryTypes.add(gameType);
     }
 
-    private GameType(Parcel parcel) {
-        this.wordLength = parcel.readInt();
-        this.queryTypes = parcel.readParcelable(GameQueryTypes.class.getClassLoader());
+    private GameQueryTypes(Parcel parcel) {
+        this.queryTypes = new ArrayList<String>();
+        parcel.readStringList(queryTypes);
     }
     
-    public Query createQuery(Resources resources) {
-        return queryTypes.createQuery(resources, wordLength);
-    }
-    
-    public int getWordLength() {
-        return wordLength;
+    public Query createQuery(Resources resources, int wordLength) {
+        String queryTypeStr = ListUtil.getRandomElement(queryTypes);
+        QueryType queryType = QueryTypeFactory.createQueryType(resources, queryTypeStr, wordLength);
+        return new Query(queryType);
     }
 
     @Override
@@ -72,11 +75,10 @@ public class GameType implements Parcelable {
     
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeInt(wordLength);
-        parcel.writeParcelable(queryTypes, flags);
+        parcel.writeStringList(queryTypes);
     }
     
     public String toString() {
-        return "wordLength: " + wordLength + "; queryTypes: " + queryTypes;
+        return queryTypes.toString();
     }
 }
