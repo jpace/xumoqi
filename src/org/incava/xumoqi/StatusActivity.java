@@ -48,8 +48,6 @@ public class StatusActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_status);
-        // setContentView(R.layout.activity_status_hint);
         
         Intent intent = getIntent();
         game = GameParameters.getGame(intent);
@@ -57,6 +55,11 @@ public class StatusActivity extends Activity {
         Query query = game.getCurrentQuery();
         String inputText = GameParameters.getInputText(intent);
         
+        String hint = query.getHint();
+        Lo.g("hint", hint);
+
+        setContentView(hint == null ? R.layout.activity_status : R.layout.activity_status_hint);
+
         long duration = GameParameters.getDuration(intent);
         Lo.g("duration", duration);
         
@@ -67,7 +70,7 @@ public class StatusActivity extends Activity {
         
         TextView tv = (TextView)findViewById(R.id.hintTextView);
         if (tv != null) {
-            tv.setText("here's a new hint!");
+            tv.setText(hint);
         }
 
         rt.set(results);

@@ -57,6 +57,10 @@ public class GameQueryTypes implements Parcelable {
         queryTypes.add(gameType);
     }
 
+    public GameQueryTypes(List<String> queryTypes) {
+        this.queryTypes = queryTypes;
+    }
+
     private GameQueryTypes(Parcel parcel) {
         this.queryTypes = new ArrayList<String>();
         parcel.readStringList(queryTypes);

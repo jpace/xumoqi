@@ -62,6 +62,10 @@ public class CustomQuery implements QueryType {
         return new ArrayList<String>(words);
     }
     
+    public String getHint() {
+        return hint;
+    }
+    
     private String getFieldValue(List<String> lines, int lineNum) {
         return lines.get(lineNum).replaceFirst(".*:\\s*", "");
     }

@@ -1,6 +1,6 @@
 type: end-blank
 pattern: ba.
-hint: I don't know yet
+hint: bards nag any math pals
 baa
 bad
 bag

@@ -41,4 +41,9 @@ public interface QueryType {
      * Returns words (as strings) that match the given <code>queryWord</code>.
      */
     public ArrayList<String> getMatching(Word queryWord);
+    
+    /**
+     * Returns a hint for this query type, or null if none.
+     */
+    public String getHint();
 }

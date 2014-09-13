@@ -49,7 +49,7 @@ public class GameType implements Parcelable {
     
     public GameType(int wordLength, String gameType) {
         this.wordLength = wordLength;
-        this.queryTypes = new GameQueryTypes(gameType);
+        this.queryTypes = GameQueryTypesFactory.create(gameType);
     }
 
     private GameType(Parcel parcel) {

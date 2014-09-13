@@ -25,39 +25,23 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi.querytype;
+package org.incava.xumoqi.game;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import org.incava.xumoqi.words.Word;
-import org.incava.xumoqi.words.WordList;
+import org.incava.xumoqi.util.Lo;
 
-public abstract class DottedWords implements QueryType {
-    private final WordList wordList;
-    private final int length;
-
-    public DottedWords(WordList wordList, int length) {
-        this.wordList = wordList;
-        this.length = length;
-    }
-    
-    public abstract int getBlankIndex();
-    
-    public Word getQueryWord() {
-        String word = wordList.getRandomWord();
-        int dotIdx = getBlankIndex();
-        return new Word(word, dotIdx);
-    }
-    
-    public ArrayList<String> getMatching(Word queryWord) {
-        return wordList.getMatching(queryWord);
-    }
-    
-    public String getHint() {
-        return null;
-    }
-
-    protected int getLength() {
-        return length;
+public class GameQueryTypesFactory {
+    public static GameQueryTypes create(String gameType) {
+        Lo.g("gameType", gameType);
+        if (gameType.equals("Tutorial")) {
+            List<String> queryTypes = new ArrayList<String>();
+            queryTypes.add("BA<blank>");
+            return new GameQueryTypes(queryTypes);
+        }
+        else {
+            return new GameQueryTypes(gameType);
+        }
     }
 }

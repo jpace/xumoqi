@@ -71,6 +71,10 @@ public class Letter implements QueryType {
         t.done();
         return matching;
     }
+    
+    public String getHint() {
+        return null;
+    }
   
     private int getBlankIndex(String str) {
         int len = str.length();

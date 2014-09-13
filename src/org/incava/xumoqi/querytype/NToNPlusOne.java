@@ -75,6 +75,10 @@ public class NToNPlusOne implements QueryType {
         return matching;
     }
     
+    public String getHint() {
+        return null;
+    }
+
     private ArrayList<String> getMatchingForWord(String str, int dotIndex) {
         Word word = new Word(str, dotIndex);
         ArrayList<String> matching = toWordList.getMatching(word);

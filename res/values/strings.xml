@@ -20,8 +20,9 @@
         <item>N-to-make-N+1</item>
         <item>Q without U</item>
         <item>Containing \'Z\'</item>
+        <item>Tutorial</item>
         <item>&gt; 60% vowels</item>
-    </string-array>
+        </string-array>
     <string-array name="free_game_types">
         <item>Starting with blank</item>
         <item>Ending with blank</item>

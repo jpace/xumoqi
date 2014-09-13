@@ -34,6 +34,7 @@ import java.util.Random;
 import org.incava.xumoqi.lang.Inspectable;
 import org.incava.xumoqi.querytype.QueryType;
 import org.incava.xumoqi.util.ListUtil;
+import org.incava.xumoqi.util.Lo;
 import org.incava.xumoqi.words.Word;
 
 import android.os.Parcel;
@@ -56,9 +57,12 @@ public class Query implements Parcelable, Inspectable {
     private final Word word;
     private final ArrayList<Results> results;
     private ArrayList<String> matching = null;
+    private final String hint;
 
     public Query(final QueryType queryType) {
+        Lo.g("queryType", queryType);
         this.word = queryType.getQueryWord();
+        this.hint = queryType.getHint();
         this.results = new ArrayList<Results>();
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -77,6 +81,7 @@ public class Query implements Parcelable, Inspectable {
         parcel.readList(this.results, Results.class.getClassLoader());
         this.matching = new ArrayList<String>();
         parcel.readStringList(matching);
+        this.hint = parcel.readString();
     }
     
     public ArrayList<String> getMatching() {
@@ -103,13 +108,6 @@ public class Query implements Parcelable, Inspectable {
         return results;
     }
 
-    private void addResults(Results res) {
-        this.results.add(res);
-        while (this.results.size() >= MAX_RESULTS) {
-            this.results.remove(0);
-        }
-    }
-    
     public String toString() {
         return "word: " + word + "; results: " + results;
     }
@@ -136,6 +134,10 @@ public class Query implements Parcelable, Inspectable {
         List<Integer> recent = ListUtil.getEndOfList(scores, maxRecent);
         return recent.get(random.nextInt(recent.size()));
     }
+    
+    public String getHint() {
+        return hint;
+    }
 
     @Override
     public int describeContents() {
@@ -148,5 +150,13 @@ public class Query implements Parcelable, Inspectable {
         parcel.writeList(results);
         // save it after it's been read:
         parcel.writeStringList(getMatching());
+        parcel.writeString(hint);
+    }
+    
+    private void addResults(Results res) {
+        this.results.add(res);
+        while (this.results.size() >= MAX_RESULTS) {
+            this.results.remove(0);
+        }
     }
 }

@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.incava.xumoqi.R;
-import org.incava.xumoqi.util.Lo;
 import org.incava.xumoqi.words.WordList;
 import org.incava.xumoqi.words.WordLists;
 
@@ -61,8 +60,7 @@ public class QueryTypeFactory {
             return new CustomQuery(resources, R.raw.ba_);
         }
         else {
-            Lo.g("queryTypeStr", queryTypeStr);
-            return null;
+            throw new RuntimeException("Not handled: queryTypeStr: '" + queryTypeStr + "'");
         }
     }
     
