@@ -24,10 +24,10 @@
         <item>&gt; 60% vowels</item>
         </string-array>
     <string-array name="free_game_types">
-        <item>Starting with blank</item>
-        <item>Ending with blank</item>
         <item>Random blank</item>
-    </string-array>
+        <item>N-to-make-N+1</item>
+        <item>Q without U</item>
+        </string-array>
 
     <string name="title_activity_status">Results</string>
     <string name="title_activity_help">Help</string>
@@ -37,13 +37,14 @@
 \n
 Game types are:\n
 <ul>
-    <li>Starting with blank(s): this displays words with a leading missing letter, represented as a blank.</li>\n
-    <li>Ending with blank(s): this displays words with a trailing missing letter.</li>\n
-    <li>Random blank(s): this displays words with a random letter missing.</li>\n
+    <li>Random blank(s): this displays words with a random letter missing.
+Enter the letters that make valid words, with each letter separated by a blank or a comma.</li>\n
+    <li>N to make N+1: this displays a valid word of length N, which can be expanded with letters
+at the beginning or end, to make other valid words of length N+1. Enter the full words that
+match the pattern, with each word separated by a blank or a comma.</li>\n
+    <li>Q without U: this displays words which have a Q without a following U.
+Enter the letters that make valid words, with each letter separated by a blank or a comma.</li>\n
 </ul>
-\n
-For each game type, the user enters either the entire word, or only the missing letters.
-Letters and words can be separated by commas and/or spaces.\n
 \n
 This version of Scrabble Tutor uses the Scrabble Tournament Word List (TWL), the dictionary used in Canada,
 Thailand, and the United States.\n

@@ -94,8 +94,10 @@ public class QueryList implements Parcelable, Inspectable {
         // This is sorted so lower scores are processed first,
         // thus being more likely to be "matched" earlier. 
         TreeMap<Integer, ArrayList<Query>> byScore = getByScore();
+        Lo.g("byScore", byScore);
         for (Integer score : byScore.keySet()) {
             int rnd = random.nextInt(Results.MAX_SCORE);
+            Lo.g("rnd", rnd);
             if (rnd > score) {
                 ArrayList<Query> forScore = byScore.get(score);
                 return ListUtil.getRandomElement(forScore);

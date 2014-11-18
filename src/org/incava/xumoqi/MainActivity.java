@@ -93,14 +93,14 @@ public class MainActivity extends Activity {
     }
     
     private void setUpNumberPicker() {
-        int max = Util.type ? 14 : 3;
+        int max = Util.type ? 14 : 5;
         NumberPicker np = getNumberPicker();
         np.setMaxValue(max);
         np.setMinValue(2);
 
         Intent intent = getIntent();
         Game game = GameParameters.getGame(intent);
-        np.setValue(game == null ? (Util.type ? 4 : 2) : game.getLength());
+        np.setValue(game == null ? (Util.type ? 4 : 0) : game.getLength());
     }
     
     private void setUpGameTypeSpinner() {
@@ -111,7 +111,7 @@ public class MainActivity extends Activity {
         gameTypeSpinner.setAdapter(adapter);
         
         // 2: random blank; 4: q-no-u
-        int current = Util.type ? 2 : 1;
+        int current = Util.type ? 2 : 0;
         gameTypeSpinner.setSelection(current);
     }
 }
