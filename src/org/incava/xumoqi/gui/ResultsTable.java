@@ -51,13 +51,17 @@ public class ResultsTable {
     }
 
     public void set(Results matches) {
+        setCell(0, 0, "correct", "22aa22");
+        setCell(0, 1, "invalid", "eead0e");
+        setCell(0, 2, "missed",  "aa2222");
+        
         setCells(0, matches.getCorrect(), "22aa22");    // green
         setCells(1, matches.getInvalid(), "eead0e");    // orange (yellow is too light)
         setCells(2, matches.getMissed(),  "aa2222");    // red
     }
     
     public void setCells(int column, Set<String> words, String color) {
-        int row = 0;
+        int row = 1;
         for (String word : words) {
             setCell(row, column, word, color);
             ++row;
