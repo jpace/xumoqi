@@ -98,6 +98,18 @@ public class Results implements Parcelable, Inspectable {
         return invalid;
     }
 
+    public int getCorrectCount() {
+        return correct.size();
+    }
+
+    public int getMissedCount() {
+        return missed.size();
+    }
+
+    public int getInvalidCount() {
+        return invalid.size();
+    }
+
     public String toString() {
         return "correct: " + correct + "; invalid: " + invalid + "; missed: " + missed;
     }

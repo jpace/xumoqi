@@ -37,9 +37,11 @@ import org.incava.xumoqi.util.Lo;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 public class StatusActivity extends Activity {
@@ -48,6 +50,8 @@ public class StatusActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        Log.i("STATUS", "StatusActivity#onCreate");
         
         Intent intent = getIntent();
         game = GameParameters.getGame(intent);
@@ -64,9 +68,14 @@ public class StatusActivity extends Activity {
         Lo.g("duration", duration);
         
         Results results = query.addResults(inputText);
+        
+        // only the new/old status activity (without hints) has the scores table: 
+        if (hint == null) {
+            setScoresTable(results);
+        }
 
-        TableLayout tableLayout = (TableLayout)findViewById(R.id.statusTable);
-        ResultsTable rt = new ResultsTable(this, tableLayout);
+        TableLayout statusTableLayout = (TableLayout)findViewById(R.id.statusTable);
+        ResultsTable rt = new ResultsTable(this, statusTableLayout);
         
         TextView tv = (TextView)findViewById(R.id.hintTextView);
         if (tv != null) {
@@ -96,5 +105,22 @@ public class StatusActivity extends Activity {
     private void nextActivity(Intent intent) {
         GameParameters.saveGame(intent, game);
         startActivity(intent);
+    }
+    
+    private void setScoresTable(Results results) {
+        TableLayout scoreTableLayout = (TableLayout)findViewById(R.id.scoreTable);
+        Lo.g("scoreTableLayout", scoreTableLayout);
+        
+        TableRow scoreRow = (TableRow)scoreTableLayout.getChildAt(0);
+        Lo.g("scoreRow", scoreRow);
+
+        setCell(scoreRow, 0, results.getCorrectCount());
+        setCell(scoreRow, 1, results.getInvalidCount());
+        setCell(scoreRow, 2, results.getMissedCount());
+    }
+    
+    private void setCell(TableRow row, int column, int value) {
+        TextView cell = (TextView)row.getChildAt(column++);
+        cell.setText(String.valueOf(value));
     }
 }

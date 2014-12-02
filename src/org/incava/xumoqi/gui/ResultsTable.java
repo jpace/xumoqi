@@ -41,6 +41,9 @@ import android.widget.TextView;
 
 public class ResultsTable {
     private final static int NUM_COLUMNS = 3;
+    private final static String CORRECT_COLOR = "22aa22";    // green
+    private final static String INCORRECT_COLOR = "eead0e";  // orange (yellow is too light)
+    private final static String MISSED_COLOR = "aa2222";     // red
 
     private final Activity activity;
     private final TableLayout tableLayout;
@@ -51,13 +54,13 @@ public class ResultsTable {
     }
 
     public void set(Results matches) {
-        setCell(0, 0, "correct", "22aa22");
-        setCell(0, 1, "invalid", "eead0e");
-        setCell(0, 2, "missed",  "aa2222");
+        setCell(0, 0, "correct", CORRECT_COLOR);
+        setCell(0, 1, "invalid", INCORRECT_COLOR);
+        setCell(0, 2, "missed",  MISSED_COLOR);
         
-        setCells(0, matches.getCorrect(), "22aa22");    // green
-        setCells(1, matches.getInvalid(), "eead0e");    // orange (yellow is too light)
-        setCells(2, matches.getMissed(),  "aa2222");    // red
+        setCells(0, matches.getCorrect(), CORRECT_COLOR);
+        setCells(1, matches.getInvalid(), INCORRECT_COLOR);
+        setCells(2, matches.getMissed(),  MISSED_COLOR);
     }
     
     public void setCells(int column, Set<String> words, String color) {

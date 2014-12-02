@@ -19,7 +19,7 @@
         <TableLayout
             android:id="@+id/statusTable"
             android:layout_width="fill_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:background="#fffdfd"
             android:stretchColumns="*"
@@ -633,7 +633,7 @@
         <TextView
             android:id="@+id/hintTextView"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:lines="3"
             android:orientation="vertical"
             android:text="Hint blah blah blah blah hint."

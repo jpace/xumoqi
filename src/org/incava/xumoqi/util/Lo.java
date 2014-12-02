@@ -57,6 +57,7 @@ public class Lo {
     }
 
     private static void gobj(String msg, Object obj) {
+        ;;
         StackTraceElement caller = getCaller();
         Log.i(StackTraceUtil.getFileLine(caller), StackTraceUtil.getClassMethod(caller) + " " + getMessage(msg, obj));
     }
