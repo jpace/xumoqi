@@ -27,18 +27,36 @@
 
 package org.incava.xumoqi.gui;
 
+import java.util.Locale;
+
+import android.graphics.Color;
+
 public enum StatusType {
-    CORRECT("#22aa22"),    // green
-    INCORRECT("#eead03"),  // orange (yellow is too light)
-    MISSED("#aa2222");     // red
+    CORRECT("#22aa22",   0),  // green
+    INCORRECT("#eead03", 1),  // orange (yellow is too light)
+    MISSED("#aa2222",    2);  // red
     
     private final String color;
+    private final int column;
     
-    StatusType(String color) {
+    StatusType(String color, int column) {
         this.color = color;
+        this.column = column;
     }
     
-    public String getColor() {
+    public String getColorString() {
         return color;
+    }
+    
+    public int getColor() {
+        return Color.parseColor(color);
+    }
+    
+    public int getColumn() {
+        return column;
+    }
+    
+    public String toString() {
+        return name().toLowerCase(Locale.getDefault());
     }
 }

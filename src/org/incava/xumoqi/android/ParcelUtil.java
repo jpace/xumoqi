@@ -27,7 +27,9 @@
 
 package org.incava.xumoqi.android;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.TreeSet;
 
 import org.incava.xumoqi.util.ListUtil;
 
@@ -42,5 +44,15 @@ public class ParcelUtil {
     public static void writeIntegerList(Parcel parcel, List<Integer> list) {
         int[] ary = ListUtil.toIntArray(list);
         parcel.writeIntArray(ary);
+    }
+    
+    public static TreeSet<String> readStringTreeSet(Parcel parcel) {
+        String[] strAry = parcel.createStringArray();
+        List<String> list = Arrays.asList(strAry);
+        return new TreeSet<String>(list);
+    }
+
+    public static void writeStringTreeSet(Parcel parcel, TreeSet<String> set) {
+        parcel.writeStringArray(set.toArray(new String[set.size()]));
     }
 }

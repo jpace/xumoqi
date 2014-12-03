@@ -50,7 +50,9 @@ public class Response implements Parcelable {
     private final List<String> strs;
 
     public Response(Word queryWord, String str) {
-        strs = StringUtil.split(str.trim(), "[\\s,]+");
+        // an empty string would result in [ "" ], which we need as []:
+        String trimmed = str.trim();
+        strs = trimmed.length() == 0 ? new ArrayList<String>() : StringUtil.split(trimmed, "[\\s,]+");
         updateWithFullWords(queryWord);
     }
     

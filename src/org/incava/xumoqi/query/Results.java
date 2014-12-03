@@ -27,12 +27,13 @@
 
 package org.incava.xumoqi.query;
 
-import org.incava.xumoqi.lang.Inspectable;
-
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
+import org.incava.xumoqi.android.ParcelUtil;
+import org.incava.xumoqi.gui.StatusType;
+import org.incava.xumoqi.lang.Inspectable;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -58,7 +59,7 @@ public class Results implements Parcelable, Inspectable {
         correct = new TreeSet<String>();
         missed = new TreeSet<String>();
         invalid = new TreeSet<String>();
-
+        
         Set<String> all = new TreeSet<String>(matching);
         all.addAll(responseList);
 
@@ -69,9 +70,9 @@ public class Results implements Parcelable, Inspectable {
     }
     
     protected Results(Parcel parcel) {
-        correct = readStringSet(parcel);
-        missed = readStringSet(parcel);
-        invalid = readStringSet(parcel);
+        correct = ParcelUtil.readStringTreeSet(parcel);
+        missed = ParcelUtil.readStringTreeSet(parcel);
+        invalid = ParcelUtil.readStringTreeSet(parcel);
     }
     
     @Override
@@ -81,9 +82,9 @@ public class Results implements Parcelable, Inspectable {
     
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
-        writeStringSet(parcel, correct);
-        writeStringSet(parcel, missed);
-        writeStringSet(parcel, invalid);
+        ParcelUtil.writeStringTreeSet(parcel, correct);
+        ParcelUtil.writeStringTreeSet(parcel, missed);
+        ParcelUtil.writeStringTreeSet(parcel, invalid);
     }
     
     public TreeSet<String> getCorrect() {
@@ -97,17 +98,23 @@ public class Results implements Parcelable, Inspectable {
     public TreeSet<String> getInvalid() {
         return invalid;
     }
-
-    public int getCorrectCount() {
-        return correct.size();
+    
+    public TreeSet<String> getWords(StatusType statusType) {
+        switch (statusType) {
+        case CORRECT:
+            return correct;
+        case INCORRECT:
+            return invalid;
+        case MISSED:
+            return missed;
+        default:
+            throw new RuntimeException("invalid statusType: " + statusType);
+        }
     }
 
-    public int getMissedCount() {
-        return missed.size();
-    }
-
-    public int getInvalidCount() {
-        return invalid.size();
+    public int getCount(StatusType statusType) {
+        TreeSet<String> set = getWords(statusType);
+        return set.size();
     }
 
     public String toString() {
@@ -130,15 +137,5 @@ public class Results implements Parcelable, Inspectable {
         // @TODO refine this algorithm:
         int total = correct.size() + missed.size() + invalid.size();
         return (100 * correct.size()) / total; 
-    }
-
-    private void writeStringSet(Parcel parcel, TreeSet<String> set) {
-        parcel.writeStringArray(set.toArray(new String[set.size()]));
-    }
-    
-    private TreeSet<String> readStringSet(Parcel parcel) {
-        String[] strAry = parcel.createStringArray();
-        List<String> list = Arrays.asList(strAry);
-        return new TreeSet<String>(list);
     }
 }

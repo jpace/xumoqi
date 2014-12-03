@@ -36,27 +36,22 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 public class ScoreBar {
-
-    public ScoreBar() {
-        // TODO Auto-generated constructor stub
-    }
-    
     public static void setScoresTable(Results results, TableLayout tableLayout) {
         Lo.g("tableLayout", tableLayout);
         
         TableRow scoreRow = (TableRow)tableLayout.getChildAt(0);
         Lo.g("scoreRow", scoreRow);
 
-        int column = 0;
-        setCell(scoreRow, StatusType.CORRECT,   column++, results.getCorrectCount());
-        setCell(scoreRow, StatusType.INCORRECT, column++, results.getInvalidCount());
-        setCell(scoreRow, StatusType.MISSED,    column++, results.getMissedCount());
+        setCell(scoreRow, results, StatusType.CORRECT);
+        setCell(scoreRow, results, StatusType.INCORRECT);
+        setCell(scoreRow, results, StatusType.MISSED);
     }
     
-    private static void setCell(TableRow row, StatusType statusType, int column, int value) {
-        TextView cell = (TextView)row.getChildAt(column);
-        cell.setText(String.valueOf(value));
+    private static void setCell(TableRow row, Results results, StatusType statusType) {
+        TextView cell = (TextView)row.getChildAt(statusType.getColumn());
+        int count = results.getCount(statusType);
+        cell.setText(String.valueOf(count));
         cell.setTextColor(Color.WHITE);
-        cell.setBackgroundColor(Color.parseColor(statusType.getColor()));
+        cell.setBackgroundColor(statusType.getColor());
     }
 }

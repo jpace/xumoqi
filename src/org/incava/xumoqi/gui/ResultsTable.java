@@ -32,7 +32,6 @@ import java.util.Set;
 import org.incava.xumoqi.query.Results;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -40,9 +39,6 @@ import android.widget.TextView;
 
 public class ResultsTable {
     private final static int NUM_COLUMNS = 3;
-    public final static String CORRECT_COLOR = "#22aa22";    // green
-    public final static String INCORRECT_COLOR = "#eead0e";  // orange (yellow is too light)
-    public final static String MISSED_COLOR = "#aa2222";     // red
 
     private final Activity activity;
     private final TableLayout tableLayout;
@@ -52,35 +48,35 @@ public class ResultsTable {
         this.activity = activity;
     }
 
-    public void set(Results matches) {
-        setCell(0, 0, "correct", StatusType.CORRECT.getColor());
-        setCell(0, 1, "invalid", StatusType.INCORRECT.getColor());
-        setCell(0, 2, "missed",  StatusType.MISSED.getColor());
+    public void set(Results results) {
+        setCell(0, StatusType.CORRECT, "correct");
+        setCell(0, StatusType.INCORRECT, "invalid");
+        setCell(0, StatusType.MISSED, "missed");
         
-        setCells(0, matches.getCorrect(), StatusType.CORRECT.getColor());
-        setCells(1, matches.getInvalid(), StatusType.INCORRECT.getColor());
-        setCells(2, matches.getMissed(),  StatusType.MISSED.getColor());
+        setCells(results, StatusType.CORRECT);
+        setCells(results, StatusType.INCORRECT);
+        setCells(results, StatusType.MISSED);
     }
     
-    public void setCells(int column, Set<String> words, String color) {
+    public void setCells(Results results, StatusType statusType) {
+        Set<String> words = results.getWords(statusType);
         int row = 1;
         for (String word : words) {
-            setCell(row, column, word, color);
+            setCell(row, statusType, word);
             ++row;
         }
     }
     
-    private void setCell(int rowNum, int cellNum, String value, String color) {
+    private void setCell(int rowNum, StatusType statusType, String value) {
         TableRow row = (TableRow)tableLayout.getChildAt(rowNum);
         if (row == null) {
             row = createRow();
         }
         
-        TextView cell = (TextView)row.getChildAt(cellNum);
+        TextView cell = (TextView)row.getChildAt(statusType.getColumn());
 
         cell.setText(value);
-        // cell.setBackgroundColor(Color.parseColor("#" + color));
-        cell.setTextColor(Color.parseColor(color));
+        cell.setTextColor(statusType.getColor());
     }
     
     private TableRow createRow() {
