@@ -33,7 +33,6 @@ import org.incava.xumoqi.query.Results;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -41,9 +40,9 @@ import android.widget.TextView;
 
 public class ResultsTable {
     private final static int NUM_COLUMNS = 3;
-    private final static String CORRECT_COLOR = "22aa22";    // green
-    private final static String INCORRECT_COLOR = "eead0e";  // orange (yellow is too light)
-    private final static String MISSED_COLOR = "aa2222";     // red
+    public final static String CORRECT_COLOR = "#22aa22";    // green
+    public final static String INCORRECT_COLOR = "#eead0e";  // orange (yellow is too light)
+    public final static String MISSED_COLOR = "#aa2222";     // red
 
     private final Activity activity;
     private final TableLayout tableLayout;
@@ -54,13 +53,13 @@ public class ResultsTable {
     }
 
     public void set(Results matches) {
-        setCell(0, 0, "correct", CORRECT_COLOR);
-        setCell(0, 1, "invalid", INCORRECT_COLOR);
-        setCell(0, 2, "missed",  MISSED_COLOR);
+        setCell(0, 0, "correct", StatusType.CORRECT.getColor());
+        setCell(0, 1, "invalid", StatusType.INCORRECT.getColor());
+        setCell(0, 2, "missed",  StatusType.MISSED.getColor());
         
-        setCells(0, matches.getCorrect(), CORRECT_COLOR);
-        setCells(1, matches.getInvalid(), INCORRECT_COLOR);
-        setCells(2, matches.getMissed(),  MISSED_COLOR);
+        setCells(0, matches.getCorrect(), StatusType.CORRECT.getColor());
+        setCells(1, matches.getInvalid(), StatusType.INCORRECT.getColor());
+        setCells(2, matches.getMissed(),  StatusType.MISSED.getColor());
     }
     
     public void setCells(int column, Set<String> words, String color) {
@@ -81,7 +80,7 @@ public class ResultsTable {
 
         cell.setText(value);
         // cell.setBackgroundColor(Color.parseColor("#" + color));
-        cell.setTextColor(Color.parseColor("#" + color));
+        cell.setTextColor(Color.parseColor(color));
     }
     
     private TableRow createRow() {
@@ -99,17 +98,8 @@ public class ResultsTable {
     }
 
     private void createCells(TableRow row) {
-        TableRow.LayoutParams cellParams = new TableRow.LayoutParams(0, // has to be zero width to get the text centered (huh?)
-                                                                     ViewGroup.LayoutParams.WRAP_CONTENT,
-                                                                     1.0f);
-        cellParams.setMargins(1, 1, 1, 1);
-        
-        for (int i = 0; i < NUM_COLUMNS; ++i) {
-            TextView cell = new TextView(activity);
-            cell.requestLayout();
-            cell.setGravity(Gravity.CENTER);
-            cell.setTextSize(20);   // must match the hard-coded value in activity_status.xml
-            row.addView(cell, cellParams);
-        }
+        // must match the hard-coded value in activity_status.xml  
+        final int textSize = 20;
+        TableUtil.createCells(activity, row, NUM_COLUMNS, textSize);
     }
 }
