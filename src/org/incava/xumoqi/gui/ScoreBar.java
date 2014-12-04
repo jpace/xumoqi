@@ -28,19 +28,63 @@
 package org.incava.xumoqi.gui;
 
 import org.incava.xumoqi.query.Results;
+import org.incava.xumoqi.query.Score;
 import org.incava.xumoqi.util.Lo;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 public class ScoreBar {
-    public static void setScoresTable(Results results, TableLayout tableLayout) {
+    public static void setScoresTable(Results results, Activity activity, TableLayout tableLayout) {
         Lo.g("tableLayout", tableLayout);
         
         TableRow scoreRow = (TableRow)tableLayout.getChildAt(0);
         Lo.g("scoreRow", scoreRow);
+        
+        scoreRow.removeAllViews();
+
+        int nCorrect = results.getCount(StatusType.CORRECT);
+        int nIncorrect = results.getCount(StatusType.INCORRECT);
+        int nMissed = results.getCount(StatusType.MISSED);
+
+        int total = results.getCount();
+        Score correctScore = new Score(nCorrect, total);
+        Score incorrectScore = new Score(nIncorrect, total);
+        Score missedScore = new Score(nMissed, total);
+        
+        Lo.g("correctScore", correctScore);
+        Lo.g("incorrectScore", incorrectScore);
+        Lo.g("missedScore", missedScore);
+        
+        Lo.g("total", total);
+        
+        total = Math.max(3, total);
+        Lo.g("total", total);
+        
+        int nCells = 20;
+        createCells(activity, scoreRow, nCells);
+        for (int column = 0; column < nCells; ++column) {
+            setCell(scoreRow, column, Color.BLACK, "");
+        }
+        
+        double correctPct = correctScore.asPercentage();
+        double incorrectPct = incorrectScore.asPercentage();
+        double missedPct = missedScore.asPercentage();;
+        
+        Lo.g("correctPct", correctPct);
+        Lo.g("incorrectPct", incorrectPct);
+        Lo.g("missedPct", missedPct);
+        
+        int correctCells = (int)(correctPct * nCells);
+        int incorrectCells = (int)(incorrectPct * nCells);
+        int missedCells = (int)(missedPct * nCells);
+        
+        Lo.g("correctCells", correctCells);
+        Lo.g("incorrectCells", incorrectCells);
+        Lo.g("missedCells", missedCells);
 
         setCell(scoreRow, results, StatusType.CORRECT);
         setCell(scoreRow, results, StatusType.INCORRECT);
@@ -48,10 +92,23 @@ public class ScoreBar {
     }
     
     private static void setCell(TableRow row, Results results, StatusType statusType) {
-        TextView cell = (TextView)row.getChildAt(statusType.getColumn());
+        int column = statusType.getColumn();
+        Lo.g("column", column);
         int count = results.getCount(statusType);
-        cell.setText(String.valueOf(count));
+        int backgroundColor = statusType.getColor();
+        setCell(row, column, backgroundColor, String.valueOf(count));
+    }
+
+    private static void setCell(TableRow row, int column, int backgroundColor, String text) {
+        Lo.g("column", column);
+        TextView cell = (TextView)row.getChildAt(column);
+        cell.setText(text);
         cell.setTextColor(Color.WHITE);
-        cell.setBackgroundColor(statusType.getColor());
+        cell.setBackgroundColor(backgroundColor);
+    }
+
+    private static void createCells(Activity activity, TableRow row, int numColumns) {
+        final int textSize = 20;
+        TableUtil.createCells(activity, row, numColumns, textSize, 0);
     }
 }

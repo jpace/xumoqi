@@ -34,11 +34,20 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 public class TableUtil {
-    public static void createCells(Activity activity, TableRow row, int numColumns, int textSize) {
+    /**
+     * Creates centered cells for the given row.
+     * 
+     * @param activity
+     * @param row
+     * @param numColumns
+     * @param textSize
+     * @param marginSize
+     */
+    public static void createCells(Activity activity, TableRow row, int numColumns, int textSize, int marginSize) {
         TableRow.LayoutParams cellParams = new TableRow.LayoutParams(0, // has to be zero width to get the text centered (huh?)
                                                                      ViewGroup.LayoutParams.WRAP_CONTENT,
                                                                      1.0f);
-        cellParams.setMargins(1, 1, 1, 1);
+        cellParams.setMargins(marginSize, marginSize, marginSize, marginSize);
         
         for (int i = 0; i < numColumns; ++i) {
             TextView cell = new TextView(activity);

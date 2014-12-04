@@ -96,6 +96,7 @@ public class ResultsTable {
     private void createCells(TableRow row) {
         // must match the hard-coded value in activity_status.xml  
         final int textSize = 20;
-        TableUtil.createCells(activity, row, NUM_COLUMNS, textSize);
+        final int marginSize = 1;
+        TableUtil.createCells(activity, row, NUM_COLUMNS, textSize, marginSize);
     }
 }

@@ -117,6 +117,10 @@ public class Results implements Parcelable, Inspectable {
         return set.size();
     }
 
+    public int getCount() {
+        return getCount(StatusType.CORRECT) + getCount(StatusType.INCORRECT) + getCount(StatusType.MISSED); 
+    }
+
     public String toString() {
         return "correct: " + correct + "; invalid: " + invalid + "; missed: " + missed;
     }

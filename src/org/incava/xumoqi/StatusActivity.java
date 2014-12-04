@@ -74,7 +74,7 @@ public class StatusActivity extends Activity {
         // table:
         if (hint == null) {
             TableLayout scoreTableLayout = (TableLayout) findViewById(R.id.scoreTable);
-            ScoreBar.setScoresTable(results, scoreTableLayout);
+            ScoreBar.setScoresTable(results, this, scoreTableLayout);
         }
 
         TableLayout statusTableLayout = (TableLayout) findViewById(R.id.statusTable);
