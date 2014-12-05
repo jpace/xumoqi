@@ -27,13 +27,17 @@
 
 package org.incava.xumoqi.query;
 
+import org.incava.xumoqi.gui.StatusType;
+
 public class Score {
     private final int count;
     private final int total;
+    private final StatusType statusType;
 
-    public Score(int count, int total) {
+    public Score(int count, int total, StatusType statusType) {
         this.count = count;
         this.total = total;
+        this.statusType = statusType;
     }
     
     public double asPercentage() {
@@ -50,5 +54,9 @@ public class Score {
     
     public int getTotal() {
         return total;
+    }
+    
+    public StatusType getStatusType() {
+        return statusType;
     }
 }

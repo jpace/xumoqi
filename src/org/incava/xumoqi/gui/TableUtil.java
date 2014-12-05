@@ -36,12 +36,6 @@ import android.widget.TextView;
 public class TableUtil {
     /**
      * Creates centered cells for the given row.
-     * 
-     * @param activity
-     * @param row
-     * @param numColumns
-     * @param textSize
-     * @param marginSize
      */
     public static void createCells(Activity activity, TableRow row,
             int numColumns, int textSize, int marginSize) {
@@ -55,8 +49,10 @@ public class TableUtil {
     public static void createCells(Activity activity, TableRow row,
             int numColumns, int textSize, int marginSize, int width,
             int height, float initWeight) {
+        TableRow.LayoutParams cellParams = new TableRow.LayoutParams(width, height, initWeight);
+        cellParams.setMargins(marginSize, marginSize, marginSize, marginSize);
         for (int i = 0; i < numColumns; ++i) {
-            createCell(activity, row, textSize, marginSize, width, height, initWeight);
+            createCell(activity, row, textSize, cellParams);
         }
     }
 
@@ -65,7 +61,11 @@ public class TableUtil {
             float initWeight) {
         TableRow.LayoutParams cellParams = new TableRow.LayoutParams(width, height, initWeight);
         cellParams.setMargins(marginSize, marginSize, marginSize, marginSize);
+        createCell(activity, row, textSize, cellParams);
+    }
 
+    public static void createCell(Activity activity, TableRow row,
+            int textSize, TableRow.LayoutParams cellParams) {
         TextView cell = new TextView(activity);
         cell.requestLayout();
         cell.setGravity(Gravity.CENTER);

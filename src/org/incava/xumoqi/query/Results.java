@@ -142,4 +142,10 @@ public class Results implements Parcelable, Inspectable {
         int total = correct.size() + missed.size() + invalid.size();
         return (100 * correct.size()) / total; 
     }
+
+    public Score createScore(StatusType statusType) {
+        int count = getCount(statusType);
+        int total = getCount();
+        return new Score(count, total, statusType);
+    }
 }

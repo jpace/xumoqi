@@ -46,20 +46,17 @@ public class ScoreBar {
         
         row.removeAllViews();
 
-        int nCorrect = results.getCount(StatusType.CORRECT);
-        int nIncorrect = results.getCount(StatusType.INCORRECT);
-        int nMissed = results.getCount(StatusType.MISSED);
-
-        int total = results.getCount();
-        Score correctScore = new Score(nCorrect, total);
-        Score incorrectScore = new Score(nIncorrect, total);
-        Score missedScore = new Score(nMissed, total);
+        Score correctScore = results.createScore(StatusType.CORRECT);
+        Score incorrectScore = results.createScore(StatusType.INCORRECT);
+        Score missedScore = results.createScore(StatusType.MISSED);
         
+        setScoresTable(activity, row, correctScore, incorrectScore, missedScore);
+    }
+ 
+    public static void setScoresTable(Activity activity, TableRow row, Score correctScore, Score incorrectScore, Score missedScore) {
         Lo.g("correctScore", correctScore);
         Lo.g("incorrectScore", incorrectScore);
         Lo.g("missedScore", missedScore);
-        
-        Lo.g("total", total);
         
         int nCells = 20;
         createCells(activity, row, nCells);
@@ -69,7 +66,7 @@ public class ScoreBar {
         
         double correctPct = correctScore.asPercentage();
         double incorrectPct = incorrectScore.asPercentage();
-        double missedPct = missedScore.asPercentage();;
+        double missedPct = missedScore.asPercentage();
         
         Lo.g("correctPct", correctPct);
         Lo.g("incorrectPct", incorrectPct);
@@ -83,12 +80,13 @@ public class ScoreBar {
         Lo.g("incorrectCells", incorrectCells);
         Lo.g("missedCells", missedCells);
         
-        setCells(row, correctScore, StatusType.CORRECT, correctCells, 0);
-        setCells(row, incorrectScore, StatusType.INCORRECT, incorrectCells, correctCells);
-        setCells(row, missedScore, StatusType.MISSED, missedCells, incorrectCells + correctCells);
+        setCells(row, correctScore,   correctCells,   0);
+        setCells(row, incorrectScore, incorrectCells, correctCells);
+        setCells(row, missedScore,    missedCells,    incorrectCells + correctCells);
     }
     
-    private static void setCells(TableRow row, Score score, StatusType statusType, int numColumns, int offset) {
+    private static void setCells(TableRow row, Score score, int numColumns, int offset) {
+        StatusType statusType = score.getStatusType();
         for (int col = 0; col < numColumns; ++col) {
             String text = col == 0 ? String.valueOf(score.getCount()) : "";
             setCell(row, offset + col, statusType.getColor(), text);
