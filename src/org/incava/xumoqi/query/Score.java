@@ -43,4 +43,12 @@ public class Score {
     public String toString() {
         return "count: " + count + "; total: " + total + "; pct: " + asPercentage();
     }
+    
+    public int getCount() {
+        return count;
+    }
+    
+    public int getTotal() {
+        return total;
+    }
 }

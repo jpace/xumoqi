@@ -41,10 +41,10 @@ public class ScoreBar {
     public static void setScoresTable(Results results, Activity activity, TableLayout tableLayout) {
         Lo.g("tableLayout", tableLayout);
         
-        TableRow scoreRow = (TableRow)tableLayout.getChildAt(0);
-        Lo.g("scoreRow", scoreRow);
+        TableRow row = (TableRow)tableLayout.getChildAt(0);
+        Lo.g("row", row);
         
-        scoreRow.removeAllViews();
+        row.removeAllViews();
 
         int nCorrect = results.getCount(StatusType.CORRECT);
         int nIncorrect = results.getCount(StatusType.INCORRECT);
@@ -61,13 +61,10 @@ public class ScoreBar {
         
         Lo.g("total", total);
         
-        total = Math.max(3, total);
-        Lo.g("total", total);
-        
         int nCells = 20;
-        createCells(activity, scoreRow, nCells);
+        createCells(activity, row, nCells);
         for (int column = 0; column < nCells; ++column) {
-            setCell(scoreRow, column, Color.BLACK, "");
+            setCell(row, column, Color.BLACK, "");
         }
         
         double correctPct = correctScore.asPercentage();
@@ -85,22 +82,22 @@ public class ScoreBar {
         Lo.g("correctCells", correctCells);
         Lo.g("incorrectCells", incorrectCells);
         Lo.g("missedCells", missedCells);
-
-        setCell(scoreRow, results, StatusType.CORRECT);
-        setCell(scoreRow, results, StatusType.INCORRECT);
-        setCell(scoreRow, results, StatusType.MISSED);
+        
+        setCells(row, correctScore, StatusType.CORRECT, correctCells, 0);
+        setCells(row, incorrectScore, StatusType.INCORRECT, incorrectCells, correctCells);
+        setCells(row, missedScore, StatusType.MISSED, missedCells, incorrectCells + correctCells);
     }
     
-    private static void setCell(TableRow row, Results results, StatusType statusType) {
-        int column = statusType.getColumn();
-        Lo.g("column", column);
-        int count = results.getCount(statusType);
-        int backgroundColor = statusType.getColor();
-        setCell(row, column, backgroundColor, String.valueOf(count));
+    private static void setCells(TableRow row, Score score, StatusType statusType, int numColumns, int offset) {
+        for (int col = 0; col < numColumns; ++col) {
+            String text = col == 0 ? String.valueOf(score.getCount()) : "";
+            setCell(row, offset + col, statusType.getColor(), text);
+        }
     }
-
+    
     private static void setCell(TableRow row, int column, int backgroundColor, String text) {
         Lo.g("column", column);
+        Lo.g("text", text);
         TextView cell = (TextView)row.getChildAt(column);
         cell.setText(text);
         cell.setTextColor(Color.WHITE);

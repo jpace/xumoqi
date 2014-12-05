@@ -23,7 +23,7 @@
 
   This program includes code from the GPL'd program:
   http://sourceforge.net/projects/scrabbledict/
-*/
+ */
 
 package org.incava.xumoqi.gui;
 
@@ -43,18 +43,33 @@ public class TableUtil {
      * @param textSize
      * @param marginSize
      */
-    public static void createCells(Activity activity, TableRow row, int numColumns, int textSize, int marginSize) {
-        TableRow.LayoutParams cellParams = new TableRow.LayoutParams(0, // has to be zero width to get the text centered (huh?)
-                                                                     ViewGroup.LayoutParams.WRAP_CONTENT,
-                                                                     1.0f);
-        cellParams.setMargins(marginSize, marginSize, marginSize, marginSize);
-        
+    public static void createCells(Activity activity, TableRow row,
+            int numColumns, int textSize, int marginSize) {
+        int width = 0; // has to be zero width to get the text centered (huh?)
+        int height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        float initWeight = 1.0f;
+        createCells(activity, row, numColumns, textSize, marginSize, width,
+                height, initWeight);
+    }
+
+    public static void createCells(Activity activity, TableRow row,
+            int numColumns, int textSize, int marginSize, int width,
+            int height, float initWeight) {
         for (int i = 0; i < numColumns; ++i) {
-            TextView cell = new TextView(activity);
-            cell.requestLayout();
-            cell.setGravity(Gravity.CENTER);
-            cell.setTextSize(textSize);
-            row.addView(cell, cellParams);
+            createCell(activity, row, textSize, marginSize, width, height, initWeight);
         }
+    }
+
+    public static void createCell(Activity activity, TableRow row,
+            int textSize, int marginSize, int width, int height,
+            float initWeight) {
+        TableRow.LayoutParams cellParams = new TableRow.LayoutParams(width, height, initWeight);
+        cellParams.setMargins(marginSize, marginSize, marginSize, marginSize);
+
+        TextView cell = new TextView(activity);
+        cell.requestLayout();
+        cell.setGravity(Gravity.CENTER);
+        cell.setTextSize(textSize);
+        row.addView(cell, cellParams);
     }
 }
