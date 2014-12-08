@@ -56,20 +56,21 @@ public class TableUtil {
         }
     }
 
-    public static void createCell(Activity activity, TableRow row,
+    public static TextView createCell(Activity activity, TableRow row,
             int textSize, int marginSize, int width, int height,
             float initWeight) {
         TableRow.LayoutParams cellParams = new TableRow.LayoutParams(width, height, initWeight);
         cellParams.setMargins(marginSize, marginSize, marginSize, marginSize);
-        createCell(activity, row, textSize, cellParams);
+        return createCell(activity, row, textSize, cellParams);
     }
 
-    public static void createCell(Activity activity, TableRow row,
+    public static TextView createCell(Activity activity, TableRow row,
             int textSize, TableRow.LayoutParams cellParams) {
         TextView cell = new TextView(activity);
         cell.requestLayout();
         cell.setGravity(Gravity.CENTER);
         cell.setTextSize(textSize);
         row.addView(cell, cellParams);
+        return cell;
     }
 }

@@ -80,14 +80,9 @@ public class ResultsTable {
     }
     
     private TableRow createRow() {
-        TableLayout.LayoutParams rowParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                                                                          0,
-                                                                          1.0f);
-        
-        TableRow row = new TableRow(activity);
-        
+        TableLayout.LayoutParams rowParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1.0f);
+        TableRow row = new TableRow(activity);        
         row.requestLayout();
-        // row.setBackgroundColor(Color.parseColor("#ffefbf"));
         tableLayout.addView(row, rowParams);
         createCells(row);
         return row;

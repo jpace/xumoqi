@@ -29,7 +29,6 @@ package org.incava.xumoqi.gui;
 
 import org.incava.xumoqi.query.Results;
 import org.incava.xumoqi.query.Score;
-import org.incava.xumoqi.util.Lo;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -40,76 +39,39 @@ import android.widget.TextView;
 
 public class ScoreBar {
     public static void setScoresTable(Results results, Activity activity, TableLayout tableLayout) {
-        Lo.g("tableLayout", tableLayout);
-        
         TableRow row = (TableRow)tableLayout.getChildAt(0);
-        Lo.g("row", row);
         
         row.removeAllViews();
-
-        Score correctScore = results.createScore(StatusType.CORRECT);
-        Score incorrectScore = results.createScore(StatusType.INCORRECT);
-        Score missedScore = results.createScore(StatusType.MISSED);
         
-        setScoresTable(activity, row, correctScore, incorrectScore, missedScore);
+        StatusType[] stati = new StatusType[] { StatusType.CORRECT, StatusType.INCORRECT, StatusType.MISSED };
+        for (StatusType status : stati) {
+            Score score = results.createScore(status);
+            createScoreCell(activity, row, score);
+        }
     }
  
-    public static void setScoresTable(Activity activity, TableRow row, Score correctScore, Score incorrectScore, Score missedScore) {
-        Lo.g("correctScore", correctScore);
-        Lo.g("incorrectScore", incorrectScore);
-        Lo.g("missedScore", missedScore);
-        
-        int nCells = 20;
-        createCells(activity, row, nCells);
-        
-        int currCells = 0;
-        currCells += setScoreCells(row, correctScore, nCells, currCells);
-        currCells += setScoreCells(row, incorrectScore, nCells, currCells);
-        currCells += setScoreCells(row, missedScore, nCells, currCells);
-    }
-    
-    private static int setScoreCells(TableRow row, Score score, int nCells, int offset) {
-        Lo.g("score", score);
-        double pct = score.asPercentage();
-        Lo.g("pct", pct);
-        int scoreCells = (int)(pct * nCells);
-        Lo.g("scoreCells", scoreCells);
-        setCells(row, score, scoreCells, offset);
-        return scoreCells;
-    }
-    
-    private static void setCells(TableRow row, Score score, int numColumns, int offset) {
+    private static void createScoreCell(Activity activity, TableRow row, Score score) {
         StatusType statusType = score.getStatusType();
-        for (int col = 0; col < numColumns; ++col) {
-            String text = col == 0 ? String.valueOf(score.getCount()) : "";
-            setCell(row, offset + col, statusType.getColor(), text);
+        int backgroundColor = statusType.getColor();
+        float pct = (float)score.asPercentage();
+        String text = String.valueOf(score.getCount());
+        // pct == initWeight:
+        if (pct > 0.0f) {
+            createCell(activity, row, pct, text, backgroundColor);
         }
     }
     
-    private static void setCell(TableRow row, int column, int backgroundColor, String text) {
-        Lo.g("column", column);
-        Lo.g("text", text);
-        TextView cell = (TextView)row.getChildAt(column);
-        cell.setText(text);
-        cell.setTextColor(Color.WHITE);
-        cell.setBackgroundColor(backgroundColor);
-    }
-
-    private static void createCells(Activity activity, TableRow row, int nCells) {
+    private static void createCell(Activity activity, TableRow row, float initWeight, String text, int backgroundColor) {
         final int textSize = 20;
         int width = 0;
         int height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        float initWeight = 1.0f;
         int marginSize = 0;
         TableRow.LayoutParams cellParams = new TableRow.LayoutParams(width, height, initWeight);
         cellParams.setMargins(marginSize, marginSize, marginSize, marginSize);
         
-        for (int column = 0; column < nCells; ++column) {
-            TableUtil.createCell(activity, row, textSize, cellParams);
-        }
-
-        for (int column = 0; column < nCells; ++column) {
-            setCell(row, column, Color.BLACK, "");
-        }
+        TextView cell = TableUtil.createCell(activity, row, textSize, cellParams);
+        cell.setText(text);
+        cell.setTextColor(Color.WHITE);
+        cell.setBackgroundColor(backgroundColor);
     }
 }
