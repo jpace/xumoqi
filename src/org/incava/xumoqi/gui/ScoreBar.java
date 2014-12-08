@@ -33,6 +33,7 @@ import org.incava.xumoqi.util.Lo;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -60,9 +61,6 @@ public class ScoreBar {
         
         int nCells = 20;
         createCells(activity, row, nCells);
-        for (int column = 0; column < nCells; ++column) {
-            setCell(row, column, Color.BLACK, "");
-        }
         
         int currCells = 0;
         currCells += setScoreCells(row, correctScore, nCells, currCells);
@@ -97,8 +95,21 @@ public class ScoreBar {
         cell.setBackgroundColor(backgroundColor);
     }
 
-    private static void createCells(Activity activity, TableRow row, int numColumns) {
+    private static void createCells(Activity activity, TableRow row, int nCells) {
         final int textSize = 20;
-        TableUtil.createCells(activity, row, numColumns, textSize, 0);
+        int width = 0;
+        int height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        float initWeight = 1.0f;
+        int marginSize = 0;
+        TableRow.LayoutParams cellParams = new TableRow.LayoutParams(width, height, initWeight);
+        cellParams.setMargins(marginSize, marginSize, marginSize, marginSize);
+        
+        for (int column = 0; column < nCells; ++column) {
+            TableUtil.createCell(activity, row, textSize, cellParams);
+        }
+
+        for (int column = 0; column < nCells; ++column) {
+            setCell(row, column, Color.BLACK, "");
+        }
     }
 }
