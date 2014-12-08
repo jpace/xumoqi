@@ -64,25 +64,20 @@ public class ScoreBar {
             setCell(row, column, Color.BLACK, "");
         }
         
-        double correctPct = correctScore.asPercentage();
-        double incorrectPct = incorrectScore.asPercentage();
-        double missedPct = missedScore.asPercentage();
-        
-        Lo.g("correctPct", correctPct);
-        Lo.g("incorrectPct", incorrectPct);
-        Lo.g("missedPct", missedPct);
-        
-        int correctCells = (int)(correctPct * nCells);
-        int incorrectCells = (int)(incorrectPct * nCells);
-        int missedCells = (int)(missedPct * nCells);
-        
-        Lo.g("correctCells", correctCells);
-        Lo.g("incorrectCells", incorrectCells);
-        Lo.g("missedCells", missedCells);
-        
-        setCells(row, correctScore,   correctCells,   0);
-        setCells(row, incorrectScore, incorrectCells, correctCells);
-        setCells(row, missedScore,    missedCells,    incorrectCells + correctCells);
+        int currCells = 0;
+        currCells += setScoreCells(row, correctScore, nCells, currCells);
+        currCells += setScoreCells(row, incorrectScore, nCells, currCells);
+        currCells += setScoreCells(row, missedScore, nCells, currCells);
+    }
+    
+    private static int setScoreCells(TableRow row, Score score, int nCells, int offset) {
+        Lo.g("score", score);
+        double pct = score.asPercentage();
+        Lo.g("pct", pct);
+        int scoreCells = (int)(pct * nCells);
+        Lo.g("scoreCells", scoreCells);
+        setCells(row, score, scoreCells, offset);
+        return scoreCells;
     }
     
     private static void setCells(TableRow row, Score score, int numColumns, int offset) {
