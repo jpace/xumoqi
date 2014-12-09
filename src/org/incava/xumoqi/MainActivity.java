@@ -80,7 +80,7 @@ public class MainActivity extends Activity {
         Spinner gameTypeSpinner = getGameTypeSpinner();
         String gameTypeStr = gameTypeSpinner.getSelectedItem().toString();
         // @TODO:
-        // gameTypeStr = "BA<blank>";
+        gameTypeStr = "BA<blank>";
         return new GameType(wordLength, gameTypeStr);
     }
     

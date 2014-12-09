@@ -70,12 +70,8 @@ public class StatusActivity extends Activity {
 
         Results results = query.addResults(inputText);
 
-        // only the new/old status activity (without hints) has the scores
-        // table:
-        if (hint == null) {
-            TableLayout scoreTableLayout = (TableLayout) findViewById(R.id.scoreTable);
-            ScoreBar.setScoresTable(results, this, scoreTableLayout);
-        }
+        TableLayout scoreTableLayout = (TableLayout) findViewById(R.id.scoreTable);
+        ScoreBar.setScoresTable(results, this, scoreTableLayout);
 
         TableLayout statusTableLayout = (TableLayout) findViewById(R.id.statusTable);
         ResultsTable rt = new ResultsTable(this, statusTableLayout);

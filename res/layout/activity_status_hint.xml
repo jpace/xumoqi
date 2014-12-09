@@ -10,11 +10,61 @@
     android:stretchColumns="*"
     tools:context=".StatusActivity" >
 
+    <TableLayout
+        android:id="@+id/scoreTable"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:stretchColumns="*"
+        android:textSize="32sp" >
+
+        <TableRow
+            android:id="@+id/scoreTableRow1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1" >
+
+            <TextView
+                android:id="@+id/scoreCell11"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/scoreCell12"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/scoreCell13"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:padding="3dp"
+                android:text=""
+                android:textSize="20sp" />
+        </TableRow>
+    </TableLayout>
+
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/scrollView2" >
+        android:layout_above="@+id/scrollView2"
+        android:layout_below="@+id/scoreTable" >
 
         <TableLayout
             android:id="@+id/statusTable"
@@ -628,6 +678,7 @@
         android:layout_alignLeft="@+id/scrollView1"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/scrollView1"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="44dp" >
 
         <TextView
@@ -636,7 +687,7 @@
             android:layout_height="wrap_content"
             android:lines="3"
             android:orientation="vertical"
-            android:text="Hint blah blah blah blah hint."
+            android:text="Hint text here."
             android:textSize="20sp" >
         </TextView>
     </ScrollView>
@@ -652,4 +703,5 @@
         android:onClick="onClickNext"
         android:text="@string/next"
         android:textSize="18sp" />
+
 </RelativeLayout>

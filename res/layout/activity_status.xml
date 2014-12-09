@@ -16,7 +16,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:stretchColumns="*"
-        android:background="#36d36d"
         android:textSize="32sp" >
 
         <TableRow
