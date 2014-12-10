@@ -674,18 +674,20 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:layout_alignLeft="@+id/scrollView1"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/scrollView1"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="44dp" >
+        android:layout_marginBottom="44dp"
+        android:layout_marginTop="10dp" >
 
         <TextView
             android:id="@+id/hintTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:lines="3"
+            android:background="#fffdfd"
+            android:gravity="center_horizontal"
+            android:lines="1"
             android:orientation="vertical"
             android:text="Hint text here."
             android:textSize="20sp" >
