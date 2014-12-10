@@ -65,8 +65,10 @@ public class StatusActivity extends Activity {
         setContentView(hint == null ? R.layout.activity_status
                 : R.layout.activity_status_hint);
 
-        long duration = GameParameters.getDuration(intent);
-        Lo.g("duration", duration);
+        if (false) {
+            long duration = GameParameters.getDuration(intent);
+            Lo.g("duration", duration);
+        }
 
         Results results = query.addResults(inputText);
 

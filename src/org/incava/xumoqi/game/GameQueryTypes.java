@@ -34,6 +34,7 @@ import org.incava.xumoqi.query.Query;
 import org.incava.xumoqi.querytype.QueryType;
 import org.incava.xumoqi.querytype.QueryTypeFactory;
 import org.incava.xumoqi.util.ListUtil;
+import org.incava.xumoqi.util.Lo;
 
 import android.content.res.Resources;
 import android.os.Parcel;
@@ -59,6 +60,7 @@ public class GameQueryTypes implements Parcelable {
 
     public GameQueryTypes(List<String> queryTypes) {
         this.queryTypes = queryTypes;
+        Lo.g("queryTypes", queryTypes);
     }
 
     private GameQueryTypes(Parcel parcel) {
@@ -67,7 +69,9 @@ public class GameQueryTypes implements Parcelable {
     }
     
     public Query createQuery(Resources resources, int wordLength) {
+        Lo.g("queryTypes", queryTypes);
         String queryTypeStr = ListUtil.getRandomElement(queryTypes);
+        Lo.g("queryTypeStr", queryTypeStr);
         QueryType queryType = QueryTypeFactory.createQueryType(resources, queryTypeStr, wordLength);
         return new Query(queryType);
     }

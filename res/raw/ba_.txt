@@ -1,6 +1,6 @@
 type: end-blank
 pattern: ba.
-hint: bards nag any math pals
+hint: bald gymnast harp
 baa
 bad
 bag

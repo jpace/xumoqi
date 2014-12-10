@@ -27,22 +27,24 @@
 
 package org.incava.xumoqi.game;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.incava.xumoqi.R;
+import org.incava.xumoqi.util.Util;
 
-import org.incava.xumoqi.util.Lo;
-
-public class GameQueryTypesFactory {
-    public static GameQueryTypes create(String gameType) {
-        Lo.g("gameType", gameType);
-        if (gameType.equals("With hints")) {
-            List<String> queryTypes = new ArrayList<String>();
-            queryTypes.add("BA<blank>");
-            queryTypes.add("AB<blank>");
-            return new GameQueryTypes(queryTypes);
-        }
-        else {
-            return new GameQueryTypes(gameType);
-        }
+public class GameTypeOptions {
+    public int getMax() {
+        return Util.type ? 14 : 5;
+    }
+    
+    public int getGameTypes() {
+        return Util.type ? R.array.pro_game_types : R.array.free_game_types;
+    }
+    
+    public int getDefaultLength() {
+        return Util.type ? 4 : 2;
+    }
+    
+    public int getDefaultGameTypeIndex() {
+        // 2: random blank; 4: q-no-u
+        return Util.type ? 2 : 0;
     }
 }

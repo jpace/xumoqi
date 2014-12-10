@@ -59,6 +59,9 @@ public class QueryTypeFactory {
         else if (queryTypeStr.equals("BA<blank>")) {
             return new CustomQuery(resources, R.raw.ba_);
         }
+        else if (queryTypeStr.equals("AB<blank>")) {
+            return new CustomQuery(resources, R.raw.ab_);
+        }
         else {
             throw new RuntimeException("Not handled: queryTypeStr: '" + queryTypeStr + "'");
         }
