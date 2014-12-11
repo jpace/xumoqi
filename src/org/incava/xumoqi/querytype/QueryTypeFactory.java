@@ -56,14 +56,15 @@ public class QueryTypeFactory {
         else if (queryTypeStr.equals("Containing 'Z'")) {
             return createLetterQueryType(resources, R.raw.zs, wordLength, 'z');
         }
-        else if (queryTypeStr.equals("BA<blank>")) {
-            return new CustomQuery(resources, R.raw.ba_);
-        }
-        else if (queryTypeStr.equals("AB<blank>")) {
-            return new CustomQuery(resources, R.raw.ab_);
-        }
         else {
-            throw new RuntimeException("Not handled: queryTypeStr: '" + queryTypeStr + "'");
+            CustomQueryFactory cqf = new CustomQueryFactory();
+            QueryType queryType = cqf.createQueryType(resources, queryTypeStr);
+            if (queryType == null) {
+                throw new RuntimeException("Not handled: queryTypeStr: '" + queryTypeStr + "'");
+            }
+            else {
+                return queryType;
+            }
         }
     }
     

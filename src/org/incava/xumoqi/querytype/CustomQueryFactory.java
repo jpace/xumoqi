@@ -25,23 +25,38 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi.game;
+package org.incava.xumoqi.querytype;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
-import org.incava.xumoqi.querytype.CustomQueryFactory;
-import org.incava.xumoqi.util.Lo;
+import org.incava.xumoqi.R;
 
-public class GameQueryTypesFactory {
-    public static GameQueryTypes create(String gameType) {
-        Lo.g("gameType", gameType);
-        if (gameType.equals("With hints")) {
-            CustomQueryFactory cqf = new CustomQueryFactory();
-            List<String> queryTypes = cqf.getTypes();
-            return new GameQueryTypes(queryTypes);
-        }
-        else {
-            return new GameQueryTypes(gameType);
-        }
+import android.content.res.Resources;
+
+public class CustomQueryFactory {
+    private final Map<String, Integer> typeToResource;
+
+    public CustomQueryFactory() {
+        typeToResource = new TreeMap<String, Integer>();
+        typeToResource.put("BA_", R.raw.ba_);
+        typeToResource.put("AB_", R.raw.ab_);
+        typeToResource.put("KA_", R.raw.ka_);
+        typeToResource.put("_AE", R.raw._ae);
+    }
+
+    public List<String> getTypes() {
+        return new ArrayList<String>(typeToResource.keySet());
+    }
+    
+    public Integer getResource(String type) {
+        return typeToResource.get(type);
+    }
+    
+    public QueryType createQueryType(Resources resources, String type) {
+        Integer resource = getResource(type);
+        return resource == null ? null : new CustomQuery(resources, resource);
     }
 }
