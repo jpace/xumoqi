@@ -84,8 +84,22 @@ public class Game implements Parcelable, Inspectable {
         this.gameType = parcel.readParcelable(GameType.class.getClassLoader());
         this.queries = parcel.readParcelable(QueryList.class.getClassLoader());
         this.queryIndices = ParcelUtil.readIntegerList(parcel);
+        Lo.g("queryIndices", queryIndices);
     }
-
+    
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeParcelable(gameType, flags);
+        parcel.writeParcelable(queries, flags);
+        ParcelUtil.writeIntegerList(parcel, queryIndices);
+        Lo.g("queryIndices", queryIndices);
+    }
+    
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+    
     public Query getCurrentQuery() {
         int queryIndex = ListUtil.get(queryIndices, -1);
         return queries.getQuery(queryIndex);
@@ -93,6 +107,7 @@ public class Game implements Parcelable, Inspectable {
 
     public Query getNextQuery(Resources resources) {
         Query randomQuery = getRandomQuery();
+        Lo.g("randomQuery", randomQuery);
         
         if (randomQuery == null) {
             return getNewQuery(resources);
@@ -115,18 +130,6 @@ public class Game implements Parcelable, Inspectable {
         return "gameType: " + gameType + "\n\t" + queries.inspect();
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-    
-    @Override
-    public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeParcelable(gameType, flags);
-        parcel.writeParcelable(queries, flags);
-        ParcelUtil.writeIntegerList(parcel, queryIndices);
-    }
-    
     private void addQueryIndex(Query query) {
         int queryIndex = queries.indexOf(query);
         queryIndices.add(queryIndex);
@@ -141,8 +144,13 @@ public class Game implements Parcelable, Inspectable {
 
     private Query getRandomQuery() {
         Query randomQuery = queries.getRandomQuery();
+        Lo.g("randomQuery", randomQuery);
         int qIdx = queries.indexOf(randomQuery);
+        Lo.g("qIdx", qIdx);
+        Lo.g("queryIndices", queryIndices);
         List<Integer> lastThree = ListUtil.getEndOfList(queryIndices, 3);
+        Lo.v("lastThree", lastThree);
+        Lo.v("lastThree.contains(" + qIdx + ")", lastThree.contains(qIdx));
         return lastThree.contains(qIdx) ? null : randomQuery;
     }
 }

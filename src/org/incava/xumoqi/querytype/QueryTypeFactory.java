@@ -23,7 +23,7 @@
 
   This program includes code from the GPL'd program:
   http://sourceforge.net/projects/scrabbledict/
-*/
+ */
 
 package org.incava.xumoqi.querytype;
 
@@ -37,43 +37,44 @@ import org.incava.xumoqi.words.WordLists;
 import android.content.res.Resources;
 
 public class QueryTypeFactory {
-    public static QueryType createQueryType(Resources resources, String queryTypeStr, int wordLength) {
+    public static QueryType createQueryType(Resources resources,
+            String queryTypeStr, int wordLength) {
         if (queryTypeStr.contains("Starting")) {
-            return new StartsWithDots(getWordList(resources, wordLength), wordLength);
-        }
-        else if (queryTypeStr.contains("Random")) {
-            return new RandomDots(getWordList(resources, wordLength), wordLength);
-        }
-        else if (queryTypeStr.contains("Ending")) {
-            return new EndsWithDots(getWordList(resources, wordLength), wordLength);
-        }
-        else if (queryTypeStr.contains("to-make")) {
-            return new NToNPlusOne(getWordList(resources, wordLength), getWordList(resources, wordLength + 1));
-        }
-        else if (queryTypeStr.equals("Q without U")) {
+            return new StartsWithDots(getWordList(resources, wordLength),
+                    wordLength);
+        } else if (queryTypeStr.contains("Random")) {
+            return new RandomDots(getWordList(resources, wordLength),
+                    wordLength);
+        } else if (queryTypeStr.contains("Ending")) {
+            return new EndsWithDots(getWordList(resources, wordLength),
+                    wordLength);
+        } else if (queryTypeStr.contains("to-make")) {
+            return new NToNPlusOne(getWordList(resources, wordLength),
+                    getWordList(resources, wordLength + 1));
+        } else if (queryTypeStr.equals("Q without U")) {
             return createLetterQueryType(resources, R.raw.qnou, wordLength, 'q');
-        }
-        else if (queryTypeStr.equals("Containing 'Z'")) {
+        } else if (queryTypeStr.equals("Containing 'Z'")) {
             return createLetterQueryType(resources, R.raw.zs, wordLength, 'z');
-        }
-        else {
+        } else {
             CustomQueryFactory cqf = new CustomQueryFactory();
             QueryType queryType = cqf.createQueryType(resources, queryTypeStr);
             if (queryType == null) {
-                throw new RuntimeException("Not handled: queryTypeStr: '" + queryTypeStr + "'");
-            }
-            else {
+                throw new RuntimeException("Not handled: queryTypeStr: '"
+                        + queryTypeStr + "'");
+            } else {
                 return queryType;
             }
         }
     }
-    
-    private static QueryType createLetterQueryType(Resources resources, int res, int wordLength, char letter) {
+
+    private static QueryType createLetterQueryType(Resources resources,
+            int res, int wordLength, char letter) {
         List<WordList> wordLists = getWordListList(resources, wordLength);
         return new Letter(resources, wordLists, wordLength, res, letter);
     }
 
-    private static List<WordList> getWordListList(Resources resources, int wordLength) {
+    private static List<WordList> getWordListList(Resources resources,
+            int wordLength) {
         List<WordList> wordLists = new ArrayList<WordList>();
         for (int len = 2; len <= wordLength; ++len) {
             wordLists.add(getWordList(resources, len));
@@ -83,5 +84,16 @@ public class QueryTypeFactory {
 
     private static WordList getWordList(Resources resources, int length) {
         return WordLists.getInstance().getWordList(resources, length);
+    }
+
+    private static QueryType createCustomQuery(Resources resources, String queryTypeStr) {
+        CustomQueryFactory cqf = new CustomQueryFactory();
+        QueryType queryType = cqf.createQueryType(resources, queryTypeStr);
+        if (queryType == null) {
+            throw new RuntimeException("Not handled: queryTypeStr: '" + queryTypeStr + "'");
+        }
+        else {
+            return queryType;
+        }
     }
 }

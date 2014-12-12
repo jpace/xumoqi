@@ -44,13 +44,13 @@ public class CustomQuery implements QueryType {
     public CustomQuery(Resources resources, int res) {
         List<String> lines = ResourceUtil.getTextResource(resources, res);
         String type = getFieldValue(lines, 0);
-        Lo.g("type", type);
+        Lo.d("type", type);
         this.pattern = getFieldValue(lines, 1);
-        Lo.g("pattern", pattern);
+        Lo.v("pattern", pattern);
         this.hint = getFieldValue(lines, 2);
-        Lo.g("hint", hint);
+        Lo.w("hint", hint);
         this.words = lines.subList(3, lines.size());
-        Lo.g("words", words);
+        Lo.e("words", words);
     }
 
     public Word getQueryWord() {
