@@ -29,20 +29,14 @@ package org.incava.xumoqi;
 
 import org.incava.xumoqi.game.Game;
 import org.incava.xumoqi.game.GameParameters;
-import org.incava.xumoqi.gui.ResultsTable;
-import org.incava.xumoqi.gui.ScoreBar;
+import org.incava.xumoqi.gui.StatusView;
 import org.incava.xumoqi.query.Query;
-import org.incava.xumoqi.query.Results;
-import org.incava.xumoqi.util.Lo;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.TableLayout;
-import android.widget.TextView;
 
 public class StatusActivity extends Activity {
     private Game game = null;
@@ -51,39 +45,14 @@ public class StatusActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.i("STATUS", "StatusActivity#onCreate");
-
         Intent intent = getIntent();
         game = GameParameters.getGame(intent);
 
         Query query = game.getCurrentQuery();
         String inputText = GameParameters.getInputText(intent);
-
-        String hint = query.getHint();
-        Lo.g("hint", hint);
-
-        setContentView(hint == null ? R.layout.activity_status
-                : R.layout.activity_status_hint);
-
-        if (false) {
-            long duration = GameParameters.getDuration(intent);
-            Lo.g("duration", duration);
-        }
-
-        Results results = query.addResults(inputText);
-
-        TableLayout scoreTableLayout = (TableLayout) findViewById(R.id.scoreTable);
-        ScoreBar.setScoresTable(results, this, scoreTableLayout);
-
-        TableLayout statusTableLayout = (TableLayout) findViewById(R.id.statusTable);
-        ResultsTable rt = new ResultsTable(this, statusTableLayout);
-
-        TextView tv = (TextView) findViewById(R.id.hintTextView);
-        if (tv != null) {
-            tv.setText(hint);
-        }
-
-        rt.set(results);
+        long duration = GameParameters.getDuration(intent);
+        
+        StatusView.setUp(this, query, inputText, duration);
     }
 
     @Override

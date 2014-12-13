@@ -23,44 +23,39 @@
 
   This program includes code from the GPL'd program:
   http://sourceforge.net/projects/scrabbledict/
-*/
+ */
 
-package org.incava.xumoqi.querytype;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+package org.incava.xumoqi.gui;
 
 import org.incava.xumoqi.R;
+import org.incava.xumoqi.query.Query;
+import org.incava.xumoqi.query.Results;
 import org.incava.xumoqi.util.Lo;
 
-import android.content.res.Resources;
+import android.app.Activity;
+import android.widget.TableLayout;
+import android.widget.TextView;
 
-public class CustomQueryFactory {
-    private final Map<String, Integer> typeToResource;
+public class StatusView {
+    public static void setUp(Activity activity, Query query, String inputText, long duration) {
+        String hint = query.getHint();
+        Lo.g("hint", hint);
 
-    public CustomQueryFactory() {
-        typeToResource = new TreeMap<String, Integer>();
-        typeToResource.put("BA_", R.raw.ba_);
-        typeToResource.put("AB_", R.raw.ab_);
-        typeToResource.put("KA_", R.raw.ka_);
-        typeToResource.put("_AE", R.raw._ae);
-        typeToResource.put("KI_", R.raw.ki_);
-    }
+        activity.setContentView(hint == null ? R.layout.activity_status : R.layout.activity_status_hint);
 
-    public List<String> getTypes() {
-        return new ArrayList<String>(typeToResource.keySet());
-    }
-    
-    public Integer getResource(String type) {
-        return typeToResource.get(type);
-    }
-    
-    public QueryType createQueryType(Resources resources, String type) {
-        Lo.v("type", type);
-        Integer resource = getResource(type);
-        Lo.v("resource", resource);
-        return resource == null ? null : new CustomQuery(resources, resource);
+        Results results = query.addResults(inputText);
+
+        TableLayout scoreTableLayout = (TableLayout)activity.findViewById(R.id.scoreTable);
+        ScoreBar.setScoresTable(results, activity, scoreTableLayout);
+
+        TableLayout statusTableLayout = (TableLayout)activity.findViewById(R.id.statusTable);
+        ResultsTable rt = new ResultsTable(activity, statusTableLayout);
+
+        TextView tv = (TextView)activity.findViewById(R.id.hintTextView);
+        if (tv != null) {
+            tv.setText(hint);
+        }
+
+        rt.set(results);
     }
 }

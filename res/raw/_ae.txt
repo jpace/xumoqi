@@ -1,6 +1,6 @@
 type: end-blank
 pattern: .ae
-hint: magnet hawks
+hint: magnet hawks (no vowels)
 gae
 hae
 kae
