@@ -40,30 +40,25 @@ public class QueryTypeFactory {
     public static QueryType createQueryType(Resources resources,
             String queryTypeStr, int wordLength) {
         if (queryTypeStr.contains("Starting")) {
-            return new StartsWithDots(getWordList(resources, wordLength),
-                    wordLength);
-        } else if (queryTypeStr.contains("Random")) {
-            return new RandomDots(getWordList(resources, wordLength),
-                    wordLength);
-        } else if (queryTypeStr.contains("Ending")) {
-            return new EndsWithDots(getWordList(resources, wordLength),
-                    wordLength);
-        } else if (queryTypeStr.contains("to-make")) {
-            return new NToNPlusOne(getWordList(resources, wordLength),
-                    getWordList(resources, wordLength + 1));
-        } else if (queryTypeStr.equals("Q without U")) {
+            return new StartsWithDots(getWordList(resources, wordLength), wordLength);
+        }
+        else if (queryTypeStr.contains("Random")) {
+            return new RandomDots(getWordList(resources, wordLength), wordLength);
+        }
+        else if (queryTypeStr.contains("Ending")) {
+            return new EndsWithDots(getWordList(resources, wordLength), wordLength);
+        }
+        else if (queryTypeStr.contains("to-make")) {
+            return new NToNPlusOne(getWordList(resources, wordLength), getWordList(resources, wordLength + 1));
+        }
+        else if (queryTypeStr.equals("Q without U")) {
             return createLetterQueryType(resources, R.raw.qnou, wordLength, 'q');
-        } else if (queryTypeStr.equals("Containing 'Z'")) {
+        }
+        else if (queryTypeStr.equals("Containing 'Z'")) {
             return createLetterQueryType(resources, R.raw.zs, wordLength, 'z');
-        } else {
-            CustomQueryFactory cqf = new CustomQueryFactory();
-            QueryType queryType = cqf.createQueryType(resources, queryTypeStr);
-            if (queryType == null) {
-                throw new RuntimeException("Not handled: queryTypeStr: '"
-                        + queryTypeStr + "'");
-            } else {
-                return queryType;
-            }
+        }
+        else {
+            return createCustomQuery(resources, queryTypeStr);
         }
     }
 
@@ -86,13 +81,14 @@ public class QueryTypeFactory {
         return WordLists.getInstance().getWordList(resources, length);
     }
 
-    private static QueryType createCustomQuery(Resources resources, String queryTypeStr) {
+    private static QueryType createCustomQuery(Resources resources,
+            String queryTypeStr) {
         CustomQueryFactory cqf = new CustomQueryFactory();
         QueryType queryType = cqf.createQueryType(resources, queryTypeStr);
         if (queryType == null) {
-            throw new RuntimeException("Not handled: queryTypeStr: '" + queryTypeStr + "'");
-        }
-        else {
+            throw new RuntimeException("Not handled: queryTypeStr: '"
+                    + queryTypeStr + "'");
+        } else {
             return queryType;
         }
     }

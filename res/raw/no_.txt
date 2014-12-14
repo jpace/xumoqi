@@ -1,0 +1,13 @@
+type: end-blank
+pattern: no.
+hint: dog mows broth
+nob
+nod
+nog
+noh
+nom
+noo
+nor
+nos
+not
+now

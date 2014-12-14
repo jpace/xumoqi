@@ -28,5 +28,5 @@
 package org.incava.xumoqi.util;
 
 public class Util {
-    public static final boolean type = false;
+    public static final boolean type = true;
 }

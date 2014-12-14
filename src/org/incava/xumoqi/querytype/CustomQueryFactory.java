@@ -38,15 +38,25 @@ import org.incava.xumoqi.util.Lo;
 import android.content.res.Resources;
 
 public class CustomQueryFactory {
+    private final static int[] HINT_FILES = new int[] {
+        R.raw.ba_,
+        R.raw.ab_,
+        R.raw.ka_,
+        R.raw._ae,
+        R.raw.ki_,
+        R.raw.no_,
+        R.raw.sa_,
+        R.raw.sh_,
+    };
+
     private final Map<String, Integer> typeToResource;
 
     public CustomQueryFactory() {
         typeToResource = new TreeMap<String, Integer>();
-        typeToResource.put("BA_", R.raw.ba_);
-        typeToResource.put("AB_", R.raw.ab_);
-        typeToResource.put("KA_", R.raw.ka_);
-        typeToResource.put("_AE", R.raw._ae);
-        typeToResource.put("KI_", R.raw.ki_);
+
+        for (int hf : HINT_FILES) {
+            typeToResource.put(String.valueOf(hf), hf);
+        }
     }
 
     public List<String> getTypes() {

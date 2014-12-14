@@ -1,0 +1,10 @@
+type: end-blank
+pattern: ki.
+hint: fan departs (no vowels)
+kid
+kif
+kin
+kip
+kir
+kis
+kit

@@ -31,20 +31,28 @@ import org.incava.xumoqi.R;
 import org.incava.xumoqi.util.Util;
 
 public class GameTypeOptions {
+    private final static int[] MAX = { 14, 5 };
+    private final static int[] GAME_TYPES = { R.array.pro_game_types, R.array.free_game_types };
+    private final static int[] DEFAULT_LENGTH = { 4, 3 };
+    private final static int[] DEFAULT_GAME_TYPE_INDEX = { 2, 3 };
+    
     public int getMax() {
-        return Util.type ? 14 : 5;
+        return getForGameType(MAX);
     }
     
     public int getGameTypes() {
-        return Util.type ? R.array.pro_game_types : R.array.free_game_types;
+        return getForGameType(GAME_TYPES);
     }
     
     public int getDefaultLength() {
-        return Util.type ? 4 : 2;
+        return getForGameType(DEFAULT_LENGTH);
     }
     
     public int getDefaultGameTypeIndex() {
-        // 2: random blank; 4: q-no-u
-        return Util.type ? 2 : 0;
+        return getForGameType(DEFAULT_GAME_TYPE_INDEX);
+    }
+    
+    private int getForGameType(int[] values) {
+        return values[Util.type ? 0 : 1];
     }
 }
