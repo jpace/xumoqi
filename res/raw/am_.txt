@@ -1,0 +1,7 @@
+type: end-blank
+pattern: am.
+hint: pi pupa
+ama
+ami
+amp
+amu

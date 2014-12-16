@@ -1,0 +1,9 @@
+type: end-blank
+pattern: ko.
+hint: rap bias
+koa
+kob
+koi
+kop
+kor
+kos

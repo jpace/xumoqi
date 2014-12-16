@@ -27,13 +27,17 @@
 
 package org.incava.xumoqi;
 
+import java.util.Arrays;
+
 import org.incava.xumoqi.game.Game;
 import org.incava.xumoqi.game.GameParameters;
 import org.incava.xumoqi.game.GameType;
 import org.incava.xumoqi.game.GameTypeOptions;
+import org.incava.xumoqi.util.Lo;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -46,6 +50,17 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        Lo.v("getPackageName()", getPackageName());
+        AssetManager am = getResources().getAssets();
+        Lo.v("am", am);
+        try {
+            String[] res = am.list("res");
+            Lo.v("res", Arrays.asList(res));
+        }
+        catch (Exception e) {
+            Lo.e("e", e);
+        }
         
         setUpWordLengthPicker();
         setUpGameTypeSpinner();
