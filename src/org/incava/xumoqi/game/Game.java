@@ -84,7 +84,6 @@ public class Game implements Parcelable, Inspectable {
         this.gameType = parcel.readParcelable(GameType.class.getClassLoader());
         this.queries = parcel.readParcelable(QueryList.class.getClassLoader());
         this.queryIndices = ParcelUtil.readIntegerList(parcel);
-        Lo.g("queryIndices", queryIndices);
     }
     
     @Override
@@ -92,7 +91,6 @@ public class Game implements Parcelable, Inspectable {
         parcel.writeParcelable(gameType, flags);
         parcel.writeParcelable(queries, flags);
         ParcelUtil.writeIntegerList(parcel, queryIndices);
-        Lo.g("queryIndices", queryIndices);
     }
     
     @Override
@@ -107,8 +105,6 @@ public class Game implements Parcelable, Inspectable {
 
     public Query getNextQuery(Resources resources) {
         Query randomQuery = getRandomQuery();
-        Lo.g("randomQuery", randomQuery);
-        
         if (randomQuery == null) {
             return getNewQuery(resources);
         }
@@ -144,13 +140,8 @@ public class Game implements Parcelable, Inspectable {
 
     private Query getRandomQuery() {
         Query randomQuery = queries.getRandomQuery();
-        Lo.g("randomQuery", randomQuery);
         int qIdx = queries.indexOf(randomQuery);
-        Lo.g("qIdx", qIdx);
-        Lo.g("queryIndices", queryIndices);
         List<Integer> lastThree = ListUtil.getEndOfList(queryIndices, 3);
-        Lo.v("lastThree", lastThree);
-        Lo.v("lastThree.contains(" + qIdx + ")", lastThree.contains(qIdx));
         return lastThree.contains(qIdx) ? null : randomQuery;
     }
 }
