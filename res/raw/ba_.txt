@@ -1,6 +1,6 @@
 type: end-blank
 pattern: ba.
-hint: bald gymnast harp
+hint: my grandpas halt
 baa
 bad
 bag

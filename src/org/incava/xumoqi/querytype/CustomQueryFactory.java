@@ -39,6 +39,7 @@ import android.content.res.Resources;
 
 public class CustomQueryFactory {
     private final static int[] HINT_FILES = new int[] {
+        R.raw.a_,
         R.raw.ab_,
         R.raw._ae,
         R.raw.am_,

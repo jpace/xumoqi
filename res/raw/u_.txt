@@ -1,0 +1,9 @@
+type: end-blank
+pattern: h.
+hint: ump hunts (no vowels)
+uh
+um
+un
+up
+us
+ut

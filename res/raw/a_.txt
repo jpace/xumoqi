@@ -1,0 +1,19 @@
+type: end-blank
+pattern: a.
+hint: birthdays mangle wax
+aa
+ab
+ad
+ae
+ag
+ah
+ai
+al
+am
+an
+ar
+as
+at
+aw
+ax
+ay
