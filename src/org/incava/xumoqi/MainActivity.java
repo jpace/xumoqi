@@ -30,14 +30,13 @@ package org.incava.xumoqi;
 import org.incava.xumoqi.game.Game;
 import org.incava.xumoqi.game.GameParameters;
 import org.incava.xumoqi.game.GameType;
-import org.incava.xumoqi.game.GameTypeOptions;
+import org.incava.xumoqi.gui.GameUI;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 
@@ -46,8 +45,10 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setUpWordLengthPicker();
-        setUpGameTypeSpinner();
+        Intent intent = getIntent();
+        Game game = GameParameters.getGame(intent);
+        GameUI gui = new GameUI(game);
+        gui.setUp(this);
     }
 
     @Override
@@ -80,34 +81,11 @@ public class MainActivity extends Activity {
         return new GameType(wordLength, gameTypeStr);
     }
     
-    private NumberPicker getNumberPicker() {
+    public NumberPicker getNumberPicker() {
         return (NumberPicker)findViewById(R.id.wordLengthNumberPicker);
     }
     
-    private Spinner getGameTypeSpinner() {
+    public Spinner getGameTypeSpinner() {
         return (Spinner)findViewById(R.id.gameTypeSpinner);
-    }
-    
-    private void setUpWordLengthPicker() {
-        GameTypeOptions opts = new GameTypeOptions();
-        NumberPicker np = getNumberPicker();
-        np.setMaxValue(opts.getMax());
-        np.setMinValue(2);
-
-        Intent intent = getIntent();
-        Game game = GameParameters.getGame(intent);
-        np.setValue(game == null ? opts.getDefaultLength() : game.getLength());
-    }
-    
-    private void setUpGameTypeSpinner() {
-        GameTypeOptions opts = new GameTypeOptions();
-        int types = opts.getGameTypes();
-        Spinner gameTypeSpinner = getGameTypeSpinner();
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, types, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        gameTypeSpinner.setAdapter(adapter);
-        
-        int gameTypeIndex = opts.getDefaultGameTypeIndex();
-        gameTypeSpinner.setSelection(gameTypeIndex);
     }
 }
