@@ -62,14 +62,12 @@ public class QueryTypeFactory {
         }
     }
 
-    private static QueryType createLetterQueryType(Resources resources,
-            int res, int wordLength, char letter) {
+    private static QueryType createLetterQueryType(Resources resources, int res, int wordLength, char letter) {
         List<WordList> wordLists = getWordListList(resources, wordLength);
         return new Letter(resources, wordLists, wordLength, res, letter);
     }
 
-    private static List<WordList> getWordListList(Resources resources,
-            int wordLength) {
+    private static List<WordList> getWordListList(Resources resources, int wordLength) {
         List<WordList> wordLists = new ArrayList<WordList>();
         for (int len = 2; len <= wordLength; ++len) {
             wordLists.add(getWordList(resources, len));
@@ -81,13 +79,11 @@ public class QueryTypeFactory {
         return WordLists.getInstance().getWordList(resources, length);
     }
 
-    private static QueryType createCustomQuery(Resources resources,
-            String queryTypeStr) {
+    private static QueryType createCustomQuery(Resources resources, String queryTypeStr) {
         CustomQueryFactory cqf = new CustomQueryFactory();
         QueryType queryType = cqf.createQueryType(resources, queryTypeStr);
         if (queryType == null) {
-            throw new RuntimeException("Not handled: queryTypeStr: '"
-                    + queryTypeStr + "'");
+            throw new RuntimeException("Not handled: queryTypeStr: '" + queryTypeStr + "'");
         } else {
             return queryType;
         }

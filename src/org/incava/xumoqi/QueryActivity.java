@@ -28,16 +28,14 @@
 package org.incava.xumoqi;
 
 import org.incava.xumoqi.android.Enterable;
-import org.incava.xumoqi.android.EnterableEditText;
 import org.incava.xumoqi.game.Game;
 import org.incava.xumoqi.game.GameParameters;
-import org.incava.xumoqi.query.Query;
+import org.incava.xumoqi.gui.QueryUI;
 import org.incava.xumoqi.util.Lo;
 import org.incava.xumoqi.util.Timer;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -59,11 +57,7 @@ public class QueryActivity extends Activity implements Enterable {
         Intent intent = getIntent();
         game = GameParameters.getGame(intent);
 
-        Resources resources = getResources();
-        Query query = game.getNextQuery(resources);
-
-        EnterableEditText.setupEditText(this, this, getInputTextView());
-        setQueryText(query);
+        QueryUI.setUp(this, game);
         
         timer = new Timer(this, "onCreate");
         startTime = System.currentTimeMillis();
@@ -99,8 +93,8 @@ public class QueryActivity extends Activity implements Enterable {
         String inputText = et.getText().toString();
 
         GameParameters.saveInputText(intent, inputText);
-        GameParameters.saveGame(intent, game);
         
+        GameParameters.saveGame(intent, game);        
         startActivity(intent);
     }
     
@@ -134,17 +128,11 @@ public class QueryActivity extends Activity implements Enterable {
         return super.onOptionsItemSelected(item);
     }
 
-    private TextView getQueryTextView() {
+    public TextView getQueryTextView() {
         return (TextView)findViewById(R.id.queryText);
     }
     
-    private EditText getInputTextView() {
+    public EditText getInputTextView() {
         return (EditText)findViewById(R.id.queryInput);
-    }
-
-    private void setQueryText(Query query) {
-        String queryStr = query.getQueryString();
-        TextView tv = getQueryTextView();
-        tv.setText(queryStr);
     }
 }

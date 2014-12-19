@@ -1,5 +1,5 @@
 type: end-blank
-pattern: h.
+pattern: u.
 hint: ump hunts (no vowels)
 uh
 um
