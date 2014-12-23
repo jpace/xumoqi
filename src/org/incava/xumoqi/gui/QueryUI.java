@@ -28,11 +28,15 @@
 package org.incava.xumoqi.gui;
 
 import org.incava.xumoqi.QueryActivity;
+import org.incava.xumoqi.StatusActivity;
 import org.incava.xumoqi.android.EnterableEditText;
 import org.incava.xumoqi.game.Game;
+import org.incava.xumoqi.game.GameParameters;
 import org.incava.xumoqi.query.Query;
 
+import android.content.Intent;
 import android.content.res.Resources;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class QueryUI {
@@ -41,11 +45,17 @@ public class QueryUI {
         Query query = game.getNextQuery(resources);
         EnterableEditText.setupEditText(qa, qa, qa.getInputTextView());
         TextView tv = qa.getQueryTextView();
-        setQueryText(query, tv);
-    }
-
-    public static void setQueryText(Query query, TextView tv) {
         String queryStr = query.getQueryString();
         tv.setText(queryStr);
+    }
+    
+    public static void gotoNext(QueryActivity qa, long duration, Game game) {
+        Intent intent = new Intent(qa, StatusActivity.class);
+        GameParameters.saveDuration(intent, duration);
+        EditText et = qa.getInputTextView();
+        String inputText = et.getText().toString();
+        GameParameters.saveInputText(intent, inputText);
+        GameParameters.saveGame(intent, game);        
+        qa.startActivity(intent);
     }
 }

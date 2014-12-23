@@ -84,18 +84,8 @@ public class QueryActivity extends Activity implements Enterable {
         Lo.g("duration", duration);
         
         timer.done("onClickNext");
-
-        Intent intent = new Intent(this, StatusActivity.class);
-
-        GameParameters.saveDuration(intent, duration);
-
-        EditText et = getInputTextView();
-        String inputText = et.getText().toString();
-
-        GameParameters.saveInputText(intent, inputText);
         
-        GameParameters.saveGame(intent, game);        
-        startActivity(intent);
+        QueryUI.gotoNext(this, duration, game);
     }
     
     public void onClickRestart(View view) {

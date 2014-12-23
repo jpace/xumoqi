@@ -25,7 +25,7 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi.querytype;
+package org.incava.xumoqi.querytype.dotted;
 
 import org.incava.xumoqi.words.WordList;
 

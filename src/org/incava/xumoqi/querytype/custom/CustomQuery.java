@@ -25,59 +25,49 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi.querytype;
+package org.incava.xumoqi.querytype.custom;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
-import org.incava.xumoqi.R;
+import org.incava.xumoqi.android.ResourceUtil;
+import org.incava.xumoqi.querytype.QueryType;
 import org.incava.xumoqi.util.Lo;
+import org.incava.xumoqi.words.Word;
 
 import android.content.res.Resources;
 
-public class CustomQueryFactory {
-    private final static int[] HINT_FILES = new int[] {
-        R.raw.ab_,
-        R.raw._ae,
-        R.raw.am_,
-        R.raw.an_,
-        R.raw.ba_,
-        R.raw.ka_,
-        R.raw.ki_,
-        R.raw.ko_,
-        R.raw.le_,
-        R.raw.no_,
-        R.raw.sa_,
-        R.raw.sh_,
-        R.raw.a_,
-        R.raw.o_,
-        R.raw.u_,
-    };
-
-    private final Map<String, Integer> typeToResource;
-
-    public CustomQueryFactory() {
-        typeToResource = new TreeMap<String, Integer>();
-
-        for (int hf : HINT_FILES) {
-            typeToResource.put(String.valueOf(hf), hf);
-        }
+public class CustomQuery implements QueryType {
+    private final String pattern;
+    private final String hint;
+    private final List<String> words;
+    
+    public CustomQuery(Resources resources, int res) {
+        List<String> lines = ResourceUtil.getTextResource(resources, res);
+        String type = getFieldValue(lines, 0);
+        Lo.d("type", type);
+        this.pattern = getFieldValue(lines, 1);
+        Lo.v("pattern", pattern);
+        this.hint = getFieldValue(lines, 2);
+        Lo.w("hint", hint);
+        this.words = lines.subList(3, lines.size());
+        Lo.e("words", words);
     }
 
-    public List<String> getTypes() {
-        return new ArrayList<String>(typeToResource.keySet());
+    public Word getQueryWord() {
+        int index = pattern.indexOf('.');
+        return new Word(pattern, index);
+    }
+
+    public ArrayList<String> getMatching(Word queryWord) {
+        return new ArrayList<String>(words);
     }
     
-    public Integer getResource(String type) {
-        return typeToResource.get(type);
+    public String getHint() {
+        return hint;
     }
     
-    public QueryType createQueryType(Resources resources, String type) {
-        Lo.v("type", type);
-        Integer resource = getResource(type);
-        Lo.v("resource", resource);
-        return resource == null ? null : new CustomQuery(resources, resource);
+    private String getFieldValue(List<String> lines, int lineNum) {
+        return lines.get(lineNum).replaceFirst(".*:\\s*", "");
     }
 }

@@ -25,39 +25,22 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi.querytype;
+package org.incava.xumoqi.querytype.dotted;
 
-import java.util.ArrayList;
+import java.util.Random;
 
-import org.incava.xumoqi.words.Word;
 import org.incava.xumoqi.words.WordList;
 
-public abstract class DottedWords implements QueryType {
-    private final WordList wordList;
-    private final int length;
+public class RandomDots extends DottedWords {
+    private static final Random random = new Random();
+    private final int index;
 
-    public DottedWords(WordList wordList, int length) {
-        this.wordList = wordList;
-        this.length = length;
+    public RandomDots(WordList wordList, int length) {
+        super(wordList, length);
+        index = random.nextInt(length);
     }
     
-    public abstract int getBlankIndex();
-    
-    public Word getQueryWord() {
-        String word = wordList.getRandomWord();
-        int dotIdx = getBlankIndex();
-        return new Word(word, dotIdx);
-    }
-    
-    public ArrayList<String> getMatching(Word queryWord) {
-        return wordList.getMatching(queryWord);
-    }
-    
-    public String getHint() {
-        return null;
-    }
-
-    protected int getLength() {
-        return length;
+    public int getBlankIndex() {
+        return index;
     }
 }

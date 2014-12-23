@@ -31,6 +31,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.incava.xumoqi.R;
+import org.incava.xumoqi.querytype.custom.CustomQueryFactory;
+import org.incava.xumoqi.querytype.dotted.EndsWithDots;
+import org.incava.xumoqi.querytype.dotted.RandomDots;
+import org.incava.xumoqi.querytype.dotted.StartsWithDots;
 import org.incava.xumoqi.words.WordList;
 import org.incava.xumoqi.words.WordLists;
 

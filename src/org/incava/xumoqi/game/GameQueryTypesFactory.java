@@ -29,7 +29,7 @@ package org.incava.xumoqi.game;
 
 import java.util.List;
 
-import org.incava.xumoqi.querytype.CustomQueryFactory;
+import org.incava.xumoqi.querytype.custom.CustomQueryFactory;
 import org.incava.xumoqi.util.Lo;
 
 public class GameQueryTypesFactory {

@@ -25,22 +25,16 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi.querytype;
-
-import java.util.Random;
+package org.incava.xumoqi.querytype.dotted;
 
 import org.incava.xumoqi.words.WordList;
 
-public class RandomDots extends DottedWords {
-    private static final Random random = new Random();
-    private final int index;
-
-    public RandomDots(WordList wordList, int length) {
+public class StartsWithDots extends DottedWords {
+    public StartsWithDots(WordList wordList, int length) {
         super(wordList, length);
-        index = random.nextInt(length);
     }
     
     public int getBlankIndex() {
-        return index;
+        return 0;
     }
 }
