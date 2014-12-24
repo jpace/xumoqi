@@ -28,7 +28,6 @@
         <item>Random blank</item>
         <item>N-to-make-N+1</item>
         <item>Q without U</item>
-        <item>With hints</item>
     </string-array>
 
     <string name="title_activity_status">Results</string>

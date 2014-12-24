@@ -55,7 +55,7 @@ public class GameUI {
 
     private void setUpWordLengthPicker(NumberPicker numberPicker) {
         int min = 2;
-        int max = options.getMax();
+        int max = options.getMaxWordLength();
         int current = game == null ? options.getDefaultLength() : game.getLength();
         NumberPickerUtil.setValues(numberPicker, min, max, current);
     }
