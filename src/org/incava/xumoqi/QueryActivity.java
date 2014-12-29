@@ -28,14 +28,9 @@
 package org.incava.xumoqi;
 
 import org.incava.xumoqi.android.Enterable;
-import org.incava.xumoqi.game.Game;
-import org.incava.xumoqi.game.GameParameters;
 import org.incava.xumoqi.gui.QueryUI;
-import org.incava.xumoqi.util.Lo;
-import org.incava.xumoqi.util.Timer;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -45,22 +40,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class QueryActivity extends Activity implements Enterable {
-    private Timer timer = null;
-    private Game game = null;
-    private long startTime;
+    private QueryUI ui;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_query);
-        
-        Intent intent = getIntent();
-        game = GameParameters.getGame(intent);
-
-        QueryUI.setUp(this, game);
-        
-        timer = new Timer(this, "onCreate");
-        startTime = System.currentTimeMillis();
+        ui = new QueryUI(this);
     }
 
     /*
@@ -76,22 +62,11 @@ public class QueryActivity extends Activity implements Enterable {
     }
 
     public void onClickNext(View view) {
-        long endTime = System.currentTimeMillis();
-        long duration = endTime - startTime;
-        
-        Lo.g("startTime", startTime);
-        Lo.g("endTime  ", endTime);
-        Lo.g("duration", duration);
-        
-        timer.done("onClickNext");
-        
-        QueryUI.gotoNext(this, duration, game);
+        ui.gotoNext();
     }
     
     public void onClickRestart(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        GameParameters.saveGame(intent, game);
-        startActivity(intent);
+        ui.restart();
     }
 
     @Override

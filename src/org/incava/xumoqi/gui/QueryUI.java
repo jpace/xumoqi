@@ -27,12 +27,14 @@
 
 package org.incava.xumoqi.gui;
 
+import org.incava.xumoqi.MainActivity;
 import org.incava.xumoqi.QueryActivity;
 import org.incava.xumoqi.StatusActivity;
 import org.incava.xumoqi.android.EnterableEditText;
 import org.incava.xumoqi.game.Game;
 import org.incava.xumoqi.game.GameParameters;
 import org.incava.xumoqi.query.Query;
+import org.incava.xumoqi.util.Lo;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -40,16 +42,37 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class QueryUI {
-    public static void setUp(QueryActivity qa, Game game) {
+    private final QueryActivity qa;
+    private final Game game;
+    private long startTime;
+    
+    public QueryUI(QueryActivity qa) {
+        this.qa = qa;
+        Intent intent = qa.getIntent();
+        this.game = GameParameters.getGame(intent);
         Resources resources = qa.getResources();
         Query query = game.getNextQuery(resources);
         EnterableEditText.setupEditText(qa, qa, qa.getInputTextView());
         TextView tv = qa.getQueryTextView();
         String queryStr = query.getQueryString();
         tv.setText(queryStr);
+        startTime = System.currentTimeMillis();
     }
-    
-    public static void gotoNext(QueryActivity qa, long duration, Game game) {
+
+    public void restart() {
+        Intent intent = new Intent(qa, MainActivity.class);
+        GameParameters.saveGame(intent, game);
+        qa.startActivity(intent);
+    }
+
+    public void gotoNext() {
+        long endTime = System.currentTimeMillis();
+        long duration = endTime - startTime;
+        
+        Lo.g("startTime", startTime);
+        Lo.g("endTime  ", endTime);
+        Lo.g("duration", duration);
+        
         Intent intent = new Intent(qa, StatusActivity.class);
         GameParameters.saveDuration(intent, duration);
         EditText et = qa.getInputTextView();
