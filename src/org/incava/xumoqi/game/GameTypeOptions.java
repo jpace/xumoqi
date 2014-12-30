@@ -31,7 +31,7 @@ import org.incava.xumoqi.R;
 import org.incava.xumoqi.util.Util;
 
 public class GameTypeOptions {
-    private final static int[] MAX_WORD_LENGTH = { 14, 4 };
+    private final static int[] MAX_WORD_LENGTH = { 14, 5 };
     private final static int[] GAME_TYPES = { R.array.pro_game_types, R.array.free_game_types };
     private final static int[] DEFAULT_LENGTH = { 4, 3 };
     private final static int[] DEFAULT_GAME_TYPE_INDEX = { 2, 0 };
