@@ -1,0 +1,11 @@
+type: end-blank
+pattern: ar.
+hint: meek beef sect
+arb
+arc
+are
+arf
+ark
+arm
+ars
+art

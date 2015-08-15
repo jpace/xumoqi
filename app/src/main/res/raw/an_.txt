@@ -1,0 +1,9 @@
+type: end-blank
+pattern: an.
+hint: diet day
+ana
+and
+ane
+ani
+ant
+any

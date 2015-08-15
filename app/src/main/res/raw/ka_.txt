@@ -1,0 +1,9 @@
+type: end-blank
+pattern: ka.
+hint: beefy set
+kab
+kae
+kaf
+kas
+kat
+kay

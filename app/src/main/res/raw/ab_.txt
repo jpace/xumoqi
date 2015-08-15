@@ -1,0 +1,7 @@
+type: end-blank
+pattern: ab.
+hint: say so
+aba
+abo
+abs
+aby

@@ -1,0 +1,11 @@
+type: end-blank
+pattern: .ae
+hint: hawk magnets (no vowels)
+gae
+hae
+kae
+mae
+nae
+sae
+tae
+wae
