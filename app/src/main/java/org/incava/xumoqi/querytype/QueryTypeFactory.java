@@ -21,7 +21,7 @@
   The full source code for this program is available at:
   http://github.com/jpace/xumoqi
 
-  This program includes code from the GPL'd program:
+  This program includes code from the GPL program:
   http://sourceforge.net/projects/scrabbledict/
  */
 
