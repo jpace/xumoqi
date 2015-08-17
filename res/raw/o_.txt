@@ -1,0 +1,16 @@
+type: end-blank
+pattern: o.
+hint: midwifery sphinx
+od
+oe
+of
+oh
+oi
+om
+on
+op
+or
+os
+ow
+ox
+oy

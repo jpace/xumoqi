@@ -1,0 +1,11 @@
+type: 
+pattern: ka.,.ka
+hint: Betsy's foot
+kab
+kae
+kaf
+kas
+kat
+kay
+oka
+ska

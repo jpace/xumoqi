@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Scrabble Tutor</string>
+    <string name="action_settings">Settings</string>
+    <string name="enter_word_length">Word Length</string>
+    <string name="title_activity_query">Query</string>
+    <string name="queryText"></string>
+    <string name="results_text">Results &#8230;</string>
+    <string name="next">Next</string>
+    <string name="game_type">Game Type</string>
+    <string name="quit">Quit</string>
+    <string name="restart">Restart</string>
+    <string name="start">Start</string>
+
+    <string-array name="pro_game_types">
+        <item>Starting with blank</item>
+        <item>Ending with blank</item>
+        <item>Random blank</item>
+        <item>N-to-make-N+1</item>
+        <item>Q without U</item>
+        <item>With hints</item>
+        <item>Containing \'Z\'</item>
+        <item>Tutorial</item>
+        <item>&gt; 60% vowels</item>
+    </string-array>
+    
+    <string-array name="free_game_types">
+        <item>Random blank</item>
+        <item>N-to-make-N+1</item>
+        <item>Q without U</item>
+    </string-array>
+
+    <string name="title_activity_status">Results</string>
+    <string name="title_activity_help">Help</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="help">Help</string>
+    <string name="help_content">Scrabble Tutor is an Android application to help learn words for Scrabble.\n
+\n
+Game types are:\n
+<ul>
+    <li>Random blank: this displays words with a random letter missing.
+Enter the letters that make valid words, with each letter separated by a blank or a comma.</li>\n
+    <li>N to make N+1: this displays a valid word of length N, which can be expanded with letters
+at the beginning or end, to make other valid words of length N+1. Enter the full words that
+match the pattern, with each word separated by a blank or a comma.</li>\n
+    <li>Q without U: this displays words which have a Q without a following U.
+Enter the letters that make valid words, with each letter separated by a blank or a comma.</li>\n
+    <li>With hints: this displays words with a random letter missing.
+Enter the letters that make valid words, with each letter separated by a blank or a comma.
+A hint is displayed with the results, where the letters in the hint are valid for the
+missing letter.</li>\n
+</ul>
+\n
+This version of Scrabble Tutor uses the Scrabble Tournament Word List (TWL), the dictionary used in Canada,
+Thailand, and the United States.\n
+\n
+Copyright (&#169;) by Jeff Pace, 2014.\n
+Released under the GNU General Public License, version 2.\n
+http://www.xumoqi.com\n
+</string>
+    
+    <string name="done">Done</string>
+</resources>

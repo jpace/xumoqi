@@ -1,0 +1,15 @@
+type: end-blank
+pattern: ba.
+hint: my grandpas halt
+baa
+bad
+bag
+bah
+bal
+bam
+ban
+bap
+bar
+bas
+bat
+bay

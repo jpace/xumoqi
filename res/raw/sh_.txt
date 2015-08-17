@@ -1,0 +1,7 @@
+type: end-blank
+pattern: sh.
+hint: yeah
+sha
+she
+shh
+shy

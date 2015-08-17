@@ -1,0 +1,15 @@
+type: end-blank
+pattern: sa.
+hint: expect ugly web
+sab
+sac
+sad
+sae
+sag
+sal
+sap
+sat
+sau
+saw
+sax
+say
