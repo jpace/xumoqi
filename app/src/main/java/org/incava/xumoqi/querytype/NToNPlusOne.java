@@ -59,7 +59,7 @@ public class NToNPlusOne implements QueryType {
             t.done("matching " + matching);
             
             if (matchingContainsOnlyPlural(shorterWord)) {
-                matching = null;
+                continue;
             }
             
             if (matching != null && !matching.isEmpty()) {

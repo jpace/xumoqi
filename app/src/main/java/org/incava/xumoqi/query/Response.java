@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.incava.xumoqi.lang.StringUtil;
+import org.incava.xumoqi.util.Lo;
 import org.incava.xumoqi.words.Word;
 
 import android.os.Parcel;
@@ -90,10 +91,32 @@ public class Response implements Parcelable {
     }
 
     private void updateWithFullWord(Word queryWord, int idx) {
+        Lo.g("queryWord", queryWord);
         String s = strs.get(idx);
+        Lo.g("s", s);
         if (s.length() == 1) {
             char ch = s.charAt(0);
+            Lo.g("ch", ch);
             String t = queryWord.sub(ch);
+            Lo.g("t", t);
+            strs.set(idx, t);
+        }
+        else if (s.length() == 2) {
+            updatePartialWord(queryWord, s, idx);
+        }
+    }
+
+    protected void updatePartialWord(Word queryWord, String s, int idx) {
+        char x = s.charAt(0);
+        char y = s.charAt(1);
+        if (Character.isLetter(x) && !Character.isLetter(y)) {
+            String t = queryWord.addFirst(x);
+            Lo.g("t", t);
+            strs.set(idx, t);
+        }
+        else if (!Character.isLetter(x) && Character.isLetter(y)) {
+            String t = queryWord.addLast(y);
+            Lo.g("t", t);
             strs.set(idx, t);
         }
     }

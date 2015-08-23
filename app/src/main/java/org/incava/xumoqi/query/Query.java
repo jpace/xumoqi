@@ -102,7 +102,9 @@ public class Query implements Parcelable, Inspectable {
 
     public Results addResults(String inputText) {
         Response response = new Response(word, inputText);
+        Lo.g("response", response);
         ArrayList<String> matching = getMatching();
+        Lo.g("matching", matching);
         Results results = new Results(matching, response.getAll());
         addResults(results);
         return results;
