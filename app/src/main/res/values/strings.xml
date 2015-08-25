@@ -41,8 +41,10 @@ Game types are:\n
     <li>Random blank: this displays words with a random letter missing.
 Enter the letters that make valid words, with each letter separated by a blank or a comma.</li>\n
     <li>N to make N+1: this displays a valid word of length N, which can be expanded with letters
-at the beginning or end, to make other valid words of length N+1. Enter the full words that
-match the pattern, with each word separated by a blank or a comma.</li>\n
+at the beginning or end, to make other valid words of length N+1. Either enter the full words that
+match the pattern, with each word separated by a blank or a comma, or enter partial words of the
+form &quot;a-&quot; and &quot;-s&quot;, where &quot;-&quot; will be replaced with the root
+(&quot;N&quot;) word.</li>\n
     <li>Q without U: this displays words which have a Q without a following U.
 Enter the letters that make valid words, with each letter separated by a blank or a comma.</li>\n
     <li>With hints: this displays words with a random letter missing.
@@ -51,8 +53,8 @@ A hint is displayed with the results, where the letters in the hint are valid fo
 missing letter.</li>\n
 </ul>
 \n
-This version of Scrabble Tutor uses the Scrabble Tournament Word List (TWL), the dictionary used in Canada,
-Thailand, and the United States.\n
+This version of Scrabble Tutor uses the Scrabble Tournament Word List (TWL), the dictionary used in
+Canada, Thailand, and the United States.\n
 \n
 Copyright (&#169;) by Jeff Pace, 2014.\n
 Released under the GNU General Public License, version 2.\n
