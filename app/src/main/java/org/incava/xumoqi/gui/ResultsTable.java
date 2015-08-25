@@ -30,6 +30,7 @@ package org.incava.xumoqi.gui;
 import java.util.Set;
 
 import org.incava.xumoqi.query.Results;
+import org.incava.xumoqi.util.Lo;
 
 import android.app.Activity;
 import android.view.ViewGroup;
@@ -56,8 +57,24 @@ public class ResultsTable {
         setCells(results, StatusType.CORRECT);
         setCells(results, StatusType.INCORRECT);
         setCells(results, StatusType.MISSED);
+
+        if (results.isCorrect()) {
+            int nRows = tableLayout.getChildCount();
+            Lo.g("nRows", nRows);
+            for (int rn = 0; rn < nRows; ++rn) {
+                TableRow row = (TableRow) tableLayout.getChildAt(rn);
+                for (int cn = 0; cn < NUM_COLUMNS; ++cn) {
+                    TextView cell = (TextView) row.getChildAt(cn);
+                    setCellColor(cell, StatusType.CORRECT);
+                }
+            }
+        }
     }
-    
+
+    private void setCellColor(TextView cell, StatusType statusType) {
+        cell.setBackgroundColor(statusType.getColor());
+    }
+
     public void setCells(Results results, StatusType statusType) {
         Set<String> words = results.getWords(statusType);
         int row = 1;
@@ -76,7 +93,7 @@ public class ResultsTable {
         TextView cell = (TextView)row.getChildAt(statusType.getColumn());
 
         cell.setText(value);
-        cell.setTextColor(statusType.getColor());
+        // cell.setTextColor(statusType.getColor());
     }
     
     private TableRow createRow() {
