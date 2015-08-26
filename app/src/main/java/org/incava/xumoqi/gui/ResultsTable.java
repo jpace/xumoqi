@@ -33,6 +33,7 @@ import org.incava.xumoqi.query.Results;
 import org.incava.xumoqi.util.Lo;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -40,6 +41,7 @@ import android.widget.TextView;
 
 public class ResultsTable {
     private final static int NUM_COLUMNS = 3;
+    private final static int BLACK = Color.parseColor("#000000");
 
     private final Activity activity;
     private final TableLayout tableLayout;
@@ -53,10 +55,8 @@ public class ResultsTable {
         setCell(0, StatusType.CORRECT, "correct");
         setCell(0, StatusType.INCORRECT, "invalid");
         setCell(0, StatusType.MISSED, "missed");
-        
-        setCells(results, StatusType.CORRECT);
-        setCells(results, StatusType.INCORRECT);
-        setCells(results, StatusType.MISSED);
+
+        boolean allCorrect = results.isCorrect();
 
         if (results.isCorrect()) {
             int nRows = tableLayout.getChildCount();
@@ -68,11 +68,26 @@ public class ResultsTable {
                     setCellColor(cell, StatusType.CORRECT);
                 }
             }
+            setCells(results, StatusType.CORRECT, BLACK);
+        }
+        else {
+            setCells(results, StatusType.CORRECT);
+            setCells(results, StatusType.INCORRECT);
+            setCells(results, StatusType.MISSED);
         }
     }
 
     private void setCellColor(TextView cell, StatusType statusType) {
         cell.setBackgroundColor(statusType.getColor());
+    }
+
+    public void setCells(Results results, StatusType statusType, int color) {
+        Set<String> words = results.getWords(statusType);
+        int row = 1;
+        for (String word : words) {
+            setCell(row, statusType, word, color);
+            ++row;
+        }
     }
 
     public void setCells(Results results, StatusType statusType) {
@@ -93,9 +108,21 @@ public class ResultsTable {
         TextView cell = (TextView)row.getChildAt(statusType.getColumn());
 
         cell.setText(value);
-        // cell.setTextColor(statusType.getColor());
+        cell.setTextColor(statusType.getColor());
     }
-    
+
+    private void setCell(int rowNum, StatusType statusType, String value, int color) {
+        TableRow row = (TableRow)tableLayout.getChildAt(rowNum);
+        if (row == null) {
+            row = createRow();
+        }
+
+        TextView cell = (TextView)row.getChildAt(statusType.getColumn());
+
+        cell.setText(value);
+        cell.setTextColor(color);
+    }
+
     private TableRow createRow() {
         TableLayout.LayoutParams rowParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1.0f);
         TableRow row = new TableRow(activity);        
