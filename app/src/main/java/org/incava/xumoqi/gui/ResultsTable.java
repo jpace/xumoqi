@@ -58,14 +58,14 @@ public class ResultsTable {
 
         boolean allCorrect = results.isCorrect();
 
-        if (results.isCorrect()) {
+        if (allCorrect) {
             int nRows = tableLayout.getChildCount();
             Lo.g("nRows", nRows);
             for (int rn = 0; rn < nRows; ++rn) {
                 TableRow row = (TableRow) tableLayout.getChildAt(rn);
                 for (int cn = 0; cn < NUM_COLUMNS; ++cn) {
                     TextView cell = (TextView) row.getChildAt(cn);
-                    setCellColor(cell, StatusType.CORRECT);
+                    setCellBackgroundColor(cell, StatusType.CORRECT);
                 }
             }
             setCells(results, StatusType.CORRECT, BLACK);
@@ -77,7 +77,7 @@ public class ResultsTable {
         }
     }
 
-    private void setCellColor(TextView cell, StatusType statusType) {
+    private void setCellBackgroundColor(TextView cell, StatusType statusType) {
         cell.setBackgroundColor(statusType.getColor());
     }
 
@@ -91,24 +91,11 @@ public class ResultsTable {
     }
 
     public void setCells(Results results, StatusType statusType) {
-        Set<String> words = results.getWords(statusType);
-        int row = 1;
-        for (String word : words) {
-            setCell(row, statusType, word);
-            ++row;
-        }
+        setCells(results, statusType, statusType.getColor());
     }
     
     private void setCell(int rowNum, StatusType statusType, String value) {
-        TableRow row = (TableRow)tableLayout.getChildAt(rowNum);
-        if (row == null) {
-            row = createRow();
-        }
-        
-        TextView cell = (TextView)row.getChildAt(statusType.getColumn());
-
-        cell.setText(value);
-        cell.setTextColor(statusType.getColor());
+        setCell(rowNum, statusType, value, statusType.getColor());
     }
 
     private void setCell(int rowNum, StatusType statusType, String value, int color) {
