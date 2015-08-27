@@ -52,62 +52,74 @@ public class ResultsTable {
     }
 
     public void set(Results results) {
-        setCell(0, StatusType.CORRECT, "correct");
-        setCell(0, StatusType.INCORRECT, "invalid");
-        setCell(0, StatusType.MISSED, "missed");
-
-        boolean allCorrect = results.isCorrect();
-
-        if (allCorrect) {
-            int nRows = tableLayout.getChildCount();
-            Lo.g("nRows", nRows);
-            for (int rn = 0; rn < nRows; ++rn) {
-                TableRow row = (TableRow) tableLayout.getChildAt(rn);
-                for (int cn = 0; cn < NUM_COLUMNS; ++cn) {
-                    TextView cell = (TextView) row.getChildAt(cn);
-                    setCellBackgroundColor(cell, StatusType.CORRECT);
-                }
-            }
-            setCells(results, StatusType.CORRECT, BLACK);
+        if (results.isCorrect()) {
+            setAllCorrect(results);
         }
         else {
-            setCells(results, StatusType.CORRECT);
-            setCells(results, StatusType.INCORRECT);
-            setCells(results, StatusType.MISSED);
+            setHeadingRow();
+            int startRow = 1;
+            setCells(startRow, results, StatusType.CORRECT);
+            setCells(startRow, results, StatusType.INCORRECT);
+            setCells(startRow, results, StatusType.MISSED);
         }
     }
 
-    private void setCellBackgroundColor(TextView cell, StatusType statusType) {
-        cell.setBackgroundColor(statusType.getColor());
+    private void setHeadingRow() {
+        int columnNum = 0;
+        setCell(columnNum, StatusType.CORRECT, StatusType.CORRECT.toString());
+        setCell(columnNum, StatusType.INCORRECT, "invalid");
+        setCell(columnNum, StatusType.MISSED, "missed");
     }
 
-    public void setCells(Results results, StatusType statusType, int color) {
+    private void setAllCorrect(Results results) {
+        int nRows = tableLayout.getChildCount();
+        Lo.g("nRows", nRows);
+        for (int rn = 0; rn < nRows; ++rn) {
+            TableRow row = (TableRow) tableLayout.getChildAt(rn);
+            for (int cn = 0; cn < NUM_COLUMNS; ++cn) {
+                TextView cell = (TextView) row.getChildAt(cn);
+                cell.setBackgroundColor(StatusType.CORRECT.getColor());
+            }
+        }
+        setCells(0, results, StatusType.CORRECT, BLACK);
+    }
+
+    public void setCells(int startRow, Results results, StatusType statusType, Integer textColor) {
         Set<String> words = results.getWords(statusType);
-        int row = 1;
+        int row = startRow;
         for (String word : words) {
-            setCell(row, statusType, word, color);
+            setCell(row, statusType.getColumn(), word, null, textColor);
             ++row;
         }
     }
 
-    public void setCells(Results results, StatusType statusType) {
-        setCells(results, statusType, statusType.getColor());
+    public void setCells(int startRow, Results results, StatusType statusType) {
+        setCells(startRow, results, statusType, statusType.getColor());
     }
-    
+
     private void setCell(int rowNum, StatusType statusType, String value) {
-        setCell(rowNum, statusType, value, statusType.getColor());
+        setCell(rowNum, statusType.getColumn(), value, null, statusType.getColor());
     }
 
-    private void setCell(int rowNum, StatusType statusType, String value, int color) {
+    private TableRow fetchRow(int rowNum) {
         TableRow row = (TableRow)tableLayout.getChildAt(rowNum);
-        if (row == null) {
-            row = createRow();
-        }
+        return row == null ? createRow() : row;
+    }
 
-        TextView cell = (TextView)row.getChildAt(statusType.getColumn());
+    private void setCell(int rowNum, int columnNum, String value, Integer backgroundColor, Integer textColor) {
+        TableRow row = fetchRow(rowNum);
+        TextView cell = (TextView)row.getChildAt(columnNum);
+        setCell(cell, value, backgroundColor, textColor);
+    }
 
+    private void setCell(TextView cell, String value, Integer backgroundColor, Integer textColor) {
         cell.setText(value);
-        cell.setTextColor(color);
+        if (backgroundColor != null) {
+            cell.setBackgroundColor(backgroundColor);
+        }
+        if (textColor != null) {
+            cell.setTextColor(textColor);
+        }
     }
 
     private TableRow createRow() {
