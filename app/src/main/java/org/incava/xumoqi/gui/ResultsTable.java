@@ -46,6 +46,12 @@ public class ResultsTable {
     private final Activity activity;
     private final TableLayout tableLayout;
 
+    private final StatusType[] STATUS_TYPES = new StatusType[] {
+            StatusType.CORRECT,
+            StatusType.INCORRECT,
+            StatusType.MISSED
+    };
+
     public ResultsTable(Activity activity, TableLayout tableLayout) {
         this.tableLayout = tableLayout;
         this.activity = activity;
@@ -58,27 +64,28 @@ public class ResultsTable {
         else {
             setHeadingRow();
             int startRow = 1;
-            setCells(startRow, results, StatusType.CORRECT);
-            setCells(startRow, results, StatusType.INCORRECT);
-            setCells(startRow, results, StatusType.MISSED);
+            for (StatusType statusType : STATUS_TYPES) {
+                setCells(startRow, results, statusType, statusType.getColor());
+            }
         }
     }
 
     private void setHeadingRow() {
-        int columnNum = 0;
-        setCell(columnNum, StatusType.CORRECT, StatusType.CORRECT.toString());
-        setCell(columnNum, StatusType.INCORRECT, "invalid");
-        setCell(columnNum, StatusType.MISSED, "missed");
+        int rowNum = 0;
+        for (StatusType statusType : STATUS_TYPES) {
+            setCell(rowNum, statusType.getColumn(), statusType.toString(), null, statusType.getColor());
+        }
     }
 
     private void setAllCorrect(Results results) {
         int nRows = tableLayout.getChildCount();
+        int correctColor = StatusType.CORRECT.getColor();
         Lo.g("nRows", nRows);
         for (int rn = 0; rn < nRows; ++rn) {
-            TableRow row = (TableRow) tableLayout.getChildAt(rn);
+            TableRow row = getRow(rn);
             for (int cn = 0; cn < NUM_COLUMNS; ++cn) {
-                TextView cell = (TextView) row.getChildAt(cn);
-                cell.setBackgroundColor(StatusType.CORRECT.getColor());
+                TextView cell = getCell(row, cn);
+                cell.setBackgroundColor(correctColor);
             }
         }
         setCells(0, results, StatusType.CORRECT, BLACK);
@@ -93,22 +100,22 @@ public class ResultsTable {
         }
     }
 
-    public void setCells(int startRow, Results results, StatusType statusType) {
-        setCells(startRow, results, statusType, statusType.getColor());
-    }
-
-    private void setCell(int rowNum, StatusType statusType, String value) {
-        setCell(rowNum, statusType.getColumn(), value, null, statusType.getColor());
+    private TableRow getRow(int rowNum) {
+        return (TableRow) tableLayout.getChildAt(rowNum);
     }
 
     private TableRow fetchRow(int rowNum) {
-        TableRow row = (TableRow)tableLayout.getChildAt(rowNum);
+        TableRow row = getRow(rowNum);
         return row == null ? createRow() : row;
+    }
+
+    private TextView getCell(TableRow row, int columnNum) {
+        return (TextView)row.getChildAt(columnNum);
     }
 
     private void setCell(int rowNum, int columnNum, String value, Integer backgroundColor, Integer textColor) {
         TableRow row = fetchRow(rowNum);
-        TextView cell = (TextView)row.getChildAt(columnNum);
+        TextView cell = getCell(row, columnNum);
         setCell(cell, value, backgroundColor, textColor);
     }
 
