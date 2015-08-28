@@ -78,7 +78,7 @@ public class MainActivity extends Activity {
         int wordLength = np.getValue();
         Spinner gameTypeSpinner = getGameTypeSpinner();
         String gameTypeStr = gameTypeSpinner.getSelectedItem().toString();
-        return new GameType(wordLength, gameTypeStr);
+        return new GameType(wordLength, gameTypeStr, true);
     }
 
     public NumberPicker getNumberPicker() {

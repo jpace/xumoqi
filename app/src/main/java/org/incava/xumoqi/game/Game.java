@@ -138,6 +138,10 @@ public class Game implements Parcelable, Inspectable {
         return newQuery;
     }
 
+    public boolean isShowNumMatching() {
+        return gameType.isShowNumMatching();
+    }
+
     private Query getRandomQuery() {
         Query randomQuery = queries.getRandomQuery();
         int qIdx = queries.indexOf(randomQuery);

@@ -46,19 +46,26 @@ public class GameType implements Parcelable {
 
     private final int wordLength;
     private final GameQueryTypes queryTypes;
+    private boolean showNumMatching;
     
-    public GameType(int wordLength, String gameType) {
+    public GameType(int wordLength, String gameType, boolean showNumMatching) {
         this.wordLength = wordLength;
         this.queryTypes = GameQueryTypesFactory.create(gameType);
+        this.showNumMatching = showNumMatching;
     }
 
     private GameType(Parcel parcel) {
         this.wordLength = parcel.readInt();
         this.queryTypes = parcel.readParcelable(GameQueryTypes.class.getClassLoader());
+        this.showNumMatching = (Boolean)parcel.readValue(GameQueryTypes.class.getClassLoader());
     }
     
     public Query createQuery(Resources resources) {
         return queryTypes.createQuery(resources, wordLength);
+    }
+
+    public boolean isShowNumMatching() {
+        return showNumMatching;
     }
     
     public int getWordLength() {
@@ -74,9 +81,10 @@ public class GameType implements Parcelable {
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeInt(wordLength);
         parcel.writeParcelable(queryTypes, flags);
+        parcel.writeValue(showNumMatching);
     }
     
     public String toString() {
-        return "wordLength: " + wordLength + "; queryTypes: " + queryTypes;
+        return "wordLength: " + wordLength + "; queryTypes: " + queryTypes + "; showNumMatching: " + showNumMatching;
     }
 }

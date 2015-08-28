@@ -100,4 +100,8 @@ public class QueryActivity extends Activity implements Enterable {
     public EditText getInputTextView() {
         return (EditText)findViewById(R.id.queryInput);
     }
+
+    public TextView getNumMatchingTextView() {
+        return (TextView)findViewById(R.id.numWords);
+    }
 }

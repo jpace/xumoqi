@@ -35,7 +35,7 @@ public class GameTypeOptions {
     private final static int[] GAME_TYPES = { R.array.pro_game_types, R.array.free_game_types };
     private final static int[] DEFAULT_LENGTH = { 4, 3 };
     private final static int[] DEFAULT_GAME_TYPE_INDEX = { 2, 0 };
-    
+
     public int getMaxWordLength() {
         return getForGameType(MAX_WORD_LENGTH);
     }
@@ -51,6 +51,8 @@ public class GameTypeOptions {
     public int getDefaultGameTypeIndex() {
         return getForGameType(DEFAULT_GAME_TYPE_INDEX);
     }
+
+    public boolean showNumMatching() { return true; }
     
     private int getForGameType(int[] values) {
         return values[Util.type ? 0 : 1];
