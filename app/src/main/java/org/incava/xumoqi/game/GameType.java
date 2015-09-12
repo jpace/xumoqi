@@ -48,10 +48,10 @@ public class GameType implements Parcelable {
     private final GameQueryTypes queryTypes;
     private boolean showNumMatching;
     
-    public GameType(int wordLength, String gameType, boolean showNumMatching) {
+    public GameType(int wordLength, String gameType) {
         this.wordLength = wordLength;
         this.queryTypes = GameQueryTypesFactory.create(gameType);
-        this.showNumMatching = showNumMatching;
+        this.showNumMatching = true;
     }
 
     private GameType(Parcel parcel) {

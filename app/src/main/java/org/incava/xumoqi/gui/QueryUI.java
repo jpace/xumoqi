@@ -33,6 +33,7 @@ import org.incava.xumoqi.StatusActivity;
 import org.incava.xumoqi.android.EnterableEditText;
 import org.incava.xumoqi.game.Game;
 import org.incava.xumoqi.game.GameParameters;
+import org.incava.xumoqi.game.GameTypeOptions;
 import org.incava.xumoqi.query.Query;
 import org.incava.xumoqi.util.Lo;
 
@@ -60,7 +61,9 @@ public class QueryUI {
         String queryStr = query.getQueryString();
         qtv.setText(queryStr);
 
-        if (game.isShowNumMatching()) {
+        GameTypeOptions gto = new GameTypeOptions();
+
+        if (gto.showNumMatching()) {
             ArrayList<String> matching = query.getMatching();
             Lo.g("matching", matching);
 
