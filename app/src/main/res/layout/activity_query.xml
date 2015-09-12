@@ -29,7 +29,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="22dp"
-        android:text=""
+        android:text="query"
         android:typeface="monospace"
         android:textSize="32sp" />
 
@@ -42,9 +42,20 @@
         android:inputType="textNoSuggestions|textVisiblePassword|textMultiLine"
         android:imeOptions="actionSend"
         android:imeActionId="100"
-        android:lines="4"
+        android:lines="8"
         android:gravity="left|top"
         android:ems="10" />
+
+    <TextView
+        android:id="@+id/numWords"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
+        android:text="n words"
+        android:typeface="monospace"
+        android:textSize="26sp" />
 
     <Button
         android:id="@+id/restartButton"

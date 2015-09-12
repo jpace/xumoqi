@@ -41,6 +41,8 @@ import android.content.res.Resources;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class QueryUI {
     private final QueryActivity qa;
     private final Game game;
@@ -53,9 +55,20 @@ public class QueryUI {
         Resources resources = qa.getResources();
         Query query = game.getNextQuery(resources);
         EnterableEditText.setupEditText(qa, qa, qa.getInputTextView());
-        TextView tv = qa.getQueryTextView();
+
+        TextView qtv = qa.getQueryTextView();
         String queryStr = query.getQueryString();
-        tv.setText(queryStr);
+        qtv.setText(queryStr);
+
+        if (game.isShowNumMatching()) {
+            ArrayList<String> matching = query.getMatching();
+            Lo.g("matching", matching);
+
+            int nMatching = matching.size();
+            TextView ntv = qa.getNumMatchingTextView();
+            ntv.setText(String.valueOf(nMatching) + " word" + (nMatching == 1 ? "" : "s"));
+        }
+
         startTime = System.currentTimeMillis();
     }
 
