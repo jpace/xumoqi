@@ -50,12 +50,12 @@
         android:id="@+id/numWords"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100dp"
         android:text="n words"
         android:typeface="monospace"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:layout_above="@+id/queryInput"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp" />
 
     <Button
         android:id="@+id/restartButton"
