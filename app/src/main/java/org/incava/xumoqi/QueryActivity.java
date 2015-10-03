@@ -28,6 +28,7 @@
 package org.incava.xumoqi;
 
 import org.incava.xumoqi.android.Enterable;
+import org.incava.xumoqi.gui.ActivityUtil;
 import org.incava.xumoqi.gui.QueryUI;
 
 import android.app.Activity;
@@ -71,13 +72,13 @@ public class QueryActivity extends Activity implements Enterable {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.query, menu);
-        return true;
+        return ActivityUtil.createOptionsMenu(this, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        ActivityUtil.processOptionSelected(this, item);
+
         switch (item.getItemId()) {
             case android.R.id.home:
                 // This ID represents the Home or Up button. In the case of this

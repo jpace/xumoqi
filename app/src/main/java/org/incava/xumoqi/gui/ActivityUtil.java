@@ -25,37 +25,32 @@
   http://sourceforge.net/projects/scrabbledict/
 */
 
-package org.incava.xumoqi;
+package org.incava.xumoqi.gui;
 
-import android.os.Bundle;
 import android.app.Activity;
-import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-import org.incava.xumoqi.gui.ActivityUtil;
+import org.incava.xumoqi.R;
 
-public class HelpActivity extends Activity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_help);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return ActivityUtil.createOptionsMenu(this, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        ActivityUtil.processOptionSelected(this, item);
+public class ActivityUtil {
+    public static boolean createOptionsMenu(Activity activity, Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        activity.getMenuInflater().inflate(R.menu.options, menu);
         return true;
     }
 
-    public void onClickDone(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+    public static boolean processOptionSelected(Activity activity, MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                // Toast.makeText(activity, "settings selected", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_exit:
+                activity.moveTaskToBack(true);
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 }

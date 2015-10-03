@@ -30,15 +30,19 @@ package org.incava.xumoqi;
 import org.incava.xumoqi.game.Game;
 import org.incava.xumoqi.game.GameParameters;
 import org.incava.xumoqi.game.GameType;
+import org.incava.xumoqi.gui.ActivityUtil;
 import org.incava.xumoqi.gui.GameUI;
+import org.incava.xumoqi.util.Lo;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
     @Override
@@ -54,8 +58,13 @@ public class MainActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+        return ActivityUtil.createOptionsMenu(this, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        ActivityUtil.processOptionSelected(this, item);
+        return super.onOptionsItemSelected(item);
     }
 
     public void onClickStart(View view) {

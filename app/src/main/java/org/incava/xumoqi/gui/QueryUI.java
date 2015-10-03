@@ -71,6 +71,10 @@ public class QueryUI {
             TextView ntv = qa.getNumMatchingTextView();
             ntv.setText(String.valueOf(nMatching) + " word" + (nMatching == 1 ? "" : "s"));
         }
+        else {
+            TextView ntv = qa.getNumMatchingTextView();
+            ntv.setText("");
+        }
 
         startTime = System.currentTimeMillis();
     }

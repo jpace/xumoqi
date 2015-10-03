@@ -29,6 +29,7 @@ package org.incava.xumoqi;
 
 import org.incava.xumoqi.game.Game;
 import org.incava.xumoqi.game.GameParameters;
+import org.incava.xumoqi.gui.ActivityUtil;
 import org.incava.xumoqi.gui.StatusView;
 import org.incava.xumoqi.query.Query;
 
@@ -36,6 +37,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 public class StatusActivity extends Activity {
@@ -57,8 +59,12 @@ public class StatusActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        // getMenuInflater().inflate(R.menu.status, menu);
+        return ActivityUtil.createOptionsMenu(this, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        ActivityUtil.processOptionSelected(this, item);
         return true;
     }
 

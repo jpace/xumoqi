@@ -11,6 +11,7 @@
     <string name="quit">Quit</string>
     <string name="restart">Restart</string>
     <string name="start">Start</string>
+    <string name="exit">Exit</string>
 
     <string-array name="pro_game_types">
         <item>Starting with blank</item>
@@ -56,7 +57,7 @@ missing letter.</li>\n
 This version of Scrabble Tutor uses the Scrabble Tournament Word List (TWL), the dictionary used in
 Canada, Thailand, and the United States.\n
 \n
-Copyright (&#169;) by Jeff Pace, 2014.\n
+Copyright (&#169;) by Jeff Pace, 2015.\n
 Released under the GNU General Public License, version 2.\n
 http://www.xumoqi.com\n
 </string>
